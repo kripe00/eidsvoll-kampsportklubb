@@ -1,0 +1,29 @@
+{
+  "clubName": "Eidsvoll Kampsportklubb",
+  "nav": [
+    {
+      "label": "Nyheter",
+      "href": "/nyheter"
+    },
+    {
+      "label": "Styret",
+      "href": "/styret"
+    },
+    {
+      "label": "Om oss",
+      "href": "/om-oss"
+    },
+    {
+      "label": "Medlemskap",
+      "href": "/medlemskap"
+    },
+    {
+      "label": "Kontakt",
+      "href": "/kontakt"
+    }
+  ],
+  "footerDescription": "\nEidsvoll Kampsportklubb er et uavhengig idrettslag (NIF). Anlegg og medlemsfakturering driftes av vår samarbeidspartner Rambukk Sport AS",
+  "footerEmail": "post@kampsporteidsvoll.no",
+  "footerPhone": "976 10 229",
+  "footerAddress": "Trondheimsvegen 266/268, 2070 Råholt"
+}

@@ -1,0 +1,223 @@
+fragment PageParts on Page {
+  __typename
+  title
+  description
+  blocks {
+    __typename
+    ... on PageBlocksAbout {
+      title
+      body
+      image
+    }
+    ... on PageBlocksValues {
+      title
+      description
+      variant
+      image
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on PageBlocksMembership {
+      title
+      description
+      linkUrl
+    }
+    ... on PageBlocksTrainers {
+      title
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
+    ... on PageBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on PageBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+  }
+}
+
+fragment HeroParts on Hero {
+  __typename
+  welcomeText
+  highlightedText
+  description
+  backgroundImage
+  backgroundVideo
+}
+
+fragment StyretParts on Styret {
+  __typename
+  title
+  description
+  blocks {
+    __typename
+    ... on StyretBlocksAbout {
+      title
+      body
+    }
+  }
+  members {
+    __typename
+    role
+    name
+    image
+  }
+  committees {
+    __typename
+    name
+    people {
+      __typename
+      role
+      name
+    }
+  }
+}
+
+fragment OrganisasjonsplanParts on Organisasjonsplan {
+  __typename
+  title
+  body
+}
+
+fragment NewsParts on News {
+  __typename
+  title
+  date
+  category
+  image
+  description
+  body
+}
+
+fragment SponsorerParts on Sponsorer {
+  __typename
+  title
+  blocks {
+    __typename
+    ... on SponsorerBlocksAbout {
+      title
+      body
+      image
+    }
+    ... on SponsorerBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on SponsorerBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+  }
+}
+
+fragment MedlemskapParts on Medlemskap {
+  __typename
+  title
+  blocks {
+    __typename
+    ... on MedlemskapBlocksMembership {
+      title
+      description
+      linkUrl
+      extraInfo
+    }
+    ... on MedlemskapBlocksAbout {
+      title
+      body
+      image
+    }
+  }
+}
+
+fragment OmOssParts on OmOss {
+  __typename
+  title
+  description
+  blocks {
+    __typename
+    ... on OmOssBlocksAbout {
+      title
+      body
+      image
+      video
+    }
+    ... on OmOssBlocksValues {
+      title
+      description
+      variant
+      image
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on OmOssBlocksTrainers {
+      title
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
+  }
+}
+
+fragment ContactParts on Contact {
+  __typename
+  email
+  phone
+  address
+  facebook
+  instagram
+  image
+}
+
+fragment GlobalParts on Global {
+  __typename
+  clubName
+  logo
+  nav {
+    __typename
+    label
+    href
+  }
+  footerDescription
+  footerEmail
+  footerPhone
+  footerAddress
+}

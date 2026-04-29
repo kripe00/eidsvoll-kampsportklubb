@@ -1,0 +1,18 @@
+{
+  "days": [
+    {
+      "day": "Mandag",
+      "slots": [
+        { "time": "18:00 - 19:30", "activity": "Muay Thai", "group": "Voksne" },
+        { "time": "19:30 - 21:00", "activity": "BJJ", "group": "Videregående" }
+      ]
+    },
+    {
+      "day": "Onsdag",
+      "slots": [
+        { "time": "17:30 - 18:30", "activity": "BJJ", "group": "Barn (7-12 år)" },
+        { "time": "18:30 - 20:00", "activity": "BJJ", "group": "Voksne/Ungdom" }
+      ]
+    }
+  ]
+}

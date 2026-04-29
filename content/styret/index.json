@@ -1,0 +1,70 @@
+{
+  "title": "Styret og organisasjon",
+  "description": "Styret i Eidsvoll Kampsportklubb\n\nKlubben vår drives av et engasjert styre, valgt av medlemmene på årsmøtet. Styrets hovedoppgave er å sikre en sunn og stabil drift av Eidsvoll Kampsportklubb, i tråd med retningslinjene fra Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).\n\nVi har det overordnede ansvaret for klubbens økonomi, strategiske utvikling og at vi til enhver tid tilbyr et trygt, inkluderende og sportslig sterkt miljø for alle våre medlemmer.\n",
+  "members": [
+    {
+      "role": "Styreleder",
+      "name": "Kristian Sollie Pedersen",
+      "image": "/Kristian.jpeg"
+    },
+    {
+      "role": "Nestleder",
+      "name": "Christer Alfheim",
+      "image": "/IMG_5058-Forbedret-NR-1.JPG"
+    },
+    {
+      "role": "Styremedlem",
+      "name": "Hanne Rugsveen",
+      "image": "/b33c9c53-b3d6-4f75-9f26-b4f876ac84fb.jpeg"
+    },
+    {
+      "role": "Styremedlem",
+      "name": "Helene Løken"
+    },
+    {
+      "role": "Varamedlem",
+      "name": "Vera Haraldsen"
+    }
+  ],
+  "committees": [
+    {
+      "name": "Kontrollutvalg",
+      "people": [
+        {
+          "role": "Leder",
+          "name": "Just Christian Holck"
+        },
+        {
+          "role": "Medlem",
+          "name": "Audun Martinsen"
+        }
+      ]
+    },
+    {
+      "name": "Valgkomité",
+      "people": [
+        {
+          "role": "Leder",
+          "name": "Torjus Jensen"
+        },
+        {
+          "role": "Medlem",
+          "name": "Umair Ahmad"
+        }
+      ]
+    },
+    {
+      "name": "Øvrige ansvarsområder",
+      "people": [
+        {
+          "role": "Politiattestansvarlig",
+          "name": "Helene Løken"
+        },
+        {
+          "role": "Politiattestansvarlig (vara)",
+          "name": "Kristian Sollie Pedersen"
+        }
+      ]
+    }
+  ]
+}
