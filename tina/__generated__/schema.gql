@@ -491,7 +491,21 @@ type SponsorerBlocksSponsors {
   sponsorList: [SponsorerBlocksSponsorsSponsorList]
 }
 
-union SponsorerBlocks = SponsorerBlocksAbout | SponsorerBlocksBenefits | SponsorerBlocksSponsors
+type SponsorerBlocksPackagesPackagesList {
+  name: String
+  price: String
+  description: String
+  perks: [String]
+  highlighted: Boolean
+}
+
+type SponsorerBlocksPackages {
+  title: String
+  description: String
+  packagesList: [SponsorerBlocksPackagesPackagesList]
+}
+
+union SponsorerBlocks = SponsorerBlocksAbout | SponsorerBlocksBenefits | SponsorerBlocksSponsors | SponsorerBlocksPackages
 
 type Sponsorer implements Node & Document {
   title: String!
@@ -529,10 +543,30 @@ input SponsorerBlocksSponsorsFilter {
   sponsorList: SponsorerBlocksSponsorsSponsorListFilter
 }
 
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input SponsorerBlocksPackagesPackagesListFilter {
+  name: StringFilter
+  price: StringFilter
+  description: StringFilter
+  perks: StringFilter
+  highlighted: BooleanFilter
+}
+
+input SponsorerBlocksPackagesFilter {
+  title: StringFilter
+  description: StringFilter
+  packagesList: SponsorerBlocksPackagesPackagesListFilter
+}
+
 input SponsorerBlocksFilter {
   about: SponsorerBlocksAboutFilter
   benefits: SponsorerBlocksBenefitsFilter
   sponsors: SponsorerBlocksSponsorsFilter
+  packages: SponsorerBlocksPackagesFilter
 }
 
 input SponsorerFilter {
@@ -1013,10 +1047,25 @@ input SponsorerBlocksSponsorsMutation {
   sponsorList: [SponsorerBlocksSponsorsSponsorListMutation]
 }
 
+input SponsorerBlocksPackagesPackagesListMutation {
+  name: String
+  price: String
+  description: String
+  perks: [String]
+  highlighted: Boolean
+}
+
+input SponsorerBlocksPackagesMutation {
+  title: String
+  description: String
+  packagesList: [SponsorerBlocksPackagesPackagesListMutation]
+}
+
 input SponsorerBlocksMutation {
   about: SponsorerBlocksAboutMutation
   benefits: SponsorerBlocksBenefitsMutation
   sponsors: SponsorerBlocksSponsorsMutation
+  packages: SponsorerBlocksPackagesMutation
 }
 
 input SponsorerMutation {

@@ -738,7 +738,23 @@ export type SponsorerBlocksSponsors = {
   sponsorList?: Maybe<Array<Maybe<SponsorerBlocksSponsorsSponsorList>>>;
 };
 
-export type SponsorerBlocks = SponsorerBlocksAbout | SponsorerBlocksBenefits | SponsorerBlocksSponsors;
+export type SponsorerBlocksPackagesPackagesList = {
+  __typename?: 'SponsorerBlocksPackagesPackagesList';
+  name?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  perks?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  highlighted?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type SponsorerBlocksPackages = {
+  __typename?: 'SponsorerBlocksPackages';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  packagesList?: Maybe<Array<Maybe<SponsorerBlocksPackagesPackagesList>>>;
+};
+
+export type SponsorerBlocks = SponsorerBlocksAbout | SponsorerBlocksBenefits | SponsorerBlocksSponsors | SponsorerBlocksPackages;
 
 export type Sponsorer = Node & Document & {
   __typename?: 'Sponsorer';
@@ -777,10 +793,30 @@ export type SponsorerBlocksSponsorsFilter = {
   sponsorList?: InputMaybe<SponsorerBlocksSponsorsSponsorListFilter>;
 };
 
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SponsorerBlocksPackagesPackagesListFilter = {
+  name?: InputMaybe<StringFilter>;
+  price?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  perks?: InputMaybe<StringFilter>;
+  highlighted?: InputMaybe<BooleanFilter>;
+};
+
+export type SponsorerBlocksPackagesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  packagesList?: InputMaybe<SponsorerBlocksPackagesPackagesListFilter>;
+};
+
 export type SponsorerBlocksFilter = {
   about?: InputMaybe<SponsorerBlocksAboutFilter>;
   benefits?: InputMaybe<SponsorerBlocksBenefitsFilter>;
   sponsors?: InputMaybe<SponsorerBlocksSponsorsFilter>;
+  packages?: InputMaybe<SponsorerBlocksPackagesFilter>;
 };
 
 export type SponsorerFilter = {
@@ -1438,10 +1474,25 @@ export type SponsorerBlocksSponsorsMutation = {
   sponsorList?: InputMaybe<Array<InputMaybe<SponsorerBlocksSponsorsSponsorListMutation>>>;
 };
 
+export type SponsorerBlocksPackagesPackagesListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  perks?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  highlighted?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SponsorerBlocksPackagesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  packagesList?: InputMaybe<Array<InputMaybe<SponsorerBlocksPackagesPackagesListMutation>>>;
+};
+
 export type SponsorerBlocksMutation = {
   about?: InputMaybe<SponsorerBlocksAboutMutation>;
   benefits?: InputMaybe<SponsorerBlocksBenefitsMutation>;
   sponsors?: InputMaybe<SponsorerBlocksSponsorsMutation>;
+  packages?: InputMaybe<SponsorerBlocksPackagesMutation>;
 };
 
 export type SponsorerMutation = {
@@ -1559,7 +1610,7 @@ export type OrganisasjonsplanPartsFragment = { __typename: 'Organisasjonsplan', 
 
 export type NewsPartsFragment = { __typename: 'News', title: string, date: string, category?: string | null, image?: string | null, description?: string | null, body?: any | null };
 
-export type SponsorerPartsFragment = { __typename: 'Sponsorer', title: string, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | null> | null };
+export type SponsorerPartsFragment = { __typename: 'Sponsorer', title: string, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name?: string | null, price?: string | null, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null };
 
 export type MedlemskapPartsFragment = { __typename: 'Medlemskap', title: string, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | null> | null };
 
@@ -1669,7 +1720,7 @@ export type SponsorerQueryVariables = Exact<{
 }>;
 
 
-export type SponsorerQuery = { __typename?: 'Query', sponsorer: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | null> | null } };
+export type SponsorerQuery = { __typename?: 'Query', sponsorer: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name?: string | null, price?: string | null, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null } };
 
 export type SponsorerConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1681,7 +1732,7 @@ export type SponsorerConnectionQueryVariables = Exact<{
 }>;
 
 
-export type SponsorerConnectionQuery = { __typename?: 'Query', sponsorerConnection: { __typename?: 'SponsorerConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SponsorerConnectionEdges', cursor: string, node?: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type SponsorerConnectionQuery = { __typename?: 'Query', sponsorerConnection: { __typename?: 'SponsorerConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SponsorerConnectionEdges', cursor: string, node?: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name?: string | null, price?: string | null, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type MedlemskapQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1903,6 +1954,18 @@ export const SponsorerPartsFragmentDoc = gql`
         name
         logo
         url
+      }
+    }
+    ... on SponsorerBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        price
+        description
+        perks
+        highlighted
       }
     }
   }

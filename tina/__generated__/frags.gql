@@ -138,6 +138,18 @@ fragment SponsorerParts on Sponsorer {
         url
       }
     }
+    ... on SponsorerBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        price
+        description
+        perks
+        highlighted
+      }
+    }
   }
 }
 
