@@ -278,6 +278,12 @@ var config_default = defineConfig({
           { type: "rich-text", name: "body", label: "Innhold", isBody: true }
         ],
         ui: {
+          filename: {
+            readonly: false,
+            slugify: (values) => {
+              return `${values?.title?.toLowerCase().replace(/ /g, "-").replace(/[^\w\.\/-\s]/gi, "") || "ny-sak"}`;
+            }
+          },
           router: ({ document }) => `/nyheter/${document._sys.filename}`,
           allowedActions: { create: true, delete: true }
         }
