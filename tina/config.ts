@@ -356,6 +356,37 @@ export default defineConfig({
                   },
                 ],
               },
+              {
+                name: "packages",
+                label: "Sponsorpakker / Priser",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "packagesList",
+                    label: "Pakker",
+                    ui: {
+                      itemProps: (item) => {
+                        return { label: item?.name || "Ny pakke" };
+                      },
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Pakkenavn (f.eks. Gull)" },
+                      { type: "string", name: "price", label: "Årlig Beløp" },
+                      { type: "string", name: "description", label: "Kort beskrivelse" },
+                      {
+                        type: "string",
+                        list: true,
+                        name: "perks",
+                        label: "Fordeler (en per linje i UI)"
+                      },
+                      { type: "boolean", name: "highlighted", label: "Fremhev pakken?" },
+                    ],
+                  },
+                ],
+              },
             ],
           },
         ],
