@@ -379,8 +379,7 @@ export default defineConfig({
                       },
                     },
                     fields: [
-                      { type: "string", name: "name", label: "Pakkenavn (f.eks. Gull)" },
-                      { type: "string", name: "price", label: "Årlig Beløp" },
+                      { type: "string", name: "name", label: "Pakkenavn", required: true },
                       { type: "string", name: "description", label: "Kort beskrivelse" },
                       {
                         type: "string",

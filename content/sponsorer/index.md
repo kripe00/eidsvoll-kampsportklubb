@@ -13,14 +13,12 @@ blocks:
       Vi har delt vårt sponsorprogram inn i tre nivåer for å gjøre det enkelt for bedrifter å velge det omfanget som passer deres budsjett og behov. 
     packagesList:
       - name: Bronse
-        price: '5 000,- eks. mva'
         description: Perfekt for den lokale støttespilleren.
         perks:
           - Logo på sponsorsiden
           - Felles takkepost i sosiale medier
         highlighted: false
       - name: Sølv
-        price: '15 000,- eks. mva'
         description: For deg som vil vises på klubbtøy og i våre kanaler.
         perks:
           - Logo på treningstøy
@@ -29,7 +27,6 @@ blocks:
           - Velkomstartikkel med SEO-verdi
         highlighted: false
       - name: Gull
-        price: '30 000,- eks. mva'
         description: Maksimal eksponering på tvers av alle plattformer.
         perks:
           - Eksklusiv bannerplass på alle undersider (Global Banner)

@@ -492,8 +492,7 @@ type SponsorerBlocksSponsors {
 }
 
 type SponsorerBlocksPackagesPackagesList {
-  name: String
-  price: String
+  name: String!
   description: String
   perks: [String]
   highlighted: Boolean
@@ -550,7 +549,6 @@ input BooleanFilter {
 
 input SponsorerBlocksPackagesPackagesListFilter {
   name: StringFilter
-  price: StringFilter
   description: StringFilter
   perks: StringFilter
   highlighted: BooleanFilter
@@ -1049,7 +1047,6 @@ input SponsorerBlocksSponsorsMutation {
 
 input SponsorerBlocksPackagesPackagesListMutation {
   name: String
-  price: String
   description: String
   perks: [String]
   highlighted: Boolean

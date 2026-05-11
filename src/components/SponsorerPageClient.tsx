@@ -129,7 +129,6 @@ export function SponsorerPageClient(props: {
                       
                       <div className="text-center mb-8">
                         <h3 className="text-2xl font-black uppercase tracking-tighter mb-3">{pkg.name}</h3>
-                        <div className="text-3xl lg:text-4xl font-black tracking-tighter text-primary mb-4">{pkg.price}</div>
                         <p className="text-muted-foreground text-sm font-light leading-relaxed">{pkg.description}</p>
                       </div>
 

@@ -144,7 +144,6 @@ fragment SponsorerParts on Sponsorer {
       packagesList {
         __typename
         name
-        price
         description
         perks
         highlighted
