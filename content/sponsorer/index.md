@@ -26,7 +26,7 @@ blocks:
           - Logo på treningstøy
           - Prioritert plass på nettsiden
           - Dedikerte innlegg
-          - "SEO-artikkel (Økt synlighet på Google)"
+          - "Velkomstartikkel med SEO-verdi"
         highlighted: false
       - name: Gull
         price: '30 000,- eks. mva'
@@ -35,15 +35,15 @@ blocks:
           - Eksklusiv bannerplass på alle undersider (Global Banner)
           - Dedikerte innlegg
           - Bransje-eksklusivitet
-          - "SEO-artikkel (Økt synlighet på Google)"
+          - "Velkomstartikkel med SEO-verdi"
           - Logo på klubbtøy
         highlighted: false
     _template: packages
   - title: Eksklusive Fordeler for Våre Partnere
     items:
-      - title: "SEO-verdi (Synlighet på Google) og Digital Velkomst"
+      - title: "Digital velkomst og SEO-verdi"
         text: |
-          Når vi signerer en ny hovedpartner, publiserer vi en dedikert velkomstartikkel på vår nyhetsside (f.eks. "Vi ønsker Bedrift AS velkommen på laget!"). Dette gir ikke bare positiv oppmerksomhet i lokalmiljøet, men det gir også bedriften deres en verdifull "backlink" (lenke fra vår nettside til deres). Fordi kampsportklubben har en godt etablert nettside med høy troverdighet, forteller en slik lenke søkemotorene at deres bedrift er en seriøs og viktig aktør. Resultatet er at dere rangerer høyere og blir lettere funnet i Google-søk når kunder i Eidsvoll-området søker etter deres tjenester.
+          Når vi signerer en ny hovedpartner, publiserer vi en dedikert velkomstartikkel på vår nettside. Dette gir ikke bare lokal oppmerksomhet, men også en lenke direkte til deres nettside som gir konkret SEO-verdi. Fordi vi har en etablert plattform, styrker en slik lenke deres rangering på Google og gjør dere mer synlige for kunder i nærområdet.
         icon: Zap
       - title: Bygg Tillit Sammen Med Oss
         text: |
