@@ -22,8 +22,8 @@ export function GlobalClient(props: {
   return (
     <>
       <Header data={displayData} />
-      {props.children}
       <GlobalSponsorsBanner sponsors={displayData?.sponsors || []} />
+      {props.children}
       <Footer data={displayData} />
     </>
   );

@@ -51,9 +51,9 @@ export function GlobalSponsorsBanner({ sponsors }: { sponsors: any[] }) {
   };
 
   return (
-    <div className="w-full bg-muted/20 border-t border-border/30 overflow-hidden py-12 hover-pause relative">
-      <div className="container mx-auto px-4 mb-8">
-         <h3 className="text-center text-sm font-bold tracking-[0.2em] uppercase text-muted-foreground/60">
+    <div className="w-full bg-muted/20 border-b border-border/30 overflow-hidden py-6 hover-pause relative">
+      <div className="container mx-auto px-4 mb-4">
+         <h3 className="text-center text-xs font-bold tracking-[0.2em] uppercase text-muted-foreground/80">
            Stolt støttet av
          </h3>
       </div>
