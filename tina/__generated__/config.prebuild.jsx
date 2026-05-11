@@ -522,6 +522,22 @@ var config_default = defineConfig({
               { type: "string", name: "href", label: "Lenke" }
             ]
           },
+          {
+            type: "object",
+            list: true,
+            name: "sponsors",
+            label: "Globale Sponsorer",
+            ui: {
+              itemProps: (item) => {
+                return { label: item?.name || "Ny sponsor" };
+              }
+            },
+            fields: [
+              { type: "string", name: "name", label: "Navn" },
+              { type: "image", name: "logo", label: "Logo" },
+              { type: "string", name: "url", label: "Nettside (URL)" }
+            ]
+          },
           { type: "string", name: "footerDescription", label: "Footer \u2013 Beskrivelse", ui: { component: "textarea" } },
           { type: "string", name: "footerEmail", label: "Footer \u2013 E-post" },
           { type: "string", name: "footerPhone", label: "Footer \u2013 Telefon" },

@@ -745,10 +745,17 @@ type GlobalNav {
   href: String
 }
 
+type GlobalSponsors {
+  name: String
+  logo: String
+  url: String
+}
+
 type Global implements Node & Document {
   clubName: String
   logo: String
   nav: [GlobalNav]
+  sponsors: [GlobalSponsors]
   footerDescription: String
   footerEmail: String
   footerPhone: String
@@ -764,10 +771,17 @@ input GlobalNavFilter {
   href: StringFilter
 }
 
+input GlobalSponsorsFilter {
+  name: StringFilter
+  logo: ImageFilter
+  url: StringFilter
+}
+
 input GlobalFilter {
   clubName: StringFilter
   logo: ImageFilter
   nav: GlobalNavFilter
+  sponsors: GlobalSponsorsFilter
   footerDescription: StringFilter
   footerEmail: StringFilter
   footerPhone: StringFilter
@@ -1092,10 +1106,17 @@ input GlobalNavMutation {
   href: String
 }
 
+input GlobalSponsorsMutation {
+  name: String
+  logo: String
+  url: String
+}
+
 input GlobalMutation {
   clubName: String
   logo: String
   nav: [GlobalNavMutation]
+  sponsors: [GlobalSponsorsMutation]
   footerDescription: String
   footerEmail: String
   footerPhone: String

@@ -3,6 +3,7 @@
 import { useTina } from "tinacms/dist/react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { GlobalSponsorsBanner } from "./GlobalSponsorsBanner";
 
 export function GlobalClient(props: {
   data: any;
@@ -22,6 +23,7 @@ export function GlobalClient(props: {
     <>
       <Header data={displayData} />
       {props.children}
+      <GlobalSponsorsBanner sponsors={displayData?.sponsors || []} />
       <Footer data={displayData} />
     </>
   );

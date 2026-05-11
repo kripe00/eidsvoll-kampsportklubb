@@ -216,6 +216,12 @@ fragment GlobalParts on Global {
     label
     href
   }
+  sponsors {
+    __typename
+    name
+    logo
+    url
+  }
   footerDescription
   footerEmail
   footerPhone
