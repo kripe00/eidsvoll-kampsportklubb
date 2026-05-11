@@ -9,6 +9,7 @@ export function Footer({ data }: { data?: any }) {
   const email = data?.footerEmail || "post@kampsporteidsvoll.no";
   const phone = data?.footerPhone || "976 10 229";
   const orgNumber = data?.footerOrgNumber || "";
+  const address = data?.footerAddress || "";
   const navItems = data?.nav || [];
   
   return (
@@ -61,6 +62,12 @@ export function Footer({ data }: { data?: any }) {
                 <li className="flex items-start gap-3" data-tina-field={data ? tinaField(data, 'footerOrgNumber') : undefined}>
                   <span className="text-slate-500 font-medium w-16">Org.nr:</span>
                   <span className="text-slate-300">{orgNumber}</span>
+                </li>
+              )}
+              {address && (
+                <li className="flex items-start gap-3" data-tina-field={data ? tinaField(data, 'footerAddress') : undefined}>
+                  <span className="text-slate-500 font-medium w-16">Adresse:</span>
+                  <span className="text-slate-300">{address}</span>
                 </li>
               )}
             </ul>
