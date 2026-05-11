@@ -753,6 +753,7 @@ type Global implements Node & Document {
   footerEmail: String
   footerPhone: String
   footerAddress: String
+  footerOrgNumber: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -771,6 +772,7 @@ input GlobalFilter {
   footerEmail: StringFilter
   footerPhone: StringFilter
   footerAddress: StringFilter
+  footerOrgNumber: StringFilter
 }
 
 type GlobalConnectionEdges {
@@ -1098,6 +1100,7 @@ input GlobalMutation {
   footerEmail: String
   footerPhone: String
   footerAddress: String
+  footerOrgNumber: String
 }
 
 schema {

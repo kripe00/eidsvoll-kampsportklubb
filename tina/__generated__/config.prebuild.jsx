@@ -525,7 +525,8 @@ var config_default = defineConfig({
           { type: "string", name: "footerDescription", label: "Footer \u2013 Beskrivelse", ui: { component: "textarea" } },
           { type: "string", name: "footerEmail", label: "Footer \u2013 E-post" },
           { type: "string", name: "footerPhone", label: "Footer \u2013 Telefon" },
-          { type: "string", name: "footerAddress", label: "Footer \u2013 Adresse" }
+          { type: "string", name: "footerAddress", label: "Footer \u2013 Adresse" },
+          { type: "string", name: "footerOrgNumber", label: "Footer \u2013 Organisasjonsnummer" }
         ]
       }
     ]

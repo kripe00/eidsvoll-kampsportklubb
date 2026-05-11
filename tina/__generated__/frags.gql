@@ -220,4 +220,5 @@ fragment GlobalParts on Global {
   footerEmail
   footerPhone
   footerAddress
+  footerOrgNumber
 }

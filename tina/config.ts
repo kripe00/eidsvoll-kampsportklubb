@@ -528,6 +528,7 @@ export default defineConfig({
           { type: "string", name: "footerEmail", label: "Footer – E-post" },
           { type: "string", name: "footerPhone", label: "Footer – Telefon" },
           { type: "string", name: "footerAddress", label: "Footer – Adresse" },
+          { type: "string", name: "footerOrgNumber", label: "Footer – Organisasjonsnummer" },
         ],
       },
     ],

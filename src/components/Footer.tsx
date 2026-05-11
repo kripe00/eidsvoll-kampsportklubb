@@ -8,6 +8,7 @@ export function Footer({ data }: { data?: any }) {
   const description = data?.footerDescription || "Vi vil gjerne høre fra deg! Enten du har spørsmål om treningstider, medlemskap, eller bare vil slå av en prat før du bestemmer deg for å prøve, er du alltid velkommen til å ta kontakt.";
   const email = data?.footerEmail || "post@kampsporteidsvoll.no";
   const phone = data?.footerPhone || "976 10 229";
+  const orgNumber = data?.footerOrgNumber || "";
   const navItems = data?.nav || [];
   
   return (
@@ -56,6 +57,12 @@ export function Footer({ data }: { data?: any }) {
                 <span className="text-slate-500 font-medium w-16">Tlf:</span>
                 <a href={`tel:+47${phone.replace(/\s/g, '')}`} className="hover:text-white transition-colors">{phone}</a>
               </li>
+              {orgNumber && (
+                <li className="flex items-start gap-3" data-tina-field={data ? tinaField(data, 'footerOrgNumber') : undefined}>
+                  <span className="text-slate-500 font-medium w-16">Org.nr:</span>
+                  <span className="text-slate-300">{orgNumber}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

@@ -1021,6 +1021,7 @@ export type Global = Node & Document & {
   footerEmail?: Maybe<Scalars['String']['output']>;
   footerPhone?: Maybe<Scalars['String']['output']>;
   footerAddress?: Maybe<Scalars['String']['output']>;
+  footerOrgNumber?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -1039,6 +1040,7 @@ export type GlobalFilter = {
   footerEmail?: InputMaybe<StringFilter>;
   footerPhone?: InputMaybe<StringFilter>;
   footerAddress?: InputMaybe<StringFilter>;
+  footerOrgNumber?: InputMaybe<StringFilter>;
 };
 
 export type GlobalConnectionEdges = {
@@ -1522,6 +1524,7 @@ export type GlobalMutation = {
   footerEmail?: InputMaybe<Scalars['String']['input']>;
   footerPhone?: InputMaybe<Scalars['String']['input']>;
   footerAddress?: InputMaybe<Scalars['String']['input']>;
+  footerOrgNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | null> | null };
@@ -1542,7 +1545,7 @@ export type OmOssPartsFragment = { __typename: 'OmOss', title: string, descripti
 
 export type ContactPartsFragment = { __typename: 'Contact', email?: string | null, phone?: string | null, address?: string | null, facebook?: string | null, instagram?: string | null, image?: string | null };
 
-export type GlobalPartsFragment = { __typename: 'Global', clubName?: string | null, logo?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null };
+export type GlobalPartsFragment = { __typename: 'Global', clubName?: string | null, logo?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, footerOrgNumber?: string | null, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null };
 
 export type PageQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1720,7 +1723,7 @@ export type GlobalQueryVariables = Exact<{
 }>;
 
 
-export type GlobalQuery = { __typename?: 'Query', global: { __typename: 'Global', id: string, clubName?: string | null, logo?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null } };
+export type GlobalQuery = { __typename?: 'Query', global: { __typename: 'Global', id: string, clubName?: string | null, logo?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, footerOrgNumber?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null } };
 
 export type GlobalConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1732,7 +1735,7 @@ export type GlobalConnectionQueryVariables = Exact<{
 }>;
 
 
-export type GlobalConnectionQuery = { __typename?: 'Query', globalConnection: { __typename?: 'GlobalConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'GlobalConnectionEdges', cursor: string, node?: { __typename: 'Global', id: string, clubName?: string | null, logo?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null } | null } | null> | null } };
+export type GlobalConnectionQuery = { __typename?: 'Query', globalConnection: { __typename?: 'GlobalConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'GlobalConnectionEdges', cursor: string, node?: { __typename: 'Global', id: string, clubName?: string | null, logo?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, footerOrgNumber?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null } | null } | null> | null } };
 
 export const PagePartsFragmentDoc = gql`
     fragment PageParts on Page {
@@ -1966,6 +1969,7 @@ export const GlobalPartsFragmentDoc = gql`
   footerEmail
   footerPhone
   footerAddress
+  footerOrgNumber
 }
     `;
 export const PageDocument = gql`
