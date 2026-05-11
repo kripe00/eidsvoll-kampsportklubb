@@ -8,7 +8,7 @@ blocks:
       Som sponsor får dere profilering og lokal synlighet, men kanskje viktigst av alt: Dere viser at deres bedrift heier på et sterkt, trygt og inkluderende lokalmiljø på Råholt. Ta kontakt med oss for en uforpliktende prat om hvordan vi kan spille hverandre gode.
     image: /images/club/group-class.jpg
     _template: about
-  - title: Sponsorpakker og Priser
+  - title: Sponsorpakker og Priser 2026
     description: |
       Vi har delt vårt sponsorprogram inn i tre nivåer for å gjøre det enkelt for bedrifter å velge det omfanget som passer deres budsjett og behov. 
     packagesList:
@@ -26,7 +26,7 @@ blocks:
           - Logo på treningstøy
           - Prioritert plass på nettsiden
           - Dedikerte innlegg
-          - "Velkomstartikkel med SEO-verdi"
+          - Velkomstartikkel med SEO-verdi
         highlighted: false
       - name: Gull
         price: '30 000,- eks. mva'
@@ -35,13 +35,13 @@ blocks:
           - Eksklusiv bannerplass på alle undersider (Global Banner)
           - Dedikerte innlegg
           - Bransje-eksklusivitet
-          - "Velkomstartikkel med SEO-verdi"
+          - Velkomstartikkel med SEO-verdi
           - Logo på klubbtøy
         highlighted: false
     _template: packages
   - title: Eksklusive Fordeler for Våre Partnere
     items:
-      - title: "Digital velkomst og SEO-verdi"
+      - title: Digital velkomst og SEO-verdi
         text: |
           Når vi signerer en ny hovedpartner, publiserer vi en dedikert velkomstartikkel på vår nettside. Dette gir ikke bare lokal oppmerksomhet, men også en lenke direkte til deres nettside som gir konkret SEO-verdi. Fordi vi har en etablert plattform, styrker en slik lenke deres rangering på Google og gjør dere mer synlige for kunder i nærområdet.
         icon: Zap
