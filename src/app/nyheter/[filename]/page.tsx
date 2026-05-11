@@ -7,7 +7,8 @@ import path from "path";
 export default async function NyhetPostPage({ params }: { params: Promise<{ filename: string }> }) {
   try {
     const { filename } = await params;
-    const res = await client.queries.news({ relativePath: `${filename}.md` });
+    const decodedFilename = decodeURIComponent(filename);
+    const res = await client.queries.news({ relativePath: `${decodedFilename}.md` });
     return (
       <NyheterPostClient 
         data={res.data} 
