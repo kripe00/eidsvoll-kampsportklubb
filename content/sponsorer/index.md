@@ -35,7 +35,7 @@ blocks:
           - "Eksklusiv bannerplass på alle undersider (Global Banner)"
           - "Bransje-eksklusivitet"
           - "SEO-vennlig velkomstomtale"
-        highlighted: true
+        highlighted: false
     _template: packages
   - title: "Eksklusive Fordeler for Våre Partnere"
     items:
