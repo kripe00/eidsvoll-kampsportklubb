@@ -8,7 +8,7 @@ blocks:
       Som sponsor får dere profilering og lokal synlighet, men kanskje viktigst av alt: Dere viser at deres bedrift heier på et sterkt, trygt og inkluderende lokalmiljø på Råholt. Ta kontakt med oss for en uforpliktende prat om hvordan vi kan spille hverandre gode.
     image: /images/club/group-class.jpg
     _template: about
-  - title: Sponsorpakker og Priser 2026
+  - title: Sponsorpakker 2026
     description: |
       Vi har delt vårt sponsorprogram inn i tre nivåer for å gjøre det enkelt for bedrifter å velge det omfanget som passer deres budsjett og behov. 
     packagesList:
