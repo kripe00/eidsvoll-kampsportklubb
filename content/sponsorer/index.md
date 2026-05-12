@@ -34,6 +34,7 @@ blocks:
           - Bransje-eksklusivitet
           - Velkomstartikkel med SEO-verdi
           - Logo på klubbtøy
+          - Årlig teambuilding for ansatte
         highlighted: false
     _template: packages
   - title: Eksklusive Fordeler for Våre Partnere
@@ -69,6 +70,10 @@ blocks:
         text: |
           Alle støttespillere mottar et fysisk diplom som bevis på sitt engasjement for lokalidretten, egnet for utheng i egne lokaler.
         icon: Award
+      - title: Teambuilding for ansatte (Kun Gull)
+        text: |
+          Som Gull-partner får bedriften en skreddersydd og lukket treningsøkt for sine ansatte i våre lokaler på Råholt. Dette er en morsom og annerledes teambuilding der kollegaer får prøve grunnleggende elementer fra Brasiliansk Jiu-Jitsu, Muay Thai eller Cross-trening i trygge rammer. Økten ledes av våre erfarne instruktører og tilpasses alle fysiske nivåer. Det er en fantastisk måte å bygge samhold på, oppleve mestring sammen, og gi de ansatte et sprekt avbrekk fra arbeidshverdagen.
+        icon: Activity
     _template: benefits
   - title: Våre støttespillere
     _template: sponsors
