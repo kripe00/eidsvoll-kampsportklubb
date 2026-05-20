@@ -26,9 +26,13 @@ export function CookieBanner() {
   if (!isVisible) return null;
 
   return (
-    <div className={cn(
-      "fixed bottom-6 left-6 z-[100] max-w-sm w-full animate-in fade-in slide-in-from-bottom-5 duration-500",
-    )}>
+    <div
+      role="dialog"
+      aria-label="Informasjonskapsler (cookies)"
+      className={cn(
+        "fixed bottom-6 left-6 z-[100] max-w-sm w-full animate-in fade-in slide-in-from-bottom-5 duration-500",
+      )}
+    >
       <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 p-6 md:p-8 space-y-6">
         <div className="space-y-3">
           <div className="flex items-start justify-between">

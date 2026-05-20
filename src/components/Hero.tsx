@@ -29,6 +29,7 @@ export function Hero({
           muted
           loop
           playsInline
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover -z-20 scale-105"
           data-tina-field={tinaField(parent, 'backgroundVideo')}
         >

@@ -149,8 +149,9 @@ export function KontaktPageClient(props: {
 
                   <div className="grid md:grid-cols-2 gap-10">
                     <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Fullt Navn</label>
+                      <label htmlFor="contact-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Fullt Navn</label>
                       <input 
+                        id="contact-name"
                         type="text" 
                         required
                         className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
@@ -161,8 +162,9 @@ export function KontaktPageClient(props: {
                       />
                     </div>
                     <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                      <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">E-post</label>
+                      <label htmlFor="contact-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">E-post</label>
                       <input 
+                        id="contact-email"
                         type="email" 
                         required
                         className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
@@ -174,8 +176,9 @@ export function KontaktPageClient(props: {
                     </div>
                   </div>
                   <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Emne</label>
+                    <label htmlFor="contact-subject" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Emne</label>
                     <input 
+                      id="contact-subject"
                       type="text" 
                       required
                       className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
@@ -186,8 +189,9 @@ export function KontaktPageClient(props: {
                     />
                   </div>
                   <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                    <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Melding</label>
+                    <label htmlFor="contact-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Melding</label>
                     <textarea 
+                      id="contact-message"
                       required
                       className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20 min-h-[120px] resize-none" 
                       placeholder="Skriv din melding her..."

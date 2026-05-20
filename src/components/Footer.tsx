@@ -28,6 +28,7 @@ export function Footer({ data }: { data?: any }) {
 
           <div>
             <h4 className="text-white font-semibold mb-6">Snarveier</h4>
+            <nav aria-label="Bunntekst-navigasjon">
             <ul className="space-y-3 text-sm">
               {navItems.length > 0 ? (
                 navItems.map((item: any, i: number) => (
@@ -45,6 +46,7 @@ export function Footer({ data }: { data?: any }) {
                 </>
               )}
             </ul>
+            </nav>
           </div>
 
           <div>

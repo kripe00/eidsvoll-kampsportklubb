@@ -93,14 +93,47 @@ export default async function RootLayout({
 
   return (
     <html lang="no" className={cn("font-sans", geist.variable)}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SportsClub",
+              "name": "Eidsvoll Kampsportklubb",
+              "alternateName": "EKK",
+              "url": "https://kampsporteidsvoll.no",
+              "logo": "https://kampsporteidsvoll.no/org-logo.svg",
+              "image": "https://kampsporteidsvoll.no/header.jpg",
+              "description": "Eidsvoll Kampsportklubb på Råholt – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer.",
+              "sport": ["Brasiliansk Jiu-Jitsu", "Muay Thai", "Thaiboksing", "Cross-trening"],
+              "email": "post@kampsporteidsvoll.no",
+              "telephone": "+4797610229",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Råholt",
+                "addressRegion": "Akershus",
+                "addressCountry": "NO"
+              },
+              "sameAs": []
+            }),
+          }}
+        />
+      </head>
       <body className="flex min-h-screen flex-col">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:text-sm focus:font-bold"
+        >
+          Hopp til hovedinnhold
+        </a>
         <AnalyticsWrapper />
         <GlobalClient 
           data={globalRes.data} 
           query={globalRes.query} 
           variables={globalRes.variables}
         >
-          <main className="flex-1 w-full">
+          <main id="main-content" className="flex-1 w-full">
             {children}
           </main>
         </GlobalClient>

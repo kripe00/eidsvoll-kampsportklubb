@@ -29,7 +29,7 @@ export function Header({ data }: { data: any }) {
         </Link>
         
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav aria-label="Hovednavigasjon" className="hidden md:flex items-center gap-8">
           {nav.map((item: any, i: number) => (
             <Link 
               key={i} 
@@ -51,7 +51,8 @@ export function Header({ data }: { data: any }) {
         <button 
           className="md:hidden p-2 text-foreground"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle menu"
+          aria-label={isOpen ? "Lukk meny" : "Åpne meny"}
+          aria-expanded={isOpen}
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -60,7 +61,7 @@ export function Header({ data }: { data: any }) {
       {/* Mobile Menu Overlay */}
       {isOpen && (
         <div className="md:hidden absolute top-20 left-0 right-0 bg-background border-b border-border/40 shadow-xl p-6 animate-in slide-in-from-top-4 duration-200">
-          <nav className="flex flex-col gap-6">
+          <nav aria-label="Mobilnavigasjon" className="flex flex-col gap-6">
             {nav.map((item: any, i: number) => (
               <Link 
                 key={i} 

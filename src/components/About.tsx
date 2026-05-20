@@ -33,6 +33,7 @@ export function About(props: AboutProps) {
                   muted 
                   loop 
                   playsInline 
+                  aria-hidden="true"
                   className="w-full h-auto object-cover aspect-[4/5] md:aspect-auto"
                 />
                 <div className="absolute inset-0 bg-primary/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500" />
