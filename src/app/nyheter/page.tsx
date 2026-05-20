@@ -1,5 +1,11 @@
 import { client } from "../../../tina/__generated__/client";
 import { NyheterListClient } from "@/components/NyheterListClient";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Siste Nytt & Aktiviteter",
+  description: "Følg med på siste nytt fra Eidsvoll Kampsportklubb. Her finner du informasjon om graderinger, seminarer, leirer og andre arrangementer.",
+};
 
 export default async function NyheterPage() {
   let newsRes: any;

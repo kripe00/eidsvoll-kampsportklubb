@@ -1,5 +1,11 @@
 import { client } from "../../../../tina/__generated__/client";
 import { OrganisasjonsplanClient } from "@/components/OrganisasjonsplanClient";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Organisasjonsplan",
+  description: "Les Eidsvoll Kampsportklubbs organisasjonsplan. Informasjon om klubbens struktur, ansvarsområder og lovpålagte organer.",
+};
 
 export default async function OrganisasjonsplanPage() {
   let pageRes: any = { data: null, query: "", variables: {} };

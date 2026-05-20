@@ -1,5 +1,11 @@
 import { client } from "../../../tina/__generated__/client";
 import { KontaktPageClient } from "@/components/KontaktPageClient";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Kontakt",
+  description: "Ta kontakt med Eidsvoll Kampsportklubb på Råholt. Vi svarer på spørsmål om BJJ, Muay Thai, treningstider og medlemskap.",
+};
 
 export default async function KontaktPage() {
   let pageRes: any = { data: {}, query: "", variables: {} };

@@ -10,6 +10,7 @@ import { AnalyticsWrapper } from "@/components/AnalyticsWrapper";
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://kampsporteidsvoll.no"),
   title: {
     default: "Eidsvoll Kampsportklubb | BJJ og Muay Thai på Råholt",
     template: "%s | Eidsvoll Kampsportklubb",
@@ -36,6 +37,14 @@ export const metadata: Metadata = {
     locale: "nb_NO",
     type: "website",
     siteName: "Eidsvoll Kampsportklubb",
+    images: [
+      {
+        url: "/header.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Eidsvoll Kampsportklubb",
+      },
+    ],
   },
   verification: {
     google: [

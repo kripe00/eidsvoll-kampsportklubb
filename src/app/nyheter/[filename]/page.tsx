@@ -3,6 +3,37 @@ import { NyheterPostClient } from "@/components/NyheterPostClient";
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
+import type { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ filename: string }> }): Promise<Metadata> {
+  try {
+    const { filename } = await params;
+    const decodedFilename = decodeURIComponent(filename);
+    const res = await client.queries.news({ relativePath: `${decodedFilename}.md` });
+    const post = res.data?.news;
+    
+    // We can also extract a short snippet from the description if present
+    return {
+      title: post?.title,
+      description: post?.description || `Les nyheten "${post?.title}" hos Eidsvoll Kampsportklubb.`,
+      openGraph: {
+        title: post?.title,
+        description: post?.description || `Les nyheten "${post?.title}" hos Eidsvoll Kampsportklubb.`,
+        images: post?.image ? [
+          {
+            url: post.image,
+            alt: post.title || "Nyhetsbilde",
+          }
+        ] : undefined,
+      }
+    };
+  } catch (error) {
+    console.error("Error generating metadata for news post:", error);
+    return {
+      title: "Nyheter",
+    };
+  }
+}
 
 export default async function NyhetPostPage({ params }: { params: Promise<{ filename: string }> }) {
   try {
