@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
 import { RichText } from "./RichText";
+import { OptimizedImage } from "./ui/optimized-image";
 
 interface HeroProps {
   welcomeText?: string;
@@ -34,9 +35,13 @@ export function Hero({
           <source src={backgroundVideo} type="video/mp4" />
         </video>
       ) : (
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-20 transition-all duration-700"
-          style={{ backgroundImage: `url("${backgroundImage}")` }}
+        <OptimizedImage
+          src={backgroundImage}
+          alt={highlightedText || "Hero bakgrunn"}
+          fill={true}
+          priority={true}
+          containerClassName="absolute inset-0 -z-20"
+          className="object-cover scale-105"
           data-tina-field={tinaField(parent, 'backgroundImage')}
         />
       )}

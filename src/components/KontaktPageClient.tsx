@@ -7,6 +7,7 @@ import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-
 import { RichText } from "./RichText";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { OptimizedImage } from "./ui/optimized-image";
 
 export function KontaktPageClient(props: {
   data: any;
@@ -79,10 +80,12 @@ export function KontaktPageClient(props: {
 
             {contact?.image && (
               <div className="relative aspect-video lg:aspect-[4/5] overflow-hidden rounded-2xl shadow-xl mb-12" data-tina-field={tinaField(contact, 'image')}>
-                <img 
+                <OptimizedImage 
                   src={contact.image} 
                   alt="Kontakt" 
-                  className="w-full h-full object-cover"
+                  fill={true}
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover"
                 />
                 <div className="absolute inset-0 bg-primary/5 mix-blend-multiply" />
               </div>

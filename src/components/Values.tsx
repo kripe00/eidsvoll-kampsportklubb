@@ -1,5 +1,6 @@
 import { tinaField } from "tinacms/dist/react";
 import { Shield, Users, Zap, HeartHandshake, ShieldCheck, Info } from "lucide-react";
+import { OptimizedImage } from "./ui/optimized-image";
 
 const iconMap: Record<string, any> = {
   Users,
@@ -47,9 +48,11 @@ export function Values(props: ValuesProps) {
 
             {image && (
               <div className="relative group overflow-hidden rounded-2xl shadow-xl transition-transform duration-500 hover:scale-[1.02]" data-tina-field={tinaField(props, 'image')}>
-                <img 
+                <OptimizedImage 
                   src={image} 
                   alt={title} 
+                  width={800}
+                  height={600}
                   className="w-full h-auto object-cover aspect-[4/3]"
                 />
                 <div className="absolute inset-0 bg-primary/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500" />

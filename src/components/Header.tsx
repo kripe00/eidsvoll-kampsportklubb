@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
 import { Menu, X } from "lucide-react";
+import { OptimizedImage } from "./ui/optimized-image";
 
 export function Header({ data }: { data: any }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,9 +15,12 @@ export function Header({ data }: { data: any }) {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/40">
       <div className="container mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-          <img 
+          <OptimizedImage 
             src="/org-logo.svg" 
             alt="Eidsvoll Kampsportklubb Logo" 
+            width={40}
+            height={40}
+            priority={true}
             className="w-10 h-10 object-contain"
           />
           <span className="font-bold text-xl tracking-tight hidden sm:block">

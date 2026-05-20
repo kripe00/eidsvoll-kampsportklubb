@@ -1,6 +1,7 @@
 import { tinaField } from "tinacms/dist/react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { OptimizedImage } from "./ui/optimized-image";
 
 interface TrainersProps {
   title?: string;
@@ -53,11 +54,13 @@ function TrainerCard({ trainer, index, props }: { trainer: any, index: number, p
         {/* Image Section */}
         <div className="sm:col-span-5 relative aspect-[4/5] sm:aspect-auto sm:h-[450px] overflow-hidden bg-muted">
           {trainer.image && (
-            <img 
+            <OptimizedImage 
               src={trainer.image} 
               alt={trainer.name} 
+              fill={true}
+              sizes="(max-width: 640px) 100vw, 40vw"
               className={cn(
-                "w-full h-full object-cover transition-all duration-1000",
+                "object-cover transition-all duration-1000",
                 isVisible ? "grayscale-0 scale-100" : "grayscale scale-105",
                 "lg:grayscale lg:scale-105 lg:group-hover:grayscale-0 lg:group-hover:scale-100"
               )}

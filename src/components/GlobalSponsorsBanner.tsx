@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { OptimizedImage } from "./ui/optimized-image";
 
 export function GlobalSponsorsBanner({ sponsors }: { sponsors: any[] }) {
   if (!sponsors || sponsors.length === 0) {
@@ -16,13 +17,15 @@ export function GlobalSponsorsBanner({ sponsors }: { sponsors: any[] }) {
     return items.map((sponsor, index) => {
       const content = (
         <div 
-          className="flex items-center justify-center w-32 h-16 md:w-48 md:h-24 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+          className="flex items-center justify-center w-32 h-16 md:w-48 md:h-24 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 relative"
         >
           {sponsor.logo ? (
-            <img 
+            <OptimizedImage 
               src={sponsor.logo} 
               alt={sponsor.name || "Sponsor"} 
-              className="max-w-full max-h-full object-contain"
+              width={192}
+              height={96}
+              className="max-w-full max-h-full object-contain w-auto h-auto"
             />
           ) : (
             <span className="text-lg md:text-xl font-black tracking-tighter uppercase text-muted-foreground whitespace-nowrap">

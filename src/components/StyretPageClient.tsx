@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { RichText } from "./RichText";
 import { BlockRenderer } from "./blocks/BlockRenderer";
 import Link from "next/link";
+import { OptimizedImage } from "./ui/optimized-image";
 
 
 function BoardMemberCard({ member }: { member: any }) {
@@ -48,11 +49,13 @@ function BoardMemberCard({ member }: { member: any }) {
         "lg:grayscale lg:group-hover:grayscale-0"
       )}>
         {member.image ? (
-          <img 
+          <OptimizedImage 
             src={member.image} 
             alt={member.name} 
+            fill={true}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className={cn(
-              "w-full h-full object-cover transition-all duration-700",
+              "object-cover transition-all duration-700",
               isVisible ? "scale-100" : "scale-105",
               "lg:scale-105 lg:group-hover:scale-100"
             )}

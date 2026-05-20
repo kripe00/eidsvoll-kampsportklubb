@@ -1,4 +1,5 @@
 import { Shield, Users, Zap } from "lucide-react";
+import { OptimizedImage } from "./ui/optimized-image";
 
 export function Offerings() {
   const offerings = [
@@ -47,10 +48,12 @@ export function Offerings() {
               <div className="lg:w-3/5 relative group w-full overflow-hidden lg:overflow-visible">
                 <div className="hidden lg:block absolute -inset-4 bg-primary/5 scale-95 group-hover:scale-100 transition-transform duration-700" />
                 <div className="relative aspect-[16/9] overflow-hidden">
-                  <img 
+                  <OptimizedImage 
                     src={offering.image} 
                     alt={offering.title} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                    fill={true}
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
                   />
                 </div>
               </div>

@@ -4,6 +4,7 @@ import { useTina, tinaField } from "tinacms/dist/react";
 import { Button } from "@/components/ui/button";
 import { Heart, Eye, Award, Shield, Users, Zap, HeartHandshake, ShieldCheck, Flame, Info, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { OptimizedImage } from "./ui/optimized-image";
 
 const iconMap: Record<string, any> = {
   Heart, Eye, Award, Shield, Users, Zap, HeartHandshake, ShieldCheck, Flame, Info, CheckCircle2
@@ -70,9 +71,11 @@ export function SponsorerPageClient(props: {
                         className="relative group overflow-hidden rounded-2xl shadow-2xl"
                         data-tina-field={tinaField(block, "image")}
                       >
-                        <img
+                        <OptimizedImage
                           src={block.image}
                           alt="Bilde"
+                          width={800}
+                          height={600}
                           className="w-full h-auto object-cover aspect-[4/3]"
                         />
                         <div className="absolute inset-0 bg-primary/10 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500" />
@@ -230,10 +233,12 @@ export function SponsorerPageClient(props: {
                         data-tina-field={tinaField(sponsor)}
                       >
                         {sponsor.logo ? (
-                          <img
+                          <OptimizedImage
                             src={sponsor.logo}
                             alt={sponsor.name || "Sponsor"}
-                            className="max-h-16 md:max-h-20 max-w-[85%] object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0"
+                            width={200}
+                            height={100}
+                            className="max-h-16 md:max-h-20 max-w-[85%] object-contain opacity-60 group-hover:opacity-100 transition-opacity duration-300 filter grayscale group-hover:grayscale-0 w-auto h-auto"
                           />
                         ) : (
                           <span className="text-muted-foreground/30 text-sm font-bold uppercase tracking-widest select-none text-center">
