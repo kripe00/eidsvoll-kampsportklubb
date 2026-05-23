@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle, Facebook, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { RichText } from "./RichText";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -131,7 +131,17 @@ export function KontaktPageClient(props: {
                         aria-label="Følg oss på Facebook"
                         data-tina-field={tinaField(contact, 'facebook')}
                       >
-                        <Facebook size={20} className="stroke-[1.5px]" />
+                        <svg
+                          className="w-5 h-5"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
                       </a>
                     )}
                     {contact.instagram && (
@@ -143,7 +153,19 @@ export function KontaktPageClient(props: {
                         aria-label="Følg oss på Instagram"
                         data-tina-field={tinaField(contact, 'instagram')}
                       >
-                        <Instagram size={20} className="stroke-[1.5px]" />
+                        <svg
+                          className="w-5 h-5"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                        </svg>
                       </a>
                     )}
                   </div>
