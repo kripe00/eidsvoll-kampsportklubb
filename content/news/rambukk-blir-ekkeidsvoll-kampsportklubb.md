@@ -16,7 +16,7 @@ Vi bygger trygge individer og et livsviktig fellesskap
 
 For oss har dette aldri bare handlet om trening. Jeg har selv vokst opp i denne klubben, og som barnetrener gjennom mange år har jeg sett med egne øyne hvor mye barna vokser på å være hos oss. Kampsport bygger trygge, selvsikre individer.
 
-Slik situasjonen er for barn og unge på Råholt og i Eidsvoll akkurat nå, ser vi hvor utrolig viktig det er å ha et tilbud som fanger opp de som kanskje faller utenfor andre idretter og fellesskap. Vi forebygger mobbing, gir ungdom et fristed, og mange har hatt sin aller første jobb hos oss. Dette samfunnsansvaret skal vi fortsette å ta i EKK.
+Slik situasjonen er for barn og unge i Eidsvoll akkurat nå, ser vi hvor utrolig viktig det er å ha et tilbud som fanger opp de som kanskje faller utenfor andre idretter og fellesskap. Vi forebygger mobbing, gir ungdom et fristed, og mange har hatt sin aller første jobb hos oss. Dette samfunnsansvaret skal vi fortsette å ta i EKK.
 
 Vi jakter på vårt nye hjem
 

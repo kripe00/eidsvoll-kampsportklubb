@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Kontakt",
-  description: "Ta kontakt med Eidsvoll Kampsportklubb på Råholt. Vi svarer på spørsmål om BJJ, Muay Thai, treningstider og medlemskap.",
+  description: "Ta kontakt med Eidsvoll Kampsportklubb i Eidsvoll. Vi svarer på spørsmål om BJJ, Muay Thai, treningstider og medlemskap.",
 };
 
 export default async function KontaktPage() {

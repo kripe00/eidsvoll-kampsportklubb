@@ -12,12 +12,12 @@ const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 export const metadata: Metadata = {
   metadataBase: new URL("https://kampsporteidsvoll.no"),
   title: {
-    default: "Eidsvoll Kampsportklubb | BJJ og Muay Thai på Råholt",
+    default: "Eidsvoll Kampsportklubb | BJJ og Muay Thai i Eidsvoll",
     template: "%s | Eidsvoll Kampsportklubb",
   },
   applicationName: "Eidsvoll Kampsportklubb",
   description:
-    "Eidsvoll Kampsportklubb på Råholt – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer. Bli med i dag!",
+    "Eidsvoll Kampsportklubb i Eidsvoll – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer. Bli med i dag!",
   keywords: [
     "kampsport",
     "kampsportklubb",
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     "trening",
   ],
   openGraph: {
-    title: "Eidsvoll Kampsportklubb | BJJ og Muay Thai på Råholt",
+    title: "Eidsvoll Kampsportklubb | BJJ og Muay Thai i Eidsvoll",
     description:
-      "Eidsvoll Kampsportklubb på Råholt – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer. Bli med i dag!",
+      "Eidsvoll Kampsportklubb i Eidsvoll – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer. Bli med i dag!",
     locale: "nb_NO",
     type: "website",
     siteName: "Eidsvoll Kampsportklubb",
@@ -105,7 +105,7 @@ export default async function RootLayout({
               "url": "https://kampsporteidsvoll.no",
               "logo": "https://kampsporteidsvoll.no/org-logo.svg",
               "image": "https://kampsporteidsvoll.no/header.jpg",
-              "description": "Eidsvoll Kampsportklubb på Råholt – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer.",
+              "description": "Eidsvoll Kampsportklubb i Eidsvoll – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer.",
               "sport": ["Brasiliansk Jiu-Jitsu", "Muay Thai", "Thaiboksing", "Cross-trening"],
               "email": "post@kampsporteidsvoll.no",
               "telephone": "+4797610229",

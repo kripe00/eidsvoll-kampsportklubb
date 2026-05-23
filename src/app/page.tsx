@@ -6,7 +6,7 @@ export default async function Home() {
     hero: {
       welcomeText: "Velkommen til",
       highlightedText: "Eidsvoll Kampsportklubb",
-      description: "Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter på Råholt har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.",
+      description: "Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter i Eidsvoll har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.",
       backgroundImage: "/header.jpg"
     },
     newsConnection: { edges: [] }

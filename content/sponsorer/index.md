@@ -5,7 +5,7 @@ blocks:
     body: |
       Eidsvoll Kampsportklubb jobber hver dag for å skape en trygg, sunn og aktiv arena for barn, unge og voksne. Ved å inngå et partnerskap med oss, investerer dere direkte i lokalmiljøet. Dere bidrar til at vi kan opprettholde et høyt sportslig nivå, holde utstyret oppdatert og sikre at flest mulig får oppleve verdien av samhold og fysisk aktivitet.
 
-      Som sponsor får dere profilering og lokal synlighet, men kanskje viktigst av alt: Dere viser at deres bedrift heier på et sterkt, trygt og inkluderende lokalmiljø på Råholt. Ta kontakt med oss for en uforpliktende prat om hvordan vi kan spille hverandre gode.
+      Som sponsor får dere profilering og lokal synlighet, men kanskje viktigst av alt: Dere viser at deres bedrift heier på et sterkt, trygt og inkluderende lokalmiljø i Eidsvoll. Ta kontakt med oss for en uforpliktende prat om hvordan vi kan spille hverandre gode.
     image: /images/club/group-class.jpg
     _template: about
   - title: Sponsorpakker 2026
@@ -49,7 +49,7 @@ blocks:
         icon: ShieldCheck
       - title: Samfunnsansvar og Lokal Verdi
         text: |
-          Ved å støtte klubben bidrar dere direkte til et aktivt og trygt fritidstilbud for barn og unge på Råholt. Dere viser samfunnsansvar i praksis og knytter bedriften til sunne verdier som respekt, disiplin og fellesskap.
+          Ved å støtte klubben bidrar dere direkte til et aktivt og trygt fritidstilbud for barn og unge i Eidsvoll. Dere viser samfunnsansvar i praksis og knytter bedriften til sunne verdier som respekt, disiplin og fellesskap.
         icon: HeartHandshake
     _template: benefits
   - title: Detaljert oversikt over ytelser
@@ -76,7 +76,7 @@ blocks:
         icon: Award
       - title: Teambuilding for ansatte (Kun Gull)
         text: |
-          Som Gull-partner får bedriften en skreddersydd og lukket treningsøkt for sine ansatte i våre lokaler på Råholt. Dette er en morsom og annerledes teambuilding der kollegaer får prøve grunnleggende elementer fra Brasiliansk Jiu-Jitsu, Muay Thai eller Cross-trening i trygge rammer. Økten ledes av våre erfarne instruktører og tilpasses alle fysiske nivåer. Det er en fantastisk måte å bygge samhold på, oppleve mestring sammen, og gi de ansatte et sprekt avbrekk fra arbeidshverdagen.
+          Som Gull-partner får bedriften en skreddersydd og lukket treningsøkt for sine ansatte i våre lokaler i Eidsvoll. Dette er en morsom og annerledes teambuilding der kollegaer får prøve grunnleggende elementer fra Brasiliansk Jiu-Jitsu, Muay Thai eller Cross-trening i trygge rammer. Økten ledes av våre erfarne instruktører og tilpasses alle fysiske nivåer. Det er en fantastisk måte å bygge samhold på, oppleve mestring sammen, og gi de ansatte et sprekt avbrekk fra arbeidshverdagen.
         icon: Activity
     _template: benefits
   - title: Våre støttespillere
