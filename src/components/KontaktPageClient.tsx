@@ -138,14 +138,7 @@ export function KontaktPageClient(props: {
                 </div>
               ) : (
                 <form className="space-y-10" onSubmit={handleSubmit}>
-                  {/* Temporary notice */}
-                  <div className="bg-amber-500/10 border border-amber-500/20 p-4 rounded-lg flex items-start gap-3 mb-8">
-                    <AlertCircle size={20} className="text-amber-500 mt-1 shrink-0" />
-                    <div>
-                      <p className="text-amber-500 font-bold text-sm">Skjemaet er foreløpig under vedlikehold</p>
-                      <p className="text-amber-500/80 text-xs">Vennligst kontakt oss direkte via e-post eller telefon i mellomtiden.</p>
-                    </div>
-                  </div>
+
 
                   <div className="grid md:grid-cols-2 gap-10">
                     <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
@@ -158,7 +151,7 @@ export function KontaktPageClient(props: {
                         placeholder="Ola Nordmann" 
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        disabled={true}
+
                       />
                     </div>
                     <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
@@ -171,7 +164,7 @@ export function KontaktPageClient(props: {
                         placeholder="ola@eksempel.no" 
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        disabled={true}
+
                       />
                     </div>
                   </div>
@@ -185,7 +178,7 @@ export function KontaktPageClient(props: {
                       placeholder="Hva gjelder det?" 
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      disabled={true}
+
                     />
                   </div>
                   <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
@@ -197,7 +190,7 @@ export function KontaktPageClient(props: {
                       placeholder="Skriv din melding her..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      disabled={true}
+
                     ></textarea>
                   </div>
 
@@ -209,11 +202,18 @@ export function KontaktPageClient(props: {
                   )}
 
                   <Button 
-                    className="h-20 px-12 text-xl font-black rounded-none bg-foreground text-background hover:bg-primary hover:text-white transition-all uppercase tracking-widest opacity-50 cursor-not-allowed" 
-                    type="button"
-                    disabled={true}
+                    className="h-20 px-12 text-xl font-black rounded-none bg-foreground text-background hover:bg-primary hover:text-white transition-all uppercase tracking-widest" 
+                    type="submit"
+                    disabled={status === "loading"}
                   >
-                    Send Melding (Utilgjengelig)
+                    {status === "loading" ? (
+                      <span className="flex items-center gap-2">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        Sender...
+                      </span>
+                    ) : (
+                      "Send Melding"
+                    )}
                   </Button>
                 </form>
               )}
