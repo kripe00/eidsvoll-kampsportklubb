@@ -10,7 +10,7 @@ blocks:
 
       Eidsvoll Kampsportklubb er stolt medlem av Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF). Dette sikrer våre medlemmer trygge rammer, gode forsikringsordninger og idrett på høyeste nivå.
 
-      Eidsvoll Kampsportklubb holder til i treningslokaler i Eidsvoll, i tett samarbeid med Rambukk Sport AS. Mens klubben har ansvaret for det sportslige innholdet og det sosiale fellesskapet, er det Rambukk Sport AS som drifter fasilitetene og bistår oss med medlemsadministrasjon
+      Eidsvoll Kampsportklubb holder til i treningslokaler på Råholt, i tett samarbeid med Rambukk Sport AS. Mens klubben har ansvaret for det sportslige innholdet og det sosiale fellesskapet, er det Rambukk Sport AS som drifter fasilitetene og bistår oss med medlemsadministrasjon
     image: /PXL_20260211_163724399.jpg
     video: /VID_20260209_174201.mp4
     _template: about
