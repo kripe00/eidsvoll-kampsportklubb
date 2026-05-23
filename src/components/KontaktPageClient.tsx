@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle, Facebook, Instagram } from "lucide-react";
 import { RichText } from "./RichText";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -115,6 +115,40 @@ export function KontaktPageClient(props: {
                 </div>
                 <p className="text-2xl font-bold text-foreground leading-snug break-all">{contact?.email}</p>
               </div>
+
+              {(contact?.facebook || contact?.instagram) && (
+                <div className="group pt-4">
+                  <div className="flex items-center gap-3 mb-4 text-primary/40">
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">Følg oss</h3>
+                  </div>
+                  <div className="flex gap-4">
+                    {contact.facebook && (
+                      <a 
+                        href={contact.facebook} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-border bg-card hover:bg-primary hover:text-white transition-all text-muted-foreground duration-300"
+                        aria-label="Følg oss på Facebook"
+                        data-tina-field={tinaField(contact, 'facebook')}
+                      >
+                        <Facebook size={20} className="stroke-[1.5px]" />
+                      </a>
+                    )}
+                    {contact.instagram && (
+                      <a 
+                        href={contact.instagram} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-border bg-card hover:bg-primary hover:text-white transition-all text-muted-foreground duration-300"
+                        aria-label="Følg oss på Instagram"
+                        data-tina-field={tinaField(contact, 'instagram')}
+                      >
+                        <Instagram size={20} className="stroke-[1.5px]" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

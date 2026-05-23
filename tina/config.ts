@@ -550,6 +550,8 @@ export default defineConfig({
         fields: [
           { type: "string", name: "clubName", label: "Klubbnavn" },
           { type: "image", name: "logo", label: "Logo" },
+          { type: "string", name: "facebook", label: "Facebook Link" },
+          { type: "string", name: "instagram", label: "Instagram Link" },
           {
             type: "object",
             list: true,

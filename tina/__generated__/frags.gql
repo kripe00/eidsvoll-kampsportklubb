@@ -222,6 +222,8 @@ fragment GlobalParts on Global {
   __typename
   clubName
   logo
+  facebook
+  instagram
   nav {
     __typename
     label

@@ -786,6 +786,8 @@ type GlobalSponsors {
 type Global implements Node & Document {
   clubName: String
   logo: String
+  facebook: String
+  instagram: String
   nav: [GlobalNav]
   sponsors: [GlobalSponsors]
   footerDescription: String
@@ -812,6 +814,8 @@ input GlobalSponsorsFilter {
 input GlobalFilter {
   clubName: StringFilter
   logo: ImageFilter
+  facebook: StringFilter
+  instagram: StringFilter
   nav: GlobalNavFilter
   sponsors: GlobalSponsorsFilter
   footerDescription: StringFilter
@@ -1161,6 +1165,8 @@ input GlobalSponsorsMutation {
 input GlobalMutation {
   clubName: String
   logo: String
+  facebook: String
+  instagram: String
   nav: [GlobalNavMutation]
   sponsors: [GlobalSponsorsMutation]
   footerDescription: String

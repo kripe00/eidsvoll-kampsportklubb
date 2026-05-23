@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
+import { Facebook, Instagram } from "lucide-react";
 
 export function Footer({ data }: { data?: any }) {
   const clubName = data?.clubName || "Eidsvoll Kampsportklubb";
@@ -78,6 +79,34 @@ export function Footer({ data }: { data?: any }) {
         
         <div className="border-t border-slate-900 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
           <p>&copy; {new Date().getFullYear()} {clubName}. Med enerett.</p>
+          {(data?.facebook || data?.instagram) && (
+            <div className="flex items-center gap-4">
+              {data.facebook && (
+                <Link 
+                  href={data.facebook} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-slate-500 hover:text-white transition-colors p-2 rounded-full border border-slate-900 hover:border-slate-800 bg-slate-950"
+                  aria-label="Følg oss på Facebook"
+                  data-tina-field={tinaField(data, 'facebook')}
+                >
+                  <Facebook size={16} />
+                </Link>
+              )}
+              {data.instagram && (
+                <Link 
+                  href={data.instagram} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-slate-500 hover:text-white transition-colors p-2 rounded-full border border-slate-900 hover:border-slate-800 bg-slate-950"
+                  aria-label="Følg oss på Instagram"
+                  data-tina-field={tinaField(data, 'instagram')}
+                >
+                  <Instagram size={16} />
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </footer>
