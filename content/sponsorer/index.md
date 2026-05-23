@@ -47,6 +47,10 @@ blocks:
         text: |
           Bedrifter som engasjerer seg i lokalmiljøet velges oftere av forbrukere. På vår sponsorside løfter vi frem de gode ambassadørene. Et kort sitat kombinert med logo, bygger enorm tillit og fellesskapsfølelse.
         icon: ShieldCheck
+      - title: Samfunnsansvar og Lokal Verdi
+        text: |
+          Ved å støtte klubben bidrar dere direkte til et aktivt og trygt fritidstilbud for barn og unge på Råholt. Dere viser samfunnsansvar i praksis og knytter bedriften til sunne verdier som respekt, disiplin og fellesskap.
+        icon: HeartHandshake
     _template: benefits
   - title: Detaljert oversikt over ytelser
     items:
