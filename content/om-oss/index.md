@@ -54,10 +54,6 @@ blocks:
       - name: Pernille Støen
         role: Barnetrener BJJ
         bio: 'Som barnetrener i Eidsvoll Kampsportklubb brenner Pernille for å skape treningsglede og samhold fra første stund på matta. Hun kombinerer høyt energinivå og lek med tydelige rammer, slik at barna lærer kampsport i et trygt og forutsigbart miljø. For Pernille er det viktig å bygge et sterkt fundament av balanse, koordinasjon og kroppsbeherskelse hos de yngste utøverne. Med sitt smittende engasjement og varme vesen hjelper hun barna med å tørre å utfordre seg selv, bygge varige vennskap og oppleve gleden av å vokse – både som utøvere og som trygge individer.'
-      - name: Philip Rimstad
-        role: Hovedtrener Muay Thai
-        image: /1g-220.jpeg
-        bio: 'Som hovedtrener for Muay Thai hos Eidsvoll Kampsportklubb har Philip det overordnede ansvaret for å lede og utvikle klubbens thaiboksere. Med et skarpt fokus på teknisk presisjon, fysisk robusthet og mental disiplin, skaper han utfordrende og dynamiske treningsøkter. Philip brenner for å hente ut potensialet i hver enkelt utøver, enten du snører på deg hanskene for første gang eller er en erfaren fighter. Han er kjent for sin evne til å kombinere høy intensitet og beinhard trening med et sterkt, inkluderende og trygt fellesskap. Under Philips kyndige veiledning lærer man ikke bare effektiv kampsport, men også gjensidig respekt, målrettethet og ekte idrettsglede.'
     _template: trainers
 ---
 
