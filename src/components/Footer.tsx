@@ -45,6 +45,11 @@ export function Footer({ data }: { data?: any }) {
                   <li><Link href="/styret" className="hover:text-white transition-colors">Styret og organisasjon</Link></li>
                 </>
               )}
+              <li>
+                <Link href="/samtykke" className="hover:text-white transition-colors">
+                  Samtykke bildedeling
+                </Link>
+              </li>
             </ul>
             </nav>
           </div>
