@@ -3,14 +3,14 @@ title: Om oss
 description: 'Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter i Eidsvoll har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.'
 blocks:
   - title: Vårt Tilbud
-    body: |
+    body: |-
       Vårt kjernefokus ligger på kampsportene Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai. Dette er sporter som bygger både fysisk styrke og mental robusthet. Som et viktig supplement til kampsporten tilbyr vi også Cross-trening. Dette er lagt opp for å bygge utholdenhet, styrke og forebygge skader, slik at våre medlemmer får et komplett og helhetlig treningstilbud.
 
       Enten målet ditt er å komme i bedre form, lære selvforsvar, konkurrere, eller bare bli del av et fantastisk miljø, har vi en plass til deg på matta.
 
       Eidsvoll Kampsportklubb er stolt medlem av Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF). Dette sikrer våre medlemmer trygge rammer, gode forsikringsordninger og idrett på høyeste nivå.
 
-      Eidsvoll Kampsportklubb holder til i treningslokaler på Råholt, i tett samarbeid med Rambukk Sport AS. Mens klubben har ansvaret for det sportslige innholdet og det sosiale fellesskapet, er det Rambukk Sport AS som drifter fasilitetene og bistår oss med medlemsadministrasjon
+      Eidsvoll Kampsportklubb holder til i nye, nyoppussede treningslokaler på Dal. Klubben drives nå i sin helhet av idrettslaget.
     image: /PXL_20260211_163724399.jpg
     video: /VID_20260209_174201.mp4
     _template: about
