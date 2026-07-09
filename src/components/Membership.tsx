@@ -73,7 +73,7 @@ export function Membership(props: MembershipProps) {
           )}
 
           <p className="mt-12 text-sm text-muted-foreground/60">
-            Har du spørsmål før du melder deg inn? <Link href="/kontakt" className="text-primary underline-offset-4 hover:underline">Kontakt oss her</Link>.
+            Har du spørsmål? Se våre <Link href="#faq" className="text-primary underline-offset-4 hover:underline">ofte stilte spørsmål (FAQ) lenger ned på siden</Link>, eller <Link href="/kontakt" className="text-primary underline-offset-4 hover:underline">kontakt oss her</Link>.
           </p>
         </div>
 

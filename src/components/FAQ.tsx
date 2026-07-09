@@ -38,7 +38,7 @@ export function FAQ({ title, items = [] }: FAQProps) {
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="w-full max-w-4xl mx-auto py-12 md:py-20 px-4">
+    <section id="faq" className="w-full max-w-4xl mx-auto py-12 md:py-20 px-4 scroll-mt-24">
       {/* Dynamic SEO JSON-LD */}
       <script
         type="application/ld+json"
