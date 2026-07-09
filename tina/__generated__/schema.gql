@@ -174,7 +174,17 @@ type PageBlocksBenefits {
   items: [PageBlocksBenefitsItems]
 }
 
-union PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers | PageBlocksSponsors | PageBlocksBenefits
+type PageBlocksFaqItems {
+  question: String!
+  answer: String!
+}
+
+type PageBlocksFaq {
+  title: String
+  items: [PageBlocksFaqItems]
+}
+
+union PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers | PageBlocksSponsors | PageBlocksBenefits | PageBlocksFaq
 
 type Page implements Node & Document {
   title: String!
@@ -259,6 +269,16 @@ input PageBlocksBenefitsFilter {
   items: PageBlocksBenefitsItemsFilter
 }
 
+input PageBlocksFaqItemsFilter {
+  question: StringFilter
+  answer: StringFilter
+}
+
+input PageBlocksFaqFilter {
+  title: StringFilter
+  items: PageBlocksFaqItemsFilter
+}
+
 input PageBlocksFilter {
   about: PageBlocksAboutFilter
   values: PageBlocksValuesFilter
@@ -266,6 +286,7 @@ input PageBlocksFilter {
   trainers: PageBlocksTrainersFilter
   sponsors: PageBlocksSponsorsFilter
   benefits: PageBlocksBenefitsFilter
+  faq: PageBlocksFaqFilter
 }
 
 input PageFilter {
@@ -596,7 +617,17 @@ type MedlemskapBlocksAbout {
   image: String
 }
 
-union MedlemskapBlocks = MedlemskapBlocksMembership | MedlemskapBlocksAbout
+type MedlemskapBlocksFaqItems {
+  question: String!
+  answer: String!
+}
+
+type MedlemskapBlocksFaq {
+  title: String
+  items: [MedlemskapBlocksFaqItems]
+}
+
+union MedlemskapBlocks = MedlemskapBlocksMembership | MedlemskapBlocksAbout | MedlemskapBlocksFaq
 
 type Medlemskap implements Node & Document {
   title: String!
@@ -619,9 +650,20 @@ input MedlemskapBlocksAboutFilter {
   image: ImageFilter
 }
 
+input MedlemskapBlocksFaqItemsFilter {
+  question: StringFilter
+  answer: StringFilter
+}
+
+input MedlemskapBlocksFaqFilter {
+  title: StringFilter
+  items: MedlemskapBlocksFaqItemsFilter
+}
+
 input MedlemskapBlocksFilter {
   membership: MedlemskapBlocksMembershipFilter
   about: MedlemskapBlocksAboutFilter
+  faq: MedlemskapBlocksFaqFilter
 }
 
 input MedlemskapFilter {
@@ -673,7 +715,17 @@ type OmOssBlocksTrainers {
   trainerList: [OmOssBlocksTrainersTrainerList]
 }
 
-union OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers
+type OmOssBlocksFaqItems {
+  question: String!
+  answer: String!
+}
+
+type OmOssBlocksFaq {
+  title: String
+  items: [OmOssBlocksFaqItems]
+}
+
+union OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq
 
 type OmOss implements Node & Document {
   title: String!
@@ -717,10 +769,21 @@ input OmOssBlocksTrainersFilter {
   trainerList: OmOssBlocksTrainersTrainerListFilter
 }
 
+input OmOssBlocksFaqItemsFilter {
+  question: StringFilter
+  answer: StringFilter
+}
+
+input OmOssBlocksFaqFilter {
+  title: StringFilter
+  items: OmOssBlocksFaqItemsFilter
+}
+
 input OmOssBlocksFilter {
   about: OmOssBlocksAboutFilter
   values: OmOssBlocksValuesFilter
   trainers: OmOssBlocksTrainersFilter
+  faq: OmOssBlocksFaqFilter
 }
 
 input OmOssFilter {
@@ -951,6 +1014,16 @@ input PageBlocksBenefitsMutation {
   items: [PageBlocksBenefitsItemsMutation]
 }
 
+input PageBlocksFaqItemsMutation {
+  question: String
+  answer: String
+}
+
+input PageBlocksFaqMutation {
+  title: String
+  items: [PageBlocksFaqItemsMutation]
+}
+
 input PageBlocksMutation {
   about: PageBlocksAboutMutation
   values: PageBlocksValuesMutation
@@ -958,6 +1031,7 @@ input PageBlocksMutation {
   trainers: PageBlocksTrainersMutation
   sponsors: PageBlocksSponsorsMutation
   benefits: PageBlocksBenefitsMutation
+  faq: PageBlocksFaqMutation
 }
 
 input PageMutation {
@@ -1087,9 +1161,20 @@ input MedlemskapBlocksAboutMutation {
   image: String
 }
 
+input MedlemskapBlocksFaqItemsMutation {
+  question: String
+  answer: String
+}
+
+input MedlemskapBlocksFaqMutation {
+  title: String
+  items: [MedlemskapBlocksFaqItemsMutation]
+}
+
 input MedlemskapBlocksMutation {
   membership: MedlemskapBlocksMembershipMutation
   about: MedlemskapBlocksAboutMutation
+  faq: MedlemskapBlocksFaqMutation
 }
 
 input MedlemskapMutation {
@@ -1130,10 +1215,21 @@ input OmOssBlocksTrainersMutation {
   trainerList: [OmOssBlocksTrainersTrainerListMutation]
 }
 
+input OmOssBlocksFaqItemsMutation {
+  question: String
+  answer: String
+}
+
+input OmOssBlocksFaqMutation {
+  title: String
+  items: [OmOssBlocksFaqItemsMutation]
+}
+
 input OmOssBlocksMutation {
   about: OmOssBlocksAboutMutation
   values: OmOssBlocksValuesMutation
   trainers: OmOssBlocksTrainersMutation
+  faq: OmOssBlocksFaqMutation
 }
 
 input OmOssMutation {

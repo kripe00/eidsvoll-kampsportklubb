@@ -4,6 +4,7 @@ import { About } from "../About";
 import { Values } from "../Values";
 import { Trainers } from "../Trainers";
 import { Membership } from "../Membership";
+import { FAQ } from "../FAQ";
 
 export function BlockRenderer({ blocks }: { blocks: any[] }) {
   if (!blocks || !Array.isArray(blocks)) {
@@ -29,6 +30,9 @@ export function BlockRenderer({ blocks }: { blocks: any[] }) {
           }
           if (template === "membership" || template.endsWith("BlocksMembership")) {
             return <Membership key={i} {...block} />;
+          }
+          if (template === "faq" || template.endsWith("BlocksFaq")) {
+            return <FAQ key={i} {...block} />;
           }
           
           console.warn(`No component for template: ${template}`);

@@ -54,6 +54,14 @@ fragment PageParts on Page {
         icon
       }
     }
+    ... on PageBlocksFaq {
+      title
+      items {
+        __typename
+        question
+        answer
+      }
+    }
   }
 }
 
@@ -168,6 +176,14 @@ fragment MedlemskapParts on Medlemskap {
       body
       image
     }
+    ... on MedlemskapBlocksFaq {
+      title
+      items {
+        __typename
+        question
+        answer
+      }
+    }
   }
 }
 
@@ -203,6 +219,14 @@ fragment OmOssParts on OmOss {
         role
         image
         bio
+      }
+    }
+    ... on OmOssBlocksFaq {
+      title
+      items {
+        __typename
+        question
+        answer
       }
     }
   }

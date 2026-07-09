@@ -1,6 +1,28 @@
 // tina/config.ts
 import { defineConfig } from "tinacms";
 var branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "main";
+var faqTemplate = {
+  name: "faq",
+  label: "FAQ / Ofte stilte sp\xF8rsm\xE5l",
+  fields: [
+    { type: "string", name: "title", label: "Overskrift" },
+    {
+      type: "object",
+      list: true,
+      name: "items",
+      label: "Sp\xF8rsm\xE5l og svar",
+      ui: {
+        itemProps: (item) => {
+          return { label: item?.question || "Nytt sp\xF8rsm\xE5l" };
+        }
+      },
+      fields: [
+        { type: "string", name: "question", label: "Sp\xF8rsm\xE5l", required: true },
+        { type: "string", name: "answer", label: "Svar", ui: { component: "textarea" }, required: true }
+      ]
+    }
+  ]
+};
 var config_default = defineConfig({
   branch,
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID || "",
@@ -153,7 +175,8 @@ var config_default = defineConfig({
                     ]
                   }
                 ]
-              }
+              },
+              faqTemplate
             ]
           }
         ]
@@ -429,7 +452,8 @@ var config_default = defineConfig({
                   { type: "string", name: "body", label: "Innhold", ui: { component: "textarea" } },
                   { type: "image", name: "image", label: "Bilde" }
                 ]
-              }
+              },
+              faqTemplate
             ]
           }
         ]
@@ -514,7 +538,8 @@ var config_default = defineConfig({
                     ]
                   }
                 ]
-              }
+              },
+              faqTemplate
             ]
           }
         ]
