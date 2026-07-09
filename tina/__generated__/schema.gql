@@ -138,6 +138,8 @@ type PageBlocksMembership {
   title: String
   description: String
   linkUrl: String
+  boostLinkUrl: String
+  boostEnabled: Boolean
 }
 
 type PageBlocksTrainersTrainerList {
@@ -229,10 +231,17 @@ input PageBlocksValuesFilter {
   items: PageBlocksValuesItemsFilter
 }
 
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
 input PageBlocksMembershipFilter {
   title: StringFilter
   description: StringFilter
   linkUrl: StringFilter
+  boostLinkUrl: StringFilter
+  boostEnabled: BooleanFilter
 }
 
 input PageBlocksTrainersTrainerListFilter {
@@ -563,11 +572,6 @@ input SponsorerBlocksSponsorsFilter {
   sponsorList: SponsorerBlocksSponsorsSponsorListFilter
 }
 
-input BooleanFilter {
-  eq: Boolean
-  exists: Boolean
-}
-
 input SponsorerBlocksPackagesPackagesListFilter {
   name: StringFilter
   description: StringFilter
@@ -608,6 +612,8 @@ type MedlemskapBlocksMembership {
   title: String
   description: String
   linkUrl: String
+  boostLinkUrl: String
+  boostEnabled: Boolean
   extraInfo: String
 }
 
@@ -641,6 +647,8 @@ input MedlemskapBlocksMembershipFilter {
   title: StringFilter
   description: StringFilter
   linkUrl: StringFilter
+  boostLinkUrl: StringFilter
+  boostEnabled: BooleanFilter
   extraInfo: StringFilter
 }
 
@@ -978,6 +986,8 @@ input PageBlocksMembershipMutation {
   title: String
   description: String
   linkUrl: String
+  boostLinkUrl: String
+  boostEnabled: Boolean
 }
 
 input PageBlocksTrainersTrainerListMutation {
@@ -1152,6 +1162,8 @@ input MedlemskapBlocksMembershipMutation {
   title: String
   description: String
   linkUrl: String
+  boostLinkUrl: String
+  boostEnabled: Boolean
   extraInfo: String
 }
 

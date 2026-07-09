@@ -84,6 +84,8 @@ export default defineConfig({
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
                   { type: "string", name: "linkUrl", label: "MinIdrett Lenke" },
+                  { type: "string", name: "boostLinkUrl", label: "Boost Lenke (Valgfritt)" },
+                  { type: "boolean", name: "boostEnabled", label: "Aktiver Boost-knapp?" },
                 ],
               },
               {
@@ -442,6 +444,8 @@ export default defineConfig({
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
                   { type: "string", name: "linkUrl", label: "MinIdrett Lenke" },
+                  { type: "string", name: "boostLinkUrl", label: "Boost Lenke (Valgfritt)" },
+                  { type: "boolean", name: "boostEnabled", label: "Aktiver Boost-knapp?" },
                   { type: "string", name: "extraInfo", label: "Tilleggsinformasjon (f.eks. utmelding)", ui: { component: "textarea" } },
                 ],
               },

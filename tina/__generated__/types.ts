@@ -355,6 +355,8 @@ export type PageBlocksMembership = {
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   linkUrl?: Maybe<Scalars['String']['output']>;
+  boostLinkUrl?: Maybe<Scalars['String']['output']>;
+  boostEnabled?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type PageBlocksTrainersTrainerList = {
@@ -455,10 +457,17 @@ export type PageBlocksValuesFilter = {
   items?: InputMaybe<PageBlocksValuesItemsFilter>;
 };
 
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type PageBlocksMembershipFilter = {
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
   linkUrl?: InputMaybe<StringFilter>;
+  boostLinkUrl?: InputMaybe<StringFilter>;
+  boostEnabled?: InputMaybe<BooleanFilter>;
 };
 
 export type PageBlocksTrainersTrainerListFilter = {
@@ -815,11 +824,6 @@ export type SponsorerBlocksSponsorsFilter = {
   sponsorList?: InputMaybe<SponsorerBlocksSponsorsSponsorListFilter>;
 };
 
-export type BooleanFilter = {
-  eq?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
 export type SponsorerBlocksPackagesPackagesListFilter = {
   name?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
@@ -863,6 +867,8 @@ export type MedlemskapBlocksMembership = {
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   linkUrl?: Maybe<Scalars['String']['output']>;
+  boostLinkUrl?: Maybe<Scalars['String']['output']>;
+  boostEnabled?: Maybe<Scalars['Boolean']['output']>;
   extraInfo?: Maybe<Scalars['String']['output']>;
 };
 
@@ -900,6 +906,8 @@ export type MedlemskapBlocksMembershipFilter = {
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
   linkUrl?: InputMaybe<StringFilter>;
+  boostLinkUrl?: InputMaybe<StringFilter>;
+  boostEnabled?: InputMaybe<BooleanFilter>;
   extraInfo?: InputMaybe<StringFilter>;
 };
 
@@ -1411,6 +1419,8 @@ export type PageBlocksMembershipMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   linkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostLinkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostEnabled?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type PageBlocksTrainersTrainerListMutation = {
@@ -1585,6 +1595,8 @@ export type MedlemskapBlocksMembershipMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   linkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostLinkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   extraInfo?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1705,7 +1717,7 @@ export type GlobalMutation = {
   footerOrgNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
+export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
 
 export type HeroPartsFragment = { __typename: 'Hero', welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null };
 
@@ -1717,7 +1729,7 @@ export type NewsPartsFragment = { __typename: 'News', title: string, date: strin
 
 export type SponsorerPartsFragment = { __typename: 'Sponsorer', title: string, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null };
 
-export type MedlemskapPartsFragment = { __typename: 'Medlemskap', title: string, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
+export type MedlemskapPartsFragment = { __typename: 'Medlemskap', title: string, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
 
 export type OmOssPartsFragment = { __typename: 'OmOss', title: string, description?: string | null, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
 
@@ -1730,7 +1742,7 @@ export type PageQueryVariables = Exact<{
 }>;
 
 
-export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } };
+export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } };
 
 export type PageConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1742,7 +1754,7 @@ export type PageConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } | null } | null> | null } };
+export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } | null } | null> | null } };
 
 export type HeroQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1844,7 +1856,7 @@ export type MedlemskapQueryVariables = Exact<{
 }>;
 
 
-export type MedlemskapQuery = { __typename?: 'Query', medlemskap: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } };
+export type MedlemskapQuery = { __typename?: 'Query', medlemskap: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } };
 
 export type MedlemskapConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1856,7 +1868,7 @@ export type MedlemskapConnectionQueryVariables = Exact<{
 }>;
 
 
-export type MedlemskapConnectionQuery = { __typename?: 'Query', medlemskapConnection: { __typename?: 'MedlemskapConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'MedlemskapConnectionEdges', cursor: string, node?: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } | null } | null> | null } };
+export type MedlemskapConnectionQuery = { __typename?: 'Query', medlemskapConnection: { __typename?: 'MedlemskapConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'MedlemskapConnectionEdges', cursor: string, node?: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } | null } | null> | null } };
 
 export type OmOssQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1943,6 +1955,8 @@ export const PagePartsFragmentDoc = gql`
       title
       description
       linkUrl
+      boostLinkUrl
+      boostEnabled
     }
     ... on PageBlocksTrainers {
       title
@@ -2093,6 +2107,8 @@ export const MedlemskapPartsFragmentDoc = gql`
       title
       description
       linkUrl
+      boostLinkUrl
+      boostEnabled
       extraInfo
     }
     ... on MedlemskapBlocksAbout {

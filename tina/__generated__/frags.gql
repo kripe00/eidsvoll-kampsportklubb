@@ -25,6 +25,8 @@ fragment PageParts on Page {
       title
       description
       linkUrl
+      boostLinkUrl
+      boostEnabled
     }
     ... on PageBlocksTrainers {
       title
@@ -169,6 +171,8 @@ fragment MedlemskapParts on Medlemskap {
       title
       description
       linkUrl
+      boostLinkUrl
+      boostEnabled
       extraInfo
     }
     ... on MedlemskapBlocksAbout {
