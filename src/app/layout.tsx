@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     "kampsportsenter",
     "eidsvoll",
     "råholt",
+    "dal",
     "BJJ",
     "brasiliansk jiu-jitsu",
     "muay thai",
