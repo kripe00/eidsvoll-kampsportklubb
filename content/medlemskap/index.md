@@ -7,10 +7,10 @@ blocks:
 
     linkUrl: 'https://www.minidrett.no/medlemskap/988726'
     extraInfo: >-
-      Slik fungerer utmelding: Siden våre medlemskap og fakturaer administreres av
-      vår anleggspartner Rambukk Sport AS, må alle oppsigelser eller endringer av
-      betalingsavtaler rettes direkte til dem via [Rambukken.no](https://rambukken.no). En utmelding fra
-      idrettslaget (EKK) stopper ikke automatisk trekkene hos treningssenteret.
+      Medlemskontingenten betales via MinIdrett og gir deg medlemskap i idrettslaget.
+      Dette gir deg forsikring gjennom Norges Kampsportforbund og rett til
+      å konkurrere på stevner. Treningsavgiften (det månedlige abonnementet for selve
+      treningen i klubben) vil betales gjennom vårt medlemssystem Boost.
     _template: membership
   - title: Ofte stilte spørsmål
     items:
