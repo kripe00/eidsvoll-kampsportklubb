@@ -72,10 +72,25 @@ export function Footer({ data }: { data?: any }) {
                 </li>
               )}
               {address && (
-                <li className="flex items-start gap-3" data-tina-field={data ? tinaField(data, 'footerAddress') : undefined}>
-                  <span className="text-slate-500 font-medium w-16">Adresse:</span>
-                  <span className="text-slate-300">{address}</span>
-                </li>
+                <>
+                  <li className="flex items-start gap-3" data-tina-field={data ? tinaField(data, 'footerAddress') : undefined}>
+                    <span className="text-slate-500 font-medium w-16">Adresse:</span>
+                    <span className="text-slate-300">{address}</span>
+                  </li>
+                  <li className="mt-4">
+                    <div className="w-full h-32 rounded-xl overflow-hidden border border-slate-800 bg-slate-900">
+                      <iframe
+                        src={`https://maps.google.com/maps?q=${encodeURIComponent(address)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0, filter: "grayscale(1) invert(0.9) contrast(1.2)" }}
+                        allowFullScreen={false}
+                        loading="lazy"
+                        title="Kart over Eidsvoll Kampsportklubb"
+                      />
+                    </div>
+                  </li>
+                </>
               )}
             </ul>
           </div>

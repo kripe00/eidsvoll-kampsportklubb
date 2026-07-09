@@ -111,7 +111,7 @@ export default async function RootLayout({
               "telephone": "+4797610229",
               "address": {
                 "@type": "PostalAddress",
-                "addressLocality": "Råholt",
+                "addressLocality": "Dal",
                 "addressRegion": "Akershus",
                 "addressCountry": "NO"
               },
