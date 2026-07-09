@@ -167,7 +167,7 @@ export default defineConfig({
                     name: "items",
                     label: "Spørsmål og svar",
                     ui: {
-                      itemProps: (item: any) => {
+                      itemProps: (item) => {
                         return { label: item?.question || "Nytt spørsmål" };
                       },
                     },
@@ -465,7 +465,7 @@ export default defineConfig({
                     name: "items",
                     label: "Spørsmål og svar",
                     ui: {
-                      itemProps: (item: any) => {
+                      itemProps: (item) => {
                         return { label: item?.question || "Nytt spørsmål" };
                       },
                     },
@@ -572,7 +572,7 @@ export default defineConfig({
                     name: "items",
                     label: "Spørsmål og svar",
                     ui: {
-                      itemProps: (item: any) => {
+                      itemProps: (item) => {
                         return { label: item?.question || "Nytt spørsmål" };
                       },
                     },
