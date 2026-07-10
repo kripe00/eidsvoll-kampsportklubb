@@ -221,7 +221,7 @@ export default defineConfig({
                 ui: {
                   uploadDir: () => "instagram",
                 },
-              },
+              } as any,
               { type: "string", name: "caption", label: "Bildetekst" },
               { type: "string", name: "postUrl", label: "Lenke til innlegg (Valgfritt)" },
             ],
