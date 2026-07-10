@@ -38,11 +38,11 @@ interface InstagramFeedProps {
 
 export function InstagramFeed({
   title = "Følg oss på Instagram",
-  username = "@eidsvoll_kampsportklubb",
-  profileUrl = "https://www.instagram.com/eidsvoll_kampsportklubb/",
+  username = "@eidsvoll_kampsport",
+  profileUrl = "https://www.instagram.com/eidsvoll_kampsport/",
   images = [],
 }: InstagramFeedProps) {
-  if (!images || images.length === 0) return null;
+  const hasImages = images && images.length > 0;
 
   return (
     <section className="w-full bg-background py-24 border-t border-border/40">
@@ -67,46 +67,61 @@ export function InstagramFeed({
 
         {/* Responsive Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 mb-12">
-          {images.map((item, idx) => {
-            const linkHref = item.postUrl || profileUrl;
-            return (
-              <Link
-                key={idx}
-                href={linkHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative aspect-square bg-muted overflow-hidden border border-border/40 hover:border-primary/50 transition-colors duration-300 shadow-md"
+          {hasImages ? (
+            images.map((item, idx) => {
+              const linkHref = item.postUrl || profileUrl;
+              return (
+                <Link
+                  key={idx}
+                  href={linkHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative aspect-square bg-muted overflow-hidden border border-border/40 hover:border-primary/50 transition-colors duration-300 shadow-md"
+                >
+                  {/* Image */}
+                  <img
+                    src={item.image}
+                    alt={item.caption || "Instagram bilde"}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
+                    <div className="flex justify-end">
+                      <ExternalLink className="w-4 h-4 text-white/70" />
+                    </div>
+                    
+                    <div className="flex flex-col items-center text-center justify-center flex-grow px-2">
+                      <InstagramIcon className="w-8 h-8 text-primary mb-3 scale-90 group-hover:scale-100 transition-transform duration-300" />
+                      {item.caption && (
+                        <p className="text-xs text-white/90 font-light line-clamp-3 leading-relaxed">
+                          {item.caption}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="text-[10px] text-white/50 tracking-wider text-center uppercase font-semibold">
+                      Åpne på Instagram
+                    </div>
+                  </div>
+                </Link>
+              );
+            })
+          ) : (
+            /* Ghost Loaders (Pulsing gray blocks with logo watermark) */
+            Array.from({ length: 4 }).map((_, idx) => (
+              <div 
+                key={idx} 
+                className="aspect-square bg-muted/50 animate-pulse border border-border/30 flex flex-col items-center justify-center relative shadow-sm"
               >
-                {/* Image */}
-                <img
-                  src={item.image}
-                  alt={item.caption || "Instagram bilde"}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                />
-
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
-                  <div className="flex justify-end">
-                    <ExternalLink className="w-4 h-4 text-white/70" />
-                  </div>
-                  
-                  <div className="flex flex-col items-center text-center justify-center flex-grow px-2">
-                    <InstagramIcon className="w-8 h-8 text-primary mb-3 scale-90 group-hover:scale-100 transition-transform duration-300" />
-                    {item.caption && (
-                      <p className="text-xs text-white/90 font-light line-clamp-3 leading-relaxed">
-                        {item.caption}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="text-[10px] text-white/50 tracking-wider text-center uppercase font-semibold">
-                    Åpne på Instagram
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+                <InstagramIcon className="w-10 h-10 text-muted-foreground/20" />
+                <span className="text-[10px] text-muted-foreground/30 font-semibold tracking-wider uppercase mt-2">
+                  Kommer snart
+                </span>
+              </div>
+            ))
+          )}
         </div>
 
         {/* Call to Action Button */}

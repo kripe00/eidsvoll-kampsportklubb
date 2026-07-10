@@ -30,16 +30,14 @@ export function HomePageClient(props: {
         parent={hero}
       />
       <News newsItems={rawEdges} />
-      {hero?.instagramImages && hero.instagramImages.length > 0 && (
-        <div data-tina-field={tinaField(hero, 'instagramImages')}>
-          <InstagramFeed 
-            title={hero.instagramTitle}
-            username={hero.instagramUsername}
-            profileUrl={hero.instagramLink}
-            images={hero.instagramImages}
-          />
-        </div>
-      )}
+      <div data-tina-field={tinaField(hero, 'instagramImages')}>
+        <InstagramFeed 
+          title={hero.instagramTitle}
+          username={hero.instagramUsername}
+          profileUrl={hero.instagramLink}
+          images={hero.instagramImages}
+        />
+      </div>
     </main>
   );
 }
