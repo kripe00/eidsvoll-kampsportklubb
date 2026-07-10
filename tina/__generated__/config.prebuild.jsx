@@ -211,7 +211,15 @@ var config_default = defineConfig({
               }
             },
             fields: [
-              { type: "image", name: "image", label: "Bilde", required: true },
+              {
+                type: "image",
+                name: "image",
+                label: "Bilde",
+                required: true,
+                ui: {
+                  uploadDir: () => "instagram"
+                }
+              },
               { type: "string", name: "caption", label: "Bildetekst" },
               { type: "string", name: "postUrl", label: "Lenke til innlegg (Valgfritt)" }
             ]
