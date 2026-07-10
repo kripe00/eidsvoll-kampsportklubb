@@ -3,6 +3,7 @@
 import { useTina } from "tinacms/dist/react";
 import { Hero } from "./Hero";
 import { News } from "./News";
+import { InstagramFeed } from "./InstagramFeed";
 import { tinaField } from "tinacms/dist/react";
 
 export function HomePageClient(props: {
@@ -29,6 +30,16 @@ export function HomePageClient(props: {
         parent={hero}
       />
       <News newsItems={rawEdges} />
+      {hero?.instagramImages && hero.instagramImages.length > 0 && (
+        <div data-tina-field={tinaField(hero, 'instagramImages')}>
+          <InstagramFeed 
+            title={hero.instagramTitle}
+            username={hero.instagramUsername}
+            profileUrl={hero.instagramLink}
+            images={hero.instagramImages}
+          />
+        </div>
+      )}
     </main>
   );
 }

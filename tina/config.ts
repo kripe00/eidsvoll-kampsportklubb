@@ -199,6 +199,25 @@ export default defineConfig({
           { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
           { type: "image", name: "backgroundImage", label: "Bakgrunnsbilde" },
           { type: "image", name: "backgroundVideo", label: "Bakgrunnsvideo (Valgfritt)" },
+          { type: "string", name: "instagramTitle", label: "Instagram Seksjonstittel" },
+          { type: "string", name: "instagramUsername", label: "Instagram Brukernavn (f.eks. @eidsvoll_kampsportklubb)" },
+          { type: "string", name: "instagramLink", label: "Instagram Profil-lenke" },
+          {
+            type: "object",
+            list: true,
+            name: "instagramImages",
+            label: "Instagram Bilder (Manuelt galleri)",
+            ui: {
+              itemProps: (item) => {
+                return { label: item?.caption || "Nytt bilde" };
+              },
+            },
+            fields: [
+              { type: "image", name: "image", label: "Bilde", required: true },
+              { type: "string", name: "caption", label: "Bildetekst" },
+              { type: "string", name: "postUrl", label: "Lenke til innlegg (Valgfritt)" },
+            ],
+          },
         ],
       },
       {

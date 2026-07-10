@@ -315,15 +315,31 @@ type PageConnection implements Connection {
   edges: [PageConnectionEdges]
 }
 
+type HeroInstagramImages {
+  image: String!
+  caption: String
+  postUrl: String
+}
+
 type Hero implements Node & Document {
   welcomeText: String
   highlightedText: String
   description: String
   backgroundImage: String
   backgroundVideo: String
+  instagramTitle: String
+  instagramUsername: String
+  instagramLink: String
+  instagramImages: [HeroInstagramImages]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input HeroInstagramImagesFilter {
+  image: ImageFilter
+  caption: StringFilter
+  postUrl: StringFilter
 }
 
 input HeroFilter {
@@ -332,6 +348,10 @@ input HeroFilter {
   description: StringFilter
   backgroundImage: ImageFilter
   backgroundVideo: ImageFilter
+  instagramTitle: StringFilter
+  instagramUsername: StringFilter
+  instagramLink: StringFilter
+  instagramImages: HeroInstagramImagesFilter
 }
 
 type HeroConnectionEdges {
@@ -1050,12 +1070,22 @@ input PageMutation {
   blocks: [PageBlocksMutation]
 }
 
+input HeroInstagramImagesMutation {
+  image: String
+  caption: String
+  postUrl: String
+}
+
 input HeroMutation {
   welcomeText: String
   highlightedText: String
   description: String
   backgroundImage: String
   backgroundVideo: String
+  instagramTitle: String
+  instagramUsername: String
+  instagramLink: String
+  instagramImages: [HeroInstagramImagesMutation]
 }
 
 input StyretBlocksAboutMutation {

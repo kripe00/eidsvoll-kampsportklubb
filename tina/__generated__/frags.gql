@@ -74,6 +74,15 @@ fragment HeroParts on Hero {
   description
   backgroundImage
   backgroundVideo
+  instagramTitle
+  instagramUsername
+  instagramLink
+  instagramImages {
+    __typename
+    image
+    caption
+    postUrl
+  }
 }
 
 fragment StyretParts on Styret {

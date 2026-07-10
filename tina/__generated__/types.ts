@@ -543,6 +543,13 @@ export type PageConnection = Connection & {
   edges?: Maybe<Array<Maybe<PageConnectionEdges>>>;
 };
 
+export type HeroInstagramImages = {
+  __typename?: 'HeroInstagramImages';
+  image: Scalars['String']['output'];
+  caption?: Maybe<Scalars['String']['output']>;
+  postUrl?: Maybe<Scalars['String']['output']>;
+};
+
 export type Hero = Node & Document & {
   __typename?: 'Hero';
   welcomeText?: Maybe<Scalars['String']['output']>;
@@ -550,9 +557,19 @@ export type Hero = Node & Document & {
   description?: Maybe<Scalars['String']['output']>;
   backgroundImage?: Maybe<Scalars['String']['output']>;
   backgroundVideo?: Maybe<Scalars['String']['output']>;
+  instagramTitle?: Maybe<Scalars['String']['output']>;
+  instagramUsername?: Maybe<Scalars['String']['output']>;
+  instagramLink?: Maybe<Scalars['String']['output']>;
+  instagramImages?: Maybe<Array<Maybe<HeroInstagramImages>>>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type HeroInstagramImagesFilter = {
+  image?: InputMaybe<ImageFilter>;
+  caption?: InputMaybe<StringFilter>;
+  postUrl?: InputMaybe<StringFilter>;
 };
 
 export type HeroFilter = {
@@ -561,6 +578,10 @@ export type HeroFilter = {
   description?: InputMaybe<StringFilter>;
   backgroundImage?: InputMaybe<ImageFilter>;
   backgroundVideo?: InputMaybe<ImageFilter>;
+  instagramTitle?: InputMaybe<StringFilter>;
+  instagramUsername?: InputMaybe<StringFilter>;
+  instagramLink?: InputMaybe<StringFilter>;
+  instagramImages?: InputMaybe<HeroInstagramImagesFilter>;
 };
 
 export type HeroConnectionEdges = {
@@ -1483,12 +1504,22 @@ export type PageMutation = {
   blocks?: InputMaybe<Array<InputMaybe<PageBlocksMutation>>>;
 };
 
+export type HeroInstagramImagesMutation = {
+  image?: InputMaybe<Scalars['String']['input']>;
+  caption?: InputMaybe<Scalars['String']['input']>;
+  postUrl?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type HeroMutation = {
   welcomeText?: InputMaybe<Scalars['String']['input']>;
   highlightedText?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   backgroundImage?: InputMaybe<Scalars['String']['input']>;
   backgroundVideo?: InputMaybe<Scalars['String']['input']>;
+  instagramTitle?: InputMaybe<Scalars['String']['input']>;
+  instagramUsername?: InputMaybe<Scalars['String']['input']>;
+  instagramLink?: InputMaybe<Scalars['String']['input']>;
+  instagramImages?: InputMaybe<Array<InputMaybe<HeroInstagramImagesMutation>>>;
 };
 
 export type StyretBlocksAboutMutation = {
@@ -1719,7 +1750,7 @@ export type GlobalMutation = {
 
 export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
 
-export type HeroPartsFragment = { __typename: 'Hero', welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null };
+export type HeroPartsFragment = { __typename: 'Hero', welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null };
 
 export type StyretPartsFragment = { __typename: 'Styret', title?: string | null, description?: any | null, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null };
 
@@ -1761,7 +1792,7 @@ export type HeroQueryVariables = Exact<{
 }>;
 
 
-export type HeroQuery = { __typename?: 'Query', hero: { __typename: 'Hero', id: string, welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type HeroQuery = { __typename?: 'Query', hero: { __typename: 'Hero', id: string, welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null } };
 
 export type HeroConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1773,7 +1804,7 @@ export type HeroConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HeroConnectionQuery = { __typename?: 'Query', heroConnection: { __typename?: 'HeroConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HeroConnectionEdges', cursor: string, node?: { __typename: 'Hero', id: string, welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type HeroConnectionQuery = { __typename?: 'Query', heroConnection: { __typename?: 'HeroConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HeroConnectionEdges', cursor: string, node?: { __typename: 'Hero', id: string, welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null } | null } | null> | null } };
 
 export type StyretQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -2005,6 +2036,15 @@ export const HeroPartsFragmentDoc = gql`
   description
   backgroundImage
   backgroundVideo
+  instagramTitle
+  instagramUsername
+  instagramLink
+  instagramImages {
+    __typename
+    image
+    caption
+    postUrl
+  }
 }
     `;
 export const StyretPartsFragmentDoc = gql`
