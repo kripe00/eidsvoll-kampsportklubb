@@ -1,8 +1,27 @@
 "use client";
 
-import { Instagram, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
 
 interface InstagramItem {
   image: string;
@@ -40,7 +59,7 @@ export function InstagramFeed({
             rel="noopener noreferrer" 
             className="text-primary hover:text-primary/80 font-semibold tracking-wide flex items-center justify-center gap-1.5 mt-2 transition-colors duration-200"
           >
-            <Instagram className="w-5 h-5" />
+            <InstagramIcon className="w-5 h-5" />
             <span>{username}</span>
           </Link>
           <div className="w-16 h-[2px] bg-primary mx-auto mt-4" />
@@ -73,7 +92,7 @@ export function InstagramFeed({
                   </div>
                   
                   <div className="flex flex-col items-center text-center justify-center flex-grow px-2">
-                    <Instagram className="w-8 h-8 text-primary mb-3 scale-90 group-hover:scale-100 transition-transform duration-300" />
+                    <InstagramIcon className="w-8 h-8 text-primary mb-3 scale-90 group-hover:scale-100 transition-transform duration-300" />
                     {item.caption && (
                       <p className="text-xs text-white/90 font-light line-clamp-3 leading-relaxed">
                         {item.caption}
@@ -94,7 +113,7 @@ export function InstagramFeed({
         <div className="flex justify-center">
           <Link href={profileUrl} target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="group h-14 px-8 text-sm font-bold rounded-none bg-primary hover:bg-primary/90 text-white transition-all duration-300 flex items-center gap-2">
-              <Instagram className="w-4 h-4" />
+              <InstagramIcon className="w-4 h-4" />
               <span>GÅ TIL VÅR PROFIL</span>
             </Button>
           </Link>
