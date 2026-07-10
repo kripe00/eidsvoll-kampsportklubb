@@ -52,6 +52,12 @@ export function SchedulePageClient(props: {
     });
   };
 
+  // Helper to get unique start times sorted chronologically
+  const getUniqueStartTimes = (slots: Slot[] = []) => {
+    const startTimes = slots.map((s) => s.time.split("-")[0].trim());
+    return Array.from(new Set(startTimes)).sort((a, b) => a.localeCompare(b));
+  };
+
   // Helper to get sport styles
   const getActivityStyles = (activity: string) => {
     const act = activity.toLowerCase();
@@ -99,6 +105,7 @@ export function SchedulePageClient(props: {
   const sal1Slots = getSlotsForRoom(currentDay?.slots, "sal1");
   const sal2Slots = getSlotsForRoom(currentDay?.slots, "sal2");
   const sal3Slots = getSlotsForRoom(currentDay?.slots, "sal3");
+  const uniqueStartTimes = getUniqueStartTimes(currentDay?.slots);
 
   const roomsConfig = [
     { key: "sal3", name: "Sal 3 (BJJ)", desc: "Eget matteareal for BJJ", slots: sal3Slots },
@@ -249,12 +256,12 @@ export function SchedulePageClient(props: {
         {/* Selected Day Content */}
         {currentDay && (
           <div className={cn(viewMode === "week" && "lg:hidden")}>
-            {/* DESKTOP VIEW (Parallel columns for rooms) */}
-            <div className="hidden lg:grid grid-cols-3 gap-6 lg:gap-8">
-              {roomsConfig.map((room) => (
-                <div key={room.key} className="flex flex-col">
-                  {/* Column Header */}
-                  <div className="bg-muted/30 border border-border/40 rounded-xl p-4 mb-6 text-center">
+            {/* DESKTOP VIEW (Aligned row-by-row by time slots) */}
+            <div className="hidden lg:flex flex-col space-y-6">
+              {/* Room Headers Row */}
+              <div className="grid grid-cols-3 gap-6 lg:gap-8 items-stretch">
+                {roomsConfig.map((room) => (
+                  <div key={room.key} className="bg-muted/30 border border-border/40 rounded-xl p-4 text-center">
                     <h3 className="font-extrabold text-lg tracking-wide uppercase text-foreground">
                       {room.name}
                     </h3>
@@ -262,18 +269,36 @@ export function SchedulePageClient(props: {
                       {room.desc}
                     </p>
                   </div>
+                ))}
+              </div>
 
-                  {/* Slots in Column */}
-                  <div className="space-y-4 flex-grow">
-                    {room.slots.length > 0 ? (
-                      room.slots.map((slot, idx) => {
+              {/* Rows sorted by Start Time */}
+              {uniqueStartTimes.map((startTime) => {
+                return (
+                  <div key={startTime} className="grid grid-cols-3 gap-6 lg:gap-8 items-stretch">
+                    {roomsConfig.map((room) => {
+                      // Find slot for this room starting at this time
+                      const slot = currentDay?.slots?.find((s) => {
+                        const sRoom = s.room || "";
+                        const sStart = s.time.split("-")[0].trim();
+                        
+                        // Check room match
+                        let roomMatch = false;
+                        if (room.key === "sal1") roomMatch = sRoom.includes("Sal 1");
+                        if (room.key === "sal2") roomMatch = sRoom.includes("Sal 2");
+                        if (room.key === "sal3") roomMatch = sRoom.includes("Sal 3");
+                        
+                        return roomMatch && sStart === startTime;
+                      });
+
+                      if (slot) {
                         const styles = getActivityStyles(slot.activity);
                         const kids = isKidsClass(slot.group);
                         return (
                           <div
-                            key={idx}
+                            key={room.key}
                             className={cn(
-                              "border border-border/40 rounded-xl p-5 transition-all duration-300 shadow-sm flex flex-col justify-between h-44",
+                              "border border-border/40 rounded-xl p-5 transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[160px]",
                               styles.card
                             )}
                             data-tina-field={tinaField(slot as any)}
@@ -315,15 +340,21 @@ export function SchedulePageClient(props: {
                             )}
                           </div>
                         );
-                      })
-                    ) : (
-                      <div className="border border-dashed border-border/40 rounded-xl p-8 text-center text-xs text-muted-foreground/50 h-32 flex items-center justify-center">
-                        Ingen treninger satt opp i denne salen i dag.
-                      </div>
-                    )}
+                      }
+
+                      // Empty Slot Placeholder
+                      return (
+                        <div 
+                          key={room.key} 
+                          className="border border-dashed border-border/20 bg-muted/5 rounded-xl p-5 min-h-[160px] flex flex-col items-center justify-center text-center text-xs text-muted-foreground/10 font-semibold"
+                        >
+                          <span>Ledig sal</span>
+                        </div>
+                      );
+                    })}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* MOBILE & TABLET VIEW (Stacked timeline) */}
