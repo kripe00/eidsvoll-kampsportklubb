@@ -38,6 +38,7 @@ export function SchedulePageClient(props: {
   const days = schedule?.days || [];
 
   const [activeDayIdx, setActiveDayIdx] = useState(0);
+  const [viewMode, setViewMode] = useState<"day" | "week">("week");
   const currentDay = days[activeDayIdx];
 
   // Helper to filter slots by room
@@ -120,8 +121,39 @@ export function SchedulePageClient(props: {
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 max-w-6xl mt-12">
-        {/* Day Selection Tabs */}
-        <div className="flex justify-center gap-2 border-b border-border/40 pb-4 mb-12 overflow-x-auto whitespace-nowrap scrollbar-none">
+        {/* Toggle View Mode (Only visible on PC) */}
+        <div className="hidden lg:flex justify-end mb-8">
+          <div className="inline-flex rounded-lg border border-border/40 p-1 bg-muted/20">
+            <button
+              onClick={() => setViewMode("week")}
+              className={cn(
+                "px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-all duration-300",
+                viewMode === "week"
+                  ? "bg-primary text-white shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Ukesvisning
+            </button>
+            <button
+              onClick={() => setViewMode("day")}
+              className={cn(
+                "px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-all duration-300",
+                viewMode === "day"
+                  ? "bg-primary text-white shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Dagsvisning (Saler)
+            </button>
+          </div>
+        </div>
+
+        {/* Day Selection Tabs (Hidden on PC if viewMode is "week") */}
+        <div className={cn(
+          "flex justify-center gap-2 border-b border-border/40 pb-4 mb-12 overflow-x-auto whitespace-nowrap scrollbar-none",
+          viewMode === "week" && "lg:hidden"
+        )}>
           {days.map((day, idx) => (
             <button
               key={idx}
@@ -139,9 +171,84 @@ export function SchedulePageClient(props: {
           ))}
         </div>
 
+        {/* WEEK VIEW (7 columns for 7 days) - Only shown on PC if viewMode is "week" */}
+        {viewMode === "week" && (
+          <div className="hidden lg:grid grid-cols-7 gap-4">
+            {days.map((day, idx) => {
+              const sortedSlots = [...(day.slots || [])].sort((a, b) => a.time.localeCompare(b.time));
+              return (
+                <div key={idx} className="flex flex-col border border-border/30 rounded-xl bg-muted/5 p-3">
+                  {/* Day Column Header */}
+                  <div className="border-b border-border/40 pb-3 mb-4 text-center">
+                    <h3 className="font-extrabold text-sm tracking-wider uppercase text-foreground text-primary">
+                      {day.day}
+                    </h3>
+                  </div>
+
+                  {/* Slots List */}
+                  <div className="space-y-3 flex-grow">
+                    {sortedSlots.length > 0 ? (
+                      sortedSlots.map((slot, sIdx) => {
+                        const styles = getActivityStyles(slot.activity);
+                        const kids = isKidsClass(slot.group);
+                        const roomShort = slot.room?.split(" ")[0] || "Sal";
+                        return (
+                          <div
+                            key={sIdx}
+                            className={cn(
+                              "border border-border/40 rounded-lg p-3 transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[140px]",
+                              styles.card
+                            )}
+                            data-tina-field={tinaField(slot as any)}
+                          >
+                            <div>
+                              <span className="text-[10px] text-muted-foreground font-semibold block mb-1">
+                                {slot.time}
+                              </span>
+                              <h4 className="font-black text-sm tracking-tight text-foreground uppercase truncate">
+                                {slot.activity}
+                              </h4>
+                              <p className="text-[10px] text-muted-foreground truncate mt-0.5">
+                                {slot.group}
+                              </p>
+                            </div>
+
+                            <div className="mt-2 pt-2 border-t border-border/30 flex items-center justify-between gap-1 flex-wrap">
+                              {/* Room Tag */}
+                              <span className="text-[9px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground font-semibold">
+                                {roomShort}
+                              </span>
+                              
+                              {/* Group Badge */}
+                              <span
+                                className={cn(
+                                  "text-[8px] px-1 py-0.2 rounded border uppercase font-extrabold tracking-wider shrink-0",
+                                  kids 
+                                    ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
+                                    : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                                )}
+                              >
+                                {kids ? "Barn" : "Voksen"}
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className="text-center text-[10px] text-muted-foreground/40 py-8 border border-dashed border-border/30 rounded-lg">
+                        Ingen timer
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         {/* Selected Day Content */}
         {currentDay && (
-          <div>
+          <div className={cn(viewMode === "week" && "lg:hidden")}>
             {/* DESKTOP VIEW (Parallel columns for rooms) */}
             <div className="hidden lg:grid grid-cols-3 gap-6 lg:gap-8">
               {roomsConfig.map((room) => (
