@@ -212,7 +212,15 @@ export function SchedulePageClient(props: {
 
                     if (daySlots.length > 0) {
                       return (
-                        <div key={idx} className="flex flex-col gap-2 justify-center">
+                        <div 
+                          key={idx} 
+                          className={cn(
+                            "grid gap-2 justify-stretch items-stretch w-full",
+                            daySlots.length === 2 && "grid-cols-2",
+                            daySlots.length >= 3 && "grid-cols-3",
+                            daySlots.length === 1 && "grid-cols-1"
+                          )}
+                        >
                           {daySlots.map((slot, sIdx) => {
                             const styles = getActivityStyles(slot.activity);
                             const kids = isKidsClass(slot.group);
@@ -221,7 +229,8 @@ export function SchedulePageClient(props: {
                               <div
                                 key={sIdx}
                                 className={cn(
-                                  "border border-border/40 rounded-lg p-3 transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[140px] flex-grow",
+                                  "border border-border/40 rounded-lg transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[140px] flex-grow",
+                                  daySlots.length > 1 ? "p-2" : "p-3",
                                   styles.card
                                 )}
                                 data-tina-field={tinaField(slot as any)}
@@ -230,7 +239,7 @@ export function SchedulePageClient(props: {
                                   <span className="text-[10px] text-muted-foreground font-semibold block mb-1">
                                     {slot.time}
                                   </span>
-                                  <h4 className="font-black text-sm tracking-tight text-foreground uppercase truncate">
+                                  <h4 className="font-black text-xs sm:text-sm tracking-tight text-foreground uppercase truncate">
                                     {slot.activity}
                                   </h4>
                                   <p className="text-[10px] text-muted-foreground truncate mt-0.5">
@@ -238,16 +247,16 @@ export function SchedulePageClient(props: {
                                   </p>
                                 </div>
 
-                                <div className="mt-2 pt-2 border-t border-border/30 flex items-center justify-between gap-1 flex-wrap">
+                                <div className="mt-2 pt-2 border-t border-border/30 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                                   {/* Room Tag */}
-                                  <span className="text-[9px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground font-semibold">
+                                  <span className="text-[8px] sm:text-[9px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground font-semibold self-start sm:self-auto truncate">
                                     {roomShort}
                                   </span>
                                   
                                   {/* Group Badge */}
                                   <span
                                     className={cn(
-                                      "text-[8px] px-1 py-0.2 rounded border uppercase font-extrabold tracking-wider shrink-0",
+                                      "text-[7px] sm:text-[8px] px-1 py-0.2 rounded border uppercase font-extrabold tracking-wider shrink-0 self-start sm:self-auto",
                                       kids 
                                         ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
                                         : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
