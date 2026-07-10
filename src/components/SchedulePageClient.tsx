@@ -130,7 +130,7 @@ export function SchedulePageClient(props: {
             Treningstider
           </h1>
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-            Vi trener i helt nye fasiliteter på Dal. Her ser du planen fordelt over våre 3 saler. Endringer i ferier eller på helligdager varsles i våre lukkede medlemsgrupper.
+            Vi trener i nyopppussede lokaler på Dal. Her ser du planen fordelt over våre 3 saler. Vi følger skoleruta, endringer vil varsles på Spond.
           </p>
         </div>
       </div>
