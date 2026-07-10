@@ -132,7 +132,7 @@ export function SchedulePageClient(props: {
                   ? "border-primary text-primary bg-primary/5"
                   : "border-transparent text-muted-foreground hover:text-foreground"
               )}
-              data-tina-field={tinaField(day, "day")}
+              data-tina-field={tinaField(day as any, "day")}
             >
               {day.day}
             </button>
@@ -169,7 +169,7 @@ export function SchedulePageClient(props: {
                               "border border-border/40 rounded-xl p-5 transition-all duration-300 shadow-sm flex flex-col justify-between h-44",
                               styles.card
                             )}
-                            data-tina-field={tinaField(slot)}
+                            data-tina-field={tinaField(slot as any)}
                           >
                             <div>
                               <div className="flex items-center justify-between mb-2">
@@ -245,7 +245,7 @@ export function SchedulePageClient(props: {
                               "border border-border/40 rounded-xl p-4 transition-all duration-300 shadow-sm flex flex-col justify-between gap-4",
                               styles.card
                             )}
-                            data-tina-field={tinaField(slot)}
+                            data-tina-field={tinaField(slot as any)}
                           >
                             <div className="flex justify-between items-start">
                               <div>
