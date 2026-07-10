@@ -48,6 +48,10 @@
       ]
     },
     {
+      "day": "Tirsdag",
+      "slots": []
+    },
+    {
       "day": "Onsdag",
       "slots": [
         {
@@ -86,6 +90,22 @@
           "trainer": "Torbjørn"
         }
       ]
+    },
+    {
+      "day": "Torsdag",
+      "slots": []
+    },
+    {
+      "day": "Fredag",
+      "slots": []
+    },
+    {
+      "day": "Lørdag",
+      "slots": []
+    },
+    {
+      "day": "Søndag",
+      "slots": []
     }
   ]
 }
