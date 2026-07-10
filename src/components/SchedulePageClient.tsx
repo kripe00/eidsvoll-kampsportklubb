@@ -186,100 +186,79 @@ export function SchedulePageClient(props: {
           ))}
         </div>
 
-        {/* WEEK VIEW (7 columns aligned by time slots) - Only shown on PC if viewMode is "week" */}
+        {/* WEEK VIEW (Vertical list of days, classes flowing horizontally) */}
         {viewMode === "week" && (
-          <div className="hidden lg:flex flex-col space-y-4">
-            {/* Week Header Row */}
-            <div className="grid grid-cols-7 gap-4">
-              {days.map((day, idx) => (
-                <div key={idx} className="bg-muted/30 border border-border/40 rounded-xl py-3 text-center">
-                  <h3 className="font-extrabold text-sm tracking-wider uppercase text-foreground text-primary">
-                    {day.day}
-                  </h3>
-                </div>
-              ))}
-            </div>
-
-            {/* Time Slot Rows */}
-            {weekStartTimes.map((startTime) => {
+          <div className="hidden lg:flex flex-col space-y-6">
+            {days.map((day, idx) => {
+              const sortedSlots = [...(day.slots || [])].sort((a, b) => a.time.localeCompare(b.time));
               return (
-                <div key={startTime} className="grid grid-cols-7 gap-4 items-stretch">
-                  {days.map((day, idx) => {
-                    // Find all slots starting at this time for this day (handles parallel classes)
-                    const daySlots = day.slots?.filter(
-                      (s) => s.time.split("-")[0].trim() === startTime
-                    ) || [];
+                <div key={idx} className="border border-border/30 rounded-xl bg-muted/5 p-6 flex flex-col md:flex-row gap-6 items-start">
+                  {/* Day Column (Left side) */}
+                  <div className="w-full md:w-32 shrink-0 border-b md:border-b-0 md:border-r border-border/40 pb-4 md:pb-0 md:pr-6">
+                    <h3 className="font-extrabold text-lg tracking-wider uppercase text-foreground text-primary">
+                      {day.day}
+                    </h3>
+                    <span className="text-xs text-muted-foreground mt-1 block">
+                      {sortedSlots.length} {sortedSlots.length === 1 ? "time" : "timer"}
+                    </span>
+                  </div>
 
-                    if (daySlots.length > 0) {
-                      return (
-                        <div 
-                          key={idx} 
-                          className={cn(
-                            "grid gap-2 justify-stretch items-stretch w-full",
-                            daySlots.length === 2 && "grid-cols-2",
-                            daySlots.length >= 3 && "grid-cols-3",
-                            daySlots.length === 1 && "grid-cols-1"
-                          )}
-                        >
-                          {daySlots.map((slot, sIdx) => {
-                            const styles = getActivityStyles(slot.activity);
-                            const kids = isKidsClass(slot.group);
-                            const roomShort = slot.room?.split(" ")[0] || "Sal";
-                            return (
-                              <div
-                                key={sIdx}
-                                className={cn(
-                                  "border border-border/40 rounded-lg transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[140px] flex-grow",
-                                  daySlots.length > 1 ? "p-2" : "p-3",
-                                  styles.card
-                                )}
-                                data-tina-field={tinaField(slot as any)}
-                              >
-                                <div>
-                                  <span className="text-[10px] text-muted-foreground font-semibold block mb-1">
-                                    {slot.time}
-                                  </span>
-                                  <h4 className="font-black text-xs sm:text-sm tracking-tight text-foreground uppercase truncate">
-                                    {slot.activity}
-                                  </h4>
-                                  <p className="text-[10px] text-muted-foreground truncate mt-0.5">
-                                    {slot.group}
-                                  </p>
-                                </div>
-
-                                <div className="mt-2 pt-2 border-t border-border/30 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                                  {/* Room Tag */}
-                                  <span className="text-[8px] sm:text-[9px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground font-semibold self-start sm:self-auto truncate">
-                                    {roomShort}
-                                  </span>
-                                  
-                                  {/* Group Badge */}
-                                  <span
-                                    className={cn(
-                                      "text-[7px] sm:text-[8px] px-1 py-0.2 rounded border uppercase font-extrabold tracking-wider shrink-0 self-start sm:self-auto",
-                                      kids 
-                                        ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
-                                        : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
-                                    )}
-                                  >
-                                    {kids ? "Barn" : "Voksen"}
-                                  </span>
-                                </div>
+                  {/* Classes Flow (Right side) */}
+                  <div className="flex-grow w-full">
+                    {sortedSlots.length > 0 ? (
+                      <div className="flex flex-wrap gap-4">
+                        {sortedSlots.map((slot, sIdx) => {
+                          const styles = getActivityStyles(slot.activity);
+                          const kids = isKidsClass(slot.group);
+                          return (
+                            <div
+                              key={sIdx}
+                              className={cn(
+                                "border border-border/40 rounded-xl p-4 transition-all duration-300 shadow-sm flex flex-col justify-between h-40 w-[240px] shrink-0",
+                                styles.card
+                              )}
+                              data-tina-field={tinaField(slot as any)}
+                            >
+                              <div>
+                                <span className="text-[10px] text-muted-foreground font-semibold block mb-1">
+                                  {slot.time}
+                                </span>
+                                <h4 className="font-black text-base tracking-tight text-foreground uppercase truncate">
+                                  {slot.activity}
+                                </h4>
+                                <p className="text-xs text-muted-foreground truncate mt-0.5 font-medium">
+                                  {slot.group}
+                                </p>
                               </div>
-                            );
-                          })}
-                        </div>
-                      );
-                    }
 
-                    // Empty spacer for day with no class at this time
-                    return (
-                      <div
-                        key={idx}
-                        className="min-h-[140px]"
-                      />
-                    );
-                  })}
+                              <div className="mt-2 pt-2 border-t border-border/30 flex items-center justify-between gap-1">
+                                {/* Room Tag */}
+                                <span className="text-[10px] bg-muted px-2 py-0.5 rounded text-muted-foreground font-semibold truncate max-w-[110px]">
+                                  {slot.room}
+                                </span>
+                                
+                                {/* Group Badge */}
+                                <span
+                                  className={cn(
+                                    "text-[9px] px-2 py-0.5 rounded border uppercase font-extrabold tracking-wider shrink-0",
+                                    kids 
+                                      ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
+                                      : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                                  )}
+                                >
+                                  {kids ? "Barn" : "Voksen"}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="text-sm text-muted-foreground/45 py-4 font-medium italic">
+                        Ingen treninger satt opp denne dagen.
+                      </div>
+                    )}
+                  </div>
                 </div>
               );
             })}
