@@ -166,7 +166,7 @@ export function SchedulePageClient(props: {
 
         {/* Day Selection Tabs (Hidden on PC if viewMode is "week") */}
         <div className={cn(
-          "flex justify-center gap-2 border-b border-border/40 pb-4 mb-12 overflow-x-auto whitespace-nowrap scrollbar-none",
+          "flex justify-start lg:justify-center gap-2 border-b border-border/40 pb-4 mb-12 overflow-x-auto whitespace-nowrap scrollbar-none",
           viewMode === "week" && "lg:hidden"
         )}>
           {days.map((day, idx) => (
