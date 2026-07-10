@@ -58,6 +58,13 @@ export function SchedulePageClient(props: {
     return Array.from(new Set(startTimes)).sort((a, b) => a.localeCompare(b));
   };
 
+  // Helper to get unique start times across the entire week
+  const getUniqueStartTimesForWeek = (allDays: Day[] = []) => {
+    const allSlots = allDays.flatMap((d) => d.slots || []);
+    const startTimes = allSlots.map((s) => s.time.split("-")[0].trim());
+    return Array.from(new Set(startTimes)).sort((a, b) => a.localeCompare(b));
+  };
+
   // Helper to get sport styles
   const getActivityStyles = (activity: string) => {
     const act = activity.toLowerCase();
@@ -106,6 +113,7 @@ export function SchedulePageClient(props: {
   const sal2Slots = getSlotsForRoom(currentDay?.slots, "sal2");
   const sal3Slots = getSlotsForRoom(currentDay?.slots, "sal3");
   const uniqueStartTimes = getUniqueStartTimes(currentDay?.slots);
+  const weekStartTimes = getUniqueStartTimesForWeek(days);
 
   const roomsConfig = [
     { key: "sal3", name: "Sal 3 (BJJ)", desc: "Eget matteareal for BJJ", slots: sal3Slots },
@@ -178,75 +186,91 @@ export function SchedulePageClient(props: {
           ))}
         </div>
 
-        {/* WEEK VIEW (7 columns for 7 days) - Only shown on PC if viewMode is "week" */}
+        {/* WEEK VIEW (7 columns aligned by time slots) - Only shown on PC if viewMode is "week" */}
         {viewMode === "week" && (
-          <div className="hidden lg:grid grid-cols-7 gap-4">
-            {days.map((day, idx) => {
-              const sortedSlots = [...(day.slots || [])].sort((a, b) => a.time.localeCompare(b.time));
+          <div className="hidden lg:flex flex-col space-y-4">
+            {/* Week Header Row */}
+            <div className="grid grid-cols-7 gap-4">
+              {days.map((day, idx) => (
+                <div key={idx} className="bg-muted/30 border border-border/40 rounded-xl py-3 text-center">
+                  <h3 className="font-extrabold text-sm tracking-wider uppercase text-foreground text-primary">
+                    {day.day}
+                  </h3>
+                </div>
+              ))}
+            </div>
+
+            {/* Time Slot Rows */}
+            {weekStartTimes.map((startTime) => {
               return (
-                <div key={idx} className="flex flex-col border border-border/30 rounded-xl bg-muted/5 p-3">
-                  {/* Day Column Header */}
-                  <div className="border-b border-border/40 pb-3 mb-4 text-center">
-                    <h3 className="font-extrabold text-sm tracking-wider uppercase text-foreground text-primary">
-                      {day.day}
-                    </h3>
-                  </div>
+                <div key={startTime} className="grid grid-cols-7 gap-4 items-stretch">
+                  {days.map((day, idx) => {
+                    // Find all slots starting at this time for this day (handles parallel classes)
+                    const daySlots = day.slots?.filter(
+                      (s) => s.time.split("-")[0].trim() === startTime
+                    ) || [];
 
-                  {/* Slots List */}
-                  <div className="space-y-3 flex-grow">
-                    {sortedSlots.length > 0 ? (
-                      sortedSlots.map((slot, sIdx) => {
-                        const styles = getActivityStyles(slot.activity);
-                        const kids = isKidsClass(slot.group);
-                        const roomShort = slot.room?.split(" ")[0] || "Sal";
-                        return (
-                          <div
-                            key={sIdx}
-                            className={cn(
-                              "border border-border/40 rounded-lg p-3 transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[140px]",
-                              styles.card
-                            )}
-                            data-tina-field={tinaField(slot as any)}
-                          >
-                            <div>
-                              <span className="text-[10px] text-muted-foreground font-semibold block mb-1">
-                                {slot.time}
-                              </span>
-                              <h4 className="font-black text-sm tracking-tight text-foreground uppercase truncate">
-                                {slot.activity}
-                              </h4>
-                              <p className="text-[10px] text-muted-foreground truncate mt-0.5">
-                                {slot.group}
-                              </p>
-                            </div>
-
-                            <div className="mt-2 pt-2 border-t border-border/30 flex items-center justify-between gap-1 flex-wrap">
-                              {/* Room Tag */}
-                              <span className="text-[9px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground font-semibold">
-                                {roomShort}
-                              </span>
-                              
-                              {/* Group Badge */}
-                              <span
+                    if (daySlots.length > 0) {
+                      return (
+                        <div key={idx} className="flex flex-col gap-2 justify-center">
+                          {daySlots.map((slot, sIdx) => {
+                            const styles = getActivityStyles(slot.activity);
+                            const kids = isKidsClass(slot.group);
+                            const roomShort = slot.room?.split(" ")[0] || "Sal";
+                            return (
+                              <div
+                                key={sIdx}
                                 className={cn(
-                                  "text-[8px] px-1 py-0.2 rounded border uppercase font-extrabold tracking-wider shrink-0",
-                                  kids 
-                                    ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
-                                    : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                                  "border border-border/40 rounded-lg p-3 transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[140px] flex-grow",
+                                  styles.card
                                 )}
+                                data-tina-field={tinaField(slot as any)}
                               >
-                                {kids ? "Barn" : "Voksen"}
-                              </span>
-                            </div>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <div className="text-center text-[10px] text-muted-foreground/40 py-8 border border-dashed border-border/30 rounded-lg">
-                        Ingen timer
-                      </div>
-                    )}
-                  </div>
+                                <div>
+                                  <span className="text-[10px] text-muted-foreground font-semibold block mb-1">
+                                    {slot.time}
+                                  </span>
+                                  <h4 className="font-black text-sm tracking-tight text-foreground uppercase truncate">
+                                    {slot.activity}
+                                  </h4>
+                                  <p className="text-[10px] text-muted-foreground truncate mt-0.5">
+                                    {slot.group}
+                                  </p>
+                                </div>
+
+                                <div className="mt-2 pt-2 border-t border-border/30 flex items-center justify-between gap-1 flex-wrap">
+                                  {/* Room Tag */}
+                                  <span className="text-[9px] bg-muted px-1.5 py-0.5 rounded text-muted-foreground font-semibold">
+                                    {roomShort}
+                                  </span>
+                                  
+                                  {/* Group Badge */}
+                                  <span
+                                    className={cn(
+                                      "text-[8px] px-1 py-0.2 rounded border uppercase font-extrabold tracking-wider shrink-0",
+                                      kids 
+                                        ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
+                                        : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                                    )}
+                                  >
+                                    {kids ? "Barn" : "Voksen"}
+                                  </span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    }
+
+                    // Empty spacer for day with no class at this time
+                    return (
+                      <div
+                        key={idx}
+                        className="min-h-[140px]"
+                      />
+                    );
+                  })}
                 </div>
               );
             })}
@@ -342,14 +366,12 @@ export function SchedulePageClient(props: {
                         );
                       }
 
-                      // Empty Slot Placeholder
+                      // Empty Slot Placeholder (Transparent spacer to keep alignment without border "holes")
                       return (
                         <div 
                           key={room.key} 
-                          className="border border-dashed border-border/20 bg-muted/5 rounded-xl p-5 min-h-[160px] flex flex-col items-center justify-center text-center text-xs text-muted-foreground/10 font-semibold"
-                        >
-                          <span>Ledig sal</span>
-                        </div>
+                          className="min-h-[160px] hidden lg:block"
+                        />
                       );
                     })}
                   </div>
