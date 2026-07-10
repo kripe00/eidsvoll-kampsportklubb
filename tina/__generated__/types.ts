@@ -86,6 +86,8 @@ export type Query = {
   pageConnection: PageConnection;
   hero: Hero;
   heroConnection: HeroConnection;
+  schedule: Schedule;
+  scheduleConnection: ScheduleConnection;
   styret: Styret;
   styretConnection: StyretConnection;
   organisasjonsplan: Organisasjonsplan;
@@ -153,6 +155,21 @@ export type QueryHeroConnectionArgs = {
   last?: InputMaybe<Scalars['Float']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<HeroFilter>;
+};
+
+
+export type QueryScheduleArgs = {
+  relativePath?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type QueryScheduleConnectionArgs = {
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<ScheduleFilter>;
 };
 
 
@@ -278,6 +295,7 @@ export type QueryGlobalConnectionArgs = {
 export type DocumentFilter = {
   page?: InputMaybe<PageFilter>;
   hero?: InputMaybe<HeroFilter>;
+  schedule?: InputMaybe<ScheduleFilter>;
   styret?: InputMaybe<StyretFilter>;
   organisasjonsplan?: InputMaybe<OrganisasjonsplanFilter>;
   news?: InputMaybe<NewsFilter>;
@@ -325,7 +343,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Page | Hero | Styret | Organisasjonsplan | News | Sponsorer | Medlemskap | OmOss | Contact | Global | Folder;
+export type DocumentNode = Page | Hero | Schedule | Styret | Organisasjonsplan | News | Sponsorer | Medlemskap | OmOss | Contact | Global | Folder;
 
 export type PageBlocksAbout = {
   __typename?: 'PageBlocksAbout';
@@ -595,6 +613,59 @@ export type HeroConnection = Connection & {
   pageInfo: PageInfo;
   totalCount: Scalars['Float']['output'];
   edges?: Maybe<Array<Maybe<HeroConnectionEdges>>>;
+};
+
+export type ScheduleDaysSlots = {
+  __typename?: 'ScheduleDaysSlots';
+  time: Scalars['String']['output'];
+  activity: Scalars['String']['output'];
+  group: Scalars['String']['output'];
+  room: Scalars['String']['output'];
+  trainer?: Maybe<Scalars['String']['output']>;
+};
+
+export type ScheduleDays = {
+  __typename?: 'ScheduleDays';
+  day: Scalars['String']['output'];
+  slots?: Maybe<Array<Maybe<ScheduleDaysSlots>>>;
+};
+
+export type Schedule = Node & Document & {
+  __typename?: 'Schedule';
+  days?: Maybe<Array<Maybe<ScheduleDays>>>;
+  id: Scalars['ID']['output'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON']['output'];
+};
+
+export type ScheduleDaysSlotsFilter = {
+  time?: InputMaybe<StringFilter>;
+  activity?: InputMaybe<StringFilter>;
+  group?: InputMaybe<StringFilter>;
+  room?: InputMaybe<StringFilter>;
+  trainer?: InputMaybe<StringFilter>;
+};
+
+export type ScheduleDaysFilter = {
+  day?: InputMaybe<StringFilter>;
+  slots?: InputMaybe<ScheduleDaysSlotsFilter>;
+};
+
+export type ScheduleFilter = {
+  days?: InputMaybe<ScheduleDaysFilter>;
+};
+
+export type ScheduleConnectionEdges = {
+  __typename?: 'ScheduleConnectionEdges';
+  cursor: Scalars['String']['output'];
+  node?: Maybe<Schedule>;
+};
+
+export type ScheduleConnection = Connection & {
+  __typename?: 'ScheduleConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float']['output'];
+  edges?: Maybe<Array<Maybe<ScheduleConnectionEdges>>>;
 };
 
 export type StyretBlocksAbout = {
@@ -1218,6 +1289,8 @@ export type Mutation = {
   createPage: Page;
   updateHero: Hero;
   createHero: Hero;
+  updateSchedule: Schedule;
+  createSchedule: Schedule;
   updateStyret: Styret;
   createStyret: Styret;
   updateOrganisasjonsplan: Organisasjonsplan;
@@ -1291,6 +1364,18 @@ export type MutationUpdateHeroArgs = {
 export type MutationCreateHeroArgs = {
   relativePath: Scalars['String']['input'];
   params: HeroMutation;
+};
+
+
+export type MutationUpdateScheduleArgs = {
+  relativePath: Scalars['String']['input'];
+  params: ScheduleMutation;
+};
+
+
+export type MutationCreateScheduleArgs = {
+  relativePath: Scalars['String']['input'];
+  params: ScheduleMutation;
 };
 
 
@@ -1392,6 +1477,7 @@ export type MutationCreateGlobalArgs = {
 export type DocumentUpdateMutation = {
   page?: InputMaybe<PageMutation>;
   hero?: InputMaybe<HeroMutation>;
+  schedule?: InputMaybe<ScheduleMutation>;
   styret?: InputMaybe<StyretMutation>;
   organisasjonsplan?: InputMaybe<OrganisasjonsplanMutation>;
   news?: InputMaybe<NewsMutation>;
@@ -1406,6 +1492,7 @@ export type DocumentUpdateMutation = {
 export type DocumentMutation = {
   page?: InputMaybe<PageMutation>;
   hero?: InputMaybe<HeroMutation>;
+  schedule?: InputMaybe<ScheduleMutation>;
   styret?: InputMaybe<StyretMutation>;
   organisasjonsplan?: InputMaybe<OrganisasjonsplanMutation>;
   news?: InputMaybe<NewsMutation>;
@@ -1520,6 +1607,23 @@ export type HeroMutation = {
   instagramUsername?: InputMaybe<Scalars['String']['input']>;
   instagramLink?: InputMaybe<Scalars['String']['input']>;
   instagramImages?: InputMaybe<Array<InputMaybe<HeroInstagramImagesMutation>>>;
+};
+
+export type ScheduleDaysSlotsMutation = {
+  time?: InputMaybe<Scalars['String']['input']>;
+  activity?: InputMaybe<Scalars['String']['input']>;
+  group?: InputMaybe<Scalars['String']['input']>;
+  room?: InputMaybe<Scalars['String']['input']>;
+  trainer?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ScheduleDaysMutation = {
+  day?: InputMaybe<Scalars['String']['input']>;
+  slots?: InputMaybe<Array<InputMaybe<ScheduleDaysSlotsMutation>>>;
+};
+
+export type ScheduleMutation = {
+  days?: InputMaybe<Array<InputMaybe<ScheduleDaysMutation>>>;
 };
 
 export type StyretBlocksAboutMutation = {
@@ -1752,6 +1856,8 @@ export type PagePartsFragment = { __typename: 'Page', title: string, description
 
 export type HeroPartsFragment = { __typename: 'Hero', welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null };
 
+export type SchedulePartsFragment = { __typename: 'Schedule', days?: Array<{ __typename: 'ScheduleDays', day: string, slots?: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer?: string | null } | null> | null } | null> | null };
+
 export type StyretPartsFragment = { __typename: 'Styret', title?: string | null, description?: any | null, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null };
 
 export type OrganisasjonsplanPartsFragment = { __typename: 'Organisasjonsplan', title: string, body?: any | null };
@@ -1805,6 +1911,25 @@ export type HeroConnectionQueryVariables = Exact<{
 
 
 export type HeroConnectionQuery = { __typename?: 'Query', heroConnection: { __typename?: 'HeroConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HeroConnectionEdges', cursor: string, node?: { __typename: 'Hero', id: string, welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null } | null } | null> | null } };
+
+export type ScheduleQueryVariables = Exact<{
+  relativePath: Scalars['String']['input'];
+}>;
+
+
+export type ScheduleQuery = { __typename?: 'Query', schedule: { __typename: 'Schedule', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, days?: Array<{ __typename: 'ScheduleDays', day: string, slots?: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer?: string | null } | null> | null } | null> | null } };
+
+export type ScheduleConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']['input']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Float']['input']>;
+  last?: InputMaybe<Scalars['Float']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<ScheduleFilter>;
+}>;
+
+
+export type ScheduleConnectionQuery = { __typename?: 'Query', scheduleConnection: { __typename?: 'ScheduleConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ScheduleConnectionEdges', cursor: string, node?: { __typename: 'Schedule', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, days?: Array<{ __typename: 'ScheduleDays', day: string, slots?: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer?: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type StyretQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -2044,6 +2169,23 @@ export const HeroPartsFragmentDoc = gql`
     image
     caption
     postUrl
+  }
+}
+    `;
+export const SchedulePartsFragmentDoc = gql`
+    fragment ScheduleParts on Schedule {
+  __typename
+  days {
+    __typename
+    day
+    slots {
+      __typename
+      time
+      activity
+      group
+      room
+      trainer
+    }
   }
 }
     `;
@@ -2363,6 +2505,63 @@ export const HeroConnectionDocument = gql`
   }
 }
     ${HeroPartsFragmentDoc}`;
+export const ScheduleDocument = gql`
+    query schedule($relativePath: String!) {
+  schedule(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...ScheduleParts
+  }
+}
+    ${SchedulePartsFragmentDoc}`;
+export const ScheduleConnectionDocument = gql`
+    query scheduleConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ScheduleFilter) {
+  scheduleConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...ScheduleParts
+      }
+    }
+  }
+}
+    ${SchedulePartsFragmentDoc}`;
 export const StyretDocument = gql`
     query styret($relativePath: String!) {
   styret(relativePath: $relativePath) {
@@ -2834,6 +3033,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
     heroConnection(variables?: HeroConnectionQueryVariables, options?: C): Promise<{data: HeroConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HeroConnectionQueryVariables, query: string}> {
         return requester<{data: HeroConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: HeroConnectionQueryVariables, query: string}, HeroConnectionQueryVariables>(HeroConnectionDocument, variables, options);
       },
+    schedule(variables: ScheduleQueryVariables, options?: C): Promise<{data: ScheduleQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ScheduleQueryVariables, query: string}> {
+        return requester<{data: ScheduleQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ScheduleQueryVariables, query: string}, ScheduleQueryVariables>(ScheduleDocument, variables, options);
+      },
+    scheduleConnection(variables?: ScheduleConnectionQueryVariables, options?: C): Promise<{data: ScheduleConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ScheduleConnectionQueryVariables, query: string}> {
+        return requester<{data: ScheduleConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: ScheduleConnectionQueryVariables, query: string}, ScheduleConnectionQueryVariables>(ScheduleConnectionDocument, variables, options);
+      },
     styret(variables: StyretQueryVariables, options?: C): Promise<{data: StyretQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: StyretQueryVariables, query: string}> {
         return requester<{data: StyretQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: StyretQueryVariables, query: string}, StyretQueryVariables>(StyretDocument, variables, options);
       },
@@ -2929,7 +3134,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "https://content.tinajs.io/2.2/content/810c085c-dd16-47c3-8ca2-865f4019e4ca/github/main",
+        url: "http://localhost:4001/graphql",
         queries,
       })
     )

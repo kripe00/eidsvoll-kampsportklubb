@@ -58,6 +58,8 @@ type Query {
   pageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFilter): PageConnection!
   hero(relativePath: String): Hero!
   heroConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HeroFilter): HeroConnection!
+  schedule(relativePath: String): Schedule!
+  scheduleConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ScheduleFilter): ScheduleConnection!
   styret(relativePath: String): Styret!
   styretConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: StyretFilter): StyretConnection!
   organisasjonsplan(relativePath: String): Organisasjonsplan!
@@ -79,6 +81,7 @@ type Query {
 input DocumentFilter {
   page: PageFilter
   hero: HeroFilter
+  schedule: ScheduleFilter
   styret: StyretFilter
   organisasjonsplan: OrganisasjonsplanFilter
   news: NewsFilter
@@ -112,7 +115,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Page | Hero | Styret | Organisasjonsplan | News | Sponsorer | Medlemskap | OmOss | Contact | Global | Folder
+union DocumentNode = Page | Hero | Schedule | Styret | Organisasjonsplan | News | Sponsorer | Medlemskap | OmOss | Contact | Global | Folder
 
 type PageBlocksAbout {
   title: String
@@ -363,6 +366,54 @@ type HeroConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
   edges: [HeroConnectionEdges]
+}
+
+type ScheduleDaysSlots {
+  time: String!
+  activity: String!
+  group: String!
+  room: String!
+  trainer: String
+}
+
+type ScheduleDays {
+  day: String!
+  slots: [ScheduleDaysSlots]
+}
+
+type Schedule implements Node & Document {
+  days: [ScheduleDays]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input ScheduleDaysSlotsFilter {
+  time: StringFilter
+  activity: StringFilter
+  group: StringFilter
+  room: StringFilter
+  trainer: StringFilter
+}
+
+input ScheduleDaysFilter {
+  day: StringFilter
+  slots: ScheduleDaysSlotsFilter
+}
+
+input ScheduleFilter {
+  days: ScheduleDaysFilter
+}
+
+type ScheduleConnectionEdges {
+  cursor: String!
+  node: Schedule
+}
+
+type ScheduleConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [ScheduleConnectionEdges]
 }
 
 type StyretBlocksAbout {
@@ -937,6 +988,8 @@ type Mutation {
   createPage(relativePath: String!, params: PageMutation!): Page!
   updateHero(relativePath: String!, params: HeroMutation!): Hero!
   createHero(relativePath: String!, params: HeroMutation!): Hero!
+  updateSchedule(relativePath: String!, params: ScheduleMutation!): Schedule!
+  createSchedule(relativePath: String!, params: ScheduleMutation!): Schedule!
   updateStyret(relativePath: String!, params: StyretMutation!): Styret!
   createStyret(relativePath: String!, params: StyretMutation!): Styret!
   updateOrganisasjonsplan(relativePath: String!, params: OrganisasjonsplanMutation!): Organisasjonsplan!
@@ -958,6 +1011,7 @@ type Mutation {
 input DocumentUpdateMutation {
   page: PageMutation
   hero: HeroMutation
+  schedule: ScheduleMutation
   styret: StyretMutation
   organisasjonsplan: OrganisasjonsplanMutation
   news: NewsMutation
@@ -972,6 +1026,7 @@ input DocumentUpdateMutation {
 input DocumentMutation {
   page: PageMutation
   hero: HeroMutation
+  schedule: ScheduleMutation
   styret: StyretMutation
   organisasjonsplan: OrganisasjonsplanMutation
   news: NewsMutation
@@ -1086,6 +1141,23 @@ input HeroMutation {
   instagramUsername: String
   instagramLink: String
   instagramImages: [HeroInstagramImagesMutation]
+}
+
+input ScheduleDaysSlotsMutation {
+  time: String
+  activity: String
+  group: String
+  room: String
+  trainer: String
+}
+
+input ScheduleDaysMutation {
+  day: String
+  slots: [ScheduleDaysSlotsMutation]
+}
+
+input ScheduleMutation {
+  days: [ScheduleDaysMutation]
 }
 
 input StyretBlocksAboutMutation {

@@ -85,6 +85,22 @@ fragment HeroParts on Hero {
   }
 }
 
+fragment ScheduleParts on Schedule {
+  __typename
+  days {
+    __typename
+    day
+    slots {
+      __typename
+      time
+      activity
+      group
+      room
+      trainer
+    }
+  }
+}
+
 fragment StyretParts on Styret {
   __typename
   title

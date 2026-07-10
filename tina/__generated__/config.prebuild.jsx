@@ -227,6 +227,84 @@ var config_default = defineConfig({
         ]
       },
       {
+        name: "schedule",
+        label: "Treningstider / Timeplan",
+        path: "content/schedule",
+        format: "json",
+        ui: {
+          router: () => "/timeplan",
+          allowedActions: { create: false, delete: false }
+        },
+        fields: [
+          {
+            type: "object",
+            list: true,
+            name: "days",
+            label: "Dager",
+            ui: {
+              itemProps: (item) => {
+                return { label: item?.day || "Ny dag" };
+              }
+            },
+            fields: [
+              { type: "string", name: "day", label: "Dag (f.eks. Mandag)", required: true },
+              {
+                type: "object",
+                list: true,
+                name: "slots",
+                label: "Trenings\xF8kter",
+                ui: {
+                  itemProps: (item) => {
+                    return { label: item ? `${item.time || ""} - ${item.activity || ""}` : "Ny \xF8kt" };
+                  }
+                },
+                fields: [
+                  { type: "string", name: "time", label: "Klokkeslett (f.eks. 18:00 - 19:30)", required: true },
+                  {
+                    type: "string",
+                    name: "activity",
+                    label: "Aktivitet/Gren",
+                    required: true,
+                    options: [
+                      { value: "BJJ", label: "BJJ" },
+                      { value: "Muay Thai", label: "Muay Thai" },
+                      { value: "Yoga", label: "Yoga" },
+                      { value: "Cross Training (CT)", label: "Cross Training (CT)" }
+                    ]
+                  },
+                  {
+                    type: "string",
+                    name: "group",
+                    label: "M\xE5lgruppe/Parti",
+                    required: true,
+                    options: [
+                      { value: "Barneparti 1 (6-9 \xE5r)", label: "Barneparti 1 (6-9 \xE5r)" },
+                      { value: "Barneparti 2 (10-12 \xE5r)", label: "Barneparti 2 (10-12 \xE5r)" },
+                      { value: "Barn (Felles)", label: "Barn (Felles)" },
+                      { value: "Voksne / Ungdom", label: "Voksne / Ungdom" },
+                      { value: "Videreg\xE5ende", label: "Videreg\xE5ende" },
+                      { value: "Alle", label: "Alle" }
+                    ]
+                  },
+                  {
+                    type: "string",
+                    name: "room",
+                    label: "Sal / Matte",
+                    required: true,
+                    options: [
+                      { value: "Sal 1 (Yoga/CT)", label: "Sal 1 (Yoga/CT)" },
+                      { value: "Sal 2 (BJJ/Muay Thai)", label: "Sal 2 (BJJ/Muay Thai)" },
+                      { value: "Sal 3 (BJJ)", label: "Sal 3 (BJJ)" }
+                    ]
+                  },
+                  { type: "string", name: "trainer", label: "Instrukt\xF8r (Valgfritt)" }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         name: "styret",
         label: "Styret og organisasjon",
         path: "content/styret",

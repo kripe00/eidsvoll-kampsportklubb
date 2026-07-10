@@ -108,6 +108,61 @@ query heroConnection($before: String, $after: String, $first: Float, $last: Floa
   }
 }
 
+query schedule($relativePath: String!) {
+  schedule(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...ScheduleParts
+  }
+}
+
+query scheduleConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ScheduleFilter) {
+  scheduleConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...ScheduleParts
+      }
+    }
+  }
+}
+
 query styret($relativePath: String!) {
   styret(relativePath: $relativePath) {
     ... on Document {
