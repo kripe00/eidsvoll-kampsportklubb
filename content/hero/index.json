@@ -4,28 +4,28 @@
   "description": "Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter i Eidsvoll har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.",
   "backgroundImage": "/header.jpg",
   "instagramTitle": "Følg oss på Instagram",
-  "instagramUsername": "@eidsvoll_kampsportklubb",
-  "instagramLink": "https://www.instagram.com/eidsvoll_kampsportklubb/",
+  "instagramUsername": "@eidsvoll_kampsport",
+  "instagramLink": "https://www.instagram.com/eidsvoll_kampsport/",
   "instagramImages": [
     {
       "image": "/header.jpg",
       "caption": "Full fokus under kveldens trening. Husk at vi tilbyr gratis prøveuke!",
-      "postUrl": "https://www.instagram.com/eidsvoll_kampsportklubb/"
+      "postUrl": "https://www.instagram.com/eidsvoll_kampsport/"
     },
     {
       "image": "/1g-220.jpeg",
       "caption": "Mye idrettsglede på matta på barnepartiet vårt i dag! BJJ fra fylte 6 år.",
-      "postUrl": "https://www.instagram.com/eidsvoll_kampsportklubb/"
+      "postUrl": "https://www.instagram.com/eidsvoll_kampsport/"
     },
     {
       "image": "/Kristian.jpeg",
       "caption": "Møt instruktøren vår, Kristian, som leder kveldens treninger.",
-      "postUrl": "https://www.instagram.com/eidsvoll_kampsportklubb/"
+      "postUrl": "https://www.instagram.com/eidsvoll_kampsport/"
     },
     {
       "image": "/b33c9c53-b3d6-4f75-9f26-b4f876ac84fb.jpeg",
       "caption": "Fantastisk innsats fra alle deltakere på lørdagens fellestrening!",
-      "postUrl": "https://www.instagram.com/eidsvoll_kampsportklubb/"
+      "postUrl": "https://www.instagram.com/eidsvoll_kampsport/"
     }
   ]
 }
