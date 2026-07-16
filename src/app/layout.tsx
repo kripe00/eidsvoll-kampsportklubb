@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
   applicationName: "Eidsvoll Kampsportklubb",
   description:
-    "Eidsvoll Kampsportklubb – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for utøvere fra Eidsvoll, Råholt, Dal, Årnes, Nes og Nordkisa. Bli med på trening!",
+    "Eidsvoll Kampsportklubb – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for utøvere fra Eidsvoll, Råholt, Dal, Årnes/Nes, Nordkisa, Mogreina, Hurdal, Vormsund, Minnesund, Feiring og Kongsvinger. Bli med på trening!",
   keywords: [
     "kampsport",
     "kampsportklubb",
@@ -30,6 +30,12 @@ export const metadata: Metadata = {
     "nordkisa",
     "nes kommune",
     "ullensaker",
+    "mogreina",
+    "hurdal",
+    "vormsund",
+    "minnesund",
+    "feiring",
+    "kongsvinger",
     "BJJ",
     "brasiliansk jiu-jitsu",
     "muay thai",
@@ -39,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Eidsvoll Kampsportklubb | BJJ og Muay Thai i Eidsvoll",
     description:
-      "Eidsvoll Kampsportklubb – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for utøvere fra Eidsvoll, Råholt, Dal, Årnes, Nes og Nordkisa. Bli med på trening!",
+      "Eidsvoll Kampsportklubb – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for utøvere fra Eidsvoll, Råholt, Dal, Årnes/Nes, Nordkisa, Mogreina, Hurdal, Vormsund, Minnesund, Feiring og Kongsvinger. Bli med på trening!",
     locale: "nb_NO",
     type: "website",
     siteName: "Eidsvoll Kampsportklubb",
