@@ -12,13 +12,13 @@
         {
           "time": "17:15 - 18:15",
           "activity": "BJJ",
-          "group": "BJJ kids 1",
+          "group": "Barneparti 2 (10-12 år)",
           "room": "Sal 2"
         },
         {
           "time": "17:15 - 18:15",
           "activity": "BJJ",
-          "group": "BJJ kids 2",
+          "group": "Barneparti 1 (6-9 år)",
           "room": "Sal 1"
         },
         {
@@ -30,7 +30,7 @@
         {
           "time": "18:15 - 19:30",
           "activity": "BJJ",
-          "group": "BJJ basic",
+          "group": "Voksne / Ungdom",
           "room": "Sal 1"
         },
         {
@@ -51,7 +51,7 @@
       "day": "Tirsdag",
       "slots": [
         {
-          "time": "17:00 - 18:15",
+          "time": "17:15 - 18:15",
           "activity": "Crosstrening",
           "group": "Crosstrening",
           "room": "CT/yoga sal"
@@ -63,7 +63,7 @@
           "room": "Sal 2"
         },
         {
-          "time": "18:00 - ut kvelden",
+          "time": "18:00 - 21:00",
           "activity": "Thaiboksing",
           "group": "Thaiboksing",
           "room": "Sal 1"
@@ -82,13 +82,13 @@
         {
           "time": "17:15 - 18:15",
           "activity": "BJJ",
-          "group": "BJJ kids 1",
+          "group": "Barneparti 1 (6-9 år)",
           "room": "Sal 2"
         },
         {
           "time": "17:15 - 18:15",
           "activity": "BJJ",
-          "group": "BJJ kids 2",
+          "group": "Barneparti 2 (10-12 år)",
           "room": "Sal 1"
         },
         {
@@ -121,7 +121,7 @@
       "day": "Torsdag",
       "slots": [
         {
-          "time": "17:00 - 18:15",
+          "time": "17:15 - 18:15",
           "activity": "Crosstrening",
           "group": "Crosstrening",
           "room": "CT/yoga sal"
@@ -133,7 +133,7 @@
           "room": "Sal 2"
         },
         {
-          "time": "18:00 - ut kvelden",
+          "time": "18:00 - 21:00",
           "activity": "Thaiboksing",
           "group": "Thaiboksing",
           "room": "Sal 1"
@@ -144,7 +144,7 @@
       "day": "Fredag",
       "slots": [
         {
-          "time": "Dagtid",
+          "time": "11:00 - 12:30",
           "activity": "BJJ",
           "group": "Dagtrening BJJ",
           "room": "Sal 1"
