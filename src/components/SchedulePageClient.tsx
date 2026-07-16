@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTina } from "tinacms/dist/react";
-import { Clock, User, MapPin, Sparkles } from "lucide-react";
+import { Clock, MapPin, Sparkles } from "lucide-react";
 import { tinaField } from "tinacms/dist/react";
 import { cn } from "@/lib/utils";
 
@@ -343,13 +343,7 @@ export function SchedulePageClient(props: {
                               </p>
                             </div>
 
-                            {/* Footer inside card */}
-                            {slot.trainer && (
-                              <div className="border-t border-border/30 pt-3 mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-                                <User className="w-3.5 h-3.5 text-muted-foreground/60" />
-                                <span>Trener: <strong>{slot.trainer}</strong></span>
-                              </div>
-                            )}
+
                           </div>
                         );
                       }
@@ -421,12 +415,7 @@ export function SchedulePageClient(props: {
                               </span>
                             </div>
 
-                            {slot.trainer && (
-                              <div className="border-t border-border/30 pt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-                                <User className="w-3.5 h-3.5 text-muted-foreground/60" />
-                                <span>Trener: <strong>{slot.trainer}</strong></span>
-                              </div>
-                            )}
+
                           </div>
                         );
                       })}
