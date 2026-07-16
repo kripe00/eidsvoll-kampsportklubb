@@ -4,100 +4,170 @@
       "day": "Mandag",
       "slots": [
         {
-          "time": "17:30 - 18:30",
+          "time": "17:15 - 18:00",
+          "activity": "Crosstrening",
+          "group": "Crosstrening - Kickstart",
+          "room": "CT/yoga sal"
+        },
+        {
+          "time": "17:15 - 18:15",
           "activity": "BJJ",
-          "group": "Barneparti 1 (6-9 år)",
-          "room": "Sal 2",
-          "trainer": "Anders"
+          "group": "BJJ kids 1",
+          "room": "Sal 2"
         },
         {
-          "time": "17:30 - 18:30",
-          "activity": "Muay Thai",
-          "group": "Barn (Felles)",
-          "room": "Sal 1",
-          "trainer": "Kristian"
-        },
-        {
-          "time": "18:00 - 19:00",
-          "activity": "Cross Training (CT)",
-          "group": "Alle",
-          "room": "CT/yoga sal",
-          "trainer": "Petter"
-        },
-        {
-          "time": "18:30 - 19:30",
+          "time": "17:15 - 18:15",
           "activity": "BJJ",
-          "group": "Barneparti 2 (10-12 år)",
-          "room": "Sal 2",
-          "trainer": "Anders"
+          "group": "BJJ kids 2",
+          "room": "Sal 1"
         },
         {
-          "time": "18:30 - 20:00",
-          "activity": "Muay Thai",
-          "group": "Voksne / Ungdom",
-          "room": "Sal 1",
-          "trainer": "Kristian"
+          "time": "18:15 - 19:15",
+          "activity": "Yoga",
+          "group": "Yinsaya yoga",
+          "room": "CT/yoga sal"
         },
         {
-          "time": "19:30 - 21:00",
+          "time": "18:15 - 19:30",
           "activity": "BJJ",
-          "group": "Voksne / Ungdom",
-          "room": "Sal 2",
-          "trainer": "Torbjørn"
+          "group": "BJJ basic",
+          "room": "Sal 1"
+        },
+        {
+          "time": "18:15 - 19:45",
+          "activity": "BJJ",
+          "group": "BJJ advanced",
+          "room": "Sal 2"
+        },
+        {
+          "time": "19:45 - 21:15",
+          "activity": "Thaiboksing",
+          "group": "Thaiboksing",
+          "room": "Sal 1"
         }
       ]
     },
     {
       "day": "Tirsdag",
-      "slots": []
+      "slots": [
+        {
+          "time": "17:00 - 18:15",
+          "activity": "Crosstrening",
+          "group": "Crosstrening",
+          "room": "CT/yoga sal"
+        },
+        {
+          "time": "18:00 - 19:30",
+          "activity": "BJJ",
+          "group": "BJJ no-gi",
+          "room": "Sal 2"
+        },
+        {
+          "time": "18:00 - ut kvelden",
+          "activity": "Thaiboksing",
+          "group": "Thaiboksing",
+          "room": "Sal 1"
+        }
+      ]
     },
     {
       "day": "Onsdag",
       "slots": [
         {
-          "time": "17:30 - 18:30",
+          "time": "17:15 - 18:00",
+          "activity": "Crosstrening",
+          "group": "Crosstrening - Kickstart",
+          "room": "CT/yoga sal"
+        },
+        {
+          "time": "17:15 - 18:15",
           "activity": "BJJ",
-          "group": "Barneparti 1 (6-9 år)",
-          "room": "Sal 2",
-          "trainer": "Anders"
+          "group": "BJJ kids 1",
+          "room": "Sal 2"
         },
         {
-          "time": "18:30 - 19:30",
+          "time": "17:15 - 18:15",
           "activity": "BJJ",
-          "group": "Barneparti 2 (10-12 år)",
-          "room": "Sal 2",
-          "trainer": "Anders"
+          "group": "BJJ kids 2",
+          "room": "Sal 1"
         },
         {
-          "time": "18:30 - 20:00",
-          "activity": "Muay Thai",
-          "group": "Voksne / Ungdom",
-          "room": "Sal 1",
-          "trainer": "Kristian"
-        },
-        {
-          "time": "19:00 - 20:00",
+          "time": "18:15 - 19:15",
           "activity": "Yoga",
-          "group": "Alle",
-          "room": "CT/yoga sal",
-          "trainer": "Lene"
+          "group": "Yinsaya yoga",
+          "room": "CT/yoga sal"
         },
         {
-          "time": "19:30 - 21:00",
+          "time": "18:15 - 19:30",
           "activity": "BJJ",
-          "group": "Videregående",
-          "room": "Sal 2",
-          "trainer": "Torbjørn"
+          "group": "BJJ basic",
+          "room": "Sal 1"
+        },
+        {
+          "time": "18:15 - 19:45",
+          "activity": "BJJ",
+          "group": "BJJ advanced",
+          "room": "Sal 2"
+        },
+        {
+          "time": "19:45 - 21:15",
+          "activity": "Thaiboksing",
+          "group": "Thaiboksing",
+          "room": "Sal 1"
         }
       ]
     },
     {
       "day": "Torsdag",
-      "slots": []
+      "slots": [
+        {
+          "time": "17:00 - 18:15",
+          "activity": "Crosstrening",
+          "group": "Crosstrening",
+          "room": "CT/yoga sal"
+        },
+        {
+          "time": "18:00 - 19:30",
+          "activity": "BJJ",
+          "group": "BJJ no-gi",
+          "room": "Sal 2"
+        },
+        {
+          "time": "18:00 - ut kvelden",
+          "activity": "Thaiboksing",
+          "group": "Thaiboksing",
+          "room": "Sal 1"
+        }
+      ]
     },
     {
       "day": "Fredag",
-      "slots": []
+      "slots": [
+        {
+          "time": "Dagtid",
+          "activity": "BJJ",
+          "group": "Dagtrening BJJ",
+          "room": "Sal 1"
+        },
+        {
+          "time": "17:15 - 18:15",
+          "activity": "Crosstrening",
+          "group": "Crosstrening",
+          "room": "CT/yoga sal"
+        },
+        {
+          "time": "17:30 - 18:30",
+          "activity": "BJJ",
+          "group": "Sparring BJJ",
+          "room": "Sal 2"
+        },
+        {
+          "time": "fra 18:15",
+          "activity": "Yoga",
+          "group": "Yoga",
+          "room": "CT/yoga sal"
+        }
+      ]
     },
     {
       "day": "Lørdag",
@@ -105,7 +175,14 @@
     },
     {
       "day": "Søndag",
-      "slots": []
+      "slots": [
+        {
+          "time": "Hele dagen",
+          "activity": "Åpen matte",
+          "group": "Hele bruket",
+          "room": "Hele bruket"
+        }
+      ]
     }
   ]
 }

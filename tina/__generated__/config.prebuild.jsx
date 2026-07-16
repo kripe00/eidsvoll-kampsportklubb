@@ -267,9 +267,10 @@ var config_default = defineConfig({
                     required: true,
                     options: [
                       { value: "BJJ", label: "BJJ" },
-                      { value: "Muay Thai", label: "Muay Thai" },
+                      { value: "Thaiboksing", label: "Thaiboksing (Muay Thai)" },
                       { value: "Yoga", label: "Yoga" },
-                      { value: "Cross Training (CT)", label: "Cross Training (CT)" }
+                      { value: "Crosstrening", label: "Crosstrening" },
+                      { value: "\xC5pen matte", label: "\xC5pen matte / annet" }
                     ]
                   },
                   {
@@ -283,7 +284,17 @@ var config_default = defineConfig({
                       { value: "Barn (Felles)", label: "Barn (Felles)" },
                       { value: "Voksne / Ungdom", label: "Voksne / Ungdom" },
                       { value: "Videreg\xE5ende", label: "Videreg\xE5ende" },
-                      { value: "Alle", label: "Alle" }
+                      { value: "Alle", label: "Alle" },
+                      { value: "BJJ kids 1", label: "BJJ kids 1" },
+                      { value: "BJJ kids 2", label: "BJJ kids 2" },
+                      { value: "BJJ no-gi", label: "BJJ no-gi" },
+                      { value: "BJJ basic", label: "BJJ basic" },
+                      { value: "BJJ advanced", label: "BJJ advanced" },
+                      { value: "Dagtrening BJJ", label: "Dagtrening BJJ" },
+                      { value: "Sparring BJJ", label: "Sparring BJJ" },
+                      { value: "Crosstrening - Kickstart", label: "Crosstrening - Kickstart" },
+                      { value: "Yinsaya yoga", label: "Yinsaya yoga" },
+                      { value: "Hele bruket", label: "Hele bruket" }
                     ]
                   },
                   {
@@ -294,7 +305,8 @@ var config_default = defineConfig({
                     options: [
                       { value: "Sal 1", label: "Sal 1 (BJJ & Muay Thai)" },
                       { value: "Sal 2", label: "Sal 2 (BJJ)" },
-                      { value: "CT/yoga sal", label: "CT/yoga sal" }
+                      { value: "CT/yoga sal", label: "CT/yoga sal" },
+                      { value: "Hele bruket", label: "Hele bruket" }
                     ]
                   },
                   { type: "string", name: "trainer", label: "Instrukt\xF8r (Valgfritt)" }

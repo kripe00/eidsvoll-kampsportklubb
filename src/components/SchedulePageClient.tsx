@@ -45,9 +45,9 @@ export function SchedulePageClient(props: {
   const getSlotsForRoom = (slots: Slot[] = [], roomKey: string) => {
     return slots.filter((slot) => {
       const room = slot.room || "";
-      if (roomKey === "sal1") return room === "Sal 1";
-      if (roomKey === "sal2") return room === "Sal 2";
-      if (roomKey === "ctyoga") return room === "CT/yoga sal";
+      if (roomKey === "sal1") return room === "Sal 1" || room === "Hele bruket";
+      if (roomKey === "sal2") return room === "Sal 2" || room === "Hele bruket";
+      if (roomKey === "ctyoga") return room === "CT/yoga sal" || room === "Hele bruket";
       return false;
     });
   };
@@ -284,6 +284,13 @@ export function SchedulePageClient(props: {
                 ))}
               </div>
 
+              {/* Fallback if no classes */}
+              {uniqueStartTimes.length === 0 && (
+                <div className="border border-dashed border-border/30 rounded-xl p-8 text-center text-muted-foreground/40 py-16">
+                  Ingen faste treninger satt opp denne dagen.
+                </div>
+              )}
+
               {/* Rows sorted by Start Time */}
               {uniqueStartTimes.map((startTime) => {
                 return (
@@ -296,9 +303,9 @@ export function SchedulePageClient(props: {
                         
                         // Check room match
                         let roomMatch = false;
-                        if (room.key === "sal1") roomMatch = sRoom === "Sal 1";
-                        if (room.key === "sal2") roomMatch = sRoom === "Sal 2";
-                        if (room.key === "ctyoga") roomMatch = sRoom === "CT/yoga sal";
+                        if (room.key === "sal1") roomMatch = sRoom === "Sal 1" || sRoom === "Hele bruket";
+                        if (room.key === "sal2") roomMatch = sRoom === "Sal 2" || sRoom === "Hele bruket";
+                        if (room.key === "ctyoga") roomMatch = sRoom === "CT/yoga sal" || sRoom === "Hele bruket";
                         
                         return roomMatch && sStart === startTime;
                       });
