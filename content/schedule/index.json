@@ -4,46 +4,40 @@
       "day": "Mandag",
       "slots": [
         {
-          "time": "17:15 - 18:00",
+          "time": "17:30 - 18:30",
           "activity": "Crosstrening",
           "group": "Crosstrening - Kickstart",
           "room": "CT/yoga sal"
         },
         {
-          "time": "17:15 - 18:15",
+          "time": "17:30 - 18:30",
           "activity": "BJJ",
           "group": "Barneparti 2 (10-12 år)",
           "room": "Sal 2"
         },
         {
-          "time": "17:15 - 18:15",
+          "time": "17:30 - 18:30",
           "activity": "BJJ",
           "group": "Barneparti 1 (6-9 år)",
           "room": "Sal 1"
         },
         {
-          "time": "18:15 - 19:15",
+          "time": "18:30 - 19:30",
           "activity": "Yoga",
           "group": "Yinsaya yoga",
           "room": "CT/yoga sal"
         },
         {
-          "time": "18:15 - 19:30",
+          "time": "18:30 - 19:45",
           "activity": "BJJ",
           "group": "Voksne / Ungdom",
           "room": "Sal 1"
         },
         {
-          "time": "18:15 - 19:45",
+          "time": "18:30 - 20:00",
           "activity": "BJJ",
           "group": "BJJ advanced",
           "room": "Sal 2"
-        },
-        {
-          "time": "19:45 - 21:15",
-          "activity": "Thaiboksing",
-          "group": "Thaiboksing",
-          "room": "Sal 1"
         }
       ]
     },
@@ -51,7 +45,7 @@
       "day": "Tirsdag",
       "slots": [
         {
-          "time": "17:15 - 18:15",
+          "time": "17:30 - 18:30",
           "activity": "Crosstrening",
           "group": "Crosstrening",
           "room": "CT/yoga sal"
@@ -74,46 +68,40 @@
       "day": "Onsdag",
       "slots": [
         {
-          "time": "17:15 - 18:00",
+          "time": "17:30 - 18:30",
           "activity": "Crosstrening",
           "group": "Crosstrening - Kickstart",
           "room": "CT/yoga sal"
         },
         {
-          "time": "17:15 - 18:15",
+          "time": "17:30 - 18:30",
           "activity": "BJJ",
           "group": "Barneparti 1 (6-9 år)",
           "room": "Sal 2"
         },
         {
-          "time": "17:15 - 18:15",
+          "time": "17:30 - 18:30",
           "activity": "BJJ",
           "group": "Barneparti 2 (10-12 år)",
           "room": "Sal 1"
         },
         {
-          "time": "18:15 - 19:15",
+          "time": "18:30 - 19:30",
           "activity": "Yoga",
           "group": "Yinsaya yoga",
           "room": "CT/yoga sal"
         },
         {
-          "time": "18:15 - 19:30",
+          "time": "18:30 - 19:45",
           "activity": "BJJ",
           "group": "BJJ basic",
           "room": "Sal 1"
         },
         {
-          "time": "18:15 - 19:45",
+          "time": "18:30 - 19:30",
           "activity": "BJJ",
           "group": "BJJ advanced",
           "room": "Sal 2"
-        },
-        {
-          "time": "19:45 - 21:15",
-          "activity": "Thaiboksing",
-          "group": "Thaiboksing",
-          "room": "Sal 1"
         }
       ]
     },
@@ -121,7 +109,7 @@
       "day": "Torsdag",
       "slots": [
         {
-          "time": "17:15 - 18:15",
+          "time": "17:30 - 18:30",
           "activity": "Crosstrening",
           "group": "Crosstrening",
           "room": "CT/yoga sal"
@@ -150,7 +138,7 @@
           "room": "Sal 1"
         },
         {
-          "time": "17:15 - 18:15",
+          "time": "17:30 - 18:30",
           "activity": "Crosstrening",
           "group": "Crosstrening",
           "room": "CT/yoga sal"
@@ -162,7 +150,7 @@
           "room": "Sal 2"
         },
         {
-          "time": "fra 18:15",
+          "time": "fra 18:30",
           "activity": "Yoga",
           "group": "Yoga",
           "room": "CT/yoga sal"
