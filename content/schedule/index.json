@@ -7,42 +7,42 @@
           "time": "17:30 - 18:30",
           "activity": "BJJ",
           "group": "Barneparti 1 (6-9 år)",
-          "room": "Sal 3 (BJJ)",
+          "room": "Sal 2",
           "trainer": "Anders"
         },
         {
           "time": "17:30 - 18:30",
           "activity": "Muay Thai",
           "group": "Barn (Felles)",
-          "room": "Sal 2 (BJJ/Muay Thai)",
+          "room": "Sal 1",
           "trainer": "Kristian"
         },
         {
           "time": "18:00 - 19:00",
           "activity": "Cross Training (CT)",
           "group": "Alle",
-          "room": "Sal 1 (Yoga/CT)",
+          "room": "CT/yoga sal",
           "trainer": "Petter"
         },
         {
           "time": "18:30 - 19:30",
           "activity": "BJJ",
           "group": "Barneparti 2 (10-12 år)",
-          "room": "Sal 3 (BJJ)",
+          "room": "Sal 2",
           "trainer": "Anders"
         },
         {
           "time": "18:30 - 20:00",
           "activity": "Muay Thai",
           "group": "Voksne / Ungdom",
-          "room": "Sal 2 (BJJ/Muay Thai)",
+          "room": "Sal 1",
           "trainer": "Kristian"
         },
         {
           "time": "19:30 - 21:00",
           "activity": "BJJ",
           "group": "Voksne / Ungdom",
-          "room": "Sal 3 (BJJ)",
+          "room": "Sal 2",
           "trainer": "Torbjørn"
         }
       ]
@@ -58,35 +58,35 @@
           "time": "17:30 - 18:30",
           "activity": "BJJ",
           "group": "Barneparti 1 (6-9 år)",
-          "room": "Sal 3 (BJJ)",
+          "room": "Sal 2",
           "trainer": "Anders"
         },
         {
           "time": "18:30 - 19:30",
           "activity": "BJJ",
           "group": "Barneparti 2 (10-12 år)",
-          "room": "Sal 3 (BJJ)",
+          "room": "Sal 2",
           "trainer": "Anders"
         },
         {
           "time": "18:30 - 20:00",
           "activity": "Muay Thai",
           "group": "Voksne / Ungdom",
-          "room": "Sal 2 (BJJ/Muay Thai)",
+          "room": "Sal 1",
           "trainer": "Kristian"
         },
         {
           "time": "19:00 - 20:00",
           "activity": "Yoga",
           "group": "Alle",
-          "room": "Sal 1 (Yoga/CT)",
+          "room": "CT/yoga sal",
           "trainer": "Lene"
         },
         {
           "time": "19:30 - 21:00",
           "activity": "BJJ",
           "group": "Videregående",
-          "room": "Sal 3 (BJJ)",
+          "room": "Sal 2",
           "trainer": "Torbjørn"
         }
       ]

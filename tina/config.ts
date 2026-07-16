@@ -294,9 +294,9 @@ export default defineConfig({
                     label: "Sal / Matte",
                     required: true,
                     options: [
-                      { value: "Sal 1 (Yoga/CT)", label: "Sal 1 (Yoga/CT)" },
-                      { value: "Sal 2 (BJJ/Muay Thai)", label: "Sal 2 (BJJ/Muay Thai)" },
-                      { value: "Sal 3 (BJJ)", label: "Sal 3 (BJJ)" },
+                      { value: "Sal 1", label: "Sal 1 (BJJ & Muay Thai)" },
+                      { value: "Sal 2", label: "Sal 2 (BJJ)" },
+                      { value: "CT/yoga sal", label: "CT/yoga sal" },
                     ],
                   },
                   { type: "string", name: "trainer", label: "Instruktør (Valgfritt)" },

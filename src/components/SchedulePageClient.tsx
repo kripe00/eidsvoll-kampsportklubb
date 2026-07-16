@@ -45,9 +45,9 @@ export function SchedulePageClient(props: {
   const getSlotsForRoom = (slots: Slot[] = [], roomKey: string) => {
     return slots.filter((slot) => {
       const room = slot.room || "";
-      if (roomKey === "sal1") return room.includes("Sal 1");
-      if (roomKey === "sal2") return room.includes("Sal 2");
-      if (roomKey === "sal3") return room.includes("Sal 3");
+      if (roomKey === "sal1") return room === "Sal 1";
+      if (roomKey === "sal2") return room === "Sal 2";
+      if (roomKey === "ctyoga") return room === "CT/yoga sal";
       return false;
     });
   };
@@ -111,14 +111,14 @@ export function SchedulePageClient(props: {
 
   const sal1Slots = getSlotsForRoom(currentDay?.slots, "sal1");
   const sal2Slots = getSlotsForRoom(currentDay?.slots, "sal2");
-  const sal3Slots = getSlotsForRoom(currentDay?.slots, "sal3");
+  const ctyogaSlots = getSlotsForRoom(currentDay?.slots, "ctyoga");
   const uniqueStartTimes = getUniqueStartTimes(currentDay?.slots);
   const weekStartTimes = getUniqueStartTimesForWeek(days);
 
   const roomsConfig = [
-    { key: "sal3", name: "Sal 3 (BJJ)", desc: "Eget matteareal for BJJ", slots: sal3Slots },
-    { key: "sal2", name: "Sal 2 (BJJ & Muay Thai)", desc: "Flerbruksmatte for kampsport", slots: sal2Slots },
-    { key: "sal1", name: "Sal 1 (Yoga / CT)", desc: "Rom tilrettelagt for yoga og fysisk fostring", slots: sal1Slots },
+    { key: "sal1", name: "Sal 1", desc: "Flerbruksmatte for BJJ og Muay Thai", slots: sal1Slots },
+    { key: "sal2", name: "Sal 2", desc: "Matteareal kun for BJJ", slots: sal2Slots },
+    { key: "ctyoga", name: "CT/yoga sal", desc: "Rom tilrettelagt for yoga og fysisk fostring", slots: ctyogaSlots },
   ];
 
   return (
@@ -296,9 +296,9 @@ export function SchedulePageClient(props: {
                         
                         // Check room match
                         let roomMatch = false;
-                        if (room.key === "sal1") roomMatch = sRoom.includes("Sal 1");
-                        if (room.key === "sal2") roomMatch = sRoom.includes("Sal 2");
-                        if (room.key === "sal3") roomMatch = sRoom.includes("Sal 3");
+                        if (room.key === "sal1") roomMatch = sRoom === "Sal 1";
+                        if (room.key === "sal2") roomMatch = sRoom === "Sal 2";
+                        if (room.key === "ctyoga") roomMatch = sRoom === "CT/yoga sal";
                         
                         return roomMatch && sStart === startTime;
                       });
