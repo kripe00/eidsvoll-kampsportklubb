@@ -172,7 +172,7 @@
       "day": "Søndag",
       "slots": [
         {
-          "time": "Hele dagen",
+          "time": "12:00 - 14:00",
           "activity": "Åpen matte",
           "group": "Hele bruket",
           "room": "Hele bruket"
