@@ -154,6 +154,13 @@
           "activity": "Yoga",
           "group": "Yoga",
           "room": "CT/yoga sal"
+        },
+        {
+          "time": "17:30 - 18:45",
+          "activity": "BJJ",
+          "group": "Barn (Felles)",
+          "room": "Sal 2",
+          "trainer": "Konkurranse trening for de som ønsker"
         }
       ]
     },
