@@ -8,6 +8,10 @@
       "href": "/nyheter"
     },
     {
+      "label": "Timeplan",
+      "href": "/timeplan"
+    },
+    {
       "label": "Styret",
       "href": "/styret"
     },

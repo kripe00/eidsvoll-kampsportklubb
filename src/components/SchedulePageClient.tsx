@@ -126,6 +126,10 @@ export function SchedulePageClient(props: {
       {/* Header */}
       <div className="pt-32 bg-muted/20 border-b border-border/40 pb-16">
         <div className="container mx-auto px-4 lg:px-8 text-center max-w-6xl">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs sm:text-sm font-bold uppercase tracking-wider mb-6 animate-pulse">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Oppstart fra 17. august</span>
+          </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight text-foreground uppercase">
             Treningstider
           </h1>
