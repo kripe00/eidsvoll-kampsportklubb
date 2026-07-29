@@ -804,7 +804,40 @@ type OmOssBlocksFaq {
   items: [OmOssBlocksFaqItems]
 }
 
-union OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq
+type OmOssBlocksTimelineEvents {
+  year: String
+  title: String
+  location: String
+  description: String
+  highlight: Boolean
+}
+
+type OmOssBlocksTimeline {
+  title: String
+  subtitle: String
+  events: [OmOssBlocksTimelineEvents]
+}
+
+type OmOssBlocksOrgSeparation {
+  title: String
+  subtitle: String
+  description: String
+}
+
+type OmOssBlocksCheckmatFeatures {
+  title: String
+  description: String
+  icon: String
+}
+
+type OmOssBlocksCheckmat {
+  title: String
+  subtitle: String
+  description: String
+  features: [OmOssBlocksCheckmatFeatures]
+}
+
+union OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq | OmOssBlocksTimeline | OmOssBlocksOrgSeparation | OmOssBlocksCheckmat
 
 type OmOss implements Node & Document {
   title: String!
@@ -858,11 +891,47 @@ input OmOssBlocksFaqFilter {
   items: OmOssBlocksFaqItemsFilter
 }
 
+input OmOssBlocksTimelineEventsFilter {
+  year: StringFilter
+  title: StringFilter
+  location: StringFilter
+  description: StringFilter
+  highlight: BooleanFilter
+}
+
+input OmOssBlocksTimelineFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  events: OmOssBlocksTimelineEventsFilter
+}
+
+input OmOssBlocksOrgSeparationFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  description: StringFilter
+}
+
+input OmOssBlocksCheckmatFeaturesFilter {
+  title: StringFilter
+  description: StringFilter
+  icon: StringFilter
+}
+
+input OmOssBlocksCheckmatFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  description: StringFilter
+  features: OmOssBlocksCheckmatFeaturesFilter
+}
+
 input OmOssBlocksFilter {
   about: OmOssBlocksAboutFilter
   values: OmOssBlocksValuesFilter
   trainers: OmOssBlocksTrainersFilter
   faq: OmOssBlocksFaqFilter
+  timeline: OmOssBlocksTimelineFilter
+  orgSeparation: OmOssBlocksOrgSeparationFilter
+  checkmat: OmOssBlocksCheckmatFilter
 }
 
 input OmOssFilter {
@@ -1339,11 +1408,47 @@ input OmOssBlocksFaqMutation {
   items: [OmOssBlocksFaqItemsMutation]
 }
 
+input OmOssBlocksTimelineEventsMutation {
+  year: String
+  title: String
+  location: String
+  description: String
+  highlight: Boolean
+}
+
+input OmOssBlocksTimelineMutation {
+  title: String
+  subtitle: String
+  events: [OmOssBlocksTimelineEventsMutation]
+}
+
+input OmOssBlocksOrgSeparationMutation {
+  title: String
+  subtitle: String
+  description: String
+}
+
+input OmOssBlocksCheckmatFeaturesMutation {
+  title: String
+  description: String
+  icon: String
+}
+
+input OmOssBlocksCheckmatMutation {
+  title: String
+  subtitle: String
+  description: String
+  features: [OmOssBlocksCheckmatFeaturesMutation]
+}
+
 input OmOssBlocksMutation {
   about: OmOssBlocksAboutMutation
   values: OmOssBlocksValuesMutation
   trainers: OmOssBlocksTrainersMutation
   faq: OmOssBlocksFaqMutation
+  timeline: OmOssBlocksTimelineMutation
+  orgSeparation: OmOssBlocksOrgSeparationMutation
+  checkmat: OmOssBlocksCheckmatMutation
 }
 
 input OmOssMutation {

@@ -1093,7 +1093,45 @@ export type OmOssBlocksFaq = {
   items?: Maybe<Array<Maybe<OmOssBlocksFaqItems>>>;
 };
 
-export type OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq;
+export type OmOssBlocksTimelineEvents = {
+  __typename?: 'OmOssBlocksTimelineEvents';
+  year?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  highlight?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type OmOssBlocksTimeline = {
+  __typename?: 'OmOssBlocksTimeline';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  events?: Maybe<Array<Maybe<OmOssBlocksTimelineEvents>>>;
+};
+
+export type OmOssBlocksOrgSeparation = {
+  __typename?: 'OmOssBlocksOrgSeparation';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type OmOssBlocksCheckmatFeatures = {
+  __typename?: 'OmOssBlocksCheckmatFeatures';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type OmOssBlocksCheckmat = {
+  __typename?: 'OmOssBlocksCheckmat';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Array<Maybe<OmOssBlocksCheckmatFeatures>>>;
+};
+
+export type OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq | OmOssBlocksTimeline | OmOssBlocksOrgSeparation | OmOssBlocksCheckmat;
 
 export type OmOss = Node & Document & {
   __typename?: 'OmOss';
@@ -1148,11 +1186,47 @@ export type OmOssBlocksFaqFilter = {
   items?: InputMaybe<OmOssBlocksFaqItemsFilter>;
 };
 
+export type OmOssBlocksTimelineEventsFilter = {
+  year?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  location?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  highlight?: InputMaybe<BooleanFilter>;
+};
+
+export type OmOssBlocksTimelineFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  events?: InputMaybe<OmOssBlocksTimelineEventsFilter>;
+};
+
+export type OmOssBlocksOrgSeparationFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type OmOssBlocksCheckmatFeaturesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type OmOssBlocksCheckmatFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  features?: InputMaybe<OmOssBlocksCheckmatFeaturesFilter>;
+};
+
 export type OmOssBlocksFilter = {
   about?: InputMaybe<OmOssBlocksAboutFilter>;
   values?: InputMaybe<OmOssBlocksValuesFilter>;
   trainers?: InputMaybe<OmOssBlocksTrainersFilter>;
   faq?: InputMaybe<OmOssBlocksFaqFilter>;
+  timeline?: InputMaybe<OmOssBlocksTimelineFilter>;
+  orgSeparation?: InputMaybe<OmOssBlocksOrgSeparationFilter>;
+  checkmat?: InputMaybe<OmOssBlocksCheckmatFilter>;
 };
 
 export type OmOssFilter = {
@@ -1805,11 +1879,47 @@ export type OmOssBlocksFaqMutation = {
   items?: InputMaybe<Array<InputMaybe<OmOssBlocksFaqItemsMutation>>>;
 };
 
+export type OmOssBlocksTimelineEventsMutation = {
+  year?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  highlight?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type OmOssBlocksTimelineMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  events?: InputMaybe<Array<InputMaybe<OmOssBlocksTimelineEventsMutation>>>;
+};
+
+export type OmOssBlocksOrgSeparationMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OmOssBlocksCheckmatFeaturesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OmOssBlocksCheckmatMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Array<InputMaybe<OmOssBlocksCheckmatFeaturesMutation>>>;
+};
+
 export type OmOssBlocksMutation = {
   about?: InputMaybe<OmOssBlocksAboutMutation>;
   values?: InputMaybe<OmOssBlocksValuesMutation>;
   trainers?: InputMaybe<OmOssBlocksTrainersMutation>;
   faq?: InputMaybe<OmOssBlocksFaqMutation>;
+  timeline?: InputMaybe<OmOssBlocksTimelineMutation>;
+  orgSeparation?: InputMaybe<OmOssBlocksOrgSeparationMutation>;
+  checkmat?: InputMaybe<OmOssBlocksCheckmatMutation>;
 };
 
 export type OmOssMutation = {
@@ -1868,7 +1978,7 @@ export type SponsorerPartsFragment = { __typename: 'Sponsorer', title: string, b
 
 export type MedlemskapPartsFragment = { __typename: 'Medlemskap', title: string, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
 
-export type OmOssPartsFragment = { __typename: 'OmOss', title: string, description?: string | null, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
+export type OmOssPartsFragment = { __typename: 'OmOss', title: string, description?: string | null, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
 
 export type ContactPartsFragment = { __typename: 'Contact', email?: string | null, phone?: string | null, address?: string | null, facebook?: string | null, instagram?: string | null, image?: string | null };
 
@@ -2031,7 +2141,7 @@ export type OmOssQueryVariables = Exact<{
 }>;
 
 
-export type OmOssQuery = { __typename?: 'Query', omOss: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } };
+export type OmOssQuery = { __typename?: 'Query', omOss: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
 
 export type OmOssConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -2043,7 +2153,7 @@ export type OmOssConnectionQueryVariables = Exact<{
 }>;
 
 
-export type OmOssConnectionQuery = { __typename?: 'Query', omOssConnection: { __typename?: 'OmOssConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'OmOssConnectionEdges', cursor: string, node?: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } | null } | null> | null } };
+export type OmOssConnectionQuery = { __typename?: 'Query', omOssConnection: { __typename?: 'OmOssConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'OmOssConnectionEdges', cursor: string, node?: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type ContactQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -2350,6 +2460,34 @@ export const OmOssPartsFragmentDoc = gql`
         __typename
         question
         answer
+      }
+    }
+    ... on OmOssBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on OmOssBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on OmOssBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
       }
     }
   }

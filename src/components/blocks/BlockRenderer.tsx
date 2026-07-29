@@ -5,6 +5,9 @@ import { Values } from "../Values";
 import { Trainers } from "../Trainers";
 import { Membership } from "../Membership";
 import { FAQ } from "../FAQ";
+import { Timeline } from "../Timeline";
+import { OrgSeparation } from "../OrgSeparation";
+import { CheckmatSection } from "../CheckmatSection";
 
 export function BlockRenderer({ blocks }: { blocks: any[] }) {
   if (!blocks || !Array.isArray(blocks)) {
@@ -33,6 +36,15 @@ export function BlockRenderer({ blocks }: { blocks: any[] }) {
           }
           if (template === "faq" || template.endsWith("BlocksFaq")) {
             return <FAQ key={i} {...block} />;
+          }
+          if (template === "timeline" || template.endsWith("BlocksTimeline")) {
+            return <Timeline key={i} {...block} />;
+          }
+          if (template === "orgSeparation" || template.endsWith("BlocksOrgSeparation")) {
+            return <OrgSeparation key={i} {...block} />;
+          }
+          if (template === "checkmat" || template.endsWith("BlocksCheckmat")) {
+            return <CheckmatSection key={i} {...block} />;
           }
           
           console.warn(`No component for template: ${template}`);

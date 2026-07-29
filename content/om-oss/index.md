@@ -41,6 +41,38 @@ blocks:
         text: 'Vi forholder oss til Norges Idrettsforbund (NIF) sine generelle retningslinjer for et trygt og helsefremmende treningsmiljø. Hos oss skal all trening foregå i kontrollerte og trygge rammer, der utøverens helse og velferd alltid kommer i første rekke. Alle våre trenere er innforstått med sitt ansvar som forbilder og veiledere.'
         icon: ShieldCheck
     _template: values
+  - title: Vår reise og historie
+    subtitle: Fra Rambukk på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal
+    events:
+      - year: '2013'
+        title: Rambukk åpner på Råholt
+        location: Råholt
+        description: 'Rambukk startet som et privatfinansiert aksjeselskap (AS) på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.'
+        highlight: false
+      - year: September 2026
+        title: Eidsvoll Kampsportklubb (EKK) overtar på Dal
+        location: Dal
+        description: 'Fra september 2026 overtok Eidsvoll Kampsportklubb (EKK) – et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) – hele driften, medlemsadministrasjonen og lokalleien, og flyttet inn i nye, nyoppussede lokaler på Dal.'
+        highlight: true
+    _template: timeline
+  - title: Organisasjonsstruktur & Medlemsadministrasjon
+    subtitle: Tydelig skille mellom Rambukk Sport AS og Eidsvoll Kampsportklubb (EKK)
+    description: 'For å sikre full åpenhet for alle våre utøvere og foresatte, ønsker vi å klargjøre ansvarsfordelingen og endringen i medlemsadministrasjonen fra september 2026. Rambukk Sport AS sto tidligere for utleie og innkreving, mens Eidsvoll Kampsportklubb (EKK) nå håndterer alt direkte.'
+    _template: orgSeparation
+  - title: Offisiell Checkmat Affiliate
+    subtitle: Brasiliansk Jiu-Jitsu i verdensklasse under Leo Vieira
+    description: 'Eidsvoll Kampsportklubb er stolt offisiell Checkmat-klubb, direkte tilknyttet Checkmats grunnlegger Leo Vieira og det globale hovedkvarteret. Hos oss kombinerer vi elite-BJJ med et kompromissløst fokus på utøvernes trygghet, helse og gode verdier.'
+    features:
+      - title: Verdensklasse BJJ-standard
+        description: 'Strukturert og teknisk BJJ-trening bygd på konseptene fra et av verdens mest fremgangsrike og vinnende kampsportakademier.'
+        icon: Award
+      - title: Internasjonale beltegraderinger
+        description: 'Alle beltegraderinger hos Eidsvoll Kampsportklubb er offisielt registrert og godkjent under Leo Vieira og Checkmats globale hovedkvarter.'
+        icon: ShieldCheck
+      - title: Åpent globalt nettverk
+        description: 'Som utøver i en offisiell Checkmat-klubb står dørene åpne for trening ved Checkmat-akademier verden over når du reiser.'
+        icon: Globe
+    _template: checkmat
   - title: Våre trenere
     trainerList:
       - name: Christer Alfheim

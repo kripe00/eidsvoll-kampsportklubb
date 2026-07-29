@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   description:
     "Eidsvoll Kampsportklubb – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for utøvere fra Eidsvoll, Råholt, Dal, Årnes/Nes, Nordkisa, Mogreina, Hurdal, Vormsund, Minnesund, Feiring og Kongsvinger. Bli med på trening!",
   keywords: [
+    "Rambukk",
+    "Rambukk Sport",
+    "Rambukk kampsport",
     "kampsport",
     "kampsportklubb",
     "kampsportsenter",
@@ -38,6 +41,8 @@ export const metadata: Metadata = {
     "kongsvinger",
     "BJJ",
     "brasiliansk jiu-jitsu",
+    "Checkmat",
+    "Leo Vieira",
     "muay thai",
     "thaiboksing",
     "trening",

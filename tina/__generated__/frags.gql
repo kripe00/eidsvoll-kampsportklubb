@@ -258,6 +258,34 @@ fragment OmOssParts on OmOss {
         answer
       }
     }
+    ... on OmOssBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on OmOssBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on OmOssBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
+      }
+    }
   }
 }
 
