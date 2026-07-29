@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "eidsvoll-kampsportklubb",
     "public": "out",
     "cleanUrls": true,
     "ignore": [
