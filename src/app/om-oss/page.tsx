@@ -67,9 +67,9 @@ const fallbackOmOssData = {
     {
       _template: "orgSeparation",
       title: "Organisasjonsstruktur & Medlemsadministrasjon",
-      subtitle: "Tydelig skille mellom Rambukk Sport AS og Eidsvoll Kampsportklubb (EKK)",
+      subtitle: "Eidsvoll Kampsportklubb (EKK) og Rambukk",
       description:
-        "For å sikre full åpenhet for alle våre utøvere og foresatte, ønsker vi å klargjøre ansvarsfordelingen og endringen i medlemsadministrasjonen fra september 2026. Rambukk Sport AS sto tidligere for utleie og innkreving, mens Eidsvoll Kampsportklubb (EKK) nå håndterer alt direkte.",
+        "For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).",
     },
     {
       _template: "checkmat",
