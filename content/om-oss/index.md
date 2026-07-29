@@ -3,17 +3,17 @@ title: Om oss
 description: 'Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter i Eidsvoll har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.'
 blocks:
   - title: Vår reise og historie
-    subtitle: Fra Rambukk på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal
+    subtitle: Fra Rambukk Sport AS på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal
     events:
       - year: '2013'
-        title: Rambukk etableres på Råholt
+        title: Rambukk Sport AS etableres på Råholt
         location: Råholt
-        description: 'Rambukk ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.'
+        description: 'Rambukk Sport AS ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.'
         highlight: false
       - year: '2023'
-        title: Stiftelsen av Eidsvoll Kampsportklubb (EKK)
-        location: Eidsvoll
-        description: 'Eidsvoll Kampsportklubb (EKK) ble stiftet i 2023 som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).'
+        title: Stiftelsen av Eidsvoll Kampsportklubb (EKK) på Råholt
+        location: Råholt
+        description: 'Eidsvoll Kampsportklubb (EKK) ble stiftet på Råholt i 2023 som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).'
         highlight: false
       - year: September 2026
         title: EKK samler driften på Dal
@@ -34,8 +34,8 @@ blocks:
     video: /VID_20260209_174201.mp4
     _template: about
   - title: Organisasjonsstruktur & Medlemsadministrasjon
-    subtitle: Eidsvoll Kampsportklubb (EKK) og Rambukk
-    description: 'For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).'
+    subtitle: Eidsvoll Kampsportklubb (EKK) og Rambukk Sport AS
+    description: 'For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).'
     _template: orgSeparation
   - title: Offisiell Checkmat Affiliate
     subtitle: Brasiliansk Jiu-Jitsu i verdensklasse under Leo Vieira

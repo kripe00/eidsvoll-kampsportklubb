@@ -3,11 +3,11 @@ import { GenericPageClient } from "@/components/GenericPageClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Eidsvoll Kampsportklubb (EKK) / Rambukk | Kampsport på Dal",
+  title: "Eidsvoll Kampsportklubb (EKK) / Rambukk Sport AS | Kampsport på Dal",
   description:
-    "Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk i nye lokaler på Dal. Vi tilbyr BJJ (Checkmat), Muay Thai og Cross-trening.",
+    "Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Vi tilbyr BJJ (Checkmat), Muay Thai og Cross-trening.",
   keywords: [
-    "Rambukk",
+    "Rambukk Sport AS",
     "Rambukk Sport",
     "Rambukk kampsport",
     "Råholt",
@@ -29,22 +29,22 @@ const fallbackOmOssData = {
     {
       _template: "timeline",
       title: "Vår reise og historie",
-      subtitle: "Fra Rambukk på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal",
+      subtitle: "Fra Rambukk Sport AS på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal",
       events: [
         {
           year: "2013",
-          title: "Rambukk etableres på Råholt",
+          title: "Rambukk Sport AS etableres på Råholt",
           location: "Råholt",
           description:
-            "Rambukk ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.",
+            "Rambukk Sport AS ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.",
           highlight: false,
         },
         {
           year: "2023",
-          title: "Stiftelsen av Eidsvoll Kampsportklubb (EKK)",
-          location: "Eidsvoll",
+          title: "Stiftelsen av Eidsvoll Kampsportklubb (EKK) på Råholt",
+          location: "Råholt",
           description:
-            "Eidsvoll Kampsportklubb (EKK) ble stiftet i 2023 som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).",
+            "Eidsvoll Kampsportklubb (EKK) ble stiftet på Råholt i 2023 som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).",
           highlight: false,
         },
         {
@@ -67,9 +67,9 @@ const fallbackOmOssData = {
     {
       _template: "orgSeparation",
       title: "Organisasjonsstruktur & Medlemsadministrasjon",
-      subtitle: "Eidsvoll Kampsportklubb (EKK) og Rambukk",
+      subtitle: "Eidsvoll Kampsportklubb (EKK) og Rambukk Sport AS",
       description:
-        "For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).",
+        "For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).",
     },
     {
       _template: "checkmat",

@@ -20,17 +20,17 @@ interface TimelineProps {
 const defaultEvents: TimelineEvent[] = [
   {
     year: "2013",
-    title: "Rambukk etableres på Råholt",
+    title: "Rambukk Sport AS etableres på Råholt",
     location: "Råholt",
     description:
-      "Rambukk ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.",
+      "Rambukk Sport AS ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.",
   },
   {
     year: "2023",
-    title: "Stiftelsen av Eidsvoll Kampsportklubb (EKK)",
-    location: "Eidsvoll",
+    title: "Stiftelsen av Eidsvoll Kampsportklubb (EKK) på Råholt",
+    location: "Råholt",
     description:
-      "Eidsvoll Kampsportklubb (EKK) ble stiftet i 2023 som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).",
+      "Eidsvoll Kampsportklubb (EKK) ble stiftet på Råholt i 2023 som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).",
   },
   {
     year: "September 2026",
@@ -44,7 +44,7 @@ const defaultEvents: TimelineEvent[] = [
 
 export function Timeline({
   title = "Vår reise og historie",
-  subtitle = "Fra Rambukk på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal",
+  subtitle = "Fra Rambukk Sport AS på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal",
   events = defaultEvents,
 }: TimelineProps) {
   const displayEvents = events && events.length > 0 ? events : defaultEvents;
