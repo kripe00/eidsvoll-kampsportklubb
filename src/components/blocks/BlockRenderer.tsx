@@ -15,7 +15,7 @@ export function BlockRenderer({ blocks }: { blocks: any[] }) {
   }
 
   return (
-    <div className="space-y-24">
+    <div className="space-y-10 md:space-y-12">
       {blocks.map((block, i) => {
         if (!block) return null;
         

@@ -43,13 +43,13 @@ export function Timeline({
   const displayEvents = events && events.length > 0 ? events : defaultEvents;
 
   return (
-    <section className="py-12">
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground uppercase">
+    <section className="py-4">
+      <div className="text-center max-w-3xl mx-auto mb-8">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-foreground uppercase">
           {title}
         </h2>
         {subtitle && (
-          <p className="mt-4 text-muted-foreground text-base sm:text-lg leading-relaxed font-medium">
+          <p className="mt-2 text-muted-foreground text-sm sm:text-base leading-relaxed font-medium">
             {subtitle}
           </p>
         )}
@@ -59,7 +59,7 @@ export function Timeline({
         {/* Central Vertical Line */}
         <div className="absolute left-6 sm:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 transform -translate-x-1/2 hidden sm:block" />
 
-        <div className="space-y-12 sm:space-y-16">
+        <div className="space-y-6 sm:space-y-8">
           {displayEvents.map((event, index) => {
             const isEven = index % 2 === 0;
             return (

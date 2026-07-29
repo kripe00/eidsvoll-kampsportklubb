@@ -15,19 +15,19 @@ export function CheckmatSection({
   description = "Eidsvoll Kampsportklubb er en offisiell Checkmat-klubb, direkte tilknyttet Checkmats grunnlegger Leo Vieira. Dette gir utøverne våre tilgang til en av verdens mest anerkjente BJJ-organisasjoner, med trygge rammer og godkjente graderinger.",
 }: CheckmatSectionProps) {
   return (
-    <section className="py-10">
-      <div className="bg-slate-900 text-slate-100 rounded-2xl p-8 md:p-12 border border-slate-800 shadow-sm">
+    <section className="py-4">
+      <div className="bg-slate-900 text-slate-100 rounded-2xl p-6 sm:p-8 border border-slate-800 shadow-sm">
         <div className="max-w-3xl">
-          <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-slate-400 block mb-1">
             BJJ Lineage
           </span>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white mb-2">
             {title}
           </h2>
-          <p className="text-slate-300 font-medium text-base md:text-lg mb-6 leading-relaxed">
+          <p className="text-slate-300 font-medium text-sm md:text-base mb-4 leading-relaxed">
             {subtitle}
           </p>
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-8">
+          <p className="text-slate-300 text-xs md:text-sm leading-relaxed mb-6">
             {description}
           </p>
 

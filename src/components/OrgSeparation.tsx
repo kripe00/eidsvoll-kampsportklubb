@@ -14,28 +14,23 @@ export function OrgSeparation({
   description = "For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).",
 }: OrgSeparationProps) {
   return (
-    <section className="py-12">
-      <div className="bg-muted/30 border border-primary/20 rounded-3xl p-6 sm:p-10 lg:p-12 relative overflow-hidden shadow-sm">
+    <section className="py-4">
+      <div className="bg-muted/30 border border-primary/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden shadow-sm">
         {/* Decorative background blur element */}
         <div className="absolute -right-12 -top-12 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs sm:text-sm font-bold uppercase tracking-wider mb-6">
-            <Info className="w-4 h-4 text-primary" />
-            <span>Viktig informasjon for medlemmer</span>
-          </div>
-
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground uppercase tracking-tight mb-3">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-foreground uppercase tracking-tight mb-2">
             {title}
           </h2>
-          <p className="text-primary font-bold text-base sm:text-lg mb-4">
+          <p className="text-primary font-bold text-sm sm:text-base mb-3">
             {subtitle}
           </p>
-          <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-3xl mb-8">
+          <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed max-w-3xl mb-6">
             {description}
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             {/* Historical context card */}
             <div className="bg-background/80 backdrop-blur-sm border border-border/60 rounded-2xl p-6 flex flex-col justify-between">
               <div>

@@ -37,13 +37,13 @@ const fallbackOmOssData = {
       _template: "values",
       title: "Trygghet, respekt og fellesskap",
       description:
-        "For oss er kampsport et verktøy for å bygge gode holdninger og sterke mennesker. Vår visjon er å være Eidsvolls mest inkluderende treningsmiljø. For å oppnå dette bygger vi alt vi gjør på noen enkle, men ufravikelige grunnverdier:",
+        "For oss er kampsport et verktøy for å bygge gode holdninger og sterke mennesker. Vår visjon er å være Eidsvolls mest inkluderende treningsmiljø basert på våre grunnverdier:",
       variant: "asymmetric",
       image: "/PXL_20260211_163724399.jpg",
       items: [
         {
           title: "Respekt",
-          text: "Vi bukker for hverandre, vi lytter, og vi behandler alle treningspartnere med like stor respekt – uansett nivå eller bakgrunn.",
+          text: "Vi bukker for hverandre, lytter, og behandler alle treningspartnere med like stor respekt – uansett nivå eller bakgrunn.",
           icon: "HeartHandshake",
         },
         {
@@ -57,23 +57,8 @@ const fallbackOmOssData = {
           icon: "Flame",
         },
         {
-          title: "Trygghet",
-          text: "Alle skal føle seg ivaretatt hos oss. Spesielt for foreldre skal det være en absolutt trygghet i å sende barna sine til trening i våre lokaler.",
-          icon: "ShieldCheck",
-        },
-      ],
-    },
-    {
-      _template: "values",
-      title: "Et miljø for alle",
-      description:
-        "I Eidsvoll Kampsportklubb har vi nulltoleranse for mobbing, rasisme og enhver form for diskriminering. Vi stiller oss også sterkt bak en ren idrett, med absolutt nulltoleranse for doping.",
-      variant: "navy",
-      image: "/images/club/sparring-action.jpg",
-      items: [
-        {
-          title: "Trygg idrett & Etiske retningslinjer",
-          text: "Vi forholder oss til Norges Idrettsforbund (NIF) sine generelle retningslinjer for et trygt og helsefremmende treningsmiljø. Hos oss skal all trening foregå i kontrollerte og trygge rammer, der utøverens helse og velferd alltid kommer i første rekke. Alle våre trenere er innforstått med sitt ansvar som forbilder og veiledere.",
+          title: "Trygghet & NIF-retningslinjer",
+          text: "Alle skal føle seg ivaretatt hos oss. Vi forholder oss til NIFs etiske retningslinjer for et trygt, inkluderende og helsefremmende treningsmiljø.",
           icon: "ShieldCheck",
         },
       ],
