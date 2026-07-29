@@ -45,15 +45,11 @@ export function Timeline({
   return (
     <section className="py-12">
       <div className="text-center max-w-3xl mx-auto mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs sm:text-sm font-bold uppercase tracking-wider mb-4">
-          <Sparkles className="w-4 h-4 text-primary" />
-          <span>Klubbens Historie</span>
-        </div>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground uppercase">
           {title}
         </h2>
         {subtitle && (
-          <p className="mt-4 text-muted-foreground text-base sm:text-lg leading-relaxed">
+          <p className="mt-4 text-muted-foreground text-base sm:text-lg leading-relaxed font-medium">
             {subtitle}
           </p>
         )}
