@@ -3,9 +3,9 @@ import { GenericPageClient } from "@/components/GenericPageClient";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Eidsvoll Kampsportklubb (EKK) – Tidligere Rambukk | Kampsport på Dal",
+  title: "Eidsvoll Kampsportklubb (EKK) / Rambukk | Kampsport på Dal",
   description:
-    "Rambukk har blitt til Eidsvoll Kampsportklubb (EKK). Vi har flyttet til nye, nyoppussede lokaler på Dal. Vi tilbyr BJJ (Checkmat), Muay Thai og Cross-trening.",
+    "Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk i nye lokaler på Dal. Vi tilbyr BJJ (Checkmat), Muay Thai og Cross-trening.",
   keywords: [
     "Rambukk",
     "Rambukk Sport",

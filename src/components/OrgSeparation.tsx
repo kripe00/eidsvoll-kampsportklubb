@@ -10,8 +10,8 @@ interface OrgSeparationProps {
 
 export function OrgSeparation({
   title = "Organisasjonsstruktur & Medlemsadministrasjon",
-  subtitle = "Tydelig skille mellom Rambukk Sport AS og Eidsvoll Kampsportklubb (EKK)",
-  description = "For å sikre full åpenhet for alle våre utøvere og foresatte, ønsker vi å klargjøre ansvarsfordelingen og endringen i medlemsadministrasjonen fra september 2026.",
+  subtitle = "Eidsvoll Kampsportklubb (EKK) og Rambukk",
+  description = "For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).",
 }: OrgSeparationProps) {
   return (
     <section className="py-12">
@@ -44,12 +44,12 @@ export function OrgSeparation({
                     <Building className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-foreground text-lg">Tidligere modell</h3>
+                    <h3 className="font-extrabold text-foreground text-lg">Tidligere organisering</h3>
                     <p className="text-xs text-muted-foreground">Frem til september 2026</p>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Tidligere var det kommersielle selskaper (blant annet Rambukk Sport AS) som sto for leie av lokaler, utstyr og innkreving av medlemsavgifter for kampsportaktiviteten på Råholt.
+                  Tidligere ble fasiliteter og drift håndtert gjennom Rambukk Sport AS på Råholt.
                 </p>
               </div>
             </div>
@@ -62,12 +62,12 @@ export function OrgSeparation({
                     <ShieldAlert className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-extrabold text-foreground text-lg">Dagens idrettslag (EKK)</h3>
+                    <h3 className="font-extrabold text-foreground text-lg">Direkte drift hos idrettslaget (EKK)</h3>
                     <p className="text-xs text-primary font-bold">Fra september 2026</p>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Fra og med <strong>september 2026</strong> drifter <strong>Eidsvoll Kampsportklubb (EKK)</strong> hele virksomheten i sin helhet som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF).
+                  Fra og med <strong>september 2026</strong> håndterer <strong>Eidsvoll Kampsportklubb (EKK)</strong> hele virksomheten som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF).
                 </p>
               </div>
             </div>
