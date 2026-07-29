@@ -12,18 +12,13 @@ export function About(props: AboutProps) {
   const { title = "Vårt Tilbud", body, image, video } = props;
   
   return (
-    <section id="om-oss" className="py-32 bg-background relative overflow-hidden" data-tina-field={tinaField(props, 'title')}>
+    <section id="om-oss" className="py-8 bg-background relative overflow-hidden" data-tina-field={tinaField(props, 'title')}>
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl overflow-hidden md:overflow-visible">
         <div className="flex flex-col lg:flex-row gap-20 items-start">
           
           {/* Left Column: Heading or Image/Video */}
           <div className="lg:w-1/2 space-y-12">
-            <div className="max-w-md">
-              <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tighter text-foreground uppercase leading-[0.85] mb-8 break-words">
-                Siden <br /><span className="text-primary italic font-light lowercase">2024</span>
-              </h2>
-              <div className="w-16 h-[1px] bg-primary" />
-            </div>
+
 
             {video ? (
               <div className="relative group overflow-hidden rounded-2xl shadow-2xl transition-transform duration-500 hover:scale-[1.02]" data-tina-field={tinaField(props, 'video')}>
