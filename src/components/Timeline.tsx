@@ -20,17 +20,24 @@ interface TimelineProps {
 const defaultEvents: TimelineEvent[] = [
   {
     year: "2013",
-    title: "Rambukk åpner på Råholt",
+    title: "Rambukk etableres på Råholt",
     location: "Råholt",
     description:
-      "Rambukk startet som et privatfinansiert aksjeselskap (AS) på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.",
+      "Rambukk ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.",
+  },
+  {
+    year: "2023",
+    title: "Stiftelsen av Eidsvoll Kampsportklubb (EKK)",
+    location: "Eidsvoll",
+    description:
+      "Eidsvoll Kampsportklubb (EKK) ble stiftet i 2023 som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).",
   },
   {
     year: "September 2026",
-    title: "Eidsvoll Kampsportklubb (EKK) overtar på Dal",
+    title: "EKK samler driften på Dal",
     location: "Dal",
     description:
-      "Eidsvoll Kampsportklubb (EKK) – et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) – overtok i september 2026 hele driften, medlemsadministrasjonen og lokalleien, og flyttet inn i nye, nyoppussede lokaler på Dal.",
+      "Fra september 2026 viderefører og samler Eidsvoll Kampsportklubb (EKK) hele driften, medlemsadministrasjonen og aktiviteten i nye lokaler på Dal.",
     highlight: true,
   },
 ];

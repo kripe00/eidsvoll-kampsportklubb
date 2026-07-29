@@ -2,6 +2,25 @@
 title: Om oss
 description: 'Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter i Eidsvoll har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.'
 blocks:
+  - title: Vår reise og historie
+    subtitle: Fra Rambukk på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal
+    events:
+      - year: '2013'
+        title: Rambukk etableres på Råholt
+        location: Råholt
+        description: 'Rambukk ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.'
+        highlight: false
+      - year: '2023'
+        title: Stiftelsen av Eidsvoll Kampsportklubb (EKK)
+        location: Eidsvoll
+        description: 'Eidsvoll Kampsportklubb (EKK) ble stiftet i 2023 som et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).'
+        highlight: false
+      - year: September 2026
+        title: EKK samler driften på Dal
+        location: Dal
+        description: 'Fra september 2026 viderefører og samler Eidsvoll Kampsportklubb (EKK) hele driften, medlemsadministrasjonen og aktiviteten i nye lokaler på Dal.'
+        highlight: true
+    _template: timeline
   - title: Vårt Tilbud
     body: |-
       Vårt kjernefokus ligger på kampsportene Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai. Dette er sporter som bygger både fysisk styrke og mental robusthet. Som et viktig supplement til kampsporten tilbyr vi også Cross-trening. Dette er lagt opp for å bygge utholdenhet, styrke og forebygge skader, slik at våre medlemmer får et komplett og helhetlig treningstilbud.
@@ -14,38 +33,6 @@ blocks:
     image: /PXL_20260211_163724399.jpg
     video: /VID_20260209_174201.mp4
     _template: about
-  - title: 'Trygghet, respekt og fellesskap'
-    description: 'For oss er kampsport et verktøy for å bygge gode holdninger og sterke mennesker. Vår visjon er å være Eidsvolls mest inkluderende treningsmiljø basert på våre grunnverdier:'
-    variant: asymmetric
-    image: /PXL_20260211_163724399.jpg
-    items:
-      - title: Respekt
-        text: 'Vi bukker for hverandre, lytter, og behandler alle treningspartnere med like stor respekt – uansett nivå eller bakgrunn.'
-        icon: HeartHandshake
-      - title: Fellesskap
-        text: Ingen blir gode alene. Vi løfter hverandre frem og feirer hverandres fremgang.
-        icon: Users
-      - title: Disiplin
-        text: 'Vi møter presis, gjør vårt beste, og viser dedikasjon til både sporten og klubben.'
-        icon: Flame
-      - title: Trygghet & NIF-retningslinjer
-        text: Alle skal føle seg ivaretatt hos oss. Vi forholder oss til NIFs etiske retningslinjer for et trygt, inkluderende og helsefremmende treningsmiljø.
-        icon: ShieldCheck
-    _template: values
-  - title: Vår reise og historie
-    subtitle: Fra Rambukk på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal
-    events:
-      - year: '2013'
-        title: Rambukk etableres på Råholt
-        location: Råholt
-        description: 'Rambukk ble etablert på Råholt i 2013, og bygde over mange år opp et sterkt og inkluderende kampsportmiljø i lokalsamfunnet.'
-        highlight: false
-      - year: September 2026
-        title: Eidsvoll Kampsportklubb (EKK) samler aktiviteten på Dal
-        location: Dal
-        description: 'Fra september 2026 viderefører og samler Eidsvoll Kampsportklubb (EKK) – et ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) – hele driften, medlemsadministrasjonen og aktiviteten i nye lokaler på Dal.'
-        highlight: true
-    _template: timeline
   - title: Organisasjonsstruktur & Medlemsadministrasjon
     subtitle: Eidsvoll Kampsportklubb (EKK) og Rambukk
     description: 'For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).'
