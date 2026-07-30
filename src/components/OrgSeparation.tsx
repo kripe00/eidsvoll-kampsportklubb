@@ -11,7 +11,7 @@ interface OrgSeparationProps {
 export function OrgSeparation({
   title = "Organisasjonsstruktur & Medlemsadministrasjon",
   subtitle = "Eidsvoll Kampsportklubb (EKK) og Rambukk Sport AS",
-  description = "For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å klargjøre at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).",
+  description = "For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å presisere at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).",
 }: OrgSeparationProps) {
   return (
     <section className="py-4">
