@@ -7,14 +7,30 @@ export const metadata: Metadata = {
   description: "Støtt lokalsporten i Eidsvoll. Se våre sponsorer og samarbeidspartnere, og les om hvordan din bedrift kan bidra til lokal idrettsglede.",
 };
 
+const fallbackSponsorerData = {
+  title: "Sponsorer & Samarbeidspartnere",
+  blocks: [],
+};
+
 export default async function SponsorerPage() {
-  const result = await client.queries.sponsorer({ relativePath: "index.md" });
+  let data = fallbackSponsorerData;
+  let query = "";
+  let variables = {};
+
+  try {
+    const result = await client.queries.sponsorer({ relativePath: "index.md" });
+    data = result.data as any;
+    query = result.query;
+    variables = result.variables;
+  } catch (error) {
+    console.warn("TinaCMS Sponsorer fetch failed (using local fallback data):", error);
+  }
 
   return (
     <SponsorerPageClient 
-      data={result.data} 
-      query={result.query} 
-      variables={result.variables} 
+      data={data as any} 
+      query={query} 
+      variables={variables} 
     />
   );
 }
