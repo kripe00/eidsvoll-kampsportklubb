@@ -12,7 +12,7 @@
         {
           "time": "17:30 - 18:30",
           "activity": "BJJ",
-          "group": "Barneparti 2 (10-13 år)",
+          "group": "Barneparti 2 (10-12 år)",
           "room": "Sal 2"
         },
         {
@@ -61,6 +61,12 @@
           "activity": "Thaiboksing",
           "group": "Thaiboksing",
           "room": "Sal 1"
+        },
+        {
+          "time": "17:30 - 18:30",
+          "activity": "Thaiboksing",
+          "group": "Barn (Felles)",
+          "room": "Sal 1"
         }
       ]
     },
@@ -82,7 +88,7 @@
         {
           "time": "17:30 - 18:30",
           "activity": "BJJ",
-          "group": "Barneparti 2 (10-13 år)",
+          "group": "Barneparti 2 (10-12 år)",
           "room": "Sal 1"
         },
         {
