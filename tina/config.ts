@@ -2,7 +2,8 @@ import { defineConfig } from "tinacms";
 
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "main";
 
-const allTemplates: any[] = [
+// Returns a fresh array of template objects for each collection to prevent object reference mutation and namespace collision in Tina Cloud GraphQL parser
+const getBlockTemplates = (): any[] => [
   {
     name: "about",
     label: "Om oss / Tekst",
@@ -252,7 +253,7 @@ export default defineConfig({
             list: true,
             name: "blocks",
             label: "Seksjoner",
-            templates: allTemplates,
+            templates: getBlockTemplates(),
           },
         ],
       },
@@ -275,7 +276,7 @@ export default defineConfig({
             list: true,
             name: "blocks",
             label: "Seksjoner",
-            templates: allTemplates,
+            templates: getBlockTemplates(),
           },
         ],
       },
@@ -423,7 +424,7 @@ export default defineConfig({
             list: true,
             name: "blocks",
             label: "Ekstra seksjoner",
-            templates: allTemplates,
+            templates: getBlockTemplates(),
           },
           {
             type: "object",
@@ -520,7 +521,7 @@ export default defineConfig({
             list: true,
             name: "blocks",
             label: "Seksjoner",
-            templates: allTemplates,
+            templates: getBlockTemplates(),
           },
         ],
       },
@@ -540,7 +541,7 @@ export default defineConfig({
             list: true,
             name: "blocks",
             label: "Seksjoner",
-            templates: allTemplates,
+            templates: getBlockTemplates(),
           },
         ],
       },

@@ -1,7 +1,7 @@
 // tina/config.ts
 import { defineConfig } from "tinacms";
 var branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || "main";
-var allTemplates = [
+var getBlockTemplates = () => [
   {
     name: "about",
     label: "Om oss / Tekst",
@@ -250,7 +250,7 @@ var config_default = defineConfig({
             list: true,
             name: "blocks",
             label: "Seksjoner",
-            templates: allTemplates
+            templates: getBlockTemplates()
           }
         ]
       },
@@ -273,7 +273,7 @@ var config_default = defineConfig({
             list: true,
             name: "blocks",
             label: "Seksjoner",
-            templates: allTemplates
+            templates: getBlockTemplates()
           }
         ]
       },
@@ -421,7 +421,7 @@ var config_default = defineConfig({
             list: true,
             name: "blocks",
             label: "Ekstra seksjoner",
-            templates: allTemplates
+            templates: getBlockTemplates()
           },
           {
             type: "object",
@@ -518,7 +518,7 @@ var config_default = defineConfig({
             list: true,
             name: "blocks",
             label: "Seksjoner",
-            templates: allTemplates
+            templates: getBlockTemplates()
           }
         ]
       },
@@ -538,7 +538,7 @@ var config_default = defineConfig({
             list: true,
             name: "blocks",
             label: "Seksjoner",
-            templates: allTemplates
+            templates: getBlockTemplates()
           }
         ]
       },
