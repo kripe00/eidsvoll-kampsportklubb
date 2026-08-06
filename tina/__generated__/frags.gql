@@ -8,6 +8,7 @@ fragment PageParts on Page {
       title
       body
       image
+      video
     }
     ... on PageBlocksValues {
       title
@@ -27,6 +28,7 @@ fragment PageParts on Page {
       linkUrl
       boostLinkUrl
       boostEnabled
+      extraInfo
     }
     ... on PageBlocksTrainers {
       title
@@ -62,6 +64,17 @@ fragment PageParts on Page {
         __typename
         question
         answer
+      }
+    }
+    ... on PageBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
       }
     }
     ... on PageBlocksTimeline {
@@ -138,6 +151,103 @@ fragment StyretParts on Styret {
     ... on StyretBlocksAbout {
       title
       body
+      image
+      video
+    }
+    ... on StyretBlocksValues {
+      title
+      description
+      variant
+      image
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on StyretBlocksMembership {
+      title
+      description
+      linkUrl
+      boostLinkUrl
+      boostEnabled
+      extraInfo
+    }
+    ... on StyretBlocksTrainers {
+      title
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
+    ... on StyretBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on StyretBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on StyretBlocksFaq {
+      title
+      items {
+        __typename
+        question
+        answer
+      }
+    }
+    ... on StyretBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
+      }
+    }
+    ... on StyretBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on StyretBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on StyretBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
+      }
     }
   }
   members {
@@ -182,6 +292,46 @@ fragment SponsorerParts on Sponsorer {
       title
       body
       image
+      video
+    }
+    ... on SponsorerBlocksValues {
+      title
+      description
+      variant
+      image
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on SponsorerBlocksMembership {
+      title
+      description
+      linkUrl
+      boostLinkUrl
+      boostEnabled
+      extraInfo
+    }
+    ... on SponsorerBlocksTrainers {
+      title
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
+    ... on SponsorerBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
     }
     ... on SponsorerBlocksBenefits {
       title
@@ -192,13 +342,12 @@ fragment SponsorerParts on Sponsorer {
         icon
       }
     }
-    ... on SponsorerBlocksSponsors {
+    ... on SponsorerBlocksFaq {
       title
-      sponsorList {
+      items {
         __typename
-        name
-        logo
-        url
+        question
+        answer
       }
     }
     ... on SponsorerBlocksPackages {
@@ -212,6 +361,34 @@ fragment SponsorerParts on Sponsorer {
         highlighted
       }
     }
+    ... on SponsorerBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on SponsorerBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on SponsorerBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
+      }
+    }
   }
 }
 
@@ -220,6 +397,24 @@ fragment MedlemskapParts on Medlemskap {
   title
   blocks {
     __typename
+    ... on MedlemskapBlocksAbout {
+      title
+      body
+      image
+      video
+    }
+    ... on MedlemskapBlocksValues {
+      title
+      description
+      variant
+      image
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
     ... on MedlemskapBlocksMembership {
       title
       description
@@ -228,10 +423,33 @@ fragment MedlemskapParts on Medlemskap {
       boostEnabled
       extraInfo
     }
-    ... on MedlemskapBlocksAbout {
+    ... on MedlemskapBlocksTrainers {
       title
-      body
-      image
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
+    ... on MedlemskapBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on MedlemskapBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
     }
     ... on MedlemskapBlocksFaq {
       title
@@ -239,6 +457,45 @@ fragment MedlemskapParts on Medlemskap {
         __typename
         question
         answer
+      }
+    }
+    ... on MedlemskapBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
+      }
+    }
+    ... on MedlemskapBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on MedlemskapBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on MedlemskapBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
       }
     }
   }
@@ -268,6 +525,14 @@ fragment OmOssParts on OmOss {
         icon
       }
     }
+    ... on OmOssBlocksMembership {
+      title
+      description
+      linkUrl
+      boostLinkUrl
+      boostEnabled
+      extraInfo
+    }
     ... on OmOssBlocksTrainers {
       title
       trainerList {
@@ -278,12 +543,41 @@ fragment OmOssParts on OmOss {
         bio
       }
     }
+    ... on OmOssBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on OmOssBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
     ... on OmOssBlocksFaq {
       title
       items {
         __typename
         question
         answer
+      }
+    }
+    ... on OmOssBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
       }
     }
     ... on OmOssBlocksTimeline {
