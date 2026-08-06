@@ -342,7 +342,7 @@ export default defineConfig({
                     required: true,
                     options: [
                       { value: "Barneparti 1 (6-9 år)", label: "Barneparti 1 (6-9 år)" },
-                      { value: "Barneparti 2 (10-12 år)", label: "Barneparti 2 (10-12 år)" },
+                      { value: "Barneparti 2 (10-13 år)", label: "Barneparti 2 (10-13 år)" },
                       { value: "Barn (Felles)", label: "Barn (Felles)" },
                       { value: "Voksne / Ungdom", label: "Voksne / Ungdom" },
                       { value: "Videregående", label: "Videregående" },

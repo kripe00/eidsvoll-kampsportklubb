@@ -341,7 +341,7 @@ var config_default = defineConfig({
                     required: true,
                     options: [
                       { value: "Barneparti 1 (6-9 \xE5r)", label: "Barneparti 1 (6-9 \xE5r)" },
-                      { value: "Barneparti 2 (10-12 \xE5r)", label: "Barneparti 2 (10-12 \xE5r)" },
+                      { value: "Barneparti 2 (10-13 \xE5r)", label: "Barneparti 2 (10-13 \xE5r)" },
                       { value: "Barn (Felles)", label: "Barn (Felles)" },
                       { value: "Voksne / Ungdom", label: "Voksne / Ungdom" },
                       { value: "Videreg\xE5ende", label: "Videreg\xE5ende" },
