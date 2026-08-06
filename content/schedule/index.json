@@ -131,6 +131,12 @@
           "activity": "Thaiboksing",
           "group": "Thaiboksing",
           "room": "Sal 1"
+        },
+        {
+          "time": "17:30 - 18:30",
+          "activity": "Thaiboksing",
+          "group": "Barn (Felles)",
+          "room": "Sal 1"
         }
       ]
     },
