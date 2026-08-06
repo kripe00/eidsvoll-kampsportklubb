@@ -1,3 +1,58 @@
+query omOss($relativePath: String!) {
+  omOss(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...OmOssParts
+  }
+}
+
+query omOssConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: OmOssFilter) {
+  omOssConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...OmOssParts
+      }
+    }
+  }
+}
+
 query page($relativePath: String!) {
   page(relativePath: $relativePath) {
     ... on Document {
@@ -433,61 +488,6 @@ query medlemskapConnection($before: String, $after: String, $first: Float, $last
           id
         }
         ...MedlemskapParts
-      }
-    }
-  }
-}
-
-query omOss($relativePath: String!) {
-  omOss(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...OmOssParts
-  }
-}
-
-query omOssConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: OmOssFilter) {
-  omOssConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...OmOssParts
       }
     }
   }

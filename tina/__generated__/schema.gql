@@ -54,6 +54,8 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
+  omOss(relativePath: String): OmOss!
+  omOssConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: OmOssFilter): OmOssConnection!
   page(relativePath: String): Page!
   pageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFilter): PageConnection!
   hero(relativePath: String): Hero!
@@ -70,8 +72,6 @@ type Query {
   sponsorerConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: SponsorerFilter): SponsorerConnection!
   medlemskap(relativePath: String): Medlemskap!
   medlemskapConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: MedlemskapFilter): MedlemskapConnection!
-  omOss(relativePath: String): OmOss!
-  omOssConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: OmOssFilter): OmOssConnection!
   contact(relativePath: String): Contact!
   contactConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ContactFilter): ContactConnection!
   global(relativePath: String): Global!
@@ -79,6 +79,7 @@ type Query {
 }
 
 input DocumentFilter {
+  omOss: OmOssFilter
   page: PageFilter
   hero: HeroFilter
   schedule: ScheduleFilter
@@ -87,7 +88,6 @@ input DocumentFilter {
   news: NewsFilter
   sponsorer: SponsorerFilter
   medlemskap: MedlemskapFilter
-  omOss: OmOssFilter
   contact: ContactFilter
   global: GlobalFilter
 }
@@ -115,13 +115,221 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Page | Hero | Schedule | Styret | Organisasjonsplan | News | Sponsorer | Medlemskap | OmOss | Contact | Global | Folder
+union DocumentNode = OmOss | Page | Hero | Schedule | Styret | Organisasjonsplan | News | Sponsorer | Medlemskap | Contact | Global | Folder
+
+type OmOssBlocksAbout {
+  title: String
+  body: String
+  image: String
+  video: String
+}
+
+type OmOssBlocksValuesItems {
+  title: String
+  text: String
+  icon: String
+}
+
+type OmOssBlocksValues {
+  title: String
+  description: String
+  variant: String
+  image: String
+  items: [OmOssBlocksValuesItems]
+}
+
+type OmOssBlocksTrainersTrainerList {
+  name: String
+  role: String
+  image: String
+  bio: String
+}
+
+type OmOssBlocksTrainers {
+  title: String
+  trainerList: [OmOssBlocksTrainersTrainerList]
+}
+
+type OmOssBlocksFaqItems {
+  question: String!
+  answer: String!
+}
+
+type OmOssBlocksFaq {
+  title: String
+  items: [OmOssBlocksFaqItems]
+}
+
+type OmOssBlocksTimelineEvents {
+  year: String
+  title: String
+  location: String
+  description: String
+  highlight: Boolean
+}
+
+type OmOssBlocksTimeline {
+  title: String
+  subtitle: String
+  events: [OmOssBlocksTimelineEvents]
+}
+
+type OmOssBlocksOrgSeparation {
+  title: String
+  subtitle: String
+  description: String
+}
+
+type OmOssBlocksCheckmatFeatures {
+  title: String
+  description: String
+  icon: String
+}
+
+type OmOssBlocksCheckmat {
+  title: String
+  subtitle: String
+  description: String
+  features: [OmOssBlocksCheckmatFeatures]
+}
+
+union OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq | OmOssBlocksTimeline | OmOssBlocksOrgSeparation | OmOssBlocksCheckmat
+
+type OmOss implements Node & Document {
+  title: String!
+  description: String
+  blocks: [OmOssBlocks]
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input StringFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input ImageFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input OmOssBlocksAboutFilter {
+  title: StringFilter
+  body: StringFilter
+  image: ImageFilter
+  video: ImageFilter
+}
+
+input OmOssBlocksValuesItemsFilter {
+  title: StringFilter
+  text: StringFilter
+  icon: StringFilter
+}
+
+input OmOssBlocksValuesFilter {
+  title: StringFilter
+  description: StringFilter
+  variant: StringFilter
+  image: ImageFilter
+  items: OmOssBlocksValuesItemsFilter
+}
+
+input OmOssBlocksTrainersTrainerListFilter {
+  name: StringFilter
+  role: StringFilter
+  image: ImageFilter
+  bio: StringFilter
+}
+
+input OmOssBlocksTrainersFilter {
+  title: StringFilter
+  trainerList: OmOssBlocksTrainersTrainerListFilter
+}
+
+input OmOssBlocksFaqItemsFilter {
+  question: StringFilter
+  answer: StringFilter
+}
+
+input OmOssBlocksFaqFilter {
+  title: StringFilter
+  items: OmOssBlocksFaqItemsFilter
+}
+
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input OmOssBlocksTimelineEventsFilter {
+  year: StringFilter
+  title: StringFilter
+  location: StringFilter
+  description: StringFilter
+  highlight: BooleanFilter
+}
+
+input OmOssBlocksTimelineFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  events: OmOssBlocksTimelineEventsFilter
+}
+
+input OmOssBlocksOrgSeparationFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  description: StringFilter
+}
+
+input OmOssBlocksCheckmatFeaturesFilter {
+  title: StringFilter
+  description: StringFilter
+  icon: StringFilter
+}
+
+input OmOssBlocksCheckmatFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  description: StringFilter
+  features: OmOssBlocksCheckmatFeaturesFilter
+}
+
+input OmOssBlocksFilter {
+  about: OmOssBlocksAboutFilter
+  values: OmOssBlocksValuesFilter
+  trainers: OmOssBlocksTrainersFilter
+  faq: OmOssBlocksFaqFilter
+  timeline: OmOssBlocksTimelineFilter
+  orgSeparation: OmOssBlocksOrgSeparationFilter
+  checkmat: OmOssBlocksCheckmatFilter
+}
+
+input OmOssFilter {
+  title: StringFilter
+  description: StringFilter
+  blocks: OmOssBlocksFilter
+}
+
+type OmOssConnectionEdges {
+  cursor: String!
+  node: OmOss
+}
+
+type OmOssConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [OmOssConnectionEdges]
+}
 
 type PageBlocksAbout {
   title: String
   body: String
   image: String
-  video: String
 }
 
 type PageBlocksValuesItems {
@@ -147,97 +355,7 @@ type PageBlocksMembership {
   extraInfo: String
 }
 
-type PageBlocksTrainersTrainerList {
-  name: String
-  role: String
-  image: String
-  bio: String
-}
-
-type PageBlocksTrainers {
-  title: String
-  trainerList: [PageBlocksTrainersTrainerList]
-}
-
-type PageBlocksSponsorsSponsorList {
-  name: String
-  logo: String
-  url: String
-}
-
-type PageBlocksSponsors {
-  title: String
-  sponsorList: [PageBlocksSponsorsSponsorList]
-}
-
-type PageBlocksBenefitsItems {
-  title: String
-  text: String
-  icon: String
-}
-
-type PageBlocksBenefits {
-  title: String
-  items: [PageBlocksBenefitsItems]
-}
-
-type PageBlocksFaqItems {
-  question: String!
-  answer: String!
-}
-
-type PageBlocksFaq {
-  title: String
-  items: [PageBlocksFaqItems]
-}
-
-type PageBlocksPackagesPackagesList {
-  name: String!
-  description: String
-  perks: [String]
-  highlighted: Boolean
-}
-
-type PageBlocksPackages {
-  title: String
-  description: String
-  packagesList: [PageBlocksPackagesPackagesList]
-}
-
-type PageBlocksTimelineEvents {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-type PageBlocksTimeline {
-  title: String
-  subtitle: String
-  events: [PageBlocksTimelineEvents]
-}
-
-type PageBlocksOrgSeparation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-type PageBlocksCheckmatFeatures {
-  title: String
-  description: String
-  icon: String
-}
-
-type PageBlocksCheckmat {
-  title: String
-  subtitle: String
-  description: String
-  features: [PageBlocksCheckmatFeatures]
-}
-
-union PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers | PageBlocksSponsors | PageBlocksBenefits | PageBlocksFaq | PageBlocksPackages | PageBlocksTimeline | PageBlocksOrgSeparation | PageBlocksCheckmat
+union PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership
 
 type Page implements Node & Document {
   title: String!
@@ -248,25 +366,10 @@ type Page implements Node & Document {
   _values: JSON!
 }
 
-input StringFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
-input ImageFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
 input PageBlocksAboutFilter {
   title: StringFilter
   body: StringFilter
   image: ImageFilter
-  video: ImageFilter
 }
 
 input PageBlocksValuesItemsFilter {
@@ -283,11 +386,6 @@ input PageBlocksValuesFilter {
   items: PageBlocksValuesItemsFilter
 }
 
-input BooleanFilter {
-  eq: Boolean
-  exists: Boolean
-}
-
 input PageBlocksMembershipFilter {
   title: StringFilter
   description: StringFilter
@@ -297,108 +395,10 @@ input PageBlocksMembershipFilter {
   extraInfo: StringFilter
 }
 
-input PageBlocksTrainersTrainerListFilter {
-  name: StringFilter
-  role: StringFilter
-  image: ImageFilter
-  bio: StringFilter
-}
-
-input PageBlocksTrainersFilter {
-  title: StringFilter
-  trainerList: PageBlocksTrainersTrainerListFilter
-}
-
-input PageBlocksSponsorsSponsorListFilter {
-  name: StringFilter
-  logo: ImageFilter
-  url: StringFilter
-}
-
-input PageBlocksSponsorsFilter {
-  title: StringFilter
-  sponsorList: PageBlocksSponsorsSponsorListFilter
-}
-
-input PageBlocksBenefitsItemsFilter {
-  title: StringFilter
-  text: StringFilter
-  icon: StringFilter
-}
-
-input PageBlocksBenefitsFilter {
-  title: StringFilter
-  items: PageBlocksBenefitsItemsFilter
-}
-
-input PageBlocksFaqItemsFilter {
-  question: StringFilter
-  answer: StringFilter
-}
-
-input PageBlocksFaqFilter {
-  title: StringFilter
-  items: PageBlocksFaqItemsFilter
-}
-
-input PageBlocksPackagesPackagesListFilter {
-  name: StringFilter
-  description: StringFilter
-  perks: StringFilter
-  highlighted: BooleanFilter
-}
-
-input PageBlocksPackagesFilter {
-  title: StringFilter
-  description: StringFilter
-  packagesList: PageBlocksPackagesPackagesListFilter
-}
-
-input PageBlocksTimelineEventsFilter {
-  year: StringFilter
-  title: StringFilter
-  location: StringFilter
-  description: StringFilter
-  highlight: BooleanFilter
-}
-
-input PageBlocksTimelineFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  events: PageBlocksTimelineEventsFilter
-}
-
-input PageBlocksOrgSeparationFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-}
-
-input PageBlocksCheckmatFeaturesFilter {
-  title: StringFilter
-  description: StringFilter
-  icon: StringFilter
-}
-
-input PageBlocksCheckmatFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-  features: PageBlocksCheckmatFeaturesFilter
-}
-
 input PageBlocksFilter {
   about: PageBlocksAboutFilter
   values: PageBlocksValuesFilter
   membership: PageBlocksMembershipFilter
-  trainers: PageBlocksTrainersFilter
-  sponsors: PageBlocksSponsorsFilter
-  benefits: PageBlocksBenefitsFilter
-  faq: PageBlocksFaqFilter
-  packages: PageBlocksPackagesFilter
-  timeline: PageBlocksTimelineFilter
-  orgSeparation: PageBlocksOrgSeparationFilter
-  checkmat: PageBlocksCheckmatFilter
 }
 
 input PageFilter {
@@ -519,124 +519,9 @@ type ScheduleConnection implements Connection {
 type StyretBlocksAbout {
   title: String
   body: String
-  image: String
-  video: String
 }
 
-type StyretBlocksValuesItems {
-  title: String
-  text: String
-  icon: String
-}
-
-type StyretBlocksValues {
-  title: String
-  description: String
-  variant: String
-  image: String
-  items: [StyretBlocksValuesItems]
-}
-
-type StyretBlocksMembership {
-  title: String
-  description: String
-  linkUrl: String
-  boostLinkUrl: String
-  boostEnabled: Boolean
-  extraInfo: String
-}
-
-type StyretBlocksTrainersTrainerList {
-  name: String
-  role: String
-  image: String
-  bio: String
-}
-
-type StyretBlocksTrainers {
-  title: String
-  trainerList: [StyretBlocksTrainersTrainerList]
-}
-
-type StyretBlocksSponsorsSponsorList {
-  name: String
-  logo: String
-  url: String
-}
-
-type StyretBlocksSponsors {
-  title: String
-  sponsorList: [StyretBlocksSponsorsSponsorList]
-}
-
-type StyretBlocksBenefitsItems {
-  title: String
-  text: String
-  icon: String
-}
-
-type StyretBlocksBenefits {
-  title: String
-  items: [StyretBlocksBenefitsItems]
-}
-
-type StyretBlocksFaqItems {
-  question: String!
-  answer: String!
-}
-
-type StyretBlocksFaq {
-  title: String
-  items: [StyretBlocksFaqItems]
-}
-
-type StyretBlocksPackagesPackagesList {
-  name: String!
-  description: String
-  perks: [String]
-  highlighted: Boolean
-}
-
-type StyretBlocksPackages {
-  title: String
-  description: String
-  packagesList: [StyretBlocksPackagesPackagesList]
-}
-
-type StyretBlocksTimelineEvents {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-type StyretBlocksTimeline {
-  title: String
-  subtitle: String
-  events: [StyretBlocksTimelineEvents]
-}
-
-type StyretBlocksOrgSeparation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-type StyretBlocksCheckmatFeatures {
-  title: String
-  description: String
-  icon: String
-}
-
-type StyretBlocksCheckmat {
-  title: String
-  subtitle: String
-  description: String
-  features: [StyretBlocksCheckmatFeatures]
-}
-
-union StyretBlocks = StyretBlocksAbout | StyretBlocksValues | StyretBlocksMembership | StyretBlocksTrainers | StyretBlocksSponsors | StyretBlocksBenefits | StyretBlocksFaq | StyretBlocksPackages | StyretBlocksTimeline | StyretBlocksOrgSeparation | StyretBlocksCheckmat
+union StyretBlocks = StyretBlocksAbout
 
 type StyretMembers {
   role: String
@@ -674,135 +559,10 @@ input RichTextFilter {
 input StyretBlocksAboutFilter {
   title: StringFilter
   body: StringFilter
-  image: ImageFilter
-  video: ImageFilter
-}
-
-input StyretBlocksValuesItemsFilter {
-  title: StringFilter
-  text: StringFilter
-  icon: StringFilter
-}
-
-input StyretBlocksValuesFilter {
-  title: StringFilter
-  description: StringFilter
-  variant: StringFilter
-  image: ImageFilter
-  items: StyretBlocksValuesItemsFilter
-}
-
-input StyretBlocksMembershipFilter {
-  title: StringFilter
-  description: StringFilter
-  linkUrl: StringFilter
-  boostLinkUrl: StringFilter
-  boostEnabled: BooleanFilter
-  extraInfo: StringFilter
-}
-
-input StyretBlocksTrainersTrainerListFilter {
-  name: StringFilter
-  role: StringFilter
-  image: ImageFilter
-  bio: StringFilter
-}
-
-input StyretBlocksTrainersFilter {
-  title: StringFilter
-  trainerList: StyretBlocksTrainersTrainerListFilter
-}
-
-input StyretBlocksSponsorsSponsorListFilter {
-  name: StringFilter
-  logo: ImageFilter
-  url: StringFilter
-}
-
-input StyretBlocksSponsorsFilter {
-  title: StringFilter
-  sponsorList: StyretBlocksSponsorsSponsorListFilter
-}
-
-input StyretBlocksBenefitsItemsFilter {
-  title: StringFilter
-  text: StringFilter
-  icon: StringFilter
-}
-
-input StyretBlocksBenefitsFilter {
-  title: StringFilter
-  items: StyretBlocksBenefitsItemsFilter
-}
-
-input StyretBlocksFaqItemsFilter {
-  question: StringFilter
-  answer: StringFilter
-}
-
-input StyretBlocksFaqFilter {
-  title: StringFilter
-  items: StyretBlocksFaqItemsFilter
-}
-
-input StyretBlocksPackagesPackagesListFilter {
-  name: StringFilter
-  description: StringFilter
-  perks: StringFilter
-  highlighted: BooleanFilter
-}
-
-input StyretBlocksPackagesFilter {
-  title: StringFilter
-  description: StringFilter
-  packagesList: StyretBlocksPackagesPackagesListFilter
-}
-
-input StyretBlocksTimelineEventsFilter {
-  year: StringFilter
-  title: StringFilter
-  location: StringFilter
-  description: StringFilter
-  highlight: BooleanFilter
-}
-
-input StyretBlocksTimelineFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  events: StyretBlocksTimelineEventsFilter
-}
-
-input StyretBlocksOrgSeparationFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-}
-
-input StyretBlocksCheckmatFeaturesFilter {
-  title: StringFilter
-  description: StringFilter
-  icon: StringFilter
-}
-
-input StyretBlocksCheckmatFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-  features: StyretBlocksCheckmatFeaturesFilter
 }
 
 input StyretBlocksFilter {
   about: StyretBlocksAboutFilter
-  values: StyretBlocksValuesFilter
-  membership: StyretBlocksMembershipFilter
-  trainers: StyretBlocksTrainersFilter
-  sponsors: StyretBlocksSponsorsFilter
-  benefits: StyretBlocksBenefitsFilter
-  faq: StyretBlocksFaqFilter
-  packages: StyretBlocksPackagesFilter
-  timeline: StyretBlocksTimelineFilter
-  orgSeparation: StyretBlocksOrgSeparationFilter
-  checkmat: StyretBlocksCheckmatFilter
 }
 
 input StyretMembersFilter {
@@ -908,53 +668,6 @@ type SponsorerBlocksAbout {
   title: String
   body: String
   image: String
-  video: String
-}
-
-type SponsorerBlocksValuesItems {
-  title: String
-  text: String
-  icon: String
-}
-
-type SponsorerBlocksValues {
-  title: String
-  description: String
-  variant: String
-  image: String
-  items: [SponsorerBlocksValuesItems]
-}
-
-type SponsorerBlocksMembership {
-  title: String
-  description: String
-  linkUrl: String
-  boostLinkUrl: String
-  boostEnabled: Boolean
-  extraInfo: String
-}
-
-type SponsorerBlocksTrainersTrainerList {
-  name: String
-  role: String
-  image: String
-  bio: String
-}
-
-type SponsorerBlocksTrainers {
-  title: String
-  trainerList: [SponsorerBlocksTrainersTrainerList]
-}
-
-type SponsorerBlocksSponsorsSponsorList {
-  name: String
-  logo: String
-  url: String
-}
-
-type SponsorerBlocksSponsors {
-  title: String
-  sponsorList: [SponsorerBlocksSponsorsSponsorList]
 }
 
 type SponsorerBlocksBenefitsItems {
@@ -968,14 +681,15 @@ type SponsorerBlocksBenefits {
   items: [SponsorerBlocksBenefitsItems]
 }
 
-type SponsorerBlocksFaqItems {
-  question: String!
-  answer: String!
+type SponsorerBlocksSponsorsSponsorList {
+  name: String
+  logo: String
+  url: String
 }
 
-type SponsorerBlocksFaq {
+type SponsorerBlocksSponsors {
   title: String
-  items: [SponsorerBlocksFaqItems]
+  sponsorList: [SponsorerBlocksSponsorsSponsorList]
 }
 
 type SponsorerBlocksPackagesPackagesList {
@@ -991,40 +705,7 @@ type SponsorerBlocksPackages {
   packagesList: [SponsorerBlocksPackagesPackagesList]
 }
 
-type SponsorerBlocksTimelineEvents {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-type SponsorerBlocksTimeline {
-  title: String
-  subtitle: String
-  events: [SponsorerBlocksTimelineEvents]
-}
-
-type SponsorerBlocksOrgSeparation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-type SponsorerBlocksCheckmatFeatures {
-  title: String
-  description: String
-  icon: String
-}
-
-type SponsorerBlocksCheckmat {
-  title: String
-  subtitle: String
-  description: String
-  features: [SponsorerBlocksCheckmatFeatures]
-}
-
-union SponsorerBlocks = SponsorerBlocksAbout | SponsorerBlocksValues | SponsorerBlocksMembership | SponsorerBlocksTrainers | SponsorerBlocksSponsors | SponsorerBlocksBenefits | SponsorerBlocksFaq | SponsorerBlocksPackages | SponsorerBlocksTimeline | SponsorerBlocksOrgSeparation | SponsorerBlocksCheckmat
+union SponsorerBlocks = SponsorerBlocksAbout | SponsorerBlocksBenefits | SponsorerBlocksSponsors | SponsorerBlocksPackages
 
 type Sponsorer implements Node & Document {
   title: String!
@@ -1038,53 +719,6 @@ input SponsorerBlocksAboutFilter {
   title: StringFilter
   body: StringFilter
   image: ImageFilter
-  video: ImageFilter
-}
-
-input SponsorerBlocksValuesItemsFilter {
-  title: StringFilter
-  text: StringFilter
-  icon: StringFilter
-}
-
-input SponsorerBlocksValuesFilter {
-  title: StringFilter
-  description: StringFilter
-  variant: StringFilter
-  image: ImageFilter
-  items: SponsorerBlocksValuesItemsFilter
-}
-
-input SponsorerBlocksMembershipFilter {
-  title: StringFilter
-  description: StringFilter
-  linkUrl: StringFilter
-  boostLinkUrl: StringFilter
-  boostEnabled: BooleanFilter
-  extraInfo: StringFilter
-}
-
-input SponsorerBlocksTrainersTrainerListFilter {
-  name: StringFilter
-  role: StringFilter
-  image: ImageFilter
-  bio: StringFilter
-}
-
-input SponsorerBlocksTrainersFilter {
-  title: StringFilter
-  trainerList: SponsorerBlocksTrainersTrainerListFilter
-}
-
-input SponsorerBlocksSponsorsSponsorListFilter {
-  name: StringFilter
-  logo: ImageFilter
-  url: StringFilter
-}
-
-input SponsorerBlocksSponsorsFilter {
-  title: StringFilter
-  sponsorList: SponsorerBlocksSponsorsSponsorListFilter
 }
 
 input SponsorerBlocksBenefitsItemsFilter {
@@ -1098,14 +732,15 @@ input SponsorerBlocksBenefitsFilter {
   items: SponsorerBlocksBenefitsItemsFilter
 }
 
-input SponsorerBlocksFaqItemsFilter {
-  question: StringFilter
-  answer: StringFilter
+input SponsorerBlocksSponsorsSponsorListFilter {
+  name: StringFilter
+  logo: ImageFilter
+  url: StringFilter
 }
 
-input SponsorerBlocksFaqFilter {
+input SponsorerBlocksSponsorsFilter {
   title: StringFilter
-  items: SponsorerBlocksFaqItemsFilter
+  sponsorList: SponsorerBlocksSponsorsSponsorListFilter
 }
 
 input SponsorerBlocksPackagesPackagesListFilter {
@@ -1121,51 +756,11 @@ input SponsorerBlocksPackagesFilter {
   packagesList: SponsorerBlocksPackagesPackagesListFilter
 }
 
-input SponsorerBlocksTimelineEventsFilter {
-  year: StringFilter
-  title: StringFilter
-  location: StringFilter
-  description: StringFilter
-  highlight: BooleanFilter
-}
-
-input SponsorerBlocksTimelineFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  events: SponsorerBlocksTimelineEventsFilter
-}
-
-input SponsorerBlocksOrgSeparationFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-}
-
-input SponsorerBlocksCheckmatFeaturesFilter {
-  title: StringFilter
-  description: StringFilter
-  icon: StringFilter
-}
-
-input SponsorerBlocksCheckmatFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-  features: SponsorerBlocksCheckmatFeaturesFilter
-}
-
 input SponsorerBlocksFilter {
   about: SponsorerBlocksAboutFilter
-  values: SponsorerBlocksValuesFilter
-  membership: SponsorerBlocksMembershipFilter
-  trainers: SponsorerBlocksTrainersFilter
-  sponsors: SponsorerBlocksSponsorsFilter
   benefits: SponsorerBlocksBenefitsFilter
-  faq: SponsorerBlocksFaqFilter
+  sponsors: SponsorerBlocksSponsorsFilter
   packages: SponsorerBlocksPackagesFilter
-  timeline: SponsorerBlocksTimelineFilter
-  orgSeparation: SponsorerBlocksOrgSeparationFilter
-  checkmat: SponsorerBlocksCheckmatFilter
 }
 
 input SponsorerFilter {
@@ -1184,27 +779,6 @@ type SponsorerConnection implements Connection {
   edges: [SponsorerConnectionEdges]
 }
 
-type MedlemskapBlocksAbout {
-  title: String
-  body: String
-  image: String
-  video: String
-}
-
-type MedlemskapBlocksValuesItems {
-  title: String
-  text: String
-  icon: String
-}
-
-type MedlemskapBlocksValues {
-  title: String
-  description: String
-  variant: String
-  image: String
-  items: [MedlemskapBlocksValuesItems]
-}
-
 type MedlemskapBlocksMembership {
   title: String
   description: String
@@ -1214,38 +788,10 @@ type MedlemskapBlocksMembership {
   extraInfo: String
 }
 
-type MedlemskapBlocksTrainersTrainerList {
-  name: String
-  role: String
+type MedlemskapBlocksAbout {
+  title: String
+  body: String
   image: String
-  bio: String
-}
-
-type MedlemskapBlocksTrainers {
-  title: String
-  trainerList: [MedlemskapBlocksTrainersTrainerList]
-}
-
-type MedlemskapBlocksSponsorsSponsorList {
-  name: String
-  logo: String
-  url: String
-}
-
-type MedlemskapBlocksSponsors {
-  title: String
-  sponsorList: [MedlemskapBlocksSponsorsSponsorList]
-}
-
-type MedlemskapBlocksBenefitsItems {
-  title: String
-  text: String
-  icon: String
-}
-
-type MedlemskapBlocksBenefits {
-  title: String
-  items: [MedlemskapBlocksBenefitsItems]
 }
 
 type MedlemskapBlocksFaqItems {
@@ -1258,53 +804,7 @@ type MedlemskapBlocksFaq {
   items: [MedlemskapBlocksFaqItems]
 }
 
-type MedlemskapBlocksPackagesPackagesList {
-  name: String!
-  description: String
-  perks: [String]
-  highlighted: Boolean
-}
-
-type MedlemskapBlocksPackages {
-  title: String
-  description: String
-  packagesList: [MedlemskapBlocksPackagesPackagesList]
-}
-
-type MedlemskapBlocksTimelineEvents {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-type MedlemskapBlocksTimeline {
-  title: String
-  subtitle: String
-  events: [MedlemskapBlocksTimelineEvents]
-}
-
-type MedlemskapBlocksOrgSeparation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-type MedlemskapBlocksCheckmatFeatures {
-  title: String
-  description: String
-  icon: String
-}
-
-type MedlemskapBlocksCheckmat {
-  title: String
-  subtitle: String
-  description: String
-  features: [MedlemskapBlocksCheckmatFeatures]
-}
-
-union MedlemskapBlocks = MedlemskapBlocksAbout | MedlemskapBlocksValues | MedlemskapBlocksMembership | MedlemskapBlocksTrainers | MedlemskapBlocksSponsors | MedlemskapBlocksBenefits | MedlemskapBlocksFaq | MedlemskapBlocksPackages | MedlemskapBlocksTimeline | MedlemskapBlocksOrgSeparation | MedlemskapBlocksCheckmat
+union MedlemskapBlocks = MedlemskapBlocksMembership | MedlemskapBlocksAbout | MedlemskapBlocksFaq
 
 type Medlemskap implements Node & Document {
   title: String!
@@ -1312,27 +812,6 @@ type Medlemskap implements Node & Document {
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
-}
-
-input MedlemskapBlocksAboutFilter {
-  title: StringFilter
-  body: StringFilter
-  image: ImageFilter
-  video: ImageFilter
-}
-
-input MedlemskapBlocksValuesItemsFilter {
-  title: StringFilter
-  text: StringFilter
-  icon: StringFilter
-}
-
-input MedlemskapBlocksValuesFilter {
-  title: StringFilter
-  description: StringFilter
-  variant: StringFilter
-  image: ImageFilter
-  items: MedlemskapBlocksValuesItemsFilter
 }
 
 input MedlemskapBlocksMembershipFilter {
@@ -1344,38 +823,10 @@ input MedlemskapBlocksMembershipFilter {
   extraInfo: StringFilter
 }
 
-input MedlemskapBlocksTrainersTrainerListFilter {
-  name: StringFilter
-  role: StringFilter
+input MedlemskapBlocksAboutFilter {
+  title: StringFilter
+  body: StringFilter
   image: ImageFilter
-  bio: StringFilter
-}
-
-input MedlemskapBlocksTrainersFilter {
-  title: StringFilter
-  trainerList: MedlemskapBlocksTrainersTrainerListFilter
-}
-
-input MedlemskapBlocksSponsorsSponsorListFilter {
-  name: StringFilter
-  logo: ImageFilter
-  url: StringFilter
-}
-
-input MedlemskapBlocksSponsorsFilter {
-  title: StringFilter
-  sponsorList: MedlemskapBlocksSponsorsSponsorListFilter
-}
-
-input MedlemskapBlocksBenefitsItemsFilter {
-  title: StringFilter
-  text: StringFilter
-  icon: StringFilter
-}
-
-input MedlemskapBlocksBenefitsFilter {
-  title: StringFilter
-  items: MedlemskapBlocksBenefitsItemsFilter
 }
 
 input MedlemskapBlocksFaqItemsFilter {
@@ -1388,64 +839,10 @@ input MedlemskapBlocksFaqFilter {
   items: MedlemskapBlocksFaqItemsFilter
 }
 
-input MedlemskapBlocksPackagesPackagesListFilter {
-  name: StringFilter
-  description: StringFilter
-  perks: StringFilter
-  highlighted: BooleanFilter
-}
-
-input MedlemskapBlocksPackagesFilter {
-  title: StringFilter
-  description: StringFilter
-  packagesList: MedlemskapBlocksPackagesPackagesListFilter
-}
-
-input MedlemskapBlocksTimelineEventsFilter {
-  year: StringFilter
-  title: StringFilter
-  location: StringFilter
-  description: StringFilter
-  highlight: BooleanFilter
-}
-
-input MedlemskapBlocksTimelineFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  events: MedlemskapBlocksTimelineEventsFilter
-}
-
-input MedlemskapBlocksOrgSeparationFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-}
-
-input MedlemskapBlocksCheckmatFeaturesFilter {
-  title: StringFilter
-  description: StringFilter
-  icon: StringFilter
-}
-
-input MedlemskapBlocksCheckmatFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-  features: MedlemskapBlocksCheckmatFeaturesFilter
-}
-
 input MedlemskapBlocksFilter {
-  about: MedlemskapBlocksAboutFilter
-  values: MedlemskapBlocksValuesFilter
   membership: MedlemskapBlocksMembershipFilter
-  trainers: MedlemskapBlocksTrainersFilter
-  sponsors: MedlemskapBlocksSponsorsFilter
-  benefits: MedlemskapBlocksBenefitsFilter
+  about: MedlemskapBlocksAboutFilter
   faq: MedlemskapBlocksFaqFilter
-  packages: MedlemskapBlocksPackagesFilter
-  timeline: MedlemskapBlocksTimelineFilter
-  orgSeparation: MedlemskapBlocksOrgSeparationFilter
-  checkmat: MedlemskapBlocksCheckmatFilter
 }
 
 input MedlemskapFilter {
@@ -1462,288 +859,6 @@ type MedlemskapConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
   edges: [MedlemskapConnectionEdges]
-}
-
-type OmOssBlocksAbout {
-  title: String
-  body: String
-  image: String
-  video: String
-}
-
-type OmOssBlocksValuesItems {
-  title: String
-  text: String
-  icon: String
-}
-
-type OmOssBlocksValues {
-  title: String
-  description: String
-  variant: String
-  image: String
-  items: [OmOssBlocksValuesItems]
-}
-
-type OmOssBlocksMembership {
-  title: String
-  description: String
-  linkUrl: String
-  boostLinkUrl: String
-  boostEnabled: Boolean
-  extraInfo: String
-}
-
-type OmOssBlocksTrainersTrainerList {
-  name: String
-  role: String
-  image: String
-  bio: String
-}
-
-type OmOssBlocksTrainers {
-  title: String
-  trainerList: [OmOssBlocksTrainersTrainerList]
-}
-
-type OmOssBlocksSponsorsSponsorList {
-  name: String
-  logo: String
-  url: String
-}
-
-type OmOssBlocksSponsors {
-  title: String
-  sponsorList: [OmOssBlocksSponsorsSponsorList]
-}
-
-type OmOssBlocksBenefitsItems {
-  title: String
-  text: String
-  icon: String
-}
-
-type OmOssBlocksBenefits {
-  title: String
-  items: [OmOssBlocksBenefitsItems]
-}
-
-type OmOssBlocksFaqItems {
-  question: String!
-  answer: String!
-}
-
-type OmOssBlocksFaq {
-  title: String
-  items: [OmOssBlocksFaqItems]
-}
-
-type OmOssBlocksPackagesPackagesList {
-  name: String!
-  description: String
-  perks: [String]
-  highlighted: Boolean
-}
-
-type OmOssBlocksPackages {
-  title: String
-  description: String
-  packagesList: [OmOssBlocksPackagesPackagesList]
-}
-
-type OmOssBlocksTimelineEvents {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-type OmOssBlocksTimeline {
-  title: String
-  subtitle: String
-  events: [OmOssBlocksTimelineEvents]
-}
-
-type OmOssBlocksOrgSeparation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-type OmOssBlocksCheckmatFeatures {
-  title: String
-  description: String
-  icon: String
-}
-
-type OmOssBlocksCheckmat {
-  title: String
-  subtitle: String
-  description: String
-  features: [OmOssBlocksCheckmatFeatures]
-}
-
-union OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksMembership | OmOssBlocksTrainers | OmOssBlocksSponsors | OmOssBlocksBenefits | OmOssBlocksFaq | OmOssBlocksPackages | OmOssBlocksTimeline | OmOssBlocksOrgSeparation | OmOssBlocksCheckmat
-
-type OmOss implements Node & Document {
-  title: String!
-  description: String
-  blocks: [OmOssBlocks]
-  id: ID!
-  _sys: SystemInfo!
-  _values: JSON!
-}
-
-input OmOssBlocksAboutFilter {
-  title: StringFilter
-  body: StringFilter
-  image: ImageFilter
-  video: ImageFilter
-}
-
-input OmOssBlocksValuesItemsFilter {
-  title: StringFilter
-  text: StringFilter
-  icon: StringFilter
-}
-
-input OmOssBlocksValuesFilter {
-  title: StringFilter
-  description: StringFilter
-  variant: StringFilter
-  image: ImageFilter
-  items: OmOssBlocksValuesItemsFilter
-}
-
-input OmOssBlocksMembershipFilter {
-  title: StringFilter
-  description: StringFilter
-  linkUrl: StringFilter
-  boostLinkUrl: StringFilter
-  boostEnabled: BooleanFilter
-  extraInfo: StringFilter
-}
-
-input OmOssBlocksTrainersTrainerListFilter {
-  name: StringFilter
-  role: StringFilter
-  image: ImageFilter
-  bio: StringFilter
-}
-
-input OmOssBlocksTrainersFilter {
-  title: StringFilter
-  trainerList: OmOssBlocksTrainersTrainerListFilter
-}
-
-input OmOssBlocksSponsorsSponsorListFilter {
-  name: StringFilter
-  logo: ImageFilter
-  url: StringFilter
-}
-
-input OmOssBlocksSponsorsFilter {
-  title: StringFilter
-  sponsorList: OmOssBlocksSponsorsSponsorListFilter
-}
-
-input OmOssBlocksBenefitsItemsFilter {
-  title: StringFilter
-  text: StringFilter
-  icon: StringFilter
-}
-
-input OmOssBlocksBenefitsFilter {
-  title: StringFilter
-  items: OmOssBlocksBenefitsItemsFilter
-}
-
-input OmOssBlocksFaqItemsFilter {
-  question: StringFilter
-  answer: StringFilter
-}
-
-input OmOssBlocksFaqFilter {
-  title: StringFilter
-  items: OmOssBlocksFaqItemsFilter
-}
-
-input OmOssBlocksPackagesPackagesListFilter {
-  name: StringFilter
-  description: StringFilter
-  perks: StringFilter
-  highlighted: BooleanFilter
-}
-
-input OmOssBlocksPackagesFilter {
-  title: StringFilter
-  description: StringFilter
-  packagesList: OmOssBlocksPackagesPackagesListFilter
-}
-
-input OmOssBlocksTimelineEventsFilter {
-  year: StringFilter
-  title: StringFilter
-  location: StringFilter
-  description: StringFilter
-  highlight: BooleanFilter
-}
-
-input OmOssBlocksTimelineFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  events: OmOssBlocksTimelineEventsFilter
-}
-
-input OmOssBlocksOrgSeparationFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-}
-
-input OmOssBlocksCheckmatFeaturesFilter {
-  title: StringFilter
-  description: StringFilter
-  icon: StringFilter
-}
-
-input OmOssBlocksCheckmatFilter {
-  title: StringFilter
-  subtitle: StringFilter
-  description: StringFilter
-  features: OmOssBlocksCheckmatFeaturesFilter
-}
-
-input OmOssBlocksFilter {
-  about: OmOssBlocksAboutFilter
-  values: OmOssBlocksValuesFilter
-  membership: OmOssBlocksMembershipFilter
-  trainers: OmOssBlocksTrainersFilter
-  sponsors: OmOssBlocksSponsorsFilter
-  benefits: OmOssBlocksBenefitsFilter
-  faq: OmOssBlocksFaqFilter
-  packages: OmOssBlocksPackagesFilter
-  timeline: OmOssBlocksTimelineFilter
-  orgSeparation: OmOssBlocksOrgSeparationFilter
-  checkmat: OmOssBlocksCheckmatFilter
-}
-
-input OmOssFilter {
-  title: StringFilter
-  description: StringFilter
-  blocks: OmOssBlocksFilter
-}
-
-type OmOssConnectionEdges {
-  cursor: String!
-  node: OmOss
-}
-
-type OmOssConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [OmOssConnectionEdges]
 }
 
 type Contact implements Node & Document {
@@ -1848,6 +963,8 @@ type Mutation {
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   createFolder(collection: String, relativePath: String!): DocumentNode!
+  updateOmOss(relativePath: String!, params: OmOssMutation!): OmOss!
+  createOmOss(relativePath: String!, params: OmOssMutation!): OmOss!
   updatePage(relativePath: String!, params: PageMutation!): Page!
   createPage(relativePath: String!, params: PageMutation!): Page!
   updateHero(relativePath: String!, params: HeroMutation!): Hero!
@@ -1864,8 +981,6 @@ type Mutation {
   createSponsorer(relativePath: String!, params: SponsorerMutation!): Sponsorer!
   updateMedlemskap(relativePath: String!, params: MedlemskapMutation!): Medlemskap!
   createMedlemskap(relativePath: String!, params: MedlemskapMutation!): Medlemskap!
-  updateOmOss(relativePath: String!, params: OmOssMutation!): OmOss!
-  createOmOss(relativePath: String!, params: OmOssMutation!): OmOss!
   updateContact(relativePath: String!, params: ContactMutation!): Contact!
   createContact(relativePath: String!, params: ContactMutation!): Contact!
   updateGlobal(relativePath: String!, params: GlobalMutation!): Global!
@@ -1873,6 +988,7 @@ type Mutation {
 }
 
 input DocumentUpdateMutation {
+  omOss: OmOssMutation
   page: PageMutation
   hero: HeroMutation
   schedule: ScheduleMutation
@@ -1881,13 +997,13 @@ input DocumentUpdateMutation {
   news: NewsMutation
   sponsorer: SponsorerMutation
   medlemskap: MedlemskapMutation
-  omOss: OmOssMutation
   contact: ContactMutation
   global: GlobalMutation
   relativePath: String
 }
 
 input DocumentMutation {
+  omOss: OmOssMutation
   page: PageMutation
   hero: HeroMutation
   schedule: ScheduleMutation
@@ -1896,16 +1012,106 @@ input DocumentMutation {
   news: NewsMutation
   sponsorer: SponsorerMutation
   medlemskap: MedlemskapMutation
-  omOss: OmOssMutation
   contact: ContactMutation
   global: GlobalMutation
+}
+
+input OmOssBlocksAboutMutation {
+  title: String
+  body: String
+  image: String
+  video: String
+}
+
+input OmOssBlocksValuesItemsMutation {
+  title: String
+  text: String
+  icon: String
+}
+
+input OmOssBlocksValuesMutation {
+  title: String
+  description: String
+  variant: String
+  image: String
+  items: [OmOssBlocksValuesItemsMutation]
+}
+
+input OmOssBlocksTrainersTrainerListMutation {
+  name: String
+  role: String
+  image: String
+  bio: String
+}
+
+input OmOssBlocksTrainersMutation {
+  title: String
+  trainerList: [OmOssBlocksTrainersTrainerListMutation]
+}
+
+input OmOssBlocksFaqItemsMutation {
+  question: String
+  answer: String
+}
+
+input OmOssBlocksFaqMutation {
+  title: String
+  items: [OmOssBlocksFaqItemsMutation]
+}
+
+input OmOssBlocksTimelineEventsMutation {
+  year: String
+  title: String
+  location: String
+  description: String
+  highlight: Boolean
+}
+
+input OmOssBlocksTimelineMutation {
+  title: String
+  subtitle: String
+  events: [OmOssBlocksTimelineEventsMutation]
+}
+
+input OmOssBlocksOrgSeparationMutation {
+  title: String
+  subtitle: String
+  description: String
+}
+
+input OmOssBlocksCheckmatFeaturesMutation {
+  title: String
+  description: String
+  icon: String
+}
+
+input OmOssBlocksCheckmatMutation {
+  title: String
+  subtitle: String
+  description: String
+  features: [OmOssBlocksCheckmatFeaturesMutation]
+}
+
+input OmOssBlocksMutation {
+  about: OmOssBlocksAboutMutation
+  values: OmOssBlocksValuesMutation
+  trainers: OmOssBlocksTrainersMutation
+  faq: OmOssBlocksFaqMutation
+  timeline: OmOssBlocksTimelineMutation
+  orgSeparation: OmOssBlocksOrgSeparationMutation
+  checkmat: OmOssBlocksCheckmatMutation
+}
+
+input OmOssMutation {
+  title: String
+  description: String
+  blocks: [OmOssBlocksMutation]
 }
 
 input PageBlocksAboutMutation {
   title: String
   body: String
   image: String
-  video: String
 }
 
 input PageBlocksValuesItemsMutation {
@@ -1931,108 +1137,10 @@ input PageBlocksMembershipMutation {
   extraInfo: String
 }
 
-input PageBlocksTrainersTrainerListMutation {
-  name: String
-  role: String
-  image: String
-  bio: String
-}
-
-input PageBlocksTrainersMutation {
-  title: String
-  trainerList: [PageBlocksTrainersTrainerListMutation]
-}
-
-input PageBlocksSponsorsSponsorListMutation {
-  name: String
-  logo: String
-  url: String
-}
-
-input PageBlocksSponsorsMutation {
-  title: String
-  sponsorList: [PageBlocksSponsorsSponsorListMutation]
-}
-
-input PageBlocksBenefitsItemsMutation {
-  title: String
-  text: String
-  icon: String
-}
-
-input PageBlocksBenefitsMutation {
-  title: String
-  items: [PageBlocksBenefitsItemsMutation]
-}
-
-input PageBlocksFaqItemsMutation {
-  question: String
-  answer: String
-}
-
-input PageBlocksFaqMutation {
-  title: String
-  items: [PageBlocksFaqItemsMutation]
-}
-
-input PageBlocksPackagesPackagesListMutation {
-  name: String
-  description: String
-  perks: [String]
-  highlighted: Boolean
-}
-
-input PageBlocksPackagesMutation {
-  title: String
-  description: String
-  packagesList: [PageBlocksPackagesPackagesListMutation]
-}
-
-input PageBlocksTimelineEventsMutation {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-input PageBlocksTimelineMutation {
-  title: String
-  subtitle: String
-  events: [PageBlocksTimelineEventsMutation]
-}
-
-input PageBlocksOrgSeparationMutation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-input PageBlocksCheckmatFeaturesMutation {
-  title: String
-  description: String
-  icon: String
-}
-
-input PageBlocksCheckmatMutation {
-  title: String
-  subtitle: String
-  description: String
-  features: [PageBlocksCheckmatFeaturesMutation]
-}
-
 input PageBlocksMutation {
   about: PageBlocksAboutMutation
   values: PageBlocksValuesMutation
   membership: PageBlocksMembershipMutation
-  trainers: PageBlocksTrainersMutation
-  sponsors: PageBlocksSponsorsMutation
-  benefits: PageBlocksBenefitsMutation
-  faq: PageBlocksFaqMutation
-  packages: PageBlocksPackagesMutation
-  timeline: PageBlocksTimelineMutation
-  orgSeparation: PageBlocksOrgSeparationMutation
-  checkmat: PageBlocksCheckmatMutation
 }
 
 input PageMutation {
@@ -2079,135 +1187,10 @@ input ScheduleMutation {
 input StyretBlocksAboutMutation {
   title: String
   body: String
-  image: String
-  video: String
-}
-
-input StyretBlocksValuesItemsMutation {
-  title: String
-  text: String
-  icon: String
-}
-
-input StyretBlocksValuesMutation {
-  title: String
-  description: String
-  variant: String
-  image: String
-  items: [StyretBlocksValuesItemsMutation]
-}
-
-input StyretBlocksMembershipMutation {
-  title: String
-  description: String
-  linkUrl: String
-  boostLinkUrl: String
-  boostEnabled: Boolean
-  extraInfo: String
-}
-
-input StyretBlocksTrainersTrainerListMutation {
-  name: String
-  role: String
-  image: String
-  bio: String
-}
-
-input StyretBlocksTrainersMutation {
-  title: String
-  trainerList: [StyretBlocksTrainersTrainerListMutation]
-}
-
-input StyretBlocksSponsorsSponsorListMutation {
-  name: String
-  logo: String
-  url: String
-}
-
-input StyretBlocksSponsorsMutation {
-  title: String
-  sponsorList: [StyretBlocksSponsorsSponsorListMutation]
-}
-
-input StyretBlocksBenefitsItemsMutation {
-  title: String
-  text: String
-  icon: String
-}
-
-input StyretBlocksBenefitsMutation {
-  title: String
-  items: [StyretBlocksBenefitsItemsMutation]
-}
-
-input StyretBlocksFaqItemsMutation {
-  question: String
-  answer: String
-}
-
-input StyretBlocksFaqMutation {
-  title: String
-  items: [StyretBlocksFaqItemsMutation]
-}
-
-input StyretBlocksPackagesPackagesListMutation {
-  name: String
-  description: String
-  perks: [String]
-  highlighted: Boolean
-}
-
-input StyretBlocksPackagesMutation {
-  title: String
-  description: String
-  packagesList: [StyretBlocksPackagesPackagesListMutation]
-}
-
-input StyretBlocksTimelineEventsMutation {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-input StyretBlocksTimelineMutation {
-  title: String
-  subtitle: String
-  events: [StyretBlocksTimelineEventsMutation]
-}
-
-input StyretBlocksOrgSeparationMutation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-input StyretBlocksCheckmatFeaturesMutation {
-  title: String
-  description: String
-  icon: String
-}
-
-input StyretBlocksCheckmatMutation {
-  title: String
-  subtitle: String
-  description: String
-  features: [StyretBlocksCheckmatFeaturesMutation]
 }
 
 input StyretBlocksMutation {
   about: StyretBlocksAboutMutation
-  values: StyretBlocksValuesMutation
-  membership: StyretBlocksMembershipMutation
-  trainers: StyretBlocksTrainersMutation
-  sponsors: StyretBlocksSponsorsMutation
-  benefits: StyretBlocksBenefitsMutation
-  faq: StyretBlocksFaqMutation
-  packages: StyretBlocksPackagesMutation
-  timeline: StyretBlocksTimelineMutation
-  orgSeparation: StyretBlocksOrgSeparationMutation
-  checkmat: StyretBlocksCheckmatMutation
 }
 
 input StyretMembersMutation {
@@ -2252,53 +1235,6 @@ input SponsorerBlocksAboutMutation {
   title: String
   body: String
   image: String
-  video: String
-}
-
-input SponsorerBlocksValuesItemsMutation {
-  title: String
-  text: String
-  icon: String
-}
-
-input SponsorerBlocksValuesMutation {
-  title: String
-  description: String
-  variant: String
-  image: String
-  items: [SponsorerBlocksValuesItemsMutation]
-}
-
-input SponsorerBlocksMembershipMutation {
-  title: String
-  description: String
-  linkUrl: String
-  boostLinkUrl: String
-  boostEnabled: Boolean
-  extraInfo: String
-}
-
-input SponsorerBlocksTrainersTrainerListMutation {
-  name: String
-  role: String
-  image: String
-  bio: String
-}
-
-input SponsorerBlocksTrainersMutation {
-  title: String
-  trainerList: [SponsorerBlocksTrainersTrainerListMutation]
-}
-
-input SponsorerBlocksSponsorsSponsorListMutation {
-  name: String
-  logo: String
-  url: String
-}
-
-input SponsorerBlocksSponsorsMutation {
-  title: String
-  sponsorList: [SponsorerBlocksSponsorsSponsorListMutation]
 }
 
 input SponsorerBlocksBenefitsItemsMutation {
@@ -2312,14 +1248,15 @@ input SponsorerBlocksBenefitsMutation {
   items: [SponsorerBlocksBenefitsItemsMutation]
 }
 
-input SponsorerBlocksFaqItemsMutation {
-  question: String
-  answer: String
+input SponsorerBlocksSponsorsSponsorListMutation {
+  name: String
+  logo: String
+  url: String
 }
 
-input SponsorerBlocksFaqMutation {
+input SponsorerBlocksSponsorsMutation {
   title: String
-  items: [SponsorerBlocksFaqItemsMutation]
+  sponsorList: [SponsorerBlocksSponsorsSponsorListMutation]
 }
 
 input SponsorerBlocksPackagesPackagesListMutation {
@@ -2335,77 +1272,16 @@ input SponsorerBlocksPackagesMutation {
   packagesList: [SponsorerBlocksPackagesPackagesListMutation]
 }
 
-input SponsorerBlocksTimelineEventsMutation {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-input SponsorerBlocksTimelineMutation {
-  title: String
-  subtitle: String
-  events: [SponsorerBlocksTimelineEventsMutation]
-}
-
-input SponsorerBlocksOrgSeparationMutation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-input SponsorerBlocksCheckmatFeaturesMutation {
-  title: String
-  description: String
-  icon: String
-}
-
-input SponsorerBlocksCheckmatMutation {
-  title: String
-  subtitle: String
-  description: String
-  features: [SponsorerBlocksCheckmatFeaturesMutation]
-}
-
 input SponsorerBlocksMutation {
   about: SponsorerBlocksAboutMutation
-  values: SponsorerBlocksValuesMutation
-  membership: SponsorerBlocksMembershipMutation
-  trainers: SponsorerBlocksTrainersMutation
-  sponsors: SponsorerBlocksSponsorsMutation
   benefits: SponsorerBlocksBenefitsMutation
-  faq: SponsorerBlocksFaqMutation
+  sponsors: SponsorerBlocksSponsorsMutation
   packages: SponsorerBlocksPackagesMutation
-  timeline: SponsorerBlocksTimelineMutation
-  orgSeparation: SponsorerBlocksOrgSeparationMutation
-  checkmat: SponsorerBlocksCheckmatMutation
 }
 
 input SponsorerMutation {
   title: String
   blocks: [SponsorerBlocksMutation]
-}
-
-input MedlemskapBlocksAboutMutation {
-  title: String
-  body: String
-  image: String
-  video: String
-}
-
-input MedlemskapBlocksValuesItemsMutation {
-  title: String
-  text: String
-  icon: String
-}
-
-input MedlemskapBlocksValuesMutation {
-  title: String
-  description: String
-  variant: String
-  image: String
-  items: [MedlemskapBlocksValuesItemsMutation]
 }
 
 input MedlemskapBlocksMembershipMutation {
@@ -2417,38 +1293,10 @@ input MedlemskapBlocksMembershipMutation {
   extraInfo: String
 }
 
-input MedlemskapBlocksTrainersTrainerListMutation {
-  name: String
-  role: String
+input MedlemskapBlocksAboutMutation {
+  title: String
+  body: String
   image: String
-  bio: String
-}
-
-input MedlemskapBlocksTrainersMutation {
-  title: String
-  trainerList: [MedlemskapBlocksTrainersTrainerListMutation]
-}
-
-input MedlemskapBlocksSponsorsSponsorListMutation {
-  name: String
-  logo: String
-  url: String
-}
-
-input MedlemskapBlocksSponsorsMutation {
-  title: String
-  sponsorList: [MedlemskapBlocksSponsorsSponsorListMutation]
-}
-
-input MedlemskapBlocksBenefitsItemsMutation {
-  title: String
-  text: String
-  icon: String
-}
-
-input MedlemskapBlocksBenefitsMutation {
-  title: String
-  items: [MedlemskapBlocksBenefitsItemsMutation]
 }
 
 input MedlemskapBlocksFaqItemsMutation {
@@ -2461,209 +1309,15 @@ input MedlemskapBlocksFaqMutation {
   items: [MedlemskapBlocksFaqItemsMutation]
 }
 
-input MedlemskapBlocksPackagesPackagesListMutation {
-  name: String
-  description: String
-  perks: [String]
-  highlighted: Boolean
-}
-
-input MedlemskapBlocksPackagesMutation {
-  title: String
-  description: String
-  packagesList: [MedlemskapBlocksPackagesPackagesListMutation]
-}
-
-input MedlemskapBlocksTimelineEventsMutation {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-input MedlemskapBlocksTimelineMutation {
-  title: String
-  subtitle: String
-  events: [MedlemskapBlocksTimelineEventsMutation]
-}
-
-input MedlemskapBlocksOrgSeparationMutation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-input MedlemskapBlocksCheckmatFeaturesMutation {
-  title: String
-  description: String
-  icon: String
-}
-
-input MedlemskapBlocksCheckmatMutation {
-  title: String
-  subtitle: String
-  description: String
-  features: [MedlemskapBlocksCheckmatFeaturesMutation]
-}
-
 input MedlemskapBlocksMutation {
-  about: MedlemskapBlocksAboutMutation
-  values: MedlemskapBlocksValuesMutation
   membership: MedlemskapBlocksMembershipMutation
-  trainers: MedlemskapBlocksTrainersMutation
-  sponsors: MedlemskapBlocksSponsorsMutation
-  benefits: MedlemskapBlocksBenefitsMutation
+  about: MedlemskapBlocksAboutMutation
   faq: MedlemskapBlocksFaqMutation
-  packages: MedlemskapBlocksPackagesMutation
-  timeline: MedlemskapBlocksTimelineMutation
-  orgSeparation: MedlemskapBlocksOrgSeparationMutation
-  checkmat: MedlemskapBlocksCheckmatMutation
 }
 
 input MedlemskapMutation {
   title: String
   blocks: [MedlemskapBlocksMutation]
-}
-
-input OmOssBlocksAboutMutation {
-  title: String
-  body: String
-  image: String
-  video: String
-}
-
-input OmOssBlocksValuesItemsMutation {
-  title: String
-  text: String
-  icon: String
-}
-
-input OmOssBlocksValuesMutation {
-  title: String
-  description: String
-  variant: String
-  image: String
-  items: [OmOssBlocksValuesItemsMutation]
-}
-
-input OmOssBlocksMembershipMutation {
-  title: String
-  description: String
-  linkUrl: String
-  boostLinkUrl: String
-  boostEnabled: Boolean
-  extraInfo: String
-}
-
-input OmOssBlocksTrainersTrainerListMutation {
-  name: String
-  role: String
-  image: String
-  bio: String
-}
-
-input OmOssBlocksTrainersMutation {
-  title: String
-  trainerList: [OmOssBlocksTrainersTrainerListMutation]
-}
-
-input OmOssBlocksSponsorsSponsorListMutation {
-  name: String
-  logo: String
-  url: String
-}
-
-input OmOssBlocksSponsorsMutation {
-  title: String
-  sponsorList: [OmOssBlocksSponsorsSponsorListMutation]
-}
-
-input OmOssBlocksBenefitsItemsMutation {
-  title: String
-  text: String
-  icon: String
-}
-
-input OmOssBlocksBenefitsMutation {
-  title: String
-  items: [OmOssBlocksBenefitsItemsMutation]
-}
-
-input OmOssBlocksFaqItemsMutation {
-  question: String
-  answer: String
-}
-
-input OmOssBlocksFaqMutation {
-  title: String
-  items: [OmOssBlocksFaqItemsMutation]
-}
-
-input OmOssBlocksPackagesPackagesListMutation {
-  name: String
-  description: String
-  perks: [String]
-  highlighted: Boolean
-}
-
-input OmOssBlocksPackagesMutation {
-  title: String
-  description: String
-  packagesList: [OmOssBlocksPackagesPackagesListMutation]
-}
-
-input OmOssBlocksTimelineEventsMutation {
-  year: String
-  title: String
-  location: String
-  description: String
-  highlight: Boolean
-}
-
-input OmOssBlocksTimelineMutation {
-  title: String
-  subtitle: String
-  events: [OmOssBlocksTimelineEventsMutation]
-}
-
-input OmOssBlocksOrgSeparationMutation {
-  title: String
-  subtitle: String
-  description: String
-}
-
-input OmOssBlocksCheckmatFeaturesMutation {
-  title: String
-  description: String
-  icon: String
-}
-
-input OmOssBlocksCheckmatMutation {
-  title: String
-  subtitle: String
-  description: String
-  features: [OmOssBlocksCheckmatFeaturesMutation]
-}
-
-input OmOssBlocksMutation {
-  about: OmOssBlocksAboutMutation
-  values: OmOssBlocksValuesMutation
-  membership: OmOssBlocksMembershipMutation
-  trainers: OmOssBlocksTrainersMutation
-  sponsors: OmOssBlocksSponsorsMutation
-  benefits: OmOssBlocksBenefitsMutation
-  faq: OmOssBlocksFaqMutation
-  packages: OmOssBlocksPackagesMutation
-  timeline: OmOssBlocksTimelineMutation
-  orgSeparation: OmOssBlocksOrgSeparationMutation
-  checkmat: OmOssBlocksCheckmatMutation
-}
-
-input OmOssMutation {
-  title: String
-  description: String
-  blocks: [OmOssBlocksMutation]
 }
 
 input ContactMutation {
