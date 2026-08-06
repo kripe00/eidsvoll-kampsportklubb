@@ -189,7 +189,40 @@ type PageBlocksFaq {
   items: [PageBlocksFaqItems]
 }
 
-union PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers | PageBlocksSponsors | PageBlocksBenefits | PageBlocksFaq
+type PageBlocksTimelineEvents {
+  year: String
+  title: String
+  location: String
+  description: String
+  highlight: Boolean
+}
+
+type PageBlocksTimeline {
+  title: String
+  subtitle: String
+  events: [PageBlocksTimelineEvents]
+}
+
+type PageBlocksOrgSeparation {
+  title: String
+  subtitle: String
+  description: String
+}
+
+type PageBlocksCheckmatFeatures {
+  title: String
+  description: String
+  icon: String
+}
+
+type PageBlocksCheckmat {
+  title: String
+  subtitle: String
+  description: String
+  features: [PageBlocksCheckmatFeatures]
+}
+
+union PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers | PageBlocksSponsors | PageBlocksBenefits | PageBlocksFaq | PageBlocksTimeline | PageBlocksOrgSeparation | PageBlocksCheckmat
 
 type Page implements Node & Document {
   title: String!
@@ -291,6 +324,39 @@ input PageBlocksFaqFilter {
   items: PageBlocksFaqItemsFilter
 }
 
+input PageBlocksTimelineEventsFilter {
+  year: StringFilter
+  title: StringFilter
+  location: StringFilter
+  description: StringFilter
+  highlight: BooleanFilter
+}
+
+input PageBlocksTimelineFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  events: PageBlocksTimelineEventsFilter
+}
+
+input PageBlocksOrgSeparationFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  description: StringFilter
+}
+
+input PageBlocksCheckmatFeaturesFilter {
+  title: StringFilter
+  description: StringFilter
+  icon: StringFilter
+}
+
+input PageBlocksCheckmatFilter {
+  title: StringFilter
+  subtitle: StringFilter
+  description: StringFilter
+  features: PageBlocksCheckmatFeaturesFilter
+}
+
 input PageBlocksFilter {
   about: PageBlocksAboutFilter
   values: PageBlocksValuesFilter
@@ -299,6 +365,9 @@ input PageBlocksFilter {
   sponsors: PageBlocksSponsorsFilter
   benefits: PageBlocksBenefitsFilter
   faq: PageBlocksFaqFilter
+  timeline: PageBlocksTimelineFilter
+  orgSeparation: PageBlocksOrgSeparationFilter
+  checkmat: PageBlocksCheckmatFilter
 }
 
 input PageFilter {
@@ -1178,6 +1247,39 @@ input PageBlocksFaqMutation {
   items: [PageBlocksFaqItemsMutation]
 }
 
+input PageBlocksTimelineEventsMutation {
+  year: String
+  title: String
+  location: String
+  description: String
+  highlight: Boolean
+}
+
+input PageBlocksTimelineMutation {
+  title: String
+  subtitle: String
+  events: [PageBlocksTimelineEventsMutation]
+}
+
+input PageBlocksOrgSeparationMutation {
+  title: String
+  subtitle: String
+  description: String
+}
+
+input PageBlocksCheckmatFeaturesMutation {
+  title: String
+  description: String
+  icon: String
+}
+
+input PageBlocksCheckmatMutation {
+  title: String
+  subtitle: String
+  description: String
+  features: [PageBlocksCheckmatFeaturesMutation]
+}
+
 input PageBlocksMutation {
   about: PageBlocksAboutMutation
   values: PageBlocksValuesMutation
@@ -1186,6 +1288,9 @@ input PageBlocksMutation {
   sponsors: PageBlocksSponsorsMutation
   benefits: PageBlocksBenefitsMutation
   faq: PageBlocksFaqMutation
+  timeline: PageBlocksTimelineMutation
+  orgSeparation: PageBlocksOrgSeparationMutation
+  checkmat: PageBlocksCheckmatMutation
 }
 
 input PageMutation {

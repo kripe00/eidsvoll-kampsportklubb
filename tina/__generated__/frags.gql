@@ -64,6 +64,34 @@ fragment PageParts on Page {
         answer
       }
     }
+    ... on PageBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on PageBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on PageBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
+      }
+    }
   }
 }
 

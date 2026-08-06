@@ -180,6 +180,66 @@ export default defineConfig({
                   },
                 ],
               },
+              {
+                name: "timeline",
+                label: "Tidslinje / Klubbens historie",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "events",
+                    label: "Tidshendelser",
+                    ui: {
+                      itemProps: (item) => {
+                        return { label: item?.year ? `${item.year} - ${item.title}` : "Ny hendelse" };
+                      },
+                    },
+                    fields: [
+                      { type: "string", name: "year", label: "År / Tidspunkt" },
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "location", label: "Sted" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "boolean", name: "highlight", label: "Fremhev kort?" },
+                    ],
+                  },
+                ],
+              },
+              {
+                name: "orgSeparation",
+                label: "Organisasjonsstruktur (Rambukk vs EKK)",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                ],
+              },
+              {
+                name: "checkmat",
+                label: "Checkmat Lineage & Verdier",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "features",
+                    label: "Fordeler / Punkter",
+                    ui: {
+                      itemProps: (item) => {
+                        return { label: item?.title || "Nytt punkt" };
+                      },
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Award, ShieldCheck, Globe, etc.)" },
+                    ],
+                  },
+                ],
+              },
             ],
           },
         ],
