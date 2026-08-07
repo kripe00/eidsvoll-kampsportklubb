@@ -71,12 +71,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/org-logo.svg', type: 'image/svg+xml' },
-      { url: '/org-logo.svg', sizes: '192x192', type: 'image/svg+xml' },
-      { url: '/org-logo.svg', sizes: '512x512', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
     ],
     apple: [
-      { url: '/org-logo.svg', sizes: '180x180', type: 'image/svg+xml' },
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
 };
@@ -120,7 +119,7 @@ export default async function RootLayout({
               "name": "Eidsvoll Kampsportklubb",
               "alternateName": "EKK",
               "url": "https://kampsporteidsvoll.no",
-              "logo": "https://kampsporteidsvoll.no/org-logo.svg",
+              "logo": "https://kampsporteidsvoll.no/logo.png",
               "image": "https://kampsporteidsvoll.no/header.jpg",
               "description": "Eidsvoll Kampsportklubb i Eidsvoll – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer.",
               "sport": ["Brasiliansk Jiu-Jitsu", "Muay Thai", "Thaiboksing", "Cross-trening"],

@@ -19,12 +19,12 @@ export function Header({ data }: { data: any }) {
       <div className="container mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
           <OptimizedImage 
-            src="/org-logo.svg" 
+            src={data?.logo || "/logo.png"} 
             alt="Eidsvoll Kampsportklubb Logo" 
-            width={40}
-            height={40}
+            width={48}
+            height={48}
             priority={true}
-            className="w-10 h-10 object-contain"
+            className="w-12 h-12 object-contain"
           />
           <span className="font-bold text-xl tracking-tight hidden sm:block">
             {data?.clubName || "Eidsvoll Kampsportklubb"}

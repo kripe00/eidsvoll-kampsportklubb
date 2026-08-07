@@ -18,8 +18,9 @@ export function Footer({ data }: { data?: any }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           
           <div className="col-span-1 lg:col-span-2">
-            <Link href="/" className="inline-block mb-6 text-2xl font-bold tracking-tight text-white hover:text-primary transition-colors" data-tina-field={data ? tinaField(data, 'clubName') : undefined}>
-              {clubName}
+            <Link href="/" className="inline-flex items-center gap-3 mb-6 text-2xl font-bold tracking-tight text-white hover:text-primary transition-colors" data-tina-field={data ? tinaField(data, 'clubName') : undefined}>
+              <img src={data?.logo || "/logo.png"} alt="Eidsvoll Kampsportklubb Logo" className="w-10 h-10 object-contain" />
+              <span>{clubName}</span>
             </Link>
             <p className="text-slate-400 max-w-sm mb-6 leading-relaxed" data-tina-field={data ? tinaField(data, 'footerDescription') : undefined}>
               {description}
