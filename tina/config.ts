@@ -329,7 +329,7 @@ export default defineConfig({
                     required: true,
                     options: [
                       { value: "BJJ", label: "BJJ" },
-                      { value: "Thaiboksing", label: "Thaiboksing (Muay Thai)" },
+                      { value: "Muay Thai", label: "Muay Thai" },
                       { value: "Yoga", label: "Yoga" },
                       { value: "Crosstrening", label: "Crosstrening" },
                       { value: "Åpen matte", label: "Åpen matte / annet" },
@@ -343,6 +343,7 @@ export default defineConfig({
                     options: [
                       { value: "Barneparti 1 (6-9 år)", label: "Barneparti 1 (6-9 år)" },
                       { value: "Barneparti 2 (10-13 år)", label: "Barneparti 2 (10-13 år)" },
+                      { value: "Muay Thai", label: "Muay Thai" },
                       { value: "Barn (Felles)", label: "Barn (Felles)" },
                       { value: "Voksne / Ungdom", label: "Voksne / Ungdom" },
                       { value: "Videregående", label: "Videregående" },
