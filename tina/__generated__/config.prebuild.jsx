@@ -322,6 +322,28 @@ var config_default = defineConfig({
                   { type: "boolean", name: "boostEnabled", label: "Aktiver Boost-knapp?" },
                   { type: "string", name: "extraInfo", label: "Tilleggsinformasjon (f.eks. utmelding)", ui: { component: "textarea" } }
                 ]
+              },
+              {
+                name: "trainers",
+                label: "Trenere",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "trainerList",
+                    label: "Trenerliste",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny trener" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Navn" },
+                      { type: "string", name: "role", label: "Rolle" },
+                      { type: "image", name: "image", label: "Bilde" },
+                      { type: "string", name: "bio", label: "Bio", ui: { component: "textarea" } }
+                    ]
+                  }
+                ]
               }
             ]
           }

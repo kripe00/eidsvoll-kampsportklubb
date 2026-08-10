@@ -701,7 +701,21 @@ export type PageBlocksMembership = {
   extraInfo?: Maybe<Scalars['String']['output']>;
 };
 
-export type PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership;
+export type PageBlocksTrainersTrainerList = {
+  __typename?: 'PageBlocksTrainersTrainerList';
+  name?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  bio?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksTrainers = {
+  __typename?: 'PageBlocksTrainers';
+  title?: Maybe<Scalars['String']['output']>;
+  trainerList?: Maybe<Array<Maybe<PageBlocksTrainersTrainerList>>>;
+};
+
+export type PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers;
 
 export type Page = Node & Document & {
   __typename?: 'Page';
@@ -742,10 +756,23 @@ export type PageBlocksMembershipFilter = {
   extraInfo?: InputMaybe<StringFilter>;
 };
 
+export type PageBlocksTrainersTrainerListFilter = {
+  name?: InputMaybe<StringFilter>;
+  role?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  bio?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksTrainersFilter = {
+  title?: InputMaybe<StringFilter>;
+  trainerList?: InputMaybe<PageBlocksTrainersTrainerListFilter>;
+};
+
 export type PageBlocksFilter = {
   about?: InputMaybe<PageBlocksAboutFilter>;
   values?: InputMaybe<PageBlocksValuesFilter>;
   membership?: InputMaybe<PageBlocksMembershipFilter>;
+  trainers?: InputMaybe<PageBlocksTrainersFilter>;
 };
 
 export type PageFilter = {
@@ -1749,10 +1776,23 @@ export type PageBlocksMembershipMutation = {
   extraInfo?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type PageBlocksTrainersTrainerListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksTrainersMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  trainerList?: InputMaybe<Array<InputMaybe<PageBlocksTrainersTrainerListMutation>>>;
+};
+
 export type PageBlocksMutation = {
   about?: InputMaybe<PageBlocksAboutMutation>;
   values?: InputMaybe<PageBlocksValuesMutation>;
   membership?: InputMaybe<PageBlocksMembershipMutation>;
+  trainers?: InputMaybe<PageBlocksTrainersMutation>;
 };
 
 export type PageMutation = {
@@ -1969,7 +2009,7 @@ export type GlobalMutation = {
 
 export type OmOssPartsFragment = { __typename: 'OmOss', title: string, description?: string | null, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null };
 
-export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | null> | null };
+export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | null> | null };
 
 export type HeroPartsFragment = { __typename: 'Hero', welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null };
 
@@ -2013,7 +2053,7 @@ export type PageQueryVariables = Exact<{
 }>;
 
 
-export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | null> | null } };
+export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | null> | null } };
 
 export type PageConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -2025,7 +2065,7 @@ export type PageConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | null> | null } | null } | null> | null } };
+export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type HeroQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -2340,6 +2380,16 @@ export const PagePartsFragmentDoc = gql`
       boostLinkUrl
       boostEnabled
       extraInfo
+    }
+    ... on PageBlocksTrainers {
+      title
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
     }
   }
 }

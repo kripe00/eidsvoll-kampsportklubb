@@ -1379,6 +1379,98 @@
                   "blocks",
                   "membership"
                 ]
+              },
+              {
+                "name": "trainers",
+                "label": "Trenere",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "trainers",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "trainerList",
+                    "label": "Trenerliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "role",
+                        "label": "Rolle",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "role"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "image",
+                        "label": "Bilde",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "image"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "bio",
+                        "label": "Bio",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "bio"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "trainers",
+                      "trainerList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "page",
+                  "blocks",
+                  "trainers"
+                ]
               }
             ],
             "namespace": [

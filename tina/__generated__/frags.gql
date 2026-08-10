@@ -139,6 +139,16 @@ fragment PageParts on Page {
       boostEnabled
       extraInfo
     }
+    ... on PageBlocksTrainers {
+      title
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
   }
 }
 

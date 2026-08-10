@@ -447,7 +447,19 @@ type PageBlocksMembership {
   extraInfo: String
 }
 
-union PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership
+type PageBlocksTrainersTrainerList {
+  name: String
+  role: String
+  image: String
+  bio: String
+}
+
+type PageBlocksTrainers {
+  title: String
+  trainerList: [PageBlocksTrainersTrainerList]
+}
+
+union PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers
 
 type Page implements Node & Document {
   title: String!
@@ -487,10 +499,23 @@ input PageBlocksMembershipFilter {
   extraInfo: StringFilter
 }
 
+input PageBlocksTrainersTrainerListFilter {
+  name: StringFilter
+  role: StringFilter
+  image: ImageFilter
+  bio: StringFilter
+}
+
+input PageBlocksTrainersFilter {
+  title: StringFilter
+  trainerList: PageBlocksTrainersTrainerListFilter
+}
+
 input PageBlocksFilter {
   about: PageBlocksAboutFilter
   values: PageBlocksValuesFilter
   membership: PageBlocksMembershipFilter
+  trainers: PageBlocksTrainersFilter
 }
 
 input PageFilter {
@@ -1279,10 +1304,23 @@ input PageBlocksMembershipMutation {
   extraInfo: String
 }
 
+input PageBlocksTrainersTrainerListMutation {
+  name: String
+  role: String
+  image: String
+  bio: String
+}
+
+input PageBlocksTrainersMutation {
+  title: String
+  trainerList: [PageBlocksTrainersTrainerListMutation]
+}
+
 input PageBlocksMutation {
   about: PageBlocksAboutMutation
   values: PageBlocksValuesMutation
   membership: PageBlocksMembershipMutation
+  trainers: PageBlocksTrainersMutation
 }
 
 input PageMutation {
