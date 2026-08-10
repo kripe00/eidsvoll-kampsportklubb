@@ -68,6 +68,43 @@ fragment OmOssParts on OmOss {
         icon
       }
     }
+    ... on OmOssBlocksMembership {
+      title
+      description
+      linkUrl
+      boostLinkUrl
+      boostEnabled
+      extraInfo
+    }
+    ... on OmOssBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on OmOssBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on OmOssBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
+      }
+    }
   }
 }
 

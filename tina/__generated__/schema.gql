@@ -193,7 +193,51 @@ type OmOssBlocksCheckmat {
   features: [OmOssBlocksCheckmatFeatures]
 }
 
-union OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq | OmOssBlocksTimeline | OmOssBlocksOrgSeparation | OmOssBlocksCheckmat
+type OmOssBlocksMembership {
+  title: String
+  description: String
+  linkUrl: String
+  boostLinkUrl: String
+  boostEnabled: Boolean
+  extraInfo: String
+}
+
+type OmOssBlocksSponsorsSponsorList {
+  name: String
+  logo: String
+  url: String
+}
+
+type OmOssBlocksSponsors {
+  title: String
+  sponsorList: [OmOssBlocksSponsorsSponsorList]
+}
+
+type OmOssBlocksBenefitsItems {
+  title: String
+  text: String
+  icon: String
+}
+
+type OmOssBlocksBenefits {
+  title: String
+  items: [OmOssBlocksBenefitsItems]
+}
+
+type OmOssBlocksPackagesPackagesList {
+  name: String!
+  description: String
+  perks: [String]
+  highlighted: Boolean
+}
+
+type OmOssBlocksPackages {
+  title: String
+  description: String
+  packagesList: [OmOssBlocksPackagesPackagesList]
+}
+
+union OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq | OmOssBlocksTimeline | OmOssBlocksOrgSeparation | OmOssBlocksCheckmat | OmOssBlocksMembership | OmOssBlocksSponsors | OmOssBlocksBenefits | OmOssBlocksPackages
 
 type OmOss implements Node & Document {
   title: String!
@@ -299,6 +343,50 @@ input OmOssBlocksCheckmatFilter {
   features: OmOssBlocksCheckmatFeaturesFilter
 }
 
+input OmOssBlocksMembershipFilter {
+  title: StringFilter
+  description: StringFilter
+  linkUrl: StringFilter
+  boostLinkUrl: StringFilter
+  boostEnabled: BooleanFilter
+  extraInfo: StringFilter
+}
+
+input OmOssBlocksSponsorsSponsorListFilter {
+  name: StringFilter
+  logo: ImageFilter
+  url: StringFilter
+}
+
+input OmOssBlocksSponsorsFilter {
+  title: StringFilter
+  sponsorList: OmOssBlocksSponsorsSponsorListFilter
+}
+
+input OmOssBlocksBenefitsItemsFilter {
+  title: StringFilter
+  text: StringFilter
+  icon: StringFilter
+}
+
+input OmOssBlocksBenefitsFilter {
+  title: StringFilter
+  items: OmOssBlocksBenefitsItemsFilter
+}
+
+input OmOssBlocksPackagesPackagesListFilter {
+  name: StringFilter
+  description: StringFilter
+  perks: StringFilter
+  highlighted: BooleanFilter
+}
+
+input OmOssBlocksPackagesFilter {
+  title: StringFilter
+  description: StringFilter
+  packagesList: OmOssBlocksPackagesPackagesListFilter
+}
+
 input OmOssBlocksFilter {
   about: OmOssBlocksAboutFilter
   values: OmOssBlocksValuesFilter
@@ -307,6 +395,10 @@ input OmOssBlocksFilter {
   timeline: OmOssBlocksTimelineFilter
   orgSeparation: OmOssBlocksOrgSeparationFilter
   checkmat: OmOssBlocksCheckmatFilter
+  membership: OmOssBlocksMembershipFilter
+  sponsors: OmOssBlocksSponsorsFilter
+  benefits: OmOssBlocksBenefitsFilter
+  packages: OmOssBlocksPackagesFilter
 }
 
 input OmOssFilter {
@@ -1094,6 +1186,50 @@ input OmOssBlocksCheckmatMutation {
   features: [OmOssBlocksCheckmatFeaturesMutation]
 }
 
+input OmOssBlocksMembershipMutation {
+  title: String
+  description: String
+  linkUrl: String
+  boostLinkUrl: String
+  boostEnabled: Boolean
+  extraInfo: String
+}
+
+input OmOssBlocksSponsorsSponsorListMutation {
+  name: String
+  logo: String
+  url: String
+}
+
+input OmOssBlocksSponsorsMutation {
+  title: String
+  sponsorList: [OmOssBlocksSponsorsSponsorListMutation]
+}
+
+input OmOssBlocksBenefitsItemsMutation {
+  title: String
+  text: String
+  icon: String
+}
+
+input OmOssBlocksBenefitsMutation {
+  title: String
+  items: [OmOssBlocksBenefitsItemsMutation]
+}
+
+input OmOssBlocksPackagesPackagesListMutation {
+  name: String
+  description: String
+  perks: [String]
+  highlighted: Boolean
+}
+
+input OmOssBlocksPackagesMutation {
+  title: String
+  description: String
+  packagesList: [OmOssBlocksPackagesPackagesListMutation]
+}
+
 input OmOssBlocksMutation {
   about: OmOssBlocksAboutMutation
   values: OmOssBlocksValuesMutation
@@ -1102,6 +1238,10 @@ input OmOssBlocksMutation {
   timeline: OmOssBlocksTimelineMutation
   orgSeparation: OmOssBlocksOrgSeparationMutation
   checkmat: OmOssBlocksCheckmatMutation
+  membership: OmOssBlocksMembershipMutation
+  sponsors: OmOssBlocksSponsorsMutation
+  benefits: OmOssBlocksBenefitsMutation
+  packages: OmOssBlocksPackagesMutation
 }
 
 input OmOssMutation {

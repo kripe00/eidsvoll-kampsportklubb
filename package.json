@@ -37,5 +37,8 @@
     "firebase-tools": "^13.33.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "graphql": "15.8.0"
   }
 }

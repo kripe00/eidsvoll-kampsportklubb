@@ -691,6 +691,365 @@
                   "blocks",
                   "checkmat"
                 ]
+              },
+              {
+                "name": "membership",
+                "label": "Medlemskap (Sign-up)",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "linkUrl",
+                    "label": "MinIdrett Lenke",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "linkUrl"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "boostLinkUrl",
+                    "label": "Boost Lenke (Valgfritt)",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "boostLinkUrl"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "boostEnabled",
+                    "label": "Aktiver Boost-knapp?",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "boostEnabled"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "extraInfo",
+                    "label": "Tilleggsinformasjon (f.eks. utmelding)",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "extraInfo"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "omOss",
+                  "blocks",
+                  "membership"
+                ]
+              },
+              {
+                "name": "sponsors",
+                "label": "Sponsorer / Logoer",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "sponsors",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "sponsorList",
+                    "label": "Sponsorliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "logo",
+                        "label": "Logo",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "logo"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "url",
+                        "label": "Nettside (URL)",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "url"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "sponsors",
+                      "sponsorList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "omOss",
+                  "blocks",
+                  "sponsors"
+                ]
+              },
+              {
+                "name": "benefits",
+                "label": "Fordeler / Argumenter",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "benefits",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Argumenter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "text",
+                        "label": "Tekst",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "text"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Heart, Eye, Award, etc.)",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "benefits",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "omOss",
+                  "blocks",
+                  "benefits"
+                ]
+              },
+              {
+                "name": "packages",
+                "label": "Sponsorpakker / Priser",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "packages",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "packages",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "packagesList",
+                    "label": "Pakker",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Pakkenavn",
+                        "required": true,
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Kort beskrivelse",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "list": true,
+                        "name": "perks",
+                        "label": "Fordeler (en per linje i UI)",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "perks"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlighted",
+                        "label": "Fremhev pakken?",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "highlighted"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "packages",
+                      "packagesList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "omOss",
+                  "blocks",
+                  "packages"
+                ]
               }
             ],
             "namespace": [
