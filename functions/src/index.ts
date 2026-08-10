@@ -13,7 +13,7 @@ const smtpPassword = defineSecret("SMTP_PASSWORD");
 const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
 const smtpPort = parseInt(process.env.SMTP_PORT || "587");
 const smtpSecure = process.env.SMTP_SECURE === "true"; // true for port 465, false for 587
-const emailTo = process.env.EMAIL_TO || "post@kampsporteidsvoll.no";
+const emailTo = process.env.EMAIL_TO || "kontakt@kampsporteidsvoll.no";
 const senderEmail = process.env.SENDER_EMAIL || "noreply@kampsporteidsvoll.no";
 
 export const sendContactEmail = onDocumentCreated(

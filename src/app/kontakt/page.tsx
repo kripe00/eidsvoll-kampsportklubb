@@ -1,5 +1,6 @@
 import { client } from "../../../tina/__generated__/client";
 import { KontaktPageClient } from "@/components/KontaktPageClient";
+import contactJson from "../../../content/contact/index.json";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function KontaktPage() {
-  let pageRes: any = { data: {}, query: "", variables: {} };
+  let pageRes: any = { data: { contact: contactJson }, query: "", variables: {} };
 
   try {
     const res = await client.queries.contact({ relativePath: "index.json" });
@@ -21,7 +22,7 @@ export default async function KontaktPage() {
 
   return (
     <KontaktPageClient 
-      data={pageRes.data} 
+      data={pageRes.data?.contact ? pageRes.data : { contact: contactJson }} 
       query={pageRes.query} 
       variables={pageRes.variables} 
     />

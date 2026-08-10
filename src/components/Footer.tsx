@@ -6,7 +6,7 @@ import { tinaField } from "tinacms/dist/react";
 export function Footer({ data }: { data?: any }) {
   const clubName = data?.clubName || "Eidsvoll Kampsportklubb";
   const description = data?.footerDescription || "Vi vil gjerne høre fra deg! Enten du har spørsmål om treningstider, medlemskap, eller bare vil slå av en prat før du bestemmer deg for å prøve, er du alltid velkommen til å ta kontakt.";
-  const email = data?.footerEmail || "post@kampsporteidsvoll.no";
+  const email = data?.footerEmail || "kontakt@kampsporteidsvoll.no";
   const phone = data?.footerPhone || "976 10 229";
   const orgNumber = data?.footerOrgNumber || "";
   const address = data?.footerAddress || "";
