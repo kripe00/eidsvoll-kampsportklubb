@@ -252,6 +252,101 @@
                 ]
               },
               {
+                "name": "membership",
+                "label": "Medlemskap (Sign-up)",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "linkUrl",
+                    "label": "MinIdrett Lenke",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "linkUrl"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "boostLinkUrl",
+                    "label": "Boost Lenke (Valgfritt)",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "boostLinkUrl"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "boostEnabled",
+                    "label": "Aktiver Boost-knapp?",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "boostEnabled"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "extraInfo",
+                    "label": "Tilleggsinformasjon (f.eks. utmelding)",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "membership",
+                      "extraInfo"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "omOss",
+                  "blocks",
+                  "membership"
+                ]
+              },
+              {
                 "name": "trainers",
                 "label": "Trenere",
                 "fields": [
@@ -344,6 +439,163 @@
                 ]
               },
               {
+                "name": "sponsors",
+                "label": "Sponsorer / Logoer",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "sponsors",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "sponsorList",
+                    "label": "Sponsorliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "logo",
+                        "label": "Logo",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "logo"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "url",
+                        "label": "Nettside (URL)",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "url"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "sponsors",
+                      "sponsorList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "omOss",
+                  "blocks",
+                  "sponsors"
+                ]
+              },
+              {
+                "name": "benefits",
+                "label": "Fordeler / Argumenter",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "benefits",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Argumenter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "text",
+                        "label": "Tekst",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "text"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Heart, Eye, Award, etc.)",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "benefits",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "omOss",
+                  "blocks",
+                  "benefits"
+                ]
+              },
+              {
                 "name": "faq",
                 "label": "FAQ / Ofte stilte sp\u00f8rsm\u00e5l",
                 "fields": [
@@ -411,6 +663,113 @@
                   "omOss",
                   "blocks",
                   "faq"
+                ]
+              },
+              {
+                "name": "packages",
+                "label": "Sponsorpakker / Priser",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "packages",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "packages",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "packagesList",
+                    "label": "Pakker",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Pakkenavn",
+                        "required": true,
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Kort beskrivelse",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "list": true,
+                        "name": "perks",
+                        "label": "Fordeler (en per linje i UI)",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "perks"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlighted",
+                        "label": "Fremhev pakken?",
+                        "namespace": [
+                          "omOss",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "highlighted"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "omOss",
+                      "blocks",
+                      "packages",
+                      "packagesList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "omOss",
+                  "blocks",
+                  "packages"
                 ]
               },
               {
@@ -691,365 +1050,6 @@
                   "blocks",
                   "checkmat"
                 ]
-              },
-              {
-                "name": "membership",
-                "label": "Medlemskap (Sign-up)",
-                "fields": [
-                  {
-                    "type": "string",
-                    "name": "title",
-                    "label": "Overskrift",
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "membership",
-                      "title"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "string",
-                    "name": "description",
-                    "label": "Beskrivelse",
-                    "ui": {
-                      "component": "textarea"
-                    },
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "membership",
-                      "description"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "string",
-                    "name": "linkUrl",
-                    "label": "MinIdrett Lenke",
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "membership",
-                      "linkUrl"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "string",
-                    "name": "boostLinkUrl",
-                    "label": "Boost Lenke (Valgfritt)",
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "membership",
-                      "boostLinkUrl"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "boolean",
-                    "name": "boostEnabled",
-                    "label": "Aktiver Boost-knapp?",
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "membership",
-                      "boostEnabled"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "string",
-                    "name": "extraInfo",
-                    "label": "Tilleggsinformasjon (f.eks. utmelding)",
-                    "ui": {
-                      "component": "textarea"
-                    },
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "membership",
-                      "extraInfo"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  }
-                ],
-                "namespace": [
-                  "omOss",
-                  "blocks",
-                  "membership"
-                ]
-              },
-              {
-                "name": "sponsors",
-                "label": "Sponsorer / Logoer",
-                "fields": [
-                  {
-                    "type": "string",
-                    "name": "title",
-                    "label": "Overskrift",
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "sponsors",
-                      "title"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "object",
-                    "list": true,
-                    "name": "sponsorList",
-                    "label": "Sponsorliste",
-                    "ui": {},
-                    "fields": [
-                      {
-                        "type": "string",
-                        "name": "name",
-                        "label": "Navn",
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "sponsors",
-                          "sponsorList",
-                          "name"
-                        ]
-                      },
-                      {
-                        "type": "image",
-                        "name": "logo",
-                        "label": "Logo",
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "sponsors",
-                          "sponsorList",
-                          "logo"
-                        ]
-                      },
-                      {
-                        "type": "string",
-                        "name": "url",
-                        "label": "Nettside (URL)",
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "sponsors",
-                          "sponsorList",
-                          "url"
-                        ]
-                      }
-                    ],
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "sponsors",
-                      "sponsorList"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  }
-                ],
-                "namespace": [
-                  "omOss",
-                  "blocks",
-                  "sponsors"
-                ]
-              },
-              {
-                "name": "benefits",
-                "label": "Fordeler / Argumenter",
-                "fields": [
-                  {
-                    "type": "string",
-                    "name": "title",
-                    "label": "Overskrift",
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "benefits",
-                      "title"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "object",
-                    "list": true,
-                    "name": "items",
-                    "label": "Argumenter",
-                    "ui": {},
-                    "fields": [
-                      {
-                        "type": "string",
-                        "name": "title",
-                        "label": "Tittel",
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "benefits",
-                          "items",
-                          "title"
-                        ]
-                      },
-                      {
-                        "type": "string",
-                        "name": "text",
-                        "label": "Tekst",
-                        "ui": {
-                          "component": "textarea"
-                        },
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "benefits",
-                          "items",
-                          "text"
-                        ]
-                      },
-                      {
-                        "type": "string",
-                        "name": "icon",
-                        "label": "Ikon (Heart, Eye, Award, etc.)",
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "benefits",
-                          "items",
-                          "icon"
-                        ]
-                      }
-                    ],
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "benefits",
-                      "items"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  }
-                ],
-                "namespace": [
-                  "omOss",
-                  "blocks",
-                  "benefits"
-                ]
-              },
-              {
-                "name": "packages",
-                "label": "Sponsorpakker / Priser",
-                "fields": [
-                  {
-                    "type": "string",
-                    "name": "title",
-                    "label": "Overskrift",
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "packages",
-                      "title"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "string",
-                    "name": "description",
-                    "label": "Beskrivelse",
-                    "ui": {
-                      "component": "textarea"
-                    },
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "packages",
-                      "description"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "object",
-                    "list": true,
-                    "name": "packagesList",
-                    "label": "Pakker",
-                    "ui": {},
-                    "fields": [
-                      {
-                        "type": "string",
-                        "name": "name",
-                        "label": "Pakkenavn",
-                        "required": true,
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "packages",
-                          "packagesList",
-                          "name"
-                        ]
-                      },
-                      {
-                        "type": "string",
-                        "name": "description",
-                        "label": "Kort beskrivelse",
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "packages",
-                          "packagesList",
-                          "description"
-                        ]
-                      },
-                      {
-                        "type": "string",
-                        "list": true,
-                        "name": "perks",
-                        "label": "Fordeler (en per linje i UI)",
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "packages",
-                          "packagesList",
-                          "perks"
-                        ]
-                      },
-                      {
-                        "type": "boolean",
-                        "name": "highlighted",
-                        "label": "Fremhev pakken?",
-                        "namespace": [
-                          "omOss",
-                          "blocks",
-                          "packages",
-                          "packagesList",
-                          "highlighted"
-                        ]
-                      }
-                    ],
-                    "namespace": [
-                      "omOss",
-                      "blocks",
-                      "packages",
-                      "packagesList"
-                    ],
-                    "searchable": true,
-                    "uid": false
-                  }
-                ],
-                "namespace": [
-                  "omOss",
-                  "blocks",
-                  "packages"
-                ]
               }
             ],
             "namespace": [
@@ -1146,6 +1146,19 @@
                       "blocks",
                       "about",
                       "image"
+                    ],
+                    "searchable": false,
+                    "uid": false
+                  },
+                  {
+                    "type": "image",
+                    "name": "video",
+                    "label": "Video (Valgfritt)",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "about",
+                      "video"
                     ],
                     "searchable": false,
                     "uid": false
@@ -1470,6 +1483,619 @@
                   "page",
                   "blocks",
                   "trainers"
+                ]
+              },
+              {
+                "name": "sponsors",
+                "label": "Sponsorer / Logoer",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "sponsors",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "sponsorList",
+                    "label": "Sponsorliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "logo",
+                        "label": "Logo",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "logo"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "url",
+                        "label": "Nettside (URL)",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "url"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "sponsors",
+                      "sponsorList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "page",
+                  "blocks",
+                  "sponsors"
+                ]
+              },
+              {
+                "name": "benefits",
+                "label": "Fordeler / Argumenter",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "benefits",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Argumenter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "text",
+                        "label": "Tekst",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "text"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Heart, Eye, Award, etc.)",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "benefits",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "page",
+                  "blocks",
+                  "benefits"
+                ]
+              },
+              {
+                "name": "faq",
+                "label": "FAQ / Ofte stilte sp\u00f8rsm\u00e5l",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "faq",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Sp\u00f8rsm\u00e5l og svar",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "question",
+                        "label": "Sp\u00f8rsm\u00e5l",
+                        "required": true,
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "faq",
+                          "items",
+                          "question"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "answer",
+                        "label": "Svar",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "required": true,
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "faq",
+                          "items",
+                          "answer"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "faq",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "page",
+                  "blocks",
+                  "faq"
+                ]
+              },
+              {
+                "name": "packages",
+                "label": "Sponsorpakker / Priser",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "packages",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "packages",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "packagesList",
+                    "label": "Pakker",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Pakkenavn",
+                        "required": true,
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Kort beskrivelse",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "list": true,
+                        "name": "perks",
+                        "label": "Fordeler (en per linje i UI)",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "perks"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlighted",
+                        "label": "Fremhev pakken?",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "highlighted"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "packages",
+                      "packagesList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "page",
+                  "blocks",
+                  "packages"
+                ]
+              },
+              {
+                "name": "timeline",
+                "label": "Tidslinje / Klubbens historie",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "timeline",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "timeline",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "events",
+                    "label": "Tidshendelser",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "year",
+                        "label": "\u00c5r / Tidspunkt",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "year"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "location",
+                        "label": "Sted",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "location"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Beskrivelse",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlight",
+                        "label": "Fremhev kort?",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "highlight"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "timeline",
+                      "events"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "page",
+                  "blocks",
+                  "timeline"
+                ]
+              },
+              {
+                "name": "orgSeparation",
+                "label": "Organisasjonsstruktur (Rambukk vs EKK)",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "orgSeparation",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "orgSeparation",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "orgSeparation",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "page",
+                  "blocks",
+                  "orgSeparation"
+                ]
+              },
+              {
+                "name": "checkmat",
+                "label": "Checkmat Lineage & Verdier",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "checkmat",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "checkmat",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "checkmat",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "features",
+                    "label": "Fordeler / Punkter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Beskrivelse",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Award, ShieldCheck, Globe, etc.)",
+                        "namespace": [
+                          "page",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "page",
+                      "blocks",
+                      "checkmat",
+                      "features"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "page",
+                  "blocks",
+                  "checkmat"
                 ]
               }
             ],
@@ -1974,12 +2600,953 @@
                     ],
                     "searchable": false,
                     "uid": false
+                  },
+                  {
+                    "type": "image",
+                    "name": "video",
+                    "label": "Video (Valgfritt)",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "about",
+                      "video"
+                    ],
+                    "searchable": false,
+                    "uid": false
                   }
                 ],
                 "namespace": [
                   "styret",
                   "blocks",
                   "about"
+                ]
+              },
+              {
+                "name": "values",
+                "label": "Verdier",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "values",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "values",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "variant",
+                    "label": "Designvariant",
+                    "options": [
+                      {
+                        "label": "Asymmetrisk (Verdier)",
+                        "value": "asymmetric"
+                      },
+                      {
+                        "label": "Navy (Trygg Idrett)",
+                        "value": "navy"
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "values",
+                      "variant"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Bilde",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "values",
+                      "image"
+                    ],
+                    "searchable": false,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Verdipunkter",
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "values",
+                          "items",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "text",
+                        "label": "Tekst",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "values",
+                          "items",
+                          "text"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Users, Heart, etc.)",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "values",
+                          "items",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "values",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "values"
+                ]
+              },
+              {
+                "name": "membership",
+                "label": "Medlemskap (Sign-up)",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "membership",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "membership",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "linkUrl",
+                    "label": "MinIdrett Lenke",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "membership",
+                      "linkUrl"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "boostLinkUrl",
+                    "label": "Boost Lenke (Valgfritt)",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "membership",
+                      "boostLinkUrl"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "boostEnabled",
+                    "label": "Aktiver Boost-knapp?",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "membership",
+                      "boostEnabled"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "extraInfo",
+                    "label": "Tilleggsinformasjon (f.eks. utmelding)",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "membership",
+                      "extraInfo"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "membership"
+                ]
+              },
+              {
+                "name": "trainers",
+                "label": "Trenere",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "trainers",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "trainerList",
+                    "label": "Trenerliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "role",
+                        "label": "Rolle",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "role"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "image",
+                        "label": "Bilde",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "image"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "bio",
+                        "label": "Bio",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "bio"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "trainers",
+                      "trainerList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "trainers"
+                ]
+              },
+              {
+                "name": "sponsors",
+                "label": "Sponsorer / Logoer",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "sponsors",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "sponsorList",
+                    "label": "Sponsorliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "logo",
+                        "label": "Logo",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "logo"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "url",
+                        "label": "Nettside (URL)",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "url"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "sponsors",
+                      "sponsorList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "sponsors"
+                ]
+              },
+              {
+                "name": "benefits",
+                "label": "Fordeler / Argumenter",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "benefits",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Argumenter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "text",
+                        "label": "Tekst",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "text"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Heart, Eye, Award, etc.)",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "benefits",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "benefits"
+                ]
+              },
+              {
+                "name": "faq",
+                "label": "FAQ / Ofte stilte sp\u00f8rsm\u00e5l",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "faq",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Sp\u00f8rsm\u00e5l og svar",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "question",
+                        "label": "Sp\u00f8rsm\u00e5l",
+                        "required": true,
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "faq",
+                          "items",
+                          "question"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "answer",
+                        "label": "Svar",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "required": true,
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "faq",
+                          "items",
+                          "answer"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "faq",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "faq"
+                ]
+              },
+              {
+                "name": "packages",
+                "label": "Sponsorpakker / Priser",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "packages",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "packages",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "packagesList",
+                    "label": "Pakker",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Pakkenavn",
+                        "required": true,
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Kort beskrivelse",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "list": true,
+                        "name": "perks",
+                        "label": "Fordeler (en per linje i UI)",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "perks"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlighted",
+                        "label": "Fremhev pakken?",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "highlighted"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "packages",
+                      "packagesList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "packages"
+                ]
+              },
+              {
+                "name": "timeline",
+                "label": "Tidslinje / Klubbens historie",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "timeline",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "timeline",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "events",
+                    "label": "Tidshendelser",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "year",
+                        "label": "\u00c5r / Tidspunkt",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "year"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "location",
+                        "label": "Sted",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "location"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Beskrivelse",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlight",
+                        "label": "Fremhev kort?",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "highlight"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "timeline",
+                      "events"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "timeline"
+                ]
+              },
+              {
+                "name": "orgSeparation",
+                "label": "Organisasjonsstruktur (Rambukk vs EKK)",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "orgSeparation",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "orgSeparation",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "orgSeparation",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "orgSeparation"
+                ]
+              },
+              {
+                "name": "checkmat",
+                "label": "Checkmat Lineage & Verdier",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "checkmat",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "checkmat",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "checkmat",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "features",
+                    "label": "Fordeler / Punkter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Beskrivelse",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Award, ShieldCheck, Globe, etc.)",
+                        "namespace": [
+                          "styret",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "styret",
+                      "blocks",
+                      "checkmat",
+                      "features"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "styret",
+                  "blocks",
+                  "checkmat"
                 ]
               }
             ],
@@ -2294,7 +3861,7 @@
             "templates": [
               {
                 "name": "about",
-                "label": "Intro / Tekst",
+                "label": "Om oss / Tekst",
                 "fields": [
                   {
                     "type": "string",
@@ -2337,12 +3904,417 @@
                     ],
                     "searchable": false,
                     "uid": false
+                  },
+                  {
+                    "type": "image",
+                    "name": "video",
+                    "label": "Video (Valgfritt)",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "about",
+                      "video"
+                    ],
+                    "searchable": false,
+                    "uid": false
                   }
                 ],
                 "namespace": [
                   "sponsorer",
                   "blocks",
                   "about"
+                ]
+              },
+              {
+                "name": "values",
+                "label": "Verdier",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "values",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "values",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "variant",
+                    "label": "Designvariant",
+                    "options": [
+                      {
+                        "label": "Asymmetrisk (Verdier)",
+                        "value": "asymmetric"
+                      },
+                      {
+                        "label": "Navy (Trygg Idrett)",
+                        "value": "navy"
+                      }
+                    ],
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "values",
+                      "variant"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Bilde",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "values",
+                      "image"
+                    ],
+                    "searchable": false,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Verdipunkter",
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "values",
+                          "items",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "text",
+                        "label": "Tekst",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "values",
+                          "items",
+                          "text"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Users, Heart, etc.)",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "values",
+                          "items",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "values",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "sponsorer",
+                  "blocks",
+                  "values"
+                ]
+              },
+              {
+                "name": "membership",
+                "label": "Medlemskap (Sign-up)",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "membership",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "membership",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "linkUrl",
+                    "label": "MinIdrett Lenke",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "membership",
+                      "linkUrl"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "boostLinkUrl",
+                    "label": "Boost Lenke (Valgfritt)",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "membership",
+                      "boostLinkUrl"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "boostEnabled",
+                    "label": "Aktiver Boost-knapp?",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "membership",
+                      "boostEnabled"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "extraInfo",
+                    "label": "Tilleggsinformasjon (f.eks. utmelding)",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "membership",
+                      "extraInfo"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "sponsorer",
+                  "blocks",
+                  "membership"
+                ]
+              },
+              {
+                "name": "trainers",
+                "label": "Trenere",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "trainers",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "trainerList",
+                    "label": "Trenerliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "role",
+                        "label": "Rolle",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "role"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "image",
+                        "label": "Bilde",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "image"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "bio",
+                        "label": "Bio",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "bio"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "trainers",
+                      "trainerList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "sponsorer",
+                  "blocks",
+                  "trainers"
+                ]
+              },
+              {
+                "name": "sponsors",
+                "label": "Sponsorer / Logoer",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "sponsors",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "sponsorList",
+                    "label": "Sponsorliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "logo",
+                        "label": "Logo",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "logo"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "url",
+                        "label": "Nettside (URL)",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "url"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "sponsors",
+                      "sponsorList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "sponsorer",
+                  "blocks",
+                  "sponsors"
                 ]
               },
               {
@@ -2426,8 +4398,8 @@
                 ]
               },
               {
-                "name": "sponsors",
-                "label": "Sponsorer / Logoer",
+                "name": "faq",
+                "label": "FAQ / Ofte stilte sp\u00f8rsm\u00e5l",
                 "fields": [
                   {
                     "type": "string",
@@ -2436,7 +4408,7 @@
                     "namespace": [
                       "sponsorer",
                       "blocks",
-                      "sponsors",
+                      "faq",
                       "title"
                     ],
                     "searchable": true,
@@ -2445,52 +4417,45 @@
                   {
                     "type": "object",
                     "list": true,
-                    "name": "sponsorList",
-                    "label": "Sponsorliste",
+                    "name": "items",
+                    "label": "Sp\u00f8rsm\u00e5l og svar",
                     "ui": {},
                     "fields": [
                       {
                         "type": "string",
-                        "name": "name",
-                        "label": "Navn",
+                        "name": "question",
+                        "label": "Sp\u00f8rsm\u00e5l",
+                        "required": true,
                         "namespace": [
                           "sponsorer",
                           "blocks",
-                          "sponsors",
-                          "sponsorList",
-                          "name"
-                        ]
-                      },
-                      {
-                        "type": "image",
-                        "name": "logo",
-                        "label": "Logo",
-                        "namespace": [
-                          "sponsorer",
-                          "blocks",
-                          "sponsors",
-                          "sponsorList",
-                          "logo"
+                          "faq",
+                          "items",
+                          "question"
                         ]
                       },
                       {
                         "type": "string",
-                        "name": "url",
-                        "label": "Nettside (URL)",
+                        "name": "answer",
+                        "label": "Svar",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "required": true,
                         "namespace": [
                           "sponsorer",
                           "blocks",
-                          "sponsors",
-                          "sponsorList",
-                          "url"
+                          "faq",
+                          "items",
+                          "answer"
                         ]
                       }
                     ],
                     "namespace": [
                       "sponsorer",
                       "blocks",
-                      "sponsors",
-                      "sponsorList"
+                      "faq",
+                      "items"
                     ],
                     "searchable": true,
                     "uid": false
@@ -2499,7 +4464,7 @@
                 "namespace": [
                   "sponsorer",
                   "blocks",
-                  "sponsors"
+                  "faq"
                 ]
               },
               {
@@ -2608,6 +4573,285 @@
                   "blocks",
                   "packages"
                 ]
+              },
+              {
+                "name": "timeline",
+                "label": "Tidslinje / Klubbens historie",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "timeline",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "timeline",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "events",
+                    "label": "Tidshendelser",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "year",
+                        "label": "\u00c5r / Tidspunkt",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "year"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "location",
+                        "label": "Sted",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "location"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Beskrivelse",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlight",
+                        "label": "Fremhev kort?",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "highlight"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "timeline",
+                      "events"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "sponsorer",
+                  "blocks",
+                  "timeline"
+                ]
+              },
+              {
+                "name": "orgSeparation",
+                "label": "Organisasjonsstruktur (Rambukk vs EKK)",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "orgSeparation",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "orgSeparation",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "orgSeparation",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "sponsorer",
+                  "blocks",
+                  "orgSeparation"
+                ]
+              },
+              {
+                "name": "checkmat",
+                "label": "Checkmat Lineage & Verdier",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "checkmat",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "checkmat",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "checkmat",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "features",
+                    "label": "Fordeler / Punkter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Beskrivelse",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Award, ShieldCheck, Globe, etc.)",
+                        "namespace": [
+                          "sponsorer",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "sponsorer",
+                      "blocks",
+                      "checkmat",
+                      "features"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "sponsorer",
+                  "blocks",
+                  "checkmat"
+                ]
               }
             ],
             "namespace": [
@@ -2653,6 +4897,200 @@
             "name": "blocks",
             "label": "Seksjoner",
             "templates": [
+              {
+                "name": "about",
+                "label": "Om oss / Tekst",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "about",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "body",
+                    "label": "Innhold",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "about",
+                      "body"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Bilde",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "about",
+                      "image"
+                    ],
+                    "searchable": false,
+                    "uid": false
+                  },
+                  {
+                    "type": "image",
+                    "name": "video",
+                    "label": "Video (Valgfritt)",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "about",
+                      "video"
+                    ],
+                    "searchable": false,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "medlemskap",
+                  "blocks",
+                  "about"
+                ]
+              },
+              {
+                "name": "values",
+                "label": "Verdier",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "values",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "values",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "variant",
+                    "label": "Designvariant",
+                    "options": [
+                      {
+                        "label": "Asymmetrisk (Verdier)",
+                        "value": "asymmetric"
+                      },
+                      {
+                        "label": "Navy (Trygg Idrett)",
+                        "value": "navy"
+                      }
+                    ],
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "values",
+                      "variant"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Bilde",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "values",
+                      "image"
+                    ],
+                    "searchable": false,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Verdipunkter",
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "values",
+                          "items",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "text",
+                        "label": "Tekst",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "values",
+                          "items",
+                          "text"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Users, Heart, etc.)",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "values",
+                          "items",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "values",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "medlemskap",
+                  "blocks",
+                  "values"
+                ]
+              },
               {
                 "name": "membership",
                 "label": "Medlemskap (Sign-up)",
@@ -2749,8 +5187,8 @@
                 ]
               },
               {
-                "name": "about",
-                "label": "Tekstblokk",
+                "name": "trainers",
+                "label": "Trenere",
                 "fields": [
                   {
                     "type": "string",
@@ -2759,46 +5197,242 @@
                     "namespace": [
                       "medlemskap",
                       "blocks",
-                      "about",
+                      "trainers",
                       "title"
                     ],
                     "searchable": true,
                     "uid": false
                   },
                   {
-                    "type": "string",
-                    "name": "body",
-                    "label": "Innhold",
-                    "ui": {
-                      "component": "textarea"
-                    },
+                    "type": "object",
+                    "list": true,
+                    "name": "trainerList",
+                    "label": "Trenerliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "role",
+                        "label": "Rolle",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "role"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "image",
+                        "label": "Bilde",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "image"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "bio",
+                        "label": "Bio",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "trainers",
+                          "trainerList",
+                          "bio"
+                        ]
+                      }
+                    ],
                     "namespace": [
                       "medlemskap",
                       "blocks",
-                      "about",
-                      "body"
+                      "trainers",
+                      "trainerList"
                     ],
                     "searchable": true,
-                    "uid": false
-                  },
-                  {
-                    "type": "image",
-                    "name": "image",
-                    "label": "Bilde",
-                    "namespace": [
-                      "medlemskap",
-                      "blocks",
-                      "about",
-                      "image"
-                    ],
-                    "searchable": false,
                     "uid": false
                   }
                 ],
                 "namespace": [
                   "medlemskap",
                   "blocks",
-                  "about"
+                  "trainers"
+                ]
+              },
+              {
+                "name": "sponsors",
+                "label": "Sponsorer / Logoer",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "sponsors",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "sponsorList",
+                    "label": "Sponsorliste",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Navn",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "image",
+                        "name": "logo",
+                        "label": "Logo",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "logo"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "url",
+                        "label": "Nettside (URL)",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "sponsors",
+                          "sponsorList",
+                          "url"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "sponsors",
+                      "sponsorList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "medlemskap",
+                  "blocks",
+                  "sponsors"
+                ]
+              },
+              {
+                "name": "benefits",
+                "label": "Fordeler / Argumenter",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "benefits",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "items",
+                    "label": "Argumenter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "text",
+                        "label": "Tekst",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "text"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Heart, Eye, Award, etc.)",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "benefits",
+                          "items",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "benefits",
+                      "items"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "medlemskap",
+                  "blocks",
+                  "benefits"
                 ]
               },
               {
@@ -2869,6 +5503,392 @@
                   "medlemskap",
                   "blocks",
                   "faq"
+                ]
+              },
+              {
+                "name": "packages",
+                "label": "Sponsorpakker / Priser",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "packages",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "packages",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "packagesList",
+                    "label": "Pakker",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "name",
+                        "label": "Pakkenavn",
+                        "required": true,
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "name"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Kort beskrivelse",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "list": true,
+                        "name": "perks",
+                        "label": "Fordeler (en per linje i UI)",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "perks"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlighted",
+                        "label": "Fremhev pakken?",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "packages",
+                          "packagesList",
+                          "highlighted"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "packages",
+                      "packagesList"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "medlemskap",
+                  "blocks",
+                  "packages"
+                ]
+              },
+              {
+                "name": "timeline",
+                "label": "Tidslinje / Klubbens historie",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "timeline",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "timeline",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "events",
+                    "label": "Tidshendelser",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "year",
+                        "label": "\u00c5r / Tidspunkt",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "year"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "location",
+                        "label": "Sted",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "location"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Beskrivelse",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "boolean",
+                        "name": "highlight",
+                        "label": "Fremhev kort?",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "timeline",
+                          "events",
+                          "highlight"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "timeline",
+                      "events"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "medlemskap",
+                  "blocks",
+                  "timeline"
+                ]
+              },
+              {
+                "name": "orgSeparation",
+                "label": "Organisasjonsstruktur (Rambukk vs EKK)",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "orgSeparation",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "orgSeparation",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "orgSeparation",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "medlemskap",
+                  "blocks",
+                  "orgSeparation"
+                ]
+              },
+              {
+                "name": "checkmat",
+                "label": "Checkmat Lineage & Verdier",
+                "fields": [
+                  {
+                    "type": "string",
+                    "name": "title",
+                    "label": "Overskrift",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "checkmat",
+                      "title"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "subtitle",
+                    "label": "Undertittel",
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "checkmat",
+                      "subtitle"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "string",
+                    "name": "description",
+                    "label": "Beskrivelse",
+                    "ui": {
+                      "component": "textarea"
+                    },
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "checkmat",
+                      "description"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  },
+                  {
+                    "type": "object",
+                    "list": true,
+                    "name": "features",
+                    "label": "Fordeler / Punkter",
+                    "ui": {},
+                    "fields": [
+                      {
+                        "type": "string",
+                        "name": "title",
+                        "label": "Tittel",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "title"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "description",
+                        "label": "Beskrivelse",
+                        "ui": {
+                          "component": "textarea"
+                        },
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "description"
+                        ]
+                      },
+                      {
+                        "type": "string",
+                        "name": "icon",
+                        "label": "Ikon (Award, ShieldCheck, Globe, etc.)",
+                        "namespace": [
+                          "medlemskap",
+                          "blocks",
+                          "checkmat",
+                          "features",
+                          "icon"
+                        ]
+                      }
+                    ],
+                    "namespace": [
+                      "medlemskap",
+                      "blocks",
+                      "checkmat",
+                      "features"
+                    ],
+                    "searchable": true,
+                    "uid": false
+                  }
+                ],
+                "namespace": [
+                  "medlemskap",
+                  "blocks",
+                  "checkmat"
                 ]
               }
             ],

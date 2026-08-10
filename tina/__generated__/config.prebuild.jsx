@@ -75,6 +75,18 @@ var config_default = defineConfig({
                 ]
               },
               {
+                name: "membership",
+                label: "Medlemskap (Sign-up)",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  { type: "string", name: "linkUrl", label: "MinIdrett Lenke" },
+                  { type: "string", name: "boostLinkUrl", label: "Boost Lenke (Valgfritt)" },
+                  { type: "boolean", name: "boostEnabled", label: "Aktiver Boost-knapp?" },
+                  { type: "string", name: "extraInfo", label: "Tilleggsinformasjon (f.eks. utmelding)", ui: { component: "textarea" } }
+                ]
+              },
+              {
                 name: "trainers",
                 label: "Trenere",
                 fields: [
@@ -97,6 +109,48 @@ var config_default = defineConfig({
                 ]
               },
               {
+                name: "sponsors",
+                label: "Sponsorer / Logoer",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "sponsorList",
+                    label: "Sponsorliste",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny sponsor" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Navn" },
+                      { type: "image", name: "logo", label: "Logo" },
+                      { type: "string", name: "url", label: "Nettside (URL)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "benefits",
+                label: "Fordeler / Argumenter",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Argumenter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt argument" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Heart, Eye, Award, etc.)" }
+                    ]
+                  }
+                ]
+              },
+              {
                 name: "faq",
                 label: "FAQ / Ofte stilte sp\xF8rsm\xE5l",
                 fields: [
@@ -112,6 +166,29 @@ var config_default = defineConfig({
                     fields: [
                       { type: "string", name: "question", label: "Sp\xF8rsm\xE5l", required: true },
                       { type: "string", name: "answer", label: "Svar", ui: { component: "textarea" }, required: true }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "packages",
+                label: "Sponsorpakker / Priser",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "packagesList",
+                    label: "Pakker",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny pakke" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Pakkenavn", required: true },
+                      { type: "string", name: "description", label: "Kort beskrivelse" },
+                      { type: "string", list: true, name: "perks", label: "Fordeler (en per linje i UI)" },
+                      { type: "boolean", name: "highlighted", label: "Fremhev pakken?" }
                     ]
                   }
                 ]
@@ -171,83 +248,6 @@ var config_default = defineConfig({
                     ]
                   }
                 ]
-              },
-              {
-                name: "membership",
-                label: "Medlemskap (Sign-up)",
-                fields: [
-                  { type: "string", name: "title", label: "Overskrift" },
-                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
-                  { type: "string", name: "linkUrl", label: "MinIdrett Lenke" },
-                  { type: "string", name: "boostLinkUrl", label: "Boost Lenke (Valgfritt)" },
-                  { type: "boolean", name: "boostEnabled", label: "Aktiver Boost-knapp?" },
-                  { type: "string", name: "extraInfo", label: "Tilleggsinformasjon (f.eks. utmelding)", ui: { component: "textarea" } }
-                ]
-              },
-              {
-                name: "sponsors",
-                label: "Sponsorer / Logoer",
-                fields: [
-                  { type: "string", name: "title", label: "Overskrift" },
-                  {
-                    type: "object",
-                    list: true,
-                    name: "sponsorList",
-                    label: "Sponsorliste",
-                    ui: {
-                      itemProps: (item) => ({ label: item?.name || "Ny sponsor" })
-                    },
-                    fields: [
-                      { type: "string", name: "name", label: "Navn" },
-                      { type: "image", name: "logo", label: "Logo" },
-                      { type: "string", name: "url", label: "Nettside (URL)" }
-                    ]
-                  }
-                ]
-              },
-              {
-                name: "benefits",
-                label: "Fordeler / Argumenter",
-                fields: [
-                  { type: "string", name: "title", label: "Overskrift" },
-                  {
-                    type: "object",
-                    list: true,
-                    name: "items",
-                    label: "Argumenter",
-                    ui: {
-                      itemProps: (item) => ({ label: item?.title || "Nytt argument" })
-                    },
-                    fields: [
-                      { type: "string", name: "title", label: "Tittel" },
-                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
-                      { type: "string", name: "icon", label: "Ikon (Heart, Eye, Award, etc.)" }
-                    ]
-                  }
-                ]
-              },
-              {
-                name: "packages",
-                label: "Sponsorpakker / Priser",
-                fields: [
-                  { type: "string", name: "title", label: "Overskrift" },
-                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
-                  {
-                    type: "object",
-                    list: true,
-                    name: "packagesList",
-                    label: "Pakker",
-                    ui: {
-                      itemProps: (item) => ({ label: item?.name || "Ny pakke" })
-                    },
-                    fields: [
-                      { type: "string", name: "name", label: "Pakkenavn", required: true },
-                      { type: "string", name: "description", label: "Kort beskrivelse" },
-                      { type: "string", list: true, name: "perks", label: "Fordeler (en per linje i UI)" },
-                      { type: "boolean", name: "highlighted", label: "Fremhev pakken?" }
-                    ]
-                  }
-                ]
               }
             ]
           }
@@ -279,7 +279,8 @@ var config_default = defineConfig({
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "body", label: "Innhold", ui: { component: "textarea" } },
-                  { type: "image", name: "image", label: "Bilde" }
+                  { type: "image", name: "image", label: "Bilde" },
+                  { type: "image", name: "video", label: "Video (Valgfritt)" }
                 ]
               },
               {
@@ -341,6 +342,147 @@ var config_default = defineConfig({
                       { type: "string", name: "role", label: "Rolle" },
                       { type: "image", name: "image", label: "Bilde" },
                       { type: "string", name: "bio", label: "Bio", ui: { component: "textarea" } }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "sponsors",
+                label: "Sponsorer / Logoer",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "sponsorList",
+                    label: "Sponsorliste",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny sponsor" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Navn" },
+                      { type: "image", name: "logo", label: "Logo" },
+                      { type: "string", name: "url", label: "Nettside (URL)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "benefits",
+                label: "Fordeler / Argumenter",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Argumenter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt argument" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Heart, Eye, Award, etc.)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "faq",
+                label: "FAQ / Ofte stilte sp\xF8rsm\xE5l",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Sp\xF8rsm\xE5l og svar",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.question || "Nytt sp\xF8rsm\xE5l" })
+                    },
+                    fields: [
+                      { type: "string", name: "question", label: "Sp\xF8rsm\xE5l", required: true },
+                      { type: "string", name: "answer", label: "Svar", ui: { component: "textarea" }, required: true }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "packages",
+                label: "Sponsorpakker / Priser",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "packagesList",
+                    label: "Pakker",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny pakke" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Pakkenavn", required: true },
+                      { type: "string", name: "description", label: "Kort beskrivelse" },
+                      { type: "string", list: true, name: "perks", label: "Fordeler (en per linje i UI)" },
+                      { type: "boolean", name: "highlighted", label: "Fremhev pakken?" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "timeline",
+                label: "Tidslinje / Klubbens historie",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "events",
+                    label: "Tidshendelser",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.year ? `${item.year} - ${item.title}` : "Ny hendelse" })
+                    },
+                    fields: [
+                      { type: "string", name: "year", label: "\xC5r / Tidspunkt" },
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "location", label: "Sted" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "boolean", name: "highlight", label: "Fremhev kort?" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "orgSeparation",
+                label: "Organisasjonsstruktur (Rambukk vs EKK)",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } }
+                ]
+              },
+              {
+                name: "checkmat",
+                label: "Checkmat Lineage & Verdier",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "features",
+                    label: "Fordeler / Punkter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt punkt" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Award, ShieldCheck, Globe, etc.)" }
                     ]
                   }
                 ]
@@ -501,7 +643,212 @@ var config_default = defineConfig({
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "body", label: "Innhold", ui: { component: "textarea" } },
-                  { type: "image", name: "image", label: "Bilde" }
+                  { type: "image", name: "image", label: "Bilde" },
+                  { type: "image", name: "video", label: "Video (Valgfritt)" }
+                ]
+              },
+              {
+                name: "values",
+                label: "Verdier",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse" },
+                  {
+                    type: "string",
+                    name: "variant",
+                    label: "Designvariant",
+                    options: [
+                      { label: "Asymmetrisk (Verdier)", value: "asymmetric" },
+                      { label: "Navy (Trygg Idrett)", value: "navy" }
+                    ]
+                  },
+                  { type: "image", name: "image", label: "Bilde" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Verdipunkter",
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Users, Heart, etc.)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "membership",
+                label: "Medlemskap (Sign-up)",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  { type: "string", name: "linkUrl", label: "MinIdrett Lenke" },
+                  { type: "string", name: "boostLinkUrl", label: "Boost Lenke (Valgfritt)" },
+                  { type: "boolean", name: "boostEnabled", label: "Aktiver Boost-knapp?" },
+                  { type: "string", name: "extraInfo", label: "Tilleggsinformasjon (f.eks. utmelding)", ui: { component: "textarea" } }
+                ]
+              },
+              {
+                name: "trainers",
+                label: "Trenere",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "trainerList",
+                    label: "Trenerliste",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny trener" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Navn" },
+                      { type: "string", name: "role", label: "Rolle" },
+                      { type: "image", name: "image", label: "Bilde" },
+                      { type: "string", name: "bio", label: "Bio", ui: { component: "textarea" } }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "sponsors",
+                label: "Sponsorer / Logoer",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "sponsorList",
+                    label: "Sponsorliste",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny sponsor" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Navn" },
+                      { type: "image", name: "logo", label: "Logo" },
+                      { type: "string", name: "url", label: "Nettside (URL)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "benefits",
+                label: "Fordeler / Argumenter",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Argumenter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt argument" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Heart, Eye, Award, etc.)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "faq",
+                label: "FAQ / Ofte stilte sp\xF8rsm\xE5l",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Sp\xF8rsm\xE5l og svar",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.question || "Nytt sp\xF8rsm\xE5l" })
+                    },
+                    fields: [
+                      { type: "string", name: "question", label: "Sp\xF8rsm\xE5l", required: true },
+                      { type: "string", name: "answer", label: "Svar", ui: { component: "textarea" }, required: true }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "packages",
+                label: "Sponsorpakker / Priser",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "packagesList",
+                    label: "Pakker",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny pakke" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Pakkenavn", required: true },
+                      { type: "string", name: "description", label: "Kort beskrivelse" },
+                      { type: "string", list: true, name: "perks", label: "Fordeler (en per linje i UI)" },
+                      { type: "boolean", name: "highlighted", label: "Fremhev pakken?" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "timeline",
+                label: "Tidslinje / Klubbens historie",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "events",
+                    label: "Tidshendelser",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.year ? `${item.year} - ${item.title}` : "Ny hendelse" })
+                    },
+                    fields: [
+                      { type: "string", name: "year", label: "\xC5r / Tidspunkt" },
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "location", label: "Sted" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "boolean", name: "highlight", label: "Fremhev kort?" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "orgSeparation",
+                label: "Organisasjonsstruktur (Rambukk vs EKK)",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } }
+                ]
+              },
+              {
+                name: "checkmat",
+                label: "Checkmat Lineage & Verdier",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "features",
+                    label: "Fordeler / Punkter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt punkt" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Award, ShieldCheck, Globe, etc.)" }
+                    ]
+                  }
                 ]
               }
             ]
@@ -604,30 +951,73 @@ var config_default = defineConfig({
             templates: [
               {
                 name: "about",
-                label: "Intro / Tekst",
+                label: "Om oss / Tekst",
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "body", label: "Innhold", ui: { component: "textarea" } },
-                  { type: "image", name: "image", label: "Bilde" }
+                  { type: "image", name: "image", label: "Bilde" },
+                  { type: "image", name: "video", label: "Video (Valgfritt)" }
                 ]
               },
               {
-                name: "benefits",
-                label: "Fordeler / Argumenter",
+                name: "values",
+                label: "Verdier",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse" },
+                  {
+                    type: "string",
+                    name: "variant",
+                    label: "Designvariant",
+                    options: [
+                      { label: "Asymmetrisk (Verdier)", value: "asymmetric" },
+                      { label: "Navy (Trygg Idrett)", value: "navy" }
+                    ]
+                  },
+                  { type: "image", name: "image", label: "Bilde" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Verdipunkter",
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Users, Heart, etc.)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "membership",
+                label: "Medlemskap (Sign-up)",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  { type: "string", name: "linkUrl", label: "MinIdrett Lenke" },
+                  { type: "string", name: "boostLinkUrl", label: "Boost Lenke (Valgfritt)" },
+                  { type: "boolean", name: "boostEnabled", label: "Aktiver Boost-knapp?" },
+                  { type: "string", name: "extraInfo", label: "Tilleggsinformasjon (f.eks. utmelding)", ui: { component: "textarea" } }
+                ]
+              },
+              {
+                name: "trainers",
+                label: "Trenere",
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   {
                     type: "object",
                     list: true,
-                    name: "items",
-                    label: "Argumenter",
+                    name: "trainerList",
+                    label: "Trenerliste",
                     ui: {
-                      itemProps: (item) => ({ label: item?.title || "Nytt argument" })
+                      itemProps: (item) => ({ label: item?.name || "Ny trener" })
                     },
                     fields: [
-                      { type: "string", name: "title", label: "Tittel" },
-                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
-                      { type: "string", name: "icon", label: "Ikon (Heart, Eye, Award, etc.)" }
+                      { type: "string", name: "name", label: "Navn" },
+                      { type: "string", name: "role", label: "Rolle" },
+                      { type: "image", name: "image", label: "Bilde" },
+                      { type: "string", name: "bio", label: "Bio", ui: { component: "textarea" } }
                     ]
                   }
                 ]
@@ -654,6 +1044,47 @@ var config_default = defineConfig({
                 ]
               },
               {
+                name: "benefits",
+                label: "Fordeler / Argumenter",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Argumenter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt argument" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Heart, Eye, Award, etc.)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "faq",
+                label: "FAQ / Ofte stilte sp\xF8rsm\xE5l",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Sp\xF8rsm\xE5l og svar",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.question || "Nytt sp\xF8rsm\xE5l" })
+                    },
+                    fields: [
+                      { type: "string", name: "question", label: "Sp\xF8rsm\xE5l", required: true },
+                      { type: "string", name: "answer", label: "Svar", ui: { component: "textarea" }, required: true }
+                    ]
+                  }
+                ]
+              },
+              {
                 name: "packages",
                 label: "Sponsorpakker / Priser",
                 fields: [
@@ -672,6 +1103,62 @@ var config_default = defineConfig({
                       { type: "string", name: "description", label: "Kort beskrivelse" },
                       { type: "string", list: true, name: "perks", label: "Fordeler (en per linje i UI)" },
                       { type: "boolean", name: "highlighted", label: "Fremhev pakken?" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "timeline",
+                label: "Tidslinje / Klubbens historie",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "events",
+                    label: "Tidshendelser",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.year ? `${item.year} - ${item.title}` : "Ny hendelse" })
+                    },
+                    fields: [
+                      { type: "string", name: "year", label: "\xC5r / Tidspunkt" },
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "location", label: "Sted" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "boolean", name: "highlight", label: "Fremhev kort?" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "orgSeparation",
+                label: "Organisasjonsstruktur (Rambukk vs EKK)",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } }
+                ]
+              },
+              {
+                name: "checkmat",
+                label: "Checkmat Lineage & Verdier",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "features",
+                    label: "Fordeler / Punkter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt punkt" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Award, ShieldCheck, Globe, etc.)" }
                     ]
                   }
                 ]
@@ -698,6 +1185,45 @@ var config_default = defineConfig({
             label: "Seksjoner",
             templates: [
               {
+                name: "about",
+                label: "Om oss / Tekst",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "body", label: "Innhold", ui: { component: "textarea" } },
+                  { type: "image", name: "image", label: "Bilde" },
+                  { type: "image", name: "video", label: "Video (Valgfritt)" }
+                ]
+              },
+              {
+                name: "values",
+                label: "Verdier",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse" },
+                  {
+                    type: "string",
+                    name: "variant",
+                    label: "Designvariant",
+                    options: [
+                      { label: "Asymmetrisk (Verdier)", value: "asymmetric" },
+                      { label: "Navy (Trygg Idrett)", value: "navy" }
+                    ]
+                  },
+                  { type: "image", name: "image", label: "Bilde" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Verdipunkter",
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Users, Heart, etc.)" }
+                    ]
+                  }
+                ]
+              },
+              {
                 name: "membership",
                 label: "Medlemskap (Sign-up)",
                 fields: [
@@ -710,12 +1236,67 @@ var config_default = defineConfig({
                 ]
               },
               {
-                name: "about",
-                label: "Tekstblokk",
+                name: "trainers",
+                label: "Trenere",
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
-                  { type: "string", name: "body", label: "Innhold", ui: { component: "textarea" } },
-                  { type: "image", name: "image", label: "Bilde" }
+                  {
+                    type: "object",
+                    list: true,
+                    name: "trainerList",
+                    label: "Trenerliste",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny trener" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Navn" },
+                      { type: "string", name: "role", label: "Rolle" },
+                      { type: "image", name: "image", label: "Bilde" },
+                      { type: "string", name: "bio", label: "Bio", ui: { component: "textarea" } }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "sponsors",
+                label: "Sponsorer / Logoer",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "sponsorList",
+                    label: "Sponsorliste",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny sponsor" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Navn" },
+                      { type: "image", name: "logo", label: "Logo" },
+                      { type: "string", name: "url", label: "Nettside (URL)" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "benefits",
+                label: "Fordeler / Argumenter",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "items",
+                    label: "Argumenter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt argument" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "text", label: "Tekst", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Heart, Eye, Award, etc.)" }
+                    ]
+                  }
                 ]
               },
               {
@@ -734,6 +1315,85 @@ var config_default = defineConfig({
                     fields: [
                       { type: "string", name: "question", label: "Sp\xF8rsm\xE5l", required: true },
                       { type: "string", name: "answer", label: "Svar", ui: { component: "textarea" }, required: true }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "packages",
+                label: "Sponsorpakker / Priser",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "packagesList",
+                    label: "Pakker",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.name || "Ny pakke" })
+                    },
+                    fields: [
+                      { type: "string", name: "name", label: "Pakkenavn", required: true },
+                      { type: "string", name: "description", label: "Kort beskrivelse" },
+                      { type: "string", list: true, name: "perks", label: "Fordeler (en per linje i UI)" },
+                      { type: "boolean", name: "highlighted", label: "Fremhev pakken?" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "timeline",
+                label: "Tidslinje / Klubbens historie",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "events",
+                    label: "Tidshendelser",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.year ? `${item.year} - ${item.title}` : "Ny hendelse" })
+                    },
+                    fields: [
+                      { type: "string", name: "year", label: "\xC5r / Tidspunkt" },
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "location", label: "Sted" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "boolean", name: "highlight", label: "Fremhev kort?" }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: "orgSeparation",
+                label: "Organisasjonsstruktur (Rambukk vs EKK)",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } }
+                ]
+              },
+              {
+                name: "checkmat",
+                label: "Checkmat Lineage & Verdier",
+                fields: [
+                  { type: "string", name: "title", label: "Overskrift" },
+                  { type: "string", name: "subtitle", label: "Undertittel" },
+                  { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                  {
+                    type: "object",
+                    list: true,
+                    name: "features",
+                    label: "Fordeler / Punkter",
+                    ui: {
+                      itemProps: (item) => ({ label: item?.title || "Nytt punkt" })
+                    },
+                    fields: [
+                      { type: "string", name: "title", label: "Tittel" },
+                      { type: "string", name: "description", label: "Beskrivelse", ui: { component: "textarea" } },
+                      { type: "string", name: "icon", label: "Ikon (Award, ShieldCheck, Globe, etc.)" }
                     ]
                   }
                 ]

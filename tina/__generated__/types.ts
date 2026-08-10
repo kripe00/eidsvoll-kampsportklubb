@@ -369,6 +369,16 @@ export type OmOssBlocksValues = {
   items?: Maybe<Array<Maybe<OmOssBlocksValuesItems>>>;
 };
 
+export type OmOssBlocksMembership = {
+  __typename?: 'OmOssBlocksMembership';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  linkUrl?: Maybe<Scalars['String']['output']>;
+  boostLinkUrl?: Maybe<Scalars['String']['output']>;
+  boostEnabled?: Maybe<Scalars['Boolean']['output']>;
+  extraInfo?: Maybe<Scalars['String']['output']>;
+};
+
 export type OmOssBlocksTrainersTrainerList = {
   __typename?: 'OmOssBlocksTrainersTrainerList';
   name?: Maybe<Scalars['String']['output']>;
@@ -383,6 +393,32 @@ export type OmOssBlocksTrainers = {
   trainerList?: Maybe<Array<Maybe<OmOssBlocksTrainersTrainerList>>>;
 };
 
+export type OmOssBlocksSponsorsSponsorList = {
+  __typename?: 'OmOssBlocksSponsorsSponsorList';
+  name?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+export type OmOssBlocksSponsors = {
+  __typename?: 'OmOssBlocksSponsors';
+  title?: Maybe<Scalars['String']['output']>;
+  sponsorList?: Maybe<Array<Maybe<OmOssBlocksSponsorsSponsorList>>>;
+};
+
+export type OmOssBlocksBenefitsItems = {
+  __typename?: 'OmOssBlocksBenefitsItems';
+  title?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type OmOssBlocksBenefits = {
+  __typename?: 'OmOssBlocksBenefits';
+  title?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<OmOssBlocksBenefitsItems>>>;
+};
+
 export type OmOssBlocksFaqItems = {
   __typename?: 'OmOssBlocksFaqItems';
   question: Scalars['String']['output'];
@@ -393,6 +429,21 @@ export type OmOssBlocksFaq = {
   __typename?: 'OmOssBlocksFaq';
   title?: Maybe<Scalars['String']['output']>;
   items?: Maybe<Array<Maybe<OmOssBlocksFaqItems>>>;
+};
+
+export type OmOssBlocksPackagesPackagesList = {
+  __typename?: 'OmOssBlocksPackagesPackagesList';
+  name: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  perks?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  highlighted?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type OmOssBlocksPackages = {
+  __typename?: 'OmOssBlocksPackages';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  packagesList?: Maybe<Array<Maybe<OmOssBlocksPackagesPackagesList>>>;
 };
 
 export type OmOssBlocksTimelineEvents = {
@@ -433,58 +484,7 @@ export type OmOssBlocksCheckmat = {
   features?: Maybe<Array<Maybe<OmOssBlocksCheckmatFeatures>>>;
 };
 
-export type OmOssBlocksMembership = {
-  __typename?: 'OmOssBlocksMembership';
-  title?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  linkUrl?: Maybe<Scalars['String']['output']>;
-  boostLinkUrl?: Maybe<Scalars['String']['output']>;
-  boostEnabled?: Maybe<Scalars['Boolean']['output']>;
-  extraInfo?: Maybe<Scalars['String']['output']>;
-};
-
-export type OmOssBlocksSponsorsSponsorList = {
-  __typename?: 'OmOssBlocksSponsorsSponsorList';
-  name?: Maybe<Scalars['String']['output']>;
-  logo?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type OmOssBlocksSponsors = {
-  __typename?: 'OmOssBlocksSponsors';
-  title?: Maybe<Scalars['String']['output']>;
-  sponsorList?: Maybe<Array<Maybe<OmOssBlocksSponsorsSponsorList>>>;
-};
-
-export type OmOssBlocksBenefitsItems = {
-  __typename?: 'OmOssBlocksBenefitsItems';
-  title?: Maybe<Scalars['String']['output']>;
-  text?: Maybe<Scalars['String']['output']>;
-  icon?: Maybe<Scalars['String']['output']>;
-};
-
-export type OmOssBlocksBenefits = {
-  __typename?: 'OmOssBlocksBenefits';
-  title?: Maybe<Scalars['String']['output']>;
-  items?: Maybe<Array<Maybe<OmOssBlocksBenefitsItems>>>;
-};
-
-export type OmOssBlocksPackagesPackagesList = {
-  __typename?: 'OmOssBlocksPackagesPackagesList';
-  name: Scalars['String']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  perks?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  highlighted?: Maybe<Scalars['Boolean']['output']>;
-};
-
-export type OmOssBlocksPackages = {
-  __typename?: 'OmOssBlocksPackages';
-  title?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  packagesList?: Maybe<Array<Maybe<OmOssBlocksPackagesPackagesList>>>;
-};
-
-export type OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksTrainers | OmOssBlocksFaq | OmOssBlocksTimeline | OmOssBlocksOrgSeparation | OmOssBlocksCheckmat | OmOssBlocksMembership | OmOssBlocksSponsors | OmOssBlocksBenefits | OmOssBlocksPackages;
+export type OmOssBlocks = OmOssBlocksAbout | OmOssBlocksValues | OmOssBlocksMembership | OmOssBlocksTrainers | OmOssBlocksSponsors | OmOssBlocksBenefits | OmOssBlocksFaq | OmOssBlocksPackages | OmOssBlocksTimeline | OmOssBlocksOrgSeparation | OmOssBlocksCheckmat;
 
 export type OmOss = Node & Document & {
   __typename?: 'OmOss';
@@ -531,6 +531,20 @@ export type OmOssBlocksValuesFilter = {
   items?: InputMaybe<OmOssBlocksValuesItemsFilter>;
 };
 
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type OmOssBlocksMembershipFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  linkUrl?: InputMaybe<StringFilter>;
+  boostLinkUrl?: InputMaybe<StringFilter>;
+  boostEnabled?: InputMaybe<BooleanFilter>;
+  extraInfo?: InputMaybe<StringFilter>;
+};
+
 export type OmOssBlocksTrainersTrainerListFilter = {
   name?: InputMaybe<StringFilter>;
   role?: InputMaybe<StringFilter>;
@@ -543,6 +557,28 @@ export type OmOssBlocksTrainersFilter = {
   trainerList?: InputMaybe<OmOssBlocksTrainersTrainerListFilter>;
 };
 
+export type OmOssBlocksSponsorsSponsorListFilter = {
+  name?: InputMaybe<StringFilter>;
+  logo?: InputMaybe<ImageFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type OmOssBlocksSponsorsFilter = {
+  title?: InputMaybe<StringFilter>;
+  sponsorList?: InputMaybe<OmOssBlocksSponsorsSponsorListFilter>;
+};
+
+export type OmOssBlocksBenefitsItemsFilter = {
+  title?: InputMaybe<StringFilter>;
+  text?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type OmOssBlocksBenefitsFilter = {
+  title?: InputMaybe<StringFilter>;
+  items?: InputMaybe<OmOssBlocksBenefitsItemsFilter>;
+};
+
 export type OmOssBlocksFaqItemsFilter = {
   question?: InputMaybe<StringFilter>;
   answer?: InputMaybe<StringFilter>;
@@ -553,9 +589,17 @@ export type OmOssBlocksFaqFilter = {
   items?: InputMaybe<OmOssBlocksFaqItemsFilter>;
 };
 
-export type BooleanFilter = {
-  eq?: InputMaybe<Scalars['Boolean']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
+export type OmOssBlocksPackagesPackagesListFilter = {
+  name?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  perks?: InputMaybe<StringFilter>;
+  highlighted?: InputMaybe<BooleanFilter>;
+};
+
+export type OmOssBlocksPackagesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  packagesList?: InputMaybe<OmOssBlocksPackagesPackagesListFilter>;
 };
 
 export type OmOssBlocksTimelineEventsFilter = {
@@ -591,62 +635,18 @@ export type OmOssBlocksCheckmatFilter = {
   features?: InputMaybe<OmOssBlocksCheckmatFeaturesFilter>;
 };
 
-export type OmOssBlocksMembershipFilter = {
-  title?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-  linkUrl?: InputMaybe<StringFilter>;
-  boostLinkUrl?: InputMaybe<StringFilter>;
-  boostEnabled?: InputMaybe<BooleanFilter>;
-  extraInfo?: InputMaybe<StringFilter>;
-};
-
-export type OmOssBlocksSponsorsSponsorListFilter = {
-  name?: InputMaybe<StringFilter>;
-  logo?: InputMaybe<ImageFilter>;
-  url?: InputMaybe<StringFilter>;
-};
-
-export type OmOssBlocksSponsorsFilter = {
-  title?: InputMaybe<StringFilter>;
-  sponsorList?: InputMaybe<OmOssBlocksSponsorsSponsorListFilter>;
-};
-
-export type OmOssBlocksBenefitsItemsFilter = {
-  title?: InputMaybe<StringFilter>;
-  text?: InputMaybe<StringFilter>;
-  icon?: InputMaybe<StringFilter>;
-};
-
-export type OmOssBlocksBenefitsFilter = {
-  title?: InputMaybe<StringFilter>;
-  items?: InputMaybe<OmOssBlocksBenefitsItemsFilter>;
-};
-
-export type OmOssBlocksPackagesPackagesListFilter = {
-  name?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-  perks?: InputMaybe<StringFilter>;
-  highlighted?: InputMaybe<BooleanFilter>;
-};
-
-export type OmOssBlocksPackagesFilter = {
-  title?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-  packagesList?: InputMaybe<OmOssBlocksPackagesPackagesListFilter>;
-};
-
 export type OmOssBlocksFilter = {
   about?: InputMaybe<OmOssBlocksAboutFilter>;
   values?: InputMaybe<OmOssBlocksValuesFilter>;
+  membership?: InputMaybe<OmOssBlocksMembershipFilter>;
   trainers?: InputMaybe<OmOssBlocksTrainersFilter>;
+  sponsors?: InputMaybe<OmOssBlocksSponsorsFilter>;
+  benefits?: InputMaybe<OmOssBlocksBenefitsFilter>;
   faq?: InputMaybe<OmOssBlocksFaqFilter>;
+  packages?: InputMaybe<OmOssBlocksPackagesFilter>;
   timeline?: InputMaybe<OmOssBlocksTimelineFilter>;
   orgSeparation?: InputMaybe<OmOssBlocksOrgSeparationFilter>;
   checkmat?: InputMaybe<OmOssBlocksCheckmatFilter>;
-  membership?: InputMaybe<OmOssBlocksMembershipFilter>;
-  sponsors?: InputMaybe<OmOssBlocksSponsorsFilter>;
-  benefits?: InputMaybe<OmOssBlocksBenefitsFilter>;
-  packages?: InputMaybe<OmOssBlocksPackagesFilter>;
 };
 
 export type OmOssFilter = {
@@ -673,6 +673,7 @@ export type PageBlocksAbout = {
   title?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  video?: Maybe<Scalars['String']['output']>;
 };
 
 export type PageBlocksValuesItems = {
@@ -715,7 +716,98 @@ export type PageBlocksTrainers = {
   trainerList?: Maybe<Array<Maybe<PageBlocksTrainersTrainerList>>>;
 };
 
-export type PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers;
+export type PageBlocksSponsorsSponsorList = {
+  __typename?: 'PageBlocksSponsorsSponsorList';
+  name?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksSponsors = {
+  __typename?: 'PageBlocksSponsors';
+  title?: Maybe<Scalars['String']['output']>;
+  sponsorList?: Maybe<Array<Maybe<PageBlocksSponsorsSponsorList>>>;
+};
+
+export type PageBlocksBenefitsItems = {
+  __typename?: 'PageBlocksBenefitsItems';
+  title?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksBenefits = {
+  __typename?: 'PageBlocksBenefits';
+  title?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<PageBlocksBenefitsItems>>>;
+};
+
+export type PageBlocksFaqItems = {
+  __typename?: 'PageBlocksFaqItems';
+  question: Scalars['String']['output'];
+  answer: Scalars['String']['output'];
+};
+
+export type PageBlocksFaq = {
+  __typename?: 'PageBlocksFaq';
+  title?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<PageBlocksFaqItems>>>;
+};
+
+export type PageBlocksPackagesPackagesList = {
+  __typename?: 'PageBlocksPackagesPackagesList';
+  name: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  perks?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  highlighted?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PageBlocksPackages = {
+  __typename?: 'PageBlocksPackages';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  packagesList?: Maybe<Array<Maybe<PageBlocksPackagesPackagesList>>>;
+};
+
+export type PageBlocksTimelineEvents = {
+  __typename?: 'PageBlocksTimelineEvents';
+  year?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  highlight?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PageBlocksTimeline = {
+  __typename?: 'PageBlocksTimeline';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  events?: Maybe<Array<Maybe<PageBlocksTimelineEvents>>>;
+};
+
+export type PageBlocksOrgSeparation = {
+  __typename?: 'PageBlocksOrgSeparation';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksCheckmatFeatures = {
+  __typename?: 'PageBlocksCheckmatFeatures';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type PageBlocksCheckmat = {
+  __typename?: 'PageBlocksCheckmat';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Array<Maybe<PageBlocksCheckmatFeatures>>>;
+};
+
+export type PageBlocks = PageBlocksAbout | PageBlocksValues | PageBlocksMembership | PageBlocksTrainers | PageBlocksSponsors | PageBlocksBenefits | PageBlocksFaq | PageBlocksPackages | PageBlocksTimeline | PageBlocksOrgSeparation | PageBlocksCheckmat;
 
 export type Page = Node & Document & {
   __typename?: 'Page';
@@ -731,6 +823,7 @@ export type PageBlocksAboutFilter = {
   title?: InputMaybe<StringFilter>;
   body?: InputMaybe<StringFilter>;
   image?: InputMaybe<ImageFilter>;
+  video?: InputMaybe<ImageFilter>;
 };
 
 export type PageBlocksValuesItemsFilter = {
@@ -768,11 +861,96 @@ export type PageBlocksTrainersFilter = {
   trainerList?: InputMaybe<PageBlocksTrainersTrainerListFilter>;
 };
 
+export type PageBlocksSponsorsSponsorListFilter = {
+  name?: InputMaybe<StringFilter>;
+  logo?: InputMaybe<ImageFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksSponsorsFilter = {
+  title?: InputMaybe<StringFilter>;
+  sponsorList?: InputMaybe<PageBlocksSponsorsSponsorListFilter>;
+};
+
+export type PageBlocksBenefitsItemsFilter = {
+  title?: InputMaybe<StringFilter>;
+  text?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksBenefitsFilter = {
+  title?: InputMaybe<StringFilter>;
+  items?: InputMaybe<PageBlocksBenefitsItemsFilter>;
+};
+
+export type PageBlocksFaqItemsFilter = {
+  question?: InputMaybe<StringFilter>;
+  answer?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksFaqFilter = {
+  title?: InputMaybe<StringFilter>;
+  items?: InputMaybe<PageBlocksFaqItemsFilter>;
+};
+
+export type PageBlocksPackagesPackagesListFilter = {
+  name?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  perks?: InputMaybe<StringFilter>;
+  highlighted?: InputMaybe<BooleanFilter>;
+};
+
+export type PageBlocksPackagesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  packagesList?: InputMaybe<PageBlocksPackagesPackagesListFilter>;
+};
+
+export type PageBlocksTimelineEventsFilter = {
+  year?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  location?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  highlight?: InputMaybe<BooleanFilter>;
+};
+
+export type PageBlocksTimelineFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  events?: InputMaybe<PageBlocksTimelineEventsFilter>;
+};
+
+export type PageBlocksOrgSeparationFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksCheckmatFeaturesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type PageBlocksCheckmatFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  features?: InputMaybe<PageBlocksCheckmatFeaturesFilter>;
+};
+
 export type PageBlocksFilter = {
   about?: InputMaybe<PageBlocksAboutFilter>;
   values?: InputMaybe<PageBlocksValuesFilter>;
   membership?: InputMaybe<PageBlocksMembershipFilter>;
   trainers?: InputMaybe<PageBlocksTrainersFilter>;
+  sponsors?: InputMaybe<PageBlocksSponsorsFilter>;
+  benefits?: InputMaybe<PageBlocksBenefitsFilter>;
+  faq?: InputMaybe<PageBlocksFaqFilter>;
+  packages?: InputMaybe<PageBlocksPackagesFilter>;
+  timeline?: InputMaybe<PageBlocksTimelineFilter>;
+  orgSeparation?: InputMaybe<PageBlocksOrgSeparationFilter>;
+  checkmat?: InputMaybe<PageBlocksCheckmatFilter>;
 };
 
 export type PageFilter = {
@@ -906,9 +1084,141 @@ export type StyretBlocksAbout = {
   title?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  video?: Maybe<Scalars['String']['output']>;
 };
 
-export type StyretBlocks = StyretBlocksAbout;
+export type StyretBlocksValuesItems = {
+  __typename?: 'StyretBlocksValuesItems';
+  title?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type StyretBlocksValues = {
+  __typename?: 'StyretBlocksValues';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  variant?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<StyretBlocksValuesItems>>>;
+};
+
+export type StyretBlocksMembership = {
+  __typename?: 'StyretBlocksMembership';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  linkUrl?: Maybe<Scalars['String']['output']>;
+  boostLinkUrl?: Maybe<Scalars['String']['output']>;
+  boostEnabled?: Maybe<Scalars['Boolean']['output']>;
+  extraInfo?: Maybe<Scalars['String']['output']>;
+};
+
+export type StyretBlocksTrainersTrainerList = {
+  __typename?: 'StyretBlocksTrainersTrainerList';
+  name?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  bio?: Maybe<Scalars['String']['output']>;
+};
+
+export type StyretBlocksTrainers = {
+  __typename?: 'StyretBlocksTrainers';
+  title?: Maybe<Scalars['String']['output']>;
+  trainerList?: Maybe<Array<Maybe<StyretBlocksTrainersTrainerList>>>;
+};
+
+export type StyretBlocksSponsorsSponsorList = {
+  __typename?: 'StyretBlocksSponsorsSponsorList';
+  name?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+export type StyretBlocksSponsors = {
+  __typename?: 'StyretBlocksSponsors';
+  title?: Maybe<Scalars['String']['output']>;
+  sponsorList?: Maybe<Array<Maybe<StyretBlocksSponsorsSponsorList>>>;
+};
+
+export type StyretBlocksBenefitsItems = {
+  __typename?: 'StyretBlocksBenefitsItems';
+  title?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type StyretBlocksBenefits = {
+  __typename?: 'StyretBlocksBenefits';
+  title?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<StyretBlocksBenefitsItems>>>;
+};
+
+export type StyretBlocksFaqItems = {
+  __typename?: 'StyretBlocksFaqItems';
+  question: Scalars['String']['output'];
+  answer: Scalars['String']['output'];
+};
+
+export type StyretBlocksFaq = {
+  __typename?: 'StyretBlocksFaq';
+  title?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<StyretBlocksFaqItems>>>;
+};
+
+export type StyretBlocksPackagesPackagesList = {
+  __typename?: 'StyretBlocksPackagesPackagesList';
+  name: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  perks?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  highlighted?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type StyretBlocksPackages = {
+  __typename?: 'StyretBlocksPackages';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  packagesList?: Maybe<Array<Maybe<StyretBlocksPackagesPackagesList>>>;
+};
+
+export type StyretBlocksTimelineEvents = {
+  __typename?: 'StyretBlocksTimelineEvents';
+  year?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  highlight?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type StyretBlocksTimeline = {
+  __typename?: 'StyretBlocksTimeline';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  events?: Maybe<Array<Maybe<StyretBlocksTimelineEvents>>>;
+};
+
+export type StyretBlocksOrgSeparation = {
+  __typename?: 'StyretBlocksOrgSeparation';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type StyretBlocksCheckmatFeatures = {
+  __typename?: 'StyretBlocksCheckmatFeatures';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type StyretBlocksCheckmat = {
+  __typename?: 'StyretBlocksCheckmat';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Array<Maybe<StyretBlocksCheckmatFeatures>>>;
+};
+
+export type StyretBlocks = StyretBlocksAbout | StyretBlocksValues | StyretBlocksMembership | StyretBlocksTrainers | StyretBlocksSponsors | StyretBlocksBenefits | StyretBlocksFaq | StyretBlocksPackages | StyretBlocksTimeline | StyretBlocksOrgSeparation | StyretBlocksCheckmat;
 
 export type StyretMembers = {
   __typename?: 'StyretMembers';
@@ -951,10 +1261,134 @@ export type StyretBlocksAboutFilter = {
   title?: InputMaybe<StringFilter>;
   body?: InputMaybe<StringFilter>;
   image?: InputMaybe<ImageFilter>;
+  video?: InputMaybe<ImageFilter>;
+};
+
+export type StyretBlocksValuesItemsFilter = {
+  title?: InputMaybe<StringFilter>;
+  text?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type StyretBlocksValuesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  variant?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  items?: InputMaybe<StyretBlocksValuesItemsFilter>;
+};
+
+export type StyretBlocksMembershipFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  linkUrl?: InputMaybe<StringFilter>;
+  boostLinkUrl?: InputMaybe<StringFilter>;
+  boostEnabled?: InputMaybe<BooleanFilter>;
+  extraInfo?: InputMaybe<StringFilter>;
+};
+
+export type StyretBlocksTrainersTrainerListFilter = {
+  name?: InputMaybe<StringFilter>;
+  role?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  bio?: InputMaybe<StringFilter>;
+};
+
+export type StyretBlocksTrainersFilter = {
+  title?: InputMaybe<StringFilter>;
+  trainerList?: InputMaybe<StyretBlocksTrainersTrainerListFilter>;
+};
+
+export type StyretBlocksSponsorsSponsorListFilter = {
+  name?: InputMaybe<StringFilter>;
+  logo?: InputMaybe<ImageFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type StyretBlocksSponsorsFilter = {
+  title?: InputMaybe<StringFilter>;
+  sponsorList?: InputMaybe<StyretBlocksSponsorsSponsorListFilter>;
+};
+
+export type StyretBlocksBenefitsItemsFilter = {
+  title?: InputMaybe<StringFilter>;
+  text?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type StyretBlocksBenefitsFilter = {
+  title?: InputMaybe<StringFilter>;
+  items?: InputMaybe<StyretBlocksBenefitsItemsFilter>;
+};
+
+export type StyretBlocksFaqItemsFilter = {
+  question?: InputMaybe<StringFilter>;
+  answer?: InputMaybe<StringFilter>;
+};
+
+export type StyretBlocksFaqFilter = {
+  title?: InputMaybe<StringFilter>;
+  items?: InputMaybe<StyretBlocksFaqItemsFilter>;
+};
+
+export type StyretBlocksPackagesPackagesListFilter = {
+  name?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  perks?: InputMaybe<StringFilter>;
+  highlighted?: InputMaybe<BooleanFilter>;
+};
+
+export type StyretBlocksPackagesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  packagesList?: InputMaybe<StyretBlocksPackagesPackagesListFilter>;
+};
+
+export type StyretBlocksTimelineEventsFilter = {
+  year?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  location?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  highlight?: InputMaybe<BooleanFilter>;
+};
+
+export type StyretBlocksTimelineFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  events?: InputMaybe<StyretBlocksTimelineEventsFilter>;
+};
+
+export type StyretBlocksOrgSeparationFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type StyretBlocksCheckmatFeaturesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type StyretBlocksCheckmatFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  features?: InputMaybe<StyretBlocksCheckmatFeaturesFilter>;
 };
 
 export type StyretBlocksFilter = {
   about?: InputMaybe<StyretBlocksAboutFilter>;
+  values?: InputMaybe<StyretBlocksValuesFilter>;
+  membership?: InputMaybe<StyretBlocksMembershipFilter>;
+  trainers?: InputMaybe<StyretBlocksTrainersFilter>;
+  sponsors?: InputMaybe<StyretBlocksSponsorsFilter>;
+  benefits?: InputMaybe<StyretBlocksBenefitsFilter>;
+  faq?: InputMaybe<StyretBlocksFaqFilter>;
+  packages?: InputMaybe<StyretBlocksPackagesFilter>;
+  timeline?: InputMaybe<StyretBlocksTimelineFilter>;
+  orgSeparation?: InputMaybe<StyretBlocksOrgSeparationFilter>;
+  checkmat?: InputMaybe<StyretBlocksCheckmatFilter>;
 };
 
 export type StyretMembersFilter = {
@@ -1069,6 +1503,60 @@ export type SponsorerBlocksAbout = {
   title?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  video?: Maybe<Scalars['String']['output']>;
+};
+
+export type SponsorerBlocksValuesItems = {
+  __typename?: 'SponsorerBlocksValuesItems';
+  title?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type SponsorerBlocksValues = {
+  __typename?: 'SponsorerBlocksValues';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  variant?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<SponsorerBlocksValuesItems>>>;
+};
+
+export type SponsorerBlocksMembership = {
+  __typename?: 'SponsorerBlocksMembership';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  linkUrl?: Maybe<Scalars['String']['output']>;
+  boostLinkUrl?: Maybe<Scalars['String']['output']>;
+  boostEnabled?: Maybe<Scalars['Boolean']['output']>;
+  extraInfo?: Maybe<Scalars['String']['output']>;
+};
+
+export type SponsorerBlocksTrainersTrainerList = {
+  __typename?: 'SponsorerBlocksTrainersTrainerList';
+  name?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  bio?: Maybe<Scalars['String']['output']>;
+};
+
+export type SponsorerBlocksTrainers = {
+  __typename?: 'SponsorerBlocksTrainers';
+  title?: Maybe<Scalars['String']['output']>;
+  trainerList?: Maybe<Array<Maybe<SponsorerBlocksTrainersTrainerList>>>;
+};
+
+export type SponsorerBlocksSponsorsSponsorList = {
+  __typename?: 'SponsorerBlocksSponsorsSponsorList';
+  name?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+export type SponsorerBlocksSponsors = {
+  __typename?: 'SponsorerBlocksSponsors';
+  title?: Maybe<Scalars['String']['output']>;
+  sponsorList?: Maybe<Array<Maybe<SponsorerBlocksSponsorsSponsorList>>>;
 };
 
 export type SponsorerBlocksBenefitsItems = {
@@ -1084,17 +1572,16 @@ export type SponsorerBlocksBenefits = {
   items?: Maybe<Array<Maybe<SponsorerBlocksBenefitsItems>>>;
 };
 
-export type SponsorerBlocksSponsorsSponsorList = {
-  __typename?: 'SponsorerBlocksSponsorsSponsorList';
-  name?: Maybe<Scalars['String']['output']>;
-  logo?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
+export type SponsorerBlocksFaqItems = {
+  __typename?: 'SponsorerBlocksFaqItems';
+  question: Scalars['String']['output'];
+  answer: Scalars['String']['output'];
 };
 
-export type SponsorerBlocksSponsors = {
-  __typename?: 'SponsorerBlocksSponsors';
+export type SponsorerBlocksFaq = {
+  __typename?: 'SponsorerBlocksFaq';
   title?: Maybe<Scalars['String']['output']>;
-  sponsorList?: Maybe<Array<Maybe<SponsorerBlocksSponsorsSponsorList>>>;
+  items?: Maybe<Array<Maybe<SponsorerBlocksFaqItems>>>;
 };
 
 export type SponsorerBlocksPackagesPackagesList = {
@@ -1112,7 +1599,45 @@ export type SponsorerBlocksPackages = {
   packagesList?: Maybe<Array<Maybe<SponsorerBlocksPackagesPackagesList>>>;
 };
 
-export type SponsorerBlocks = SponsorerBlocksAbout | SponsorerBlocksBenefits | SponsorerBlocksSponsors | SponsorerBlocksPackages;
+export type SponsorerBlocksTimelineEvents = {
+  __typename?: 'SponsorerBlocksTimelineEvents';
+  year?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  highlight?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type SponsorerBlocksTimeline = {
+  __typename?: 'SponsorerBlocksTimeline';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  events?: Maybe<Array<Maybe<SponsorerBlocksTimelineEvents>>>;
+};
+
+export type SponsorerBlocksOrgSeparation = {
+  __typename?: 'SponsorerBlocksOrgSeparation';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type SponsorerBlocksCheckmatFeatures = {
+  __typename?: 'SponsorerBlocksCheckmatFeatures';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type SponsorerBlocksCheckmat = {
+  __typename?: 'SponsorerBlocksCheckmat';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Array<Maybe<SponsorerBlocksCheckmatFeatures>>>;
+};
+
+export type SponsorerBlocks = SponsorerBlocksAbout | SponsorerBlocksValues | SponsorerBlocksMembership | SponsorerBlocksTrainers | SponsorerBlocksSponsors | SponsorerBlocksBenefits | SponsorerBlocksFaq | SponsorerBlocksPackages | SponsorerBlocksTimeline | SponsorerBlocksOrgSeparation | SponsorerBlocksCheckmat;
 
 export type Sponsorer = Node & Document & {
   __typename?: 'Sponsorer';
@@ -1127,6 +1652,53 @@ export type SponsorerBlocksAboutFilter = {
   title?: InputMaybe<StringFilter>;
   body?: InputMaybe<StringFilter>;
   image?: InputMaybe<ImageFilter>;
+  video?: InputMaybe<ImageFilter>;
+};
+
+export type SponsorerBlocksValuesItemsFilter = {
+  title?: InputMaybe<StringFilter>;
+  text?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type SponsorerBlocksValuesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  variant?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  items?: InputMaybe<SponsorerBlocksValuesItemsFilter>;
+};
+
+export type SponsorerBlocksMembershipFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  linkUrl?: InputMaybe<StringFilter>;
+  boostLinkUrl?: InputMaybe<StringFilter>;
+  boostEnabled?: InputMaybe<BooleanFilter>;
+  extraInfo?: InputMaybe<StringFilter>;
+};
+
+export type SponsorerBlocksTrainersTrainerListFilter = {
+  name?: InputMaybe<StringFilter>;
+  role?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  bio?: InputMaybe<StringFilter>;
+};
+
+export type SponsorerBlocksTrainersFilter = {
+  title?: InputMaybe<StringFilter>;
+  trainerList?: InputMaybe<SponsorerBlocksTrainersTrainerListFilter>;
+};
+
+export type SponsorerBlocksSponsorsSponsorListFilter = {
+  name?: InputMaybe<StringFilter>;
+  logo?: InputMaybe<ImageFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type SponsorerBlocksSponsorsFilter = {
+  title?: InputMaybe<StringFilter>;
+  sponsorList?: InputMaybe<SponsorerBlocksSponsorsSponsorListFilter>;
 };
 
 export type SponsorerBlocksBenefitsItemsFilter = {
@@ -1140,15 +1712,14 @@ export type SponsorerBlocksBenefitsFilter = {
   items?: InputMaybe<SponsorerBlocksBenefitsItemsFilter>;
 };
 
-export type SponsorerBlocksSponsorsSponsorListFilter = {
-  name?: InputMaybe<StringFilter>;
-  logo?: InputMaybe<ImageFilter>;
-  url?: InputMaybe<StringFilter>;
+export type SponsorerBlocksFaqItemsFilter = {
+  question?: InputMaybe<StringFilter>;
+  answer?: InputMaybe<StringFilter>;
 };
 
-export type SponsorerBlocksSponsorsFilter = {
+export type SponsorerBlocksFaqFilter = {
   title?: InputMaybe<StringFilter>;
-  sponsorList?: InputMaybe<SponsorerBlocksSponsorsSponsorListFilter>;
+  items?: InputMaybe<SponsorerBlocksFaqItemsFilter>;
 };
 
 export type SponsorerBlocksPackagesPackagesListFilter = {
@@ -1164,11 +1735,51 @@ export type SponsorerBlocksPackagesFilter = {
   packagesList?: InputMaybe<SponsorerBlocksPackagesPackagesListFilter>;
 };
 
+export type SponsorerBlocksTimelineEventsFilter = {
+  year?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  location?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  highlight?: InputMaybe<BooleanFilter>;
+};
+
+export type SponsorerBlocksTimelineFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  events?: InputMaybe<SponsorerBlocksTimelineEventsFilter>;
+};
+
+export type SponsorerBlocksOrgSeparationFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type SponsorerBlocksCheckmatFeaturesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type SponsorerBlocksCheckmatFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  features?: InputMaybe<SponsorerBlocksCheckmatFeaturesFilter>;
+};
+
 export type SponsorerBlocksFilter = {
   about?: InputMaybe<SponsorerBlocksAboutFilter>;
-  benefits?: InputMaybe<SponsorerBlocksBenefitsFilter>;
+  values?: InputMaybe<SponsorerBlocksValuesFilter>;
+  membership?: InputMaybe<SponsorerBlocksMembershipFilter>;
+  trainers?: InputMaybe<SponsorerBlocksTrainersFilter>;
   sponsors?: InputMaybe<SponsorerBlocksSponsorsFilter>;
+  benefits?: InputMaybe<SponsorerBlocksBenefitsFilter>;
+  faq?: InputMaybe<SponsorerBlocksFaqFilter>;
   packages?: InputMaybe<SponsorerBlocksPackagesFilter>;
+  timeline?: InputMaybe<SponsorerBlocksTimelineFilter>;
+  orgSeparation?: InputMaybe<SponsorerBlocksOrgSeparationFilter>;
+  checkmat?: InputMaybe<SponsorerBlocksCheckmatFilter>;
 };
 
 export type SponsorerFilter = {
@@ -1189,6 +1800,30 @@ export type SponsorerConnection = Connection & {
   edges?: Maybe<Array<Maybe<SponsorerConnectionEdges>>>;
 };
 
+export type MedlemskapBlocksAbout = {
+  __typename?: 'MedlemskapBlocksAbout';
+  title?: Maybe<Scalars['String']['output']>;
+  body?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  video?: Maybe<Scalars['String']['output']>;
+};
+
+export type MedlemskapBlocksValuesItems = {
+  __typename?: 'MedlemskapBlocksValuesItems';
+  title?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type MedlemskapBlocksValues = {
+  __typename?: 'MedlemskapBlocksValues';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  variant?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<MedlemskapBlocksValuesItems>>>;
+};
+
 export type MedlemskapBlocksMembership = {
   __typename?: 'MedlemskapBlocksMembership';
   title?: Maybe<Scalars['String']['output']>;
@@ -1199,11 +1834,44 @@ export type MedlemskapBlocksMembership = {
   extraInfo?: Maybe<Scalars['String']['output']>;
 };
 
-export type MedlemskapBlocksAbout = {
-  __typename?: 'MedlemskapBlocksAbout';
-  title?: Maybe<Scalars['String']['output']>;
-  body?: Maybe<Scalars['String']['output']>;
+export type MedlemskapBlocksTrainersTrainerList = {
+  __typename?: 'MedlemskapBlocksTrainersTrainerList';
+  name?: Maybe<Scalars['String']['output']>;
+  role?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
+  bio?: Maybe<Scalars['String']['output']>;
+};
+
+export type MedlemskapBlocksTrainers = {
+  __typename?: 'MedlemskapBlocksTrainers';
+  title?: Maybe<Scalars['String']['output']>;
+  trainerList?: Maybe<Array<Maybe<MedlemskapBlocksTrainersTrainerList>>>;
+};
+
+export type MedlemskapBlocksSponsorsSponsorList = {
+  __typename?: 'MedlemskapBlocksSponsorsSponsorList';
+  name?: Maybe<Scalars['String']['output']>;
+  logo?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+export type MedlemskapBlocksSponsors = {
+  __typename?: 'MedlemskapBlocksSponsors';
+  title?: Maybe<Scalars['String']['output']>;
+  sponsorList?: Maybe<Array<Maybe<MedlemskapBlocksSponsorsSponsorList>>>;
+};
+
+export type MedlemskapBlocksBenefitsItems = {
+  __typename?: 'MedlemskapBlocksBenefitsItems';
+  title?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type MedlemskapBlocksBenefits = {
+  __typename?: 'MedlemskapBlocksBenefits';
+  title?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<MedlemskapBlocksBenefitsItems>>>;
 };
 
 export type MedlemskapBlocksFaqItems = {
@@ -1218,7 +1886,60 @@ export type MedlemskapBlocksFaq = {
   items?: Maybe<Array<Maybe<MedlemskapBlocksFaqItems>>>;
 };
 
-export type MedlemskapBlocks = MedlemskapBlocksMembership | MedlemskapBlocksAbout | MedlemskapBlocksFaq;
+export type MedlemskapBlocksPackagesPackagesList = {
+  __typename?: 'MedlemskapBlocksPackagesPackagesList';
+  name: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  perks?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  highlighted?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type MedlemskapBlocksPackages = {
+  __typename?: 'MedlemskapBlocksPackages';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  packagesList?: Maybe<Array<Maybe<MedlemskapBlocksPackagesPackagesList>>>;
+};
+
+export type MedlemskapBlocksTimelineEvents = {
+  __typename?: 'MedlemskapBlocksTimelineEvents';
+  year?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  location?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  highlight?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type MedlemskapBlocksTimeline = {
+  __typename?: 'MedlemskapBlocksTimeline';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  events?: Maybe<Array<Maybe<MedlemskapBlocksTimelineEvents>>>;
+};
+
+export type MedlemskapBlocksOrgSeparation = {
+  __typename?: 'MedlemskapBlocksOrgSeparation';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type MedlemskapBlocksCheckmatFeatures = {
+  __typename?: 'MedlemskapBlocksCheckmatFeatures';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type MedlemskapBlocksCheckmat = {
+  __typename?: 'MedlemskapBlocksCheckmat';
+  title?: Maybe<Scalars['String']['output']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Array<Maybe<MedlemskapBlocksCheckmatFeatures>>>;
+};
+
+export type MedlemskapBlocks = MedlemskapBlocksAbout | MedlemskapBlocksValues | MedlemskapBlocksMembership | MedlemskapBlocksTrainers | MedlemskapBlocksSponsors | MedlemskapBlocksBenefits | MedlemskapBlocksFaq | MedlemskapBlocksPackages | MedlemskapBlocksTimeline | MedlemskapBlocksOrgSeparation | MedlemskapBlocksCheckmat;
 
 export type Medlemskap = Node & Document & {
   __typename?: 'Medlemskap';
@@ -1227,6 +1948,27 @@ export type Medlemskap = Node & Document & {
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type MedlemskapBlocksAboutFilter = {
+  title?: InputMaybe<StringFilter>;
+  body?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  video?: InputMaybe<ImageFilter>;
+};
+
+export type MedlemskapBlocksValuesItemsFilter = {
+  title?: InputMaybe<StringFilter>;
+  text?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type MedlemskapBlocksValuesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  variant?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
+  items?: InputMaybe<MedlemskapBlocksValuesItemsFilter>;
 };
 
 export type MedlemskapBlocksMembershipFilter = {
@@ -1238,10 +1980,38 @@ export type MedlemskapBlocksMembershipFilter = {
   extraInfo?: InputMaybe<StringFilter>;
 };
 
-export type MedlemskapBlocksAboutFilter = {
-  title?: InputMaybe<StringFilter>;
-  body?: InputMaybe<StringFilter>;
+export type MedlemskapBlocksTrainersTrainerListFilter = {
+  name?: InputMaybe<StringFilter>;
+  role?: InputMaybe<StringFilter>;
   image?: InputMaybe<ImageFilter>;
+  bio?: InputMaybe<StringFilter>;
+};
+
+export type MedlemskapBlocksTrainersFilter = {
+  title?: InputMaybe<StringFilter>;
+  trainerList?: InputMaybe<MedlemskapBlocksTrainersTrainerListFilter>;
+};
+
+export type MedlemskapBlocksSponsorsSponsorListFilter = {
+  name?: InputMaybe<StringFilter>;
+  logo?: InputMaybe<ImageFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type MedlemskapBlocksSponsorsFilter = {
+  title?: InputMaybe<StringFilter>;
+  sponsorList?: InputMaybe<MedlemskapBlocksSponsorsSponsorListFilter>;
+};
+
+export type MedlemskapBlocksBenefitsItemsFilter = {
+  title?: InputMaybe<StringFilter>;
+  text?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type MedlemskapBlocksBenefitsFilter = {
+  title?: InputMaybe<StringFilter>;
+  items?: InputMaybe<MedlemskapBlocksBenefitsItemsFilter>;
 };
 
 export type MedlemskapBlocksFaqItemsFilter = {
@@ -1254,10 +2024,64 @@ export type MedlemskapBlocksFaqFilter = {
   items?: InputMaybe<MedlemskapBlocksFaqItemsFilter>;
 };
 
+export type MedlemskapBlocksPackagesPackagesListFilter = {
+  name?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  perks?: InputMaybe<StringFilter>;
+  highlighted?: InputMaybe<BooleanFilter>;
+};
+
+export type MedlemskapBlocksPackagesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  packagesList?: InputMaybe<MedlemskapBlocksPackagesPackagesListFilter>;
+};
+
+export type MedlemskapBlocksTimelineEventsFilter = {
+  year?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  location?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  highlight?: InputMaybe<BooleanFilter>;
+};
+
+export type MedlemskapBlocksTimelineFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  events?: InputMaybe<MedlemskapBlocksTimelineEventsFilter>;
+};
+
+export type MedlemskapBlocksOrgSeparationFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type MedlemskapBlocksCheckmatFeaturesFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type MedlemskapBlocksCheckmatFilter = {
+  title?: InputMaybe<StringFilter>;
+  subtitle?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  features?: InputMaybe<MedlemskapBlocksCheckmatFeaturesFilter>;
+};
+
 export type MedlemskapBlocksFilter = {
-  membership?: InputMaybe<MedlemskapBlocksMembershipFilter>;
   about?: InputMaybe<MedlemskapBlocksAboutFilter>;
+  values?: InputMaybe<MedlemskapBlocksValuesFilter>;
+  membership?: InputMaybe<MedlemskapBlocksMembershipFilter>;
+  trainers?: InputMaybe<MedlemskapBlocksTrainersFilter>;
+  sponsors?: InputMaybe<MedlemskapBlocksSponsorsFilter>;
+  benefits?: InputMaybe<MedlemskapBlocksBenefitsFilter>;
   faq?: InputMaybe<MedlemskapBlocksFaqFilter>;
+  packages?: InputMaybe<MedlemskapBlocksPackagesFilter>;
+  timeline?: InputMaybe<MedlemskapBlocksTimelineFilter>;
+  orgSeparation?: InputMaybe<MedlemskapBlocksOrgSeparationFilter>;
+  checkmat?: InputMaybe<MedlemskapBlocksCheckmatFilter>;
 };
 
 export type MedlemskapFilter = {
@@ -1628,6 +2452,15 @@ export type OmOssBlocksValuesMutation = {
   items?: InputMaybe<Array<InputMaybe<OmOssBlocksValuesItemsMutation>>>;
 };
 
+export type OmOssBlocksMembershipMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  linkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostLinkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  extraInfo?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type OmOssBlocksTrainersTrainerListMutation = {
   name?: InputMaybe<Scalars['String']['input']>;
   role?: InputMaybe<Scalars['String']['input']>;
@@ -1640,6 +2473,28 @@ export type OmOssBlocksTrainersMutation = {
   trainerList?: InputMaybe<Array<InputMaybe<OmOssBlocksTrainersTrainerListMutation>>>;
 };
 
+export type OmOssBlocksSponsorsSponsorListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OmOssBlocksSponsorsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  sponsorList?: InputMaybe<Array<InputMaybe<OmOssBlocksSponsorsSponsorListMutation>>>;
+};
+
+export type OmOssBlocksBenefitsItemsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OmOssBlocksBenefitsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<OmOssBlocksBenefitsItemsMutation>>>;
+};
+
 export type OmOssBlocksFaqItemsMutation = {
   question?: InputMaybe<Scalars['String']['input']>;
   answer?: InputMaybe<Scalars['String']['input']>;
@@ -1648,6 +2503,19 @@ export type OmOssBlocksFaqItemsMutation = {
 export type OmOssBlocksFaqMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   items?: InputMaybe<Array<InputMaybe<OmOssBlocksFaqItemsMutation>>>;
+};
+
+export type OmOssBlocksPackagesPackagesListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  perks?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  highlighted?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type OmOssBlocksPackagesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  packagesList?: InputMaybe<Array<InputMaybe<OmOssBlocksPackagesPackagesListMutation>>>;
 };
 
 export type OmOssBlocksTimelineEventsMutation = {
@@ -1683,62 +2551,18 @@ export type OmOssBlocksCheckmatMutation = {
   features?: InputMaybe<Array<InputMaybe<OmOssBlocksCheckmatFeaturesMutation>>>;
 };
 
-export type OmOssBlocksMembershipMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  linkUrl?: InputMaybe<Scalars['String']['input']>;
-  boostLinkUrl?: InputMaybe<Scalars['String']['input']>;
-  boostEnabled?: InputMaybe<Scalars['Boolean']['input']>;
-  extraInfo?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type OmOssBlocksSponsorsSponsorListMutation = {
-  name?: InputMaybe<Scalars['String']['input']>;
-  logo?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type OmOssBlocksSponsorsMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  sponsorList?: InputMaybe<Array<InputMaybe<OmOssBlocksSponsorsSponsorListMutation>>>;
-};
-
-export type OmOssBlocksBenefitsItemsMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  text?: InputMaybe<Scalars['String']['input']>;
-  icon?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type OmOssBlocksBenefitsMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  items?: InputMaybe<Array<InputMaybe<OmOssBlocksBenefitsItemsMutation>>>;
-};
-
-export type OmOssBlocksPackagesPackagesListMutation = {
-  name?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  perks?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  highlighted?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export type OmOssBlocksPackagesMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  packagesList?: InputMaybe<Array<InputMaybe<OmOssBlocksPackagesPackagesListMutation>>>;
-};
-
 export type OmOssBlocksMutation = {
   about?: InputMaybe<OmOssBlocksAboutMutation>;
   values?: InputMaybe<OmOssBlocksValuesMutation>;
+  membership?: InputMaybe<OmOssBlocksMembershipMutation>;
   trainers?: InputMaybe<OmOssBlocksTrainersMutation>;
+  sponsors?: InputMaybe<OmOssBlocksSponsorsMutation>;
+  benefits?: InputMaybe<OmOssBlocksBenefitsMutation>;
   faq?: InputMaybe<OmOssBlocksFaqMutation>;
+  packages?: InputMaybe<OmOssBlocksPackagesMutation>;
   timeline?: InputMaybe<OmOssBlocksTimelineMutation>;
   orgSeparation?: InputMaybe<OmOssBlocksOrgSeparationMutation>;
   checkmat?: InputMaybe<OmOssBlocksCheckmatMutation>;
-  membership?: InputMaybe<OmOssBlocksMembershipMutation>;
-  sponsors?: InputMaybe<OmOssBlocksSponsorsMutation>;
-  benefits?: InputMaybe<OmOssBlocksBenefitsMutation>;
-  packages?: InputMaybe<OmOssBlocksPackagesMutation>;
 };
 
 export type OmOssMutation = {
@@ -1751,6 +2575,7 @@ export type PageBlocksAboutMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   body?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  video?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PageBlocksValuesItemsMutation = {
@@ -1788,11 +2613,96 @@ export type PageBlocksTrainersMutation = {
   trainerList?: InputMaybe<Array<InputMaybe<PageBlocksTrainersTrainerListMutation>>>;
 };
 
+export type PageBlocksSponsorsSponsorListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksSponsorsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  sponsorList?: InputMaybe<Array<InputMaybe<PageBlocksSponsorsSponsorListMutation>>>;
+};
+
+export type PageBlocksBenefitsItemsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksBenefitsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<PageBlocksBenefitsItemsMutation>>>;
+};
+
+export type PageBlocksFaqItemsMutation = {
+  question?: InputMaybe<Scalars['String']['input']>;
+  answer?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksFaqMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<PageBlocksFaqItemsMutation>>>;
+};
+
+export type PageBlocksPackagesPackagesListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  perks?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  highlighted?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageBlocksPackagesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  packagesList?: InputMaybe<Array<InputMaybe<PageBlocksPackagesPackagesListMutation>>>;
+};
+
+export type PageBlocksTimelineEventsMutation = {
+  year?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  highlight?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type PageBlocksTimelineMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  events?: InputMaybe<Array<InputMaybe<PageBlocksTimelineEventsMutation>>>;
+};
+
+export type PageBlocksOrgSeparationMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksCheckmatFeaturesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PageBlocksCheckmatMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Array<InputMaybe<PageBlocksCheckmatFeaturesMutation>>>;
+};
+
 export type PageBlocksMutation = {
   about?: InputMaybe<PageBlocksAboutMutation>;
   values?: InputMaybe<PageBlocksValuesMutation>;
   membership?: InputMaybe<PageBlocksMembershipMutation>;
   trainers?: InputMaybe<PageBlocksTrainersMutation>;
+  sponsors?: InputMaybe<PageBlocksSponsorsMutation>;
+  benefits?: InputMaybe<PageBlocksBenefitsMutation>;
+  faq?: InputMaybe<PageBlocksFaqMutation>;
+  packages?: InputMaybe<PageBlocksPackagesMutation>;
+  timeline?: InputMaybe<PageBlocksTimelineMutation>;
+  orgSeparation?: InputMaybe<PageBlocksOrgSeparationMutation>;
+  checkmat?: InputMaybe<PageBlocksCheckmatMutation>;
 };
 
 export type PageMutation = {
@@ -1840,10 +2750,134 @@ export type StyretBlocksAboutMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   body?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  video?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksValuesItemsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksValuesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  variant?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<StyretBlocksValuesItemsMutation>>>;
+};
+
+export type StyretBlocksMembershipMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  linkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostLinkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  extraInfo?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksTrainersTrainerListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksTrainersMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  trainerList?: InputMaybe<Array<InputMaybe<StyretBlocksTrainersTrainerListMutation>>>;
+};
+
+export type StyretBlocksSponsorsSponsorListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksSponsorsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  sponsorList?: InputMaybe<Array<InputMaybe<StyretBlocksSponsorsSponsorListMutation>>>;
+};
+
+export type StyretBlocksBenefitsItemsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksBenefitsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<StyretBlocksBenefitsItemsMutation>>>;
+};
+
+export type StyretBlocksFaqItemsMutation = {
+  question?: InputMaybe<Scalars['String']['input']>;
+  answer?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksFaqMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<StyretBlocksFaqItemsMutation>>>;
+};
+
+export type StyretBlocksPackagesPackagesListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  perks?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  highlighted?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type StyretBlocksPackagesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  packagesList?: InputMaybe<Array<InputMaybe<StyretBlocksPackagesPackagesListMutation>>>;
+};
+
+export type StyretBlocksTimelineEventsMutation = {
+  year?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  highlight?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type StyretBlocksTimelineMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  events?: InputMaybe<Array<InputMaybe<StyretBlocksTimelineEventsMutation>>>;
+};
+
+export type StyretBlocksOrgSeparationMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksCheckmatFeaturesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StyretBlocksCheckmatMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Array<InputMaybe<StyretBlocksCheckmatFeaturesMutation>>>;
 };
 
 export type StyretBlocksMutation = {
   about?: InputMaybe<StyretBlocksAboutMutation>;
+  values?: InputMaybe<StyretBlocksValuesMutation>;
+  membership?: InputMaybe<StyretBlocksMembershipMutation>;
+  trainers?: InputMaybe<StyretBlocksTrainersMutation>;
+  sponsors?: InputMaybe<StyretBlocksSponsorsMutation>;
+  benefits?: InputMaybe<StyretBlocksBenefitsMutation>;
+  faq?: InputMaybe<StyretBlocksFaqMutation>;
+  packages?: InputMaybe<StyretBlocksPackagesMutation>;
+  timeline?: InputMaybe<StyretBlocksTimelineMutation>;
+  orgSeparation?: InputMaybe<StyretBlocksOrgSeparationMutation>;
+  checkmat?: InputMaybe<StyretBlocksCheckmatMutation>;
 };
 
 export type StyretMembersMutation = {
@@ -1888,6 +2922,53 @@ export type SponsorerBlocksAboutMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   body?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  video?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SponsorerBlocksValuesItemsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SponsorerBlocksValuesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  variant?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<SponsorerBlocksValuesItemsMutation>>>;
+};
+
+export type SponsorerBlocksMembershipMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  linkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostLinkUrl?: InputMaybe<Scalars['String']['input']>;
+  boostEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  extraInfo?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SponsorerBlocksTrainersTrainerListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SponsorerBlocksTrainersMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  trainerList?: InputMaybe<Array<InputMaybe<SponsorerBlocksTrainersTrainerListMutation>>>;
+};
+
+export type SponsorerBlocksSponsorsSponsorListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SponsorerBlocksSponsorsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  sponsorList?: InputMaybe<Array<InputMaybe<SponsorerBlocksSponsorsSponsorListMutation>>>;
 };
 
 export type SponsorerBlocksBenefitsItemsMutation = {
@@ -1901,15 +2982,14 @@ export type SponsorerBlocksBenefitsMutation = {
   items?: InputMaybe<Array<InputMaybe<SponsorerBlocksBenefitsItemsMutation>>>;
 };
 
-export type SponsorerBlocksSponsorsSponsorListMutation = {
-  name?: InputMaybe<Scalars['String']['input']>;
-  logo?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
+export type SponsorerBlocksFaqItemsMutation = {
+  question?: InputMaybe<Scalars['String']['input']>;
+  answer?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type SponsorerBlocksSponsorsMutation = {
+export type SponsorerBlocksFaqMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
-  sponsorList?: InputMaybe<Array<InputMaybe<SponsorerBlocksSponsorsSponsorListMutation>>>;
+  items?: InputMaybe<Array<InputMaybe<SponsorerBlocksFaqItemsMutation>>>;
 };
 
 export type SponsorerBlocksPackagesPackagesListMutation = {
@@ -1925,16 +3005,77 @@ export type SponsorerBlocksPackagesMutation = {
   packagesList?: InputMaybe<Array<InputMaybe<SponsorerBlocksPackagesPackagesListMutation>>>;
 };
 
+export type SponsorerBlocksTimelineEventsMutation = {
+  year?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  highlight?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type SponsorerBlocksTimelineMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  events?: InputMaybe<Array<InputMaybe<SponsorerBlocksTimelineEventsMutation>>>;
+};
+
+export type SponsorerBlocksOrgSeparationMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SponsorerBlocksCheckmatFeaturesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type SponsorerBlocksCheckmatMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Array<InputMaybe<SponsorerBlocksCheckmatFeaturesMutation>>>;
+};
+
 export type SponsorerBlocksMutation = {
   about?: InputMaybe<SponsorerBlocksAboutMutation>;
-  benefits?: InputMaybe<SponsorerBlocksBenefitsMutation>;
+  values?: InputMaybe<SponsorerBlocksValuesMutation>;
+  membership?: InputMaybe<SponsorerBlocksMembershipMutation>;
+  trainers?: InputMaybe<SponsorerBlocksTrainersMutation>;
   sponsors?: InputMaybe<SponsorerBlocksSponsorsMutation>;
+  benefits?: InputMaybe<SponsorerBlocksBenefitsMutation>;
+  faq?: InputMaybe<SponsorerBlocksFaqMutation>;
   packages?: InputMaybe<SponsorerBlocksPackagesMutation>;
+  timeline?: InputMaybe<SponsorerBlocksTimelineMutation>;
+  orgSeparation?: InputMaybe<SponsorerBlocksOrgSeparationMutation>;
+  checkmat?: InputMaybe<SponsorerBlocksCheckmatMutation>;
 };
 
 export type SponsorerMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   blocks?: InputMaybe<Array<InputMaybe<SponsorerBlocksMutation>>>;
+};
+
+export type MedlemskapBlocksAboutMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  body?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  video?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MedlemskapBlocksValuesItemsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MedlemskapBlocksValuesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  variant?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<MedlemskapBlocksValuesItemsMutation>>>;
 };
 
 export type MedlemskapBlocksMembershipMutation = {
@@ -1946,10 +3087,38 @@ export type MedlemskapBlocksMembershipMutation = {
   extraInfo?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type MedlemskapBlocksAboutMutation = {
-  title?: InputMaybe<Scalars['String']['input']>;
-  body?: InputMaybe<Scalars['String']['input']>;
+export type MedlemskapBlocksTrainersTrainerListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  role?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MedlemskapBlocksTrainersMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  trainerList?: InputMaybe<Array<InputMaybe<MedlemskapBlocksTrainersTrainerListMutation>>>;
+};
+
+export type MedlemskapBlocksSponsorsSponsorListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  logo?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MedlemskapBlocksSponsorsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  sponsorList?: InputMaybe<Array<InputMaybe<MedlemskapBlocksSponsorsSponsorListMutation>>>;
+};
+
+export type MedlemskapBlocksBenefitsItemsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MedlemskapBlocksBenefitsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<MedlemskapBlocksBenefitsItemsMutation>>>;
 };
 
 export type MedlemskapBlocksFaqItemsMutation = {
@@ -1962,10 +3131,64 @@ export type MedlemskapBlocksFaqMutation = {
   items?: InputMaybe<Array<InputMaybe<MedlemskapBlocksFaqItemsMutation>>>;
 };
 
+export type MedlemskapBlocksPackagesPackagesListMutation = {
+  name?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  perks?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  highlighted?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type MedlemskapBlocksPackagesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  packagesList?: InputMaybe<Array<InputMaybe<MedlemskapBlocksPackagesPackagesListMutation>>>;
+};
+
+export type MedlemskapBlocksTimelineEventsMutation = {
+  year?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  highlight?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type MedlemskapBlocksTimelineMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  events?: InputMaybe<Array<InputMaybe<MedlemskapBlocksTimelineEventsMutation>>>;
+};
+
+export type MedlemskapBlocksOrgSeparationMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MedlemskapBlocksCheckmatFeaturesMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MedlemskapBlocksCheckmatMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Array<InputMaybe<MedlemskapBlocksCheckmatFeaturesMutation>>>;
+};
+
 export type MedlemskapBlocksMutation = {
-  membership?: InputMaybe<MedlemskapBlocksMembershipMutation>;
   about?: InputMaybe<MedlemskapBlocksAboutMutation>;
+  values?: InputMaybe<MedlemskapBlocksValuesMutation>;
+  membership?: InputMaybe<MedlemskapBlocksMembershipMutation>;
+  trainers?: InputMaybe<MedlemskapBlocksTrainersMutation>;
+  sponsors?: InputMaybe<MedlemskapBlocksSponsorsMutation>;
+  benefits?: InputMaybe<MedlemskapBlocksBenefitsMutation>;
   faq?: InputMaybe<MedlemskapBlocksFaqMutation>;
+  packages?: InputMaybe<MedlemskapBlocksPackagesMutation>;
+  timeline?: InputMaybe<MedlemskapBlocksTimelineMutation>;
+  orgSeparation?: InputMaybe<MedlemskapBlocksOrgSeparationMutation>;
+  checkmat?: InputMaybe<MedlemskapBlocksCheckmatMutation>;
 };
 
 export type MedlemskapMutation = {
@@ -2007,23 +3230,23 @@ export type GlobalMutation = {
   footerOrgNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type OmOssPartsFragment = { __typename: 'OmOss', title: string, description?: string | null, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null };
+export type OmOssPartsFragment = { __typename: 'OmOss', title: string, description?: string | null, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
 
-export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | null> | null };
+export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'PageBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'PageBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'PageBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'PageBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'PageBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'PageBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
 
 export type HeroPartsFragment = { __typename: 'Hero', welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null };
 
 export type SchedulePartsFragment = { __typename: 'Schedule', days?: Array<{ __typename: 'ScheduleDays', day: string, slots?: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer?: string | null } | null> | null } | null> | null };
 
-export type StyretPartsFragment = { __typename: 'Styret', title?: string | null, description?: any | null, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null };
+export type StyretPartsFragment = { __typename: 'Styret', title?: string | null, description?: any | null, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'StyretBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'StyretBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'StyretBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'StyretBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'StyretBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'StyretBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksFaq', title?: string | null, items?: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'StyretBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'StyretBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'StyretBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'StyretBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'StyretBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null };
 
 export type OrganisasjonsplanPartsFragment = { __typename: 'Organisasjonsplan', title: string, body?: any | null };
 
 export type NewsPartsFragment = { __typename: 'News', title: string, date: string, category?: string | null, image?: string | null, description?: string | null, body?: any | null };
 
-export type SponsorerPartsFragment = { __typename: 'Sponsorer', title: string, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null };
+export type SponsorerPartsFragment = { __typename: 'Sponsorer', title: string, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'SponsorerBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'SponsorerBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'SponsorerBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksFaq', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'SponsorerBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
 
-export type MedlemskapPartsFragment = { __typename: 'Medlemskap', title: string, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null };
+export type MedlemskapPartsFragment = { __typename: 'Medlemskap', title: string, blocks?: Array<{ __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'MedlemskapBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'MedlemskapBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'MedlemskapBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
 
 export type ContactPartsFragment = { __typename: 'Contact', email?: string | null, phone?: string | null, address?: string | null, facebook?: string | null, instagram?: string | null, image?: string | null };
 
@@ -2034,7 +3257,7 @@ export type OmOssQueryVariables = Exact<{
 }>;
 
 
-export type OmOssQuery = { __typename?: 'Query', omOss: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null } };
+export type OmOssQuery = { __typename?: 'Query', omOss: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
 
 export type OmOssConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -2046,14 +3269,14 @@ export type OmOssConnectionQueryVariables = Exact<{
 }>;
 
 
-export type OmOssConnectionQuery = { __typename?: 'Query', omOssConnection: { __typename?: 'OmOssConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'OmOssConnectionEdges', cursor: string, node?: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null } | null } | null> | null } };
+export type OmOssConnectionQuery = { __typename?: 'Query', omOssConnection: { __typename?: 'OmOssConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'OmOssConnectionEdges', cursor: string, node?: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type PageQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | null> | null } };
+export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'PageBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'PageBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'PageBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'PageBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'PageBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'PageBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
 
 export type PageConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -2065,7 +3288,7 @@ export type PageConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'PageBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'PageBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'PageBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'PageBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'PageBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'PageBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type HeroQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -2110,7 +3333,7 @@ export type StyretQueryVariables = Exact<{
 }>;
 
 
-export type StyretQuery = { __typename?: 'Query', styret: { __typename: 'Styret', id: string, title?: string | null, description?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null } };
+export type StyretQuery = { __typename?: 'Query', styret: { __typename: 'Styret', id: string, title?: string | null, description?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'StyretBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'StyretBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'StyretBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'StyretBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'StyretBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'StyretBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksFaq', title?: string | null, items?: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'StyretBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'StyretBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'StyretBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'StyretBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'StyretBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null } };
 
 export type StyretConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -2122,7 +3345,7 @@ export type StyretConnectionQueryVariables = Exact<{
 }>;
 
 
-export type StyretConnectionQuery = { __typename?: 'Query', styretConnection: { __typename?: 'StyretConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'StyretConnectionEdges', cursor: string, node?: { __typename: 'Styret', id: string, title?: string | null, description?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type StyretConnectionQuery = { __typename?: 'Query', styretConnection: { __typename?: 'StyretConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'StyretConnectionEdges', cursor: string, node?: { __typename: 'Styret', id: string, title?: string | null, description?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'StyretBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'StyretBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'StyretBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'StyretBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'StyretBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'StyretBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksFaq', title?: string | null, items?: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'StyretBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'StyretBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'StyretBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'StyretBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'StyretBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type OrganisasjonsplanQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -2167,7 +3390,7 @@ export type SponsorerQueryVariables = Exact<{
 }>;
 
 
-export type SponsorerQuery = { __typename?: 'Query', sponsorer: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null } };
+export type SponsorerQuery = { __typename?: 'Query', sponsorer: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'SponsorerBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'SponsorerBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'SponsorerBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksFaq', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'SponsorerBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
 
 export type SponsorerConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -2179,14 +3402,14 @@ export type SponsorerConnectionQueryVariables = Exact<{
 }>;
 
 
-export type SponsorerConnectionQuery = { __typename?: 'Query', sponsorerConnection: { __typename?: 'SponsorerConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SponsorerConnectionEdges', cursor: string, node?: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | null> | null } | null } | null> | null } };
+export type SponsorerConnectionQuery = { __typename?: 'Query', sponsorerConnection: { __typename?: 'SponsorerConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SponsorerConnectionEdges', cursor: string, node?: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'SponsorerBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'SponsorerBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'SponsorerBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksFaq', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'SponsorerBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type MedlemskapQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type MedlemskapQuery = { __typename?: 'Query', medlemskap: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } };
+export type MedlemskapQuery = { __typename?: 'Query', medlemskap: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'MedlemskapBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'MedlemskapBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'MedlemskapBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
 
 export type MedlemskapConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -2198,7 +3421,7 @@ export type MedlemskapConnectionQueryVariables = Exact<{
 }>;
 
 
-export type MedlemskapConnectionQuery = { __typename?: 'Query', medlemskapConnection: { __typename?: 'MedlemskapConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'MedlemskapConnectionEdges', cursor: string, node?: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | null> | null } | null } | null> | null } };
+export type MedlemskapConnectionQuery = { __typename?: 'Query', medlemskapConnection: { __typename?: 'MedlemskapConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'MedlemskapConnectionEdges', cursor: string, node?: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'MedlemskapBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'MedlemskapBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'MedlemskapBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type ContactQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -2263,6 +3486,14 @@ export const OmOssPartsFragmentDoc = gql`
         icon
       }
     }
+    ... on OmOssBlocksMembership {
+      title
+      description
+      linkUrl
+      boostLinkUrl
+      boostEnabled
+      extraInfo
+    }
     ... on OmOssBlocksTrainers {
       title
       trainerList {
@@ -2273,12 +3504,41 @@ export const OmOssPartsFragmentDoc = gql`
         bio
       }
     }
+    ... on OmOssBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on OmOssBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
     ... on OmOssBlocksFaq {
       title
       items {
         __typename
         question
         answer
+      }
+    }
+    ... on OmOssBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
       }
     }
     ... on OmOssBlocksTimeline {
@@ -2309,43 +3569,6 @@ export const OmOssPartsFragmentDoc = gql`
         icon
       }
     }
-    ... on OmOssBlocksMembership {
-      title
-      description
-      linkUrl
-      boostLinkUrl
-      boostEnabled
-      extraInfo
-    }
-    ... on OmOssBlocksSponsors {
-      title
-      sponsorList {
-        __typename
-        name
-        logo
-        url
-      }
-    }
-    ... on OmOssBlocksBenefits {
-      title
-      items {
-        __typename
-        title
-        text
-        icon
-      }
-    }
-    ... on OmOssBlocksPackages {
-      title
-      description
-      packagesList {
-        __typename
-        name
-        description
-        perks
-        highlighted
-      }
-    }
   }
 }
     `;
@@ -2360,6 +3583,7 @@ export const PagePartsFragmentDoc = gql`
       title
       body
       image
+      video
     }
     ... on PageBlocksValues {
       title
@@ -2389,6 +3613,71 @@ export const PagePartsFragmentDoc = gql`
         role
         image
         bio
+      }
+    }
+    ... on PageBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on PageBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on PageBlocksFaq {
+      title
+      items {
+        __typename
+        question
+        answer
+      }
+    }
+    ... on PageBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
+      }
+    }
+    ... on PageBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on PageBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on PageBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
       }
     }
   }
@@ -2441,6 +3730,102 @@ export const StyretPartsFragmentDoc = gql`
       title
       body
       image
+      video
+    }
+    ... on StyretBlocksValues {
+      title
+      description
+      variant
+      image
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on StyretBlocksMembership {
+      title
+      description
+      linkUrl
+      boostLinkUrl
+      boostEnabled
+      extraInfo
+    }
+    ... on StyretBlocksTrainers {
+      title
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
+    ... on StyretBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on StyretBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on StyretBlocksFaq {
+      title
+      items {
+        __typename
+        question
+        answer
+      }
+    }
+    ... on StyretBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
+      }
+    }
+    ... on StyretBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on StyretBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on StyretBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
+      }
     }
   }
   members {
@@ -2488,6 +3873,46 @@ export const SponsorerPartsFragmentDoc = gql`
       title
       body
       image
+      video
+    }
+    ... on SponsorerBlocksValues {
+      title
+      description
+      variant
+      image
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
+    ... on SponsorerBlocksMembership {
+      title
+      description
+      linkUrl
+      boostLinkUrl
+      boostEnabled
+      extraInfo
+    }
+    ... on SponsorerBlocksTrainers {
+      title
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
+    ... on SponsorerBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
     }
     ... on SponsorerBlocksBenefits {
       title
@@ -2498,13 +3923,12 @@ export const SponsorerPartsFragmentDoc = gql`
         icon
       }
     }
-    ... on SponsorerBlocksSponsors {
+    ... on SponsorerBlocksFaq {
       title
-      sponsorList {
+      items {
         __typename
-        name
-        logo
-        url
+        question
+        answer
       }
     }
     ... on SponsorerBlocksPackages {
@@ -2518,6 +3942,34 @@ export const SponsorerPartsFragmentDoc = gql`
         highlighted
       }
     }
+    ... on SponsorerBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on SponsorerBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on SponsorerBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
+      }
+    }
   }
 }
     `;
@@ -2527,6 +3979,24 @@ export const MedlemskapPartsFragmentDoc = gql`
   title
   blocks {
     __typename
+    ... on MedlemskapBlocksAbout {
+      title
+      body
+      image
+      video
+    }
+    ... on MedlemskapBlocksValues {
+      title
+      description
+      variant
+      image
+      items {
+        __typename
+        title
+        text
+        icon
+      }
+    }
     ... on MedlemskapBlocksMembership {
       title
       description
@@ -2535,10 +4005,33 @@ export const MedlemskapPartsFragmentDoc = gql`
       boostEnabled
       extraInfo
     }
-    ... on MedlemskapBlocksAbout {
+    ... on MedlemskapBlocksTrainers {
       title
-      body
-      image
+      trainerList {
+        __typename
+        name
+        role
+        image
+        bio
+      }
+    }
+    ... on MedlemskapBlocksSponsors {
+      title
+      sponsorList {
+        __typename
+        name
+        logo
+        url
+      }
+    }
+    ... on MedlemskapBlocksBenefits {
+      title
+      items {
+        __typename
+        title
+        text
+        icon
+      }
     }
     ... on MedlemskapBlocksFaq {
       title
@@ -2546,6 +4039,45 @@ export const MedlemskapPartsFragmentDoc = gql`
         __typename
         question
         answer
+      }
+    }
+    ... on MedlemskapBlocksPackages {
+      title
+      description
+      packagesList {
+        __typename
+        name
+        description
+        perks
+        highlighted
+      }
+    }
+    ... on MedlemskapBlocksTimeline {
+      title
+      subtitle
+      events {
+        __typename
+        year
+        title
+        location
+        description
+        highlight
+      }
+    }
+    ... on MedlemskapBlocksOrgSeparation {
+      title
+      subtitle
+      description
+    }
+    ... on MedlemskapBlocksCheckmat {
+      title
+      subtitle
+      description
+      features {
+        __typename
+        title
+        description
+        icon
       }
     }
   }
