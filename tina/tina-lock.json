@@ -1259,8 +1259,8 @@
                         "label": "BJJ"
                       },
                       {
-                        "value": "Thaiboksing",
-                        "label": "Thaiboksing (Muay Thai)"
+                        "value": "Muay Thai",
+                        "label": "Muay Thai"
                       },
                       {
                         "value": "Yoga",
@@ -1297,6 +1297,10 @@
                       {
                         "value": "Barneparti 2 (10-13 \u00e5r)",
                         "label": "Barneparti 2 (10-13 \u00e5r)"
+                      },
+                      {
+                        "value": "Muay Thai",
+                        "label": "Muay Thai"
                       },
                       {
                         "value": "Barn (Felles)",

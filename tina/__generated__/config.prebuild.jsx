@@ -328,7 +328,7 @@ var config_default = defineConfig({
                     required: true,
                     options: [
                       { value: "BJJ", label: "BJJ" },
-                      { value: "Thaiboksing", label: "Thaiboksing (Muay Thai)" },
+                      { value: "Muay Thai", label: "Muay Thai" },
                       { value: "Yoga", label: "Yoga" },
                       { value: "Crosstrening", label: "Crosstrening" },
                       { value: "\xC5pen matte", label: "\xC5pen matte / annet" }
@@ -342,6 +342,7 @@ var config_default = defineConfig({
                     options: [
                       { value: "Barneparti 1 (6-9 \xE5r)", label: "Barneparti 1 (6-9 \xE5r)" },
                       { value: "Barneparti 2 (10-13 \xE5r)", label: "Barneparti 2 (10-13 \xE5r)" },
+                      { value: "Muay Thai", label: "Muay Thai" },
                       { value: "Barn (Felles)", label: "Barn (Felles)" },
                       { value: "Voksne / Ungdom", label: "Voksne / Ungdom" },
                       { value: "Videreg\xE5ende", label: "Videreg\xE5ende" },
