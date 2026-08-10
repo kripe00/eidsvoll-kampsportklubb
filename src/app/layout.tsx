@@ -123,7 +123,7 @@ export default async function RootLayout({
               "image": "https://kampsporteidsvoll.no/header.jpg",
               "description": "Eidsvoll Kampsportklubb i Eidsvoll – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer.",
               "sport": ["Brasiliansk Jiu-Jitsu", "Muay Thai", "Thaiboksing", "Cross-trening"],
-              "email": "post@kampsporteidsvoll.no",
+              "email": "kontakt@kampsporteidsvoll.no",
               "telephone": "+4797610229",
               "address": {
                 "@type": "PostalAddress",
