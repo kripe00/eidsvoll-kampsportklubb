@@ -73,7 +73,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
       
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-background/80 backdrop-blur-sm" 
+        className="fixed inset-0 bg-slate-950/85 backdrop-blur-md" 
         onClick={() => setOpen(false)}
       />
 
