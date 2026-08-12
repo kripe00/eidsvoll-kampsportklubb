@@ -100,8 +100,8 @@ export default async function RootLayout({
         data: {
           ...res.data,
           global: {
-            ...globalJson,
-            ...res.data.global
+            ...res.data.global,
+            ...globalJson
           }
         }
       };

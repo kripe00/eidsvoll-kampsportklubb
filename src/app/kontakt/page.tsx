@@ -14,7 +14,16 @@ export default async function KontaktPage() {
   try {
     const res = await client.queries.contact({ relativePath: "index.json" });
     if (res.data?.contact) {
-      pageRes = res;
+      pageRes = {
+        ...res,
+        data: {
+          ...res.data,
+          contact: {
+            ...res.data.contact,
+            ...contactJson
+          }
+        }
+      };
     }
   } catch (error) {
     console.error("TinaCMS Kontakt fetch failed:", error);
