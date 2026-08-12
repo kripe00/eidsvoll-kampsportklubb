@@ -61,7 +61,7 @@ export const sendContactEmail = onDocumentCreated(
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; color: #1e293b; background-color: #ffffff;">
           <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #f1f5f9;">
-            <h2 style="color: #dc2626; font-size: 22px; font-weight: 800; text-transform: uppercase; margin: 0; tracking: -0.025em;">
+            <h2 style="color: #0f172a; font-size: 22px; font-weight: 900; text-transform: uppercase; margin: 0; tracking: -0.025em;">
               Eidsvoll Kampsportklubb
             </h2>
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0 0;">Ny melding fra kontaktskjemaet</p>
@@ -85,7 +85,7 @@ export const sendContactEmail = onDocumentCreated(
               </tr>
             </table>
 
-            <div style="background-color: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid #dc2626; margin-bottom: 20px;">
+            <div style="background-color: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid #2563eb; margin-bottom: 20px;">
               <h4 style="margin: 0 0 8px 0; color: #475569; font-size: 12px; text-transform: uppercase; tracking: 0.05em;">Melding:</h4>
               <p style="margin: 0; white-space: pre-wrap; line-height: 1.6; font-size: 15px; color: #0f172a;">${message}</p>
             </div>
@@ -98,7 +98,7 @@ export const sendContactEmail = onDocumentCreated(
       `,
     };
 
-    // 2. Automatisk bekreftelses-epost til avsenderen (Kunden)
+    // 2. Automatisk bekreftelses-epost til avsenderen (Kunden) - tilpasset nettsidens stil
     const mailOptionsUser = {
       from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
       to: email,
@@ -109,51 +109,51 @@ export const sendContactEmail = onDocumentCreated(
           
           <!-- Header Banner -->
           <div style="text-align: center; padding-bottom: 24px; border-bottom: 2px solid #f1f5f9;">
-            <h1 style="color: #dc2626; font-size: 24px; font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; margin: 0 0 6px 0;">
+            <h1 style="color: #0f172a; font-size: 24px; font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; margin: 0 0 8px 0;">
               Eidsvoll Kampsportklubb
             </h1>
-            <span style="display: inline-block; background-color: #fef2f2; color: #dc2626; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em;">
+            <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid #dbeafe;">
               Takk for din henvendelse
             </span>
           </div>
 
           <!-- Content Body -->
-          <div style="padding: 28px 0; font-size: 16px; line-height: 1.6; color: #334155;">
-            <p style="margin-top: 0; font-size: 18px; font-weight: 700; color: #0f172a;">
-              Hei ${name}! 👋
+          <div style="padding: 28px 0; font-size: 15px; line-height: 1.6; color: #334155;">
+            <p style="margin-top: 0; font-size: 17px; font-weight: 700; color: #0f172a;">
+              Hei ${name},
             </p>
             <p>
               Takk for at du tok kontakt med oss i <strong>Eidsvoll Kampsportklubb</strong>. 
-              Vi har mottatt meldingen din og vil gå igjennom den og gi deg et svar så raskt vi overhodet kan.
+              Vi har mottatt meldingen din og vil gi deg et svar så raskt vi kan.
             </p>
 
             <!-- Box with user message summary -->
-            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 24px 0;">
-              <p style="margin: 0 0 8px 0; font-size: 12px; font-weight: 700; uppercase; tracking: 0.05em; color: #64748b;">
-                DIN MELDING:
+            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 24px 0; border-left: 4px solid #2563eb;">
+              <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b;">
+                Din melding:
               </p>
-              ${subject ? `<p style="margin: 0 0 10px 0; font-weight: 700; color: #0f172a;">Emne: ${subject}</p>` : ''}
-              <p style="margin: 0; font-style: italic; color: #475569; white-space: pre-wrap; font-size: 14px; line-height: 1.5;">
+              ${subject ? `<p style="margin: 0 0 8px 0; font-weight: 700; color: #0f172a;">Emne: ${subject}</p>` : ''}
+              <p style="margin: 0; font-style: italic; color: #334155; white-space: pre-wrap; font-size: 14px; line-height: 1.5;">
                 "${message}"
               </p>
             </div>
 
-            <p style="font-size: 15px;">
-              I mellomtiden er du alltid velkommen til å sjekke ut treningstidene våre eller les mer om våre partier på nettsiden.
+            <p style="font-size: 14px; color: #64748b;">
+              I mellomtiden kan du sjekke ut treningstidene våre eller lese mer om klubben på nettsiden.
             </p>
 
-            <!-- Action buttons / quick links -->
+            <!-- Action button matching website primary blue -->
             <div style="text-align: center; margin: 28px 0 12px 0;">
-              <a href="https://kampsporteidsvoll.no/timeplan" style="display: inline-block; background-color: #dc2626; color: #ffffff; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">
-                Se Timeplan & Treningstider
+              <a href="https://kampsporteidsvoll.no/timeplan" style="display: inline-block; background-color: #2563eb; color: #ffffff; font-weight: 700; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;">
+                Se timeplan & treningstider
               </a>
             </div>
           </div>
 
           <!-- Footer / Signature -->
-          <div style="border-top: 1px solid #f1f5f9; padding-top: 24px; font-size: 14px; color: #64748b;">
-            <p style="margin: 0 0 4px 0; font-weight: 700; color: #0f172a;">Med vennlig hilsen,</p>
-            <p style="margin: 0 0 16px 0; font-weight: 800; color: #dc2626; text-transform: uppercase;">Eidsvoll Kampsportklubb</p>
+          <div style="border-top: 1px solid #f1f5f9; padding-top: 24px; font-size: 13px; color: #64748b;">
+            <p style="margin: 0 0 2px 0; font-weight: 700; color: #0f172a;">Med vennlig hilsen,</p>
+            <p style="margin: 0 0 16px 0; font-weight: 800; color: #0f172a; text-transform: uppercase;">Eidsvoll Kampsportklubb</p>
             
             <table style="width: 100%; font-size: 13px; color: #64748b; line-height: 1.5;">
               <tr>
@@ -173,7 +173,6 @@ export const sendContactEmail = onDocumentCreated(
     };
 
     try {
-      // Send begge e-postene i parallell
       await Promise.all([
         transporter.sendMail(mailOptionsAdmin),
         transporter.sendMail(mailOptionsUser),
