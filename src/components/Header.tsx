@@ -88,8 +88,8 @@ export function Header({ data }: { data: any }) {
             <div className="flex flex-col gap-3 pt-2">
               <ProveukeModal 
                 trigger={
-                  <Button className="w-full bg-red-600 hover:bg-red-700 font-bold py-6 text-lg rounded-xl shadow-md shadow-red-600/20">
-                    🔥 Gratis Prøveuke
+                  <Button variant="outline" className="w-full rounded-xl font-bold py-6 text-lg border-primary/40 text-foreground">
+                    Gratis prøveuke
                   </Button>
                 }
               />

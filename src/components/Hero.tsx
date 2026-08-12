@@ -62,15 +62,14 @@ export function Hero({
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
           <ProveukeModal 
             trigger={
-              <Button size="lg" className="h-14 px-10 text-lg font-bold bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-700 hover:to-amber-700 text-white shadow-xl shadow-red-600/30 hover:scale-105 transition-all gap-2">
-                <Flame className="w-5 h-5 fill-white animate-pulse" />
-                Gratis Prøveuke
+              <Button size="lg" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+                Gratis prøveuke
               </Button>
             }
           />
           <Link href="/medlemskap">
             <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold border-white/20 text-white hover:bg-white/10 hover:scale-105 transition-all">
-              Bli Medlem
+              Bli medlem
             </Button>
           </Link>
         </div>

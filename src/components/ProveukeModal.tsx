@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { Sparkles, CheckCircle2, Flame, Calendar, X } from "lucide-react";
+import { CheckCircle2, Calendar, X, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
 export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
@@ -20,7 +20,6 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
     message: "",
   });
 
-  // Prevent scroll when modal is open
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -65,49 +64,42 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
 
   return (
     <>
-      {/* Trigger button */}
       <div onClick={() => setOpen(true)} className="inline-block cursor-pointer">
         {trigger || (
-          <Button className="bg-red-600 hover:bg-red-700 text-white font-bold rounded-full px-5 py-2 text-sm shadow-md shadow-red-600/20 hover:scale-105 transition-all flex items-center gap-1.5">
-            <Flame className="w-4 h-4 fill-white text-white animate-pulse" />
-            <span>Gratis Prøveuke</span>
+          <Button size="sm" variant="outline" className="rounded-full px-5 py-2 font-bold border-primary/40 text-foreground hover:bg-primary/10 transition-all">
+            Gratis prøveuke
           </Button>
         )}
       </div>
 
-      {/* Modal Backdrop & Container */}
       {open && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 animate-in fade-in duration-150">
           
-          {/* Backdrop Overlay */}
           <div 
             className="fixed inset-0 bg-slate-950/80 backdrop-blur-md" 
             onClick={() => setOpen(false)}
           />
 
-          {/* Dialog Card */}
-          <div className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto bg-slate-950 text-slate-100 rounded-3xl border border-slate-800 shadow-2xl z-10 p-0">
+          <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-slate-950 text-slate-100 rounded-2xl border border-slate-800 shadow-2xl z-10 p-0">
             
-            {/* Close Button */}
             <button
               onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/40 hover:bg-black/80 text-white flex items-center justify-center transition-colors border border-white/10"
+              className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition-colors border border-slate-800"
               aria-label="Lukk dialog"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
 
-            {/* Header Banner */}
-            <div className="bg-gradient-to-r from-red-700 via-red-600 to-amber-600 p-6 md:p-8 text-white relative">
-              <div className="inline-flex items-center gap-1.5 bg-black/30 backdrop-blur-md text-amber-300 font-extrabold text-xs tracking-wider uppercase px-3 py-1 rounded-full mb-3 border border-amber-400/20">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>1 Uke Gratis Trening • Prøv Alle Sporter!</span>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white leading-tight">
-                Start Din Gratis Prøveuke
+            {/* Editorial Header */}
+            <div className="p-6 md:p-8 border-b border-slate-900 bg-slate-950">
+              <span className="text-xs uppercase font-bold tracking-widest text-primary block mb-2">
+                Eidsvoll Kampsportklubb
+              </span>
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-white leading-none mb-3">
+                Gratis prøveuke
               </h2>
-              <p className="text-red-100 text-sm mt-2 leading-relaxed">
-                Hos oss trenger du ikke velge én sport. I prøveuken har du fri tilgang til å prøve både <strong className="text-white font-bold">BJJ, Muay Thai, Crosstrening og Yoga!</strong>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Prøv alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) uforpliktende i 1 uke.
               </p>
             </div>
 
@@ -115,18 +107,18 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
             <div className="p-6 md:p-8">
               {status === "success" ? (
                 <div className="text-center py-6 space-y-4">
-                  <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
-                    <CheckCircle2 className="w-10 h-10" />
+                  <div className="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/20">
+                    <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Velkommen til prøveuke! 🎉</h3>
-                  <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-                    Takk for din påmelding! Vi har sendt en bekreftelse til din e-post. Du kan møte opp på hvilken som helst økt som passer for deg på Dal.
+                  <h3 className="text-xl font-bold text-white uppercase tracking-tight">Påmelding mottatt</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed max-w-sm mx-auto">
+                    Vi har sendt en bekreftelse til din e-postadresse. Du er hjertelig velkommen til å møte opp på neste trening på Dal!
                   </p>
                   <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
                     <Link href="/timeplan" onClick={() => setOpen(false)}>
-                      <Button className="w-full sm:w-auto bg-red-600 hover:bg-red-700 font-bold gap-2">
+                      <Button className="w-full sm:w-auto font-bold gap-2">
                         <Calendar className="w-4 h-4" />
-                        Se Timeplan & Treningstider
+                        Se timeplan
                       </Button>
                     </Link>
                     <Button variant="outline" onClick={() => { setStatus("idle"); setOpen(false); }} className="w-full sm:w-auto border-slate-800 text-slate-300">
@@ -137,38 +129,31 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   
-                  {/* Badges / Included Sports */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pb-2">
-                    <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-center">
-                      <span className="text-xs font-bold block text-red-400">🥋 BJJ</span>
-                      <span className="text-[10px] text-slate-400">Jiu-Jitsu</span>
-                    </div>
-                    <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-center">
-                      <span className="text-xs font-bold block text-amber-400">🥊 Muay Thai</span>
-                      <span className="text-[10px] text-slate-400">Thaiboksing</span>
-                    </div>
-                    <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-center">
-                      <span className="text-xs font-bold block text-blue-400">🏋️ Cross</span>
-                      <span className="text-[10px] text-slate-400">Crosstrening</span>
-                    </div>
-                    <div className="bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-center">
-                      <span className="text-xs font-bold block text-emerald-400">🧘 Yoga</span>
-                      <span className="text-[10px] text-slate-400">Yinsaya</span>
+                  {/* Included Disciplines */}
+                  <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 mb-2">
+                    <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-2">
+                      Inkludert i prøveuken:
+                    </span>
+                    <div className="flex flex-wrap gap-2 text-xs font-medium text-slate-300">
+                      <span className="bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700/50">BJJ (Jiu-Jitsu)</span>
+                      <span className="bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700/50">Muay Thai</span>
+                      <span className="bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700/50">Crosstrening</span>
+                      <span className="bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700/50">Yoga</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
-                        Navn på utøver / foresatt *
+                        Navn *
                       </label>
                       <input
                         required
                         type="text"
-                        placeholder="F.eks. Ola Nordmann"
+                        placeholder="Fullt navn"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder:text-slate-500 focus:outline-none focus:border-red-500 text-sm"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-800 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary text-sm"
                       />
                     </div>
                     <div>
@@ -178,10 +163,10 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                       <input
                         required
                         type="email"
-                        placeholder="din@epost.no"
+                        placeholder="navn@epost.no"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder:text-slate-500 focus:outline-none focus:border-red-500 text-sm"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-800 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary text-sm"
                       />
                     </div>
                   </div>
@@ -189,15 +174,15 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
-                        Telefonnummer *
+                        Telefon *
                       </label>
                       <input
                         required
                         type="tel"
-                        placeholder="F.eks. 976 10 229"
+                        placeholder="Mobilnummer"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder:text-slate-500 focus:outline-none focus:border-red-500 text-sm"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-800 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary text-sm"
                       />
                     </div>
                     <div>
@@ -207,7 +192,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                       <select
                         value={formData.category}
                         onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-red-500 text-sm"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-800 text-white focus:outline-none focus:border-primary text-sm"
                       >
                         <option value="Voksen / Ungdom (fra 14 år)">Voksen / Ungdom (fra 14 år)</option>
                         <option value="Barneparti 1 (6-9 år)">Barneparti 1 (6-9 år)</option>
@@ -218,19 +203,19 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
 
                   <div>
                     <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block mb-1.5">
-                      Har du spørsmål eller ønsker du å fortelle oss noe? (Valgfritt)
+                      Melding eller spørsmål (Valgfritt)
                     </label>
                     <textarea
-                      placeholder="Skriv inn her dersom du har spørsmål om utstyr, forhåndserfaring etc..."
+                      placeholder="Skriv inn en melding dersom du har spørsmål..."
                       rows={2}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white placeholder:text-slate-500 focus:outline-none focus:border-red-500 text-sm resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-slate-900 border border-slate-800 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary text-sm resize-none"
                     />
                   </div>
 
                   {status === "error" && (
-                    <p className="text-xs text-red-400 bg-red-950/50 p-2.5 rounded-xl border border-red-900/50">
+                    <p className="text-xs text-red-400 bg-red-950/40 p-3 rounded-lg border border-red-900/40">
                       {errorMessage}
                     </p>
                   )}
@@ -238,13 +223,13 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                   <Button
                     type="submit"
                     disabled={status === "loading"}
-                    className="w-full bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-700 hover:to-amber-700 text-white font-bold py-6 text-base rounded-xl shadow-lg shadow-red-600/25 transition-all mt-2"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-5 text-sm rounded-lg transition-all mt-2"
                   >
-                    {status === "loading" ? "Registrerer prøveuke..." : "Start Min Gratis Prøveuke Nå 🚀"}
+                    {status === "loading" ? "Registrerer..." : "Meld deg på gratis prøveuke"}
                   </Button>
 
-                  <p className="text-[11px] text-slate-400 text-center pt-1">
-                    🔒 Helt uforpliktende. Ingen bindingstid eller skjulte kostnader.
+                  <p className="text-[11px] text-slate-500 text-center pt-1">
+                    Uforpliktende prøveordning i Eidsvoll Kampsportklubb.
                   </p>
                 </form>
               )}
