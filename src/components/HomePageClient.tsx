@@ -2,6 +2,7 @@
 
 import { useTina } from "tinacms/dist/react";
 import { Hero } from "./Hero";
+import { ProveukeSection } from "./ProveukeSection";
 import { News } from "./News";
 import { InstagramFeed } from "./InstagramFeed";
 import { tinaField } from "tinacms/dist/react";
@@ -29,6 +30,7 @@ export function HomePageClient(props: {
         backgroundImage={hero.backgroundImage} 
         parent={hero}
       />
+      <ProveukeSection />
       <News newsItems={rawEdges} />
       <div data-tina-field={tinaField(hero, 'instagramImages')}>
         <InstagramFeed 

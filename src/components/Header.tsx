@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
 import { Menu, X, Calendar } from "lucide-react";
 import { OptimizedImage } from "./ui/optimized-image";
+import { ProveukeModal } from "./ProveukeModal";
 
 export function Header({ data }: { data: any }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,6 +45,7 @@ export function Header({ data }: { data: any }) {
             </Link>
           ))}
           <div className="flex items-center gap-3">
+            <ProveukeModal />
             <Link href="/timeplan">
               <Button size="sm" variant="outline" className="rounded-full px-5 py-2 font-bold border-primary/30 hover:border-primary hover:bg-primary/10 transition-all">
                 <Calendar className="w-4 h-4 mr-1.5 text-primary" />
@@ -84,6 +86,13 @@ export function Header({ data }: { data: any }) {
               </Link>
             ))}
             <div className="flex flex-col gap-3 pt-2">
+              <ProveukeModal 
+                trigger={
+                  <Button className="w-full bg-red-600 hover:bg-red-700 font-bold py-6 text-lg rounded-xl shadow-md shadow-red-600/20">
+                    🔥 Gratis Prøveuke
+                  </Button>
+                }
+              />
               <Link href="/timeplan" onClick={() => setIsOpen(false)}>
                 <Button variant="outline" className="w-full rounded-xl font-bold py-6 text-lg border-primary/30 flex items-center justify-center gap-2">
                   <Calendar className="w-5 h-5 text-primary" />

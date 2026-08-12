@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
 import { RichText } from "./RichText";
 import { OptimizedImage } from "./ui/optimized-image";
+import { ProveukeModal } from "./ProveukeModal";
+import { Flame } from "lucide-react";
 
 interface HeroProps {
   welcomeText?: string;
@@ -57,9 +59,17 @@ export function Hero({
           <RichText content={description} />
         </div>
         
-        <div className="flex flex-col sm:flex-row justify-center gap-6">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+          <ProveukeModal 
+            trigger={
+              <Button size="lg" className="h-14 px-10 text-lg font-bold bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-700 hover:to-amber-700 text-white shadow-xl shadow-red-600/30 hover:scale-105 transition-all gap-2">
+                <Flame className="w-5 h-5 fill-white animate-pulse" />
+                Gratis Prøveuke
+              </Button>
+            }
+          />
           <Link href="/medlemskap">
-            <Button size="lg" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+            <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold border-white/20 text-white hover:bg-white/10 hover:scale-105 transition-all">
               Bli Medlem
             </Button>
           </Link>
