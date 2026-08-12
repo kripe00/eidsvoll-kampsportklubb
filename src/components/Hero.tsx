@@ -59,7 +59,7 @@ export function Hero({
           <RichText content={description} />
         </div>
         
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <div className="flex justify-center items-center">
           <ProveukeModal 
             trigger={
               <Button size="lg" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
@@ -67,11 +67,6 @@ export function Hero({
               </Button>
             }
           />
-          <Link href="/medlemskap">
-            <Button size="lg" variant="outline" className="h-14 px-10 text-lg font-bold border-white/20 text-white hover:bg-white/10 hover:scale-105 transition-all">
-              Bli medlem
-            </Button>
-          </Link>
         </div>
       </div>
     </section>
