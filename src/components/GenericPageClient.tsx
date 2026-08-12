@@ -16,15 +16,15 @@ export function GenericPageClient(props: {
     data: props.data,
   });
 
-  // Get the page data from either real-time updates or initial props
-  const page = data?.page || 
-               data?.omOss || 
-               data?.medlemskap || 
-               data?.sponsorer ||
-               props.data?.page || 
+  // Get the page data from initial props or real-time updates
+  const page = props.data?.page || 
                props.data?.omOss || 
                props.data?.medlemskap ||
-               props.data?.sponsorer;
+               props.data?.sponsorer ||
+               data?.page || 
+               data?.omOss || 
+               data?.medlemskap || 
+               data?.sponsorer;
                
   if (!page) {
     console.warn("GenericPageClient: No page data found in:", { data, propsData: props.data });

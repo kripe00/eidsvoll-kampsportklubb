@@ -21,7 +21,7 @@ export function SponsorerPageClient(props: {
     data: props.data,
   });
 
-  const page = data?.sponsorer || data?.page || props.data?.sponsorer || props.data?.page;
+  const page = props.data?.sponsorer || props.data?.page || data?.sponsorer || data?.page;
 
   return (
     <main className="bg-background min-h-screen">

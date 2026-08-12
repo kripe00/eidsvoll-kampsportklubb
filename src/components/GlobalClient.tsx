@@ -17,7 +17,7 @@ export function GlobalClient(props: {
     data: props.data,
   });
 
-  const displayData = data?.global || props.data?.global;
+  const displayData = props.data?.global || data?.global;
 
   return (
     <>

@@ -93,7 +93,7 @@ export function StyretPageClient(props: {
     data: props.data,
   });
 
-  const boardData = data?.styret || props.data?.styret;
+  const boardData = props.data?.styret || data?.styret;
 
   return (
     <main className="bg-background min-h-screen pb-32">
