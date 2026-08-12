@@ -34,7 +34,7 @@ export function SchedulePageClient(props: {
     data: props.data,
   });
 
-  const schedule = (props.query ? data.schedule : props.data.schedule) as ScheduleProps;
+  const schedule = (data?.schedule || props.data?.schedule) as ScheduleProps;
   const days = schedule?.days || [];
 
   const [activeDayIdx, setActiveDayIdx] = useState(0);
