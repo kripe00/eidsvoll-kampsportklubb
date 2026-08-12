@@ -1,14 +1,10 @@
 import { client } from "../../tina/__generated__/client";
 import { HomePageClient } from "@/components/HomePageClient";
+import heroJson from "../../content/hero/index.json";
 
 export default async function Home() {
   const fallbackData = {
-    hero: {
-      welcomeText: "Velkommen til",
-      highlightedText: "Eidsvoll Kampsportklubb",
-      description: "Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter i Eidsvoll har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.",
-      backgroundImage: "/header.jpg"
-    },
+    hero: heroJson,
     newsConnection: { edges: [] }
   };
 
@@ -19,7 +15,10 @@ export default async function Home() {
     const newsRes = await client.queries.newsConnection({ sort: "date", last: 3 });
     
     if (res.data?.hero) {
-      pageRes.data.hero = res.data.hero;
+      pageRes.data.hero = {
+        ...heroJson,
+        ...res.data.hero
+      };
       pageRes.query = res.query;
       pageRes.variables = res.variables;
     }

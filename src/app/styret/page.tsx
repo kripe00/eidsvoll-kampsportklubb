@@ -1,5 +1,6 @@
 import { client } from "../../../tina/__generated__/client";
 import { StyretPageClient } from "@/components/StyretPageClient";
+import styretJson from "../../../content/styret/index.json";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,26 +9,26 @@ export const metadata: Metadata = {
 };
 
 export default async function StyretPage() {
-  let pageRes: any = { data: null, query: "", variables: {} };
+  let pageRes: any = { data: { styret: styretJson }, query: "", variables: {} };
 
   try {
     const boardRes = await client.queries.styret({ relativePath: "index.json" });
-    pageRes = {
-      data: boardRes.data,
-      query: boardRes.query,
-      variables: boardRes.variables,
-    };
+    if (boardRes?.data?.styret) {
+      pageRes = {
+        data: boardRes.data,
+        query: boardRes.query,
+        variables: boardRes.variables,
+      };
+    }
   } catch (error) {
     console.error("TinaCMS Styret fetch failed:", error);
   }
 
-  if (!pageRes.data) {
-    return <div>Kunne ikke laste styret.</div>;
-  }
+  const finalData = pageRes.data?.styret ? pageRes.data : { styret: styretJson };
 
   return (
     <StyretPageClient 
-      data={pageRes.data} 
+      data={finalData} 
       query={pageRes.query} 
       variables={pageRes.variables} 
     />

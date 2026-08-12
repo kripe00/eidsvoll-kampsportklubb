@@ -7,6 +7,8 @@ import { GlobalClient } from "@/components/GlobalClient";
 import { CookieBanner } from "@/components/CookieBanner";
 import { AnalyticsWrapper } from "@/components/AnalyticsWrapper";
 
+import globalJson from "../../content/global/index.json";
+
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
@@ -86,22 +88,23 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   let globalData: any = {
-    global: {
-      clubName: "Eidsvoll Kampsportklubb",
-      nav: [
-        { label: "Om oss", href: "/om-oss" },
-        { label: "Medlemskap", href: "/medlemskap" },
-        { label: "Styret", href: "/styret" },
-        { label: "Kontakt", href: "/kontakt" }
-      ]
-    }
+    global: globalJson
   };
   let globalRes: any = { data: globalData, query: "", variables: {} };
 
   try {
     const res = await client.queries.global({ relativePath: "index.json" });
     if (res?.data?.global) {
-      globalRes = res;
+      globalRes = {
+        ...res,
+        data: {
+          ...res.data,
+          global: {
+            ...globalJson,
+            ...res.data.global
+          }
+        }
+      };
     }
   } catch (error) {
     console.error("TinaCMS Global fetch failed:", error);
