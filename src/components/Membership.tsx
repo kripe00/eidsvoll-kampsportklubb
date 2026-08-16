@@ -17,9 +17,9 @@ export function Membership(props: MembershipProps) {
   const { 
     title = "Bli en del av fellesskapet", 
     description = "Uansett om du er nybegynner eller erfaren, er du velkommen hos oss. Vi bruker MinIdrett for en trygg og enkel administrasjon av ditt medlemskap.",
-    linkUrl = "https://minidrett.nif.no",
-    boostLinkUrl = "",
-    boostEnabled = false
+    linkUrl = "https://www.minidrett.no/medlemskap/988726",
+    boostLinkUrl = "https://portal.boostsystem.no/rambukk/member",
+    boostEnabled = true
   } = props;
 
   return (

@@ -31,10 +31,15 @@ export function MedlemskapClient(props: {
           <p className="text-xl text-muted-foreground leading-relaxed">
             Vi har plass til alle, uansett om du er nybegynner eller har trent kampsport i mange år.
           </p>
-          <div className="mt-10">
-            <a href="https://minidrett.nif.no" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="rounded-full px-10 h-14 text-lg font-bold shadow-xl shadow-primary/20">
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="https://www.minidrett.no/medlemskap/988726" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="rounded-full px-8 h-14 text-base font-bold shadow-xl shadow-primary/20">
                 Bli Medlem i MinIdrett <ExternalLink className="ml-2 w-5 h-5" />
+              </Button>
+            </a>
+            <a href="https://portal.boostsystem.no/rambukk/member" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" className="rounded-full px-8 h-14 text-base font-bold border-emerald-600/40 text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all">
+                Boost Medlemssystem <ExternalLink className="ml-2 w-5 h-5" />
               </Button>
             </a>
           </div>

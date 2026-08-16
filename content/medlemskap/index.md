@@ -6,6 +6,8 @@ blocks:
       Vi har plass til alle, uansett om du er nybegynner eller har trent kampsport i mange år. Enten du vil trene BJJ, Muay Thai eller delta på vår Cross-trening, er du hjertelig velkommen i klubben vår.
 
     linkUrl: 'https://www.minidrett.no/medlemskap/988726'
+    boostLinkUrl: 'https://portal.boostsystem.no/rambukk/member'
+    boostEnabled: true
     extraInfo: >-
       Medlemskontingenten betales via MinIdrett og gir deg medlemskap i idrettslaget.
       Dette gir deg forsikring gjennom Norges Kampsportforbund og rett til
