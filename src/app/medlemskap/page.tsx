@@ -1,46 +1,52 @@
 import { client } from "../../../tina/__generated__/client";
 import { GenericPageClient } from "@/components/GenericPageClient";
 import type { Metadata } from "next";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
 export const metadata: Metadata = {
   title: "Medlemskap",
   description: "Bli medlem i Eidsvoll Kampsportklubb. Se priser, prøvetimer og meld deg på trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai.",
 };
 
-const fallbackMedlemskapData = {
-  title: "Medlemskap",
-  blocks: [
-    {
-      _template: "membership",
-      title: "Bli medlem i Eidsvoll Kampsportklubb",
-      description: "Meld deg inn enkelt via MinIdrett eller prøv en gratis prøvetime hos oss.",
-      linkUrl: "https://www.minidrett.no/medlemskap/988726",
-      boostLinkUrl: "https://portal.boostsystem.no/rambukk/member",
-      boostEnabled: true,
-      extraInfo: "Alle medlemskap og treningsavgifter administreres direkte av idrettslaget (EKK).",
-    },
-  ],
-};
-
 export default async function MedlemskapPage() {
-  let data = fallbackMedlemskapData;
-  let query = "";
-  let variables = {};
+  const filePath = path.join(process.cwd(), "content/medlemskap/index.md");
+  const fileContent = fs.readFileSync(filePath, "utf8");
+  const { data: frontmatter } = matter(fileContent);
+
+  const localMedlemskapData = {
+    medlemskap: {
+      title: frontmatter.title || "Medlemskap",
+      blocks: frontmatter.blocks || [],
+    },
+  };
+
+  let pageRes: any = { data: localMedlemskapData, query: "", variables: {} };
 
   try {
     const result = await client.queries.medlemskap({ relativePath: "index.md" });
-    data = result.data as any;
-    query = result.query;
-    variables = result.variables;
+    if (result.data?.medlemskap) {
+      pageRes = {
+        ...result,
+        data: {
+          ...result.data,
+          medlemskap: {
+            ...localMedlemskapData.medlemskap,
+            ...result.data.medlemskap,
+          },
+        },
+      };
+    }
   } catch (error) {
     console.warn("TinaCMS Medlemskap fetch failed (using local fallback data):", error);
   }
 
   return (
     <GenericPageClient 
-      data={data as any} 
-      query={query} 
-      variables={variables} 
+      data={pageRes.data as any} 
+      query={pageRes.query} 
+      variables={pageRes.variables} 
     />
   );
 }
