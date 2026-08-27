@@ -63,7 +63,7 @@ export function Hero({
           <ProveukeModal 
             trigger={
               <Button size="lg" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
-                Gratis prøveuke
+                Gratis prøveperiode (2 uker)
               </Button>
             }
           />

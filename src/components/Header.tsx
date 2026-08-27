@@ -89,7 +89,7 @@ export function Header({ data }: { data: any }) {
               <ProveukeModal 
                 trigger={
                   <Button variant="outline" className="w-full rounded-xl font-bold py-6 text-lg border-primary/40 text-foreground">
-                    Gratis prøveuke
+                    Gratis prøveperiode (2 uker)
                   </Button>
                 }
               />
