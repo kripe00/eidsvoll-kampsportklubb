@@ -1,20 +1,29 @@
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
+import { onSchedule } from "firebase-functions/v2/scheduler";
 import { defineSecret } from "firebase-functions/params";
 import * as admin from "firebase-admin";
 import * as nodemailer from "nodemailer";
 
 admin.initializeApp();
 
-// Definer hemmeligheter fra GCP Secret Manager som vil bli forespurt under deploy
+// Definer hemmeligheter fra GCP Secret Manager
 const smtpUser = defineSecret("SMTP_USER");
 const smtpPassword = defineSecret("SMTP_PASSWORD");
 
-// Ikke-sensitive parametere leses fra miljøvariabler
+// Miljøvariabler
 const smtpHost = process.env.SMTP_HOST || "smtp.resend.com";
 const smtpPort = parseInt(process.env.SMTP_PORT || "587");
-const smtpSecure = process.env.SMTP_SECURE === "true"; // true for port 465, false for 587
+const smtpSecure = process.env.SMTP_SECURE === "true";
 const emailTo = process.env.EMAIL_TO || "kontakt@kampsporteidsvoll.no";
 const senderEmail = process.env.SENDER_EMAIL || "noreply@kampsporteidsvoll.no";
+
+// Hjelpefunksjon for norsk datoformatering
+const formatNorwegianDate = (dateStr?: string) => {
+  if (!dateStr) return "";
+  const d = new Date(dateStr + "T00:00:00");
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString("nb-NO", { day: "numeric", month: "long", year: "numeric" });
+};
 
 export const sendContactEmail = onDocumentCreated(
   {
@@ -29,9 +38,9 @@ export const sendContactEmail = onDocumentCreated(
     }
 
     const data = snapshot.data();
-    const { name, email, subject, message } = data;
+    const { name, email, phone, subject, message, isProveuke, startDate, endDate, category } = data;
 
-    console.log(`Mottok ny melding (${event.params.messageId}) fra ${email}. Sender e-postvarsling og bekreftelse...`);
+    console.log(`Mottok ny henvendelse (${event.params.messageId}) fra ${email}. Sender e-post...`);
 
     const userVal = smtpUser.value();
     const passVal = smtpPassword.value();
@@ -51,26 +60,36 @@ export const sendContactEmail = onDocumentCreated(
       },
     });
 
+    const isTrialWeek = isProveuke === true || !!startDate;
+    const formattedStartDate = formatNorwegianDate(startDate);
+    const formattedEndDate = formatNorwegianDate(endDate);
+
     // 1. E-post til klubben (Administrasjonen)
     const mailOptionsAdmin = {
       from: `"${name} via Nettsiden" <${senderEmail}>`,
       to: emailTo,
       replyTo: email,
-      subject: `[Kontaktskjema] ${subject || "Ny henvendelse"}`,
-      text: `Du har mottatt en ny melding fra kontaktskjemaet på nettsiden.\n\nNavn: ${name}\nE-post: ${email}\nEmne: ${subject}\n\nMelding:\n${message}`,
+      subject: isTrialWeek
+        ? `[GRATIS PRØVEUKE] ${name} (${category || "Prøveuke"})`
+        : `[Kontaktskjema] ${subject || "Ny henvendelse"}`,
+      text: isTrialWeek
+        ? `Ny påmelding til gratis prøveuke!\n\nNavn: ${name}\nE-post: ${email}\nTelefon: ${phone || "Ikke oppgitt"}\nKategori: ${category || "Ikke oppgitt"}\nStartdato: ${formattedStartDate}\nSluttdato prøveuke: ${formattedEndDate}\n\nMelding:\n${message}`
+        : `Du har mottatt en ny melding fra kontaktskjemaet på nettsiden.\n\nNavn: ${name}\nE-post: ${email}\nEmne: ${subject}\n\nMelding:\n${message}`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; color: #1e293b; background-color: #ffffff;">
           <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #f1f5f9;">
             <h2 style="color: #0f172a; font-size: 22px; font-weight: 900; text-transform: uppercase; margin: 0; tracking: -0.025em;">
               Eidsvoll Kampsportklubb
             </h2>
-            <p style="color: #64748b; font-size: 14px; margin: 4px 0 0 0;">Ny melding fra kontaktskjemaet</p>
+            <p style="color: #64748b; font-size: 14px; margin: 4px 0 0 0;">
+              ${isTrialWeek ? "Ny påmelding til gratis prøveuke" : "Ny melding fra kontaktskjemaet"}
+            </p>
           </div>
 
           <div style="padding: 20px 0;">
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
               <tr>
-                <td style="padding: 10px 0; font-weight: bold; width: 120px; border-bottom: 1px solid #f1f5f9; color: #475569;">Navn:</td>
+                <td style="padding: 10px 0; font-weight: bold; width: 140px; border-bottom: 1px solid #f1f5f9; color: #475569;">Navn:</td>
                 <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${name}</td>
               </tr>
               <tr>
@@ -79,14 +98,32 @@ export const sendContactEmail = onDocumentCreated(
                   <a href="mailto:${email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${email}</a>
                 </td>
               </tr>
+              ${phone ? `
+              <tr>
+                <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Telefon:</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${phone}</td>
+              </tr>` : ""}
+              ${isTrialWeek ? `
+              <tr>
+                <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Aldersgruppe:</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${category || "Voksen/Ungdom"}</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Startdato:</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 700; color: #2563eb;">${formattedStartDate}</td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Sluttdato prøveuke:</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 700; color: #0f172a;">${formattedEndDate}</td>
+              </tr>` : `
               <tr>
                 <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Emne:</td>
                 <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${subject || "Ingen emne angitt"}</td>
-              </tr>
+              </tr>`}
             </table>
 
             <div style="background-color: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid #2563eb; margin-bottom: 20px;">
-              <h4 style="margin: 0 0 8px 0; color: #475569; font-size: 12px; text-transform: uppercase; tracking: 0.05em;">Melding:</h4>
+              <h4 style="margin: 0 0 8px 0; color: #475569; font-size: 12px; text-transform: uppercase; tracking: 0.05em;">Melding/Tilleggsinformasjon:</h4>
               <p style="margin: 0; white-space: pre-wrap; line-height: 1.6; font-size: 15px; color: #0f172a;">${message}</p>
             </div>
           </div>
@@ -98,12 +135,16 @@ export const sendContactEmail = onDocumentCreated(
       `,
     };
 
-    // 2. Automatisk bekreftelses-epost til avsenderen (Kunden) - tilpasset nettsidens stil
+    // 2. Automatisk bekreftelses-epost til avsenderen (Kunden)
     const mailOptionsUser = {
       from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
       to: email,
-      subject: `Takk for din henvendelse – Eidsvoll Kampsportklubb`,
-      text: `Hei ${name}!\n\nTakk for at du tok kontakt med oss i Eidsvoll Kampsportklubb.\n\nVi har mottatt meldingen din angående "${subject || "din henvendelse"}" og vil svare deg så fort som mulig.\n\nSammendrag av din melding:\n${message}\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb\nTrondheimsvegen 71B, 2072 Dal\nhttps://kampsporteidsvoll.no`,
+      subject: isTrialWeek
+        ? `Bekreftelse på gratis prøveuke – Eidsvoll Kampsportklubb`
+        : `Takk for din henvendelse – Eidsvoll Kampsportklubb`,
+      text: isTrialWeek
+        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveuke hos Eidsvoll Kampsportklubb.\n\nDin prøveuke starter ${formattedStartDate} og varer til og med ${formattedEndDate}.\n\nDu kan prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nAdresse: Trondheimsvegen 71B, 2072 Dal\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
+        : `Hei ${name}!\n\nTakk for at du tok kontakt med oss i Eidsvoll Kampsportklubb.\n\nVi har mottatt meldingen din og vil svare deg så fort som mulig.\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
           
@@ -113,7 +154,7 @@ export const sendContactEmail = onDocumentCreated(
               Eidsvoll Kampsportklubb
             </h1>
             <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid #dbeafe;">
-              Takk for din henvendelse
+              ${isTrialWeek ? "Gratis Prøveuke Registrert" : "Takk for din henvendelse"}
             </span>
           </div>
 
@@ -123,26 +164,57 @@ export const sendContactEmail = onDocumentCreated(
               Hei ${name},
             </p>
             <p>
-              Takk for at du tok kontakt med oss i <strong>Eidsvoll Kampsportklubb</strong>. 
-              Vi har mottatt meldingen din og vil gi deg et svar så raskt vi kan.
+              ${isTrialWeek
+                ? "Velkommen til gratis prøveuke hos oss i <strong>Eidsvoll Kampsportklubb</strong>! Vi har registrert din påmelding og gleder oss til å se deg på matta."
+                : "Takk for at du tok kontakt med oss i <strong>Eidsvoll Kampsportklubb</strong>. Vi har mottatt meldingen din og vil gi deg et svar så raskt vi kan."}
             </p>
 
-            <!-- Box with user message summary -->
+            ${isTrialWeek ? `
+            <!-- Trial Week Details Box -->
+            <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 24px 0; border-left: 4px solid #2563eb;">
+              <p style="margin: 0 0 12px 0; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b;">
+                DETALJER FOR DIN PRØVEUKE:
+              </p>
+              <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                <tr>
+                  <td style="padding: 6px 0; color: #64748b; font-weight: 600; width: 140px;">Startdato:</td>
+                  <td style="padding: 6px 0; color: #2563eb; font-weight: 700;">${formattedStartDate}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; color: #64748b; font-weight: 600;">Sluttdato:</td>
+                  <td style="padding: 6px 0; color: #0f172a; font-weight: 700;">${formattedEndDate}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 6px 0; color: #64748b; font-weight: 600;">Inkludert:</td>
+                  <td style="padding: 6px 0; color: #0f172a; font-weight: 600;">Fri tilgang til BJJ, Muay Thai, Crosstrening og Yoga</td>
+                </tr>
+              </table>
+            </div>
+
+            <div style="background-color: #eff6ff; border: 1px solid #dbeafe; border-radius: 12px; padding: 16px 20px; margin-bottom: 24px;">
+              <p style="margin: 0 0 6px 0; font-size: 13px; font-weight: 700; color: #1e40af;">Hva trenger du å ta med?</p>
+              <p style="margin: 0; font-size: 13px; color: #1e3a8a; line-height: 1.5;">
+                Rent, vanlig treningstøy uden glidelåser (f.eks. t-skjorte og shorts/treningsbukse) samt en vannflaske. Vi trener barfot på mattene!
+              </p>
+            </div>
+            ` : `
+            <!-- Standard message box -->
             <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 24px 0; border-left: 4px solid #2563eb;">
               <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b;">
                 Din melding:
               </p>
-              ${subject ? `<p style="margin: 0 0 8px 0; font-weight: 700; color: #0f172a;">Emne: ${subject}</p>` : ''}
+              ${subject ? `<p style="margin: 0 0 8px 0; font-weight: 700; color: #0f172a;">Emne: ${subject}</p>` : ""}
               <p style="margin: 0; font-style: italic; color: #334155; white-space: pre-wrap; font-size: 14px; line-height: 1.5;">
                 "${message}"
               </p>
             </div>
+            `}
 
             <p style="font-size: 14px; color: #64748b;">
-              I mellomtiden kan du sjekke ut treningstidene våre eller lese mer om klubben på nettsiden.
+              Sjekk ut treningstidene våre på nettsiden for å finne øktene som passer best for deg.
             </p>
 
-            <!-- Action button matching website primary blue -->
+            <!-- Action button -->
             <div style="text-align: center; margin: 28px 0 12px 0;">
               <a href="https://kampsporteidsvoll.no/timeplan" style="display: inline-block; background-color: #2563eb; color: #ffffff; font-weight: 700; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;">
                 Se timeplan & treningstider
@@ -181,6 +253,163 @@ export const sendContactEmail = onDocumentCreated(
     } catch (error) {
       console.error("Feil ved sending av e-post via Nodemailer:", error);
       throw error;
+    }
+  }
+);
+
+/**
+ * 3. Daglig scheduled oppgave som sjekker om prøveuken er over
+ * Kjører hver dag kl 09:00 (Norsk tid) og sender oppfølgingsepost med innmeldingslenke
+ */
+export const sendTrialWeekFollowup = onSchedule(
+  {
+    schedule: "every day 09:00",
+    timeZone: "Europe/Oslo",
+    secrets: [smtpUser, smtpPassword],
+  },
+  async () => {
+    console.log("Kjører daglig sjekk for fullførte prøveuker...");
+
+    const userVal = smtpUser.value();
+    const passVal = smtpPassword.value();
+
+    if (!userVal || !passVal) {
+      console.error("Mangler SMTP_USER eller SMTP_PASSWORD. Oppfølgingse-post kan ikke sendes.");
+      return;
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: {
+        user: userVal,
+        pass: passVal,
+      },
+    });
+
+    const nowInOslo = new Date();
+    // Dagens dato i format YYYY-MM-DD
+    const todayStr = nowInOslo.toISOString().split("T")[0];
+
+    const db = admin.firestore();
+
+    try {
+      // Hent alle prøveukepåmeldinger hvor followupSent er false eller mangler
+      const snapshot = await db
+        .collection("messages")
+        .where("isProveuke", "==", true)
+        .where("followupSent", "==", false)
+        .get();
+
+      if (snapshot.empty) {
+        console.log("Ingen prøveuker som krever oppfølging i dag.");
+        return;
+      }
+
+      let count = 0;
+
+      for (const doc of snapshot.docs) {
+        const data = doc.data();
+        const { name, email, endDate } = data;
+
+        // Send oppfølging dersom sluttdatoen er nådd (dvs. endDate <= todayStr)
+        if (endDate && endDate <= todayStr) {
+          console.log(`Sender oppfølgingse-post til ${email} for fullført prøveuke (Sluttdato var ${endDate})...`);
+
+          const mailOptionsFollowup = {
+            from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
+            to: email,
+            subject: `Håper du likte prøveuken din hos Eidsvoll Kampsportklubb! 🥋`,
+            text: `Hei ${name}!\n\nVi håper du har hatt en flott prøveuke hos oss i Eidsvoll Kampsportklubb på Dal!\n\nØnsker du å fortsette treningen og bli fast medlem? Du kan enkelt melde deg inn direkte på nettsiden vår eller via Boost Medlemssystem.\n\nInnmeldingslenke: https://kampsporteidsvoll.no/medlemskap\nBoost Medlemsportal: https://portal.boostsystem.no/rambukk/member\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb\nkontakt@kampsporteidsvoll.no`,
+            html: `
+              <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
+                
+                <!-- Header Banner -->
+                <div style="text-align: center; padding-bottom: 24px; border-bottom: 2px solid #f1f5f9;">
+                  <h1 style="color: #0f172a; font-size: 24px; font-weight: 900; letter-spacing: -0.03em; text-transform: uppercase; margin: 0 0 8px 0;">
+                    Eidsvoll Kampsportklubb
+                  </h1>
+                  <span style="display: inline-block; background-color: #ecfdf5; color: #059669; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid #a7f3d0;">
+                    Fullført Prøveuke 🥋
+                  </span>
+                </div>
+
+                <!-- Content Body -->
+                <div style="padding: 28px 0; font-size: 15px; line-height: 1.6; color: #334155;">
+                  <p style="margin-top: 0; font-size: 18px; font-weight: 800; color: #0f172a;">
+                    Hei ${name}! 👋
+                  </p>
+                  <p>
+                    Prøveuken din hos Eidsvoll Kampsportklubb er nå omme. Vi håper du har hatt det gøy, lært noe nytt og fått kjenne på det gode miljøet på matta hos oss på Dal!
+                  </p>
+                  <p>
+                    Ønsker du å fortsette treningen og bli en fast del av klubben? Du kan enkelt melde deg inn som fast medlem på under et minutt.
+                  </p>
+
+                  <!-- Call to Action Box -->
+                  <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; margin: 28px 0; text-align: center;">
+                    <h3 style="margin: 0 0 12px 0; font-size: 18px; font-weight: 800; color: #0f172a;">
+                      Bli medlem i Eidsvoll Kampsportklubb
+                    </h3>
+                    <p style="margin: 0 0 20px 0; font-size: 13px; color: #64748b; line-height: 1.5;">
+                      Meld deg inn og få full tilgang til våre partier og treninger.
+                    </p>
+
+                    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                      <a href="https://kampsporteidsvoll.no/medlemskap" style="display: inline-block; background-color: #2563eb; color: #ffffff; font-weight: 800; text-decoration: none; padding: 14px 32px; border-radius: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                        Se medlemskap & priser
+                      </a>
+                      <div style="margin-top: 10px;">
+                        <a href="https://portal.boostsystem.no/rambukk/member" style="display: inline-block; background-color: #059669; color: #ffffff; font-weight: 800; text-decoration: none; padding: 12px 24px; border-radius: 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em;">
+                          Direkte til Boost Medlemssystem →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p style="font-size: 14px; color: #64748b;">
+                    Har du noen spørsmål angående kontingent, utstyr eller partier? Det er bare å svare direkte på denne e-posten!
+                  </p>
+                </div>
+
+                <!-- Footer / Signature -->
+                <div style="border-top: 1px solid #f1f5f9; padding-top: 24px; font-size: 13px; color: #64748b;">
+                  <p style="margin: 0 0 2px 0; font-weight: 700; color: #0f172a;">Med vennlig hilsen,</p>
+                  <p style="margin: 0 0 16px 0; font-weight: 800; color: #0f172a; text-transform: uppercase;">Eidsvoll Kampsportklubb</p>
+                  
+                  <table style="width: 100%; font-size: 13px; color: #64748b; line-height: 1.5;">
+                    <tr>
+                      <td style="padding-bottom: 4px;">📍 <strong>Adresse:</strong> Trondheimsvegen 71B, 2072 Dal</td>
+                    </tr>
+                    <tr>
+                      <td style="padding-bottom: 4px;">✉️ <strong>E-post:</strong> kontakt@kampsporteidsvoll.no</td>
+                    </tr>
+                    <tr>
+                      <td>🌐 <strong>Nettside:</strong> <a href="https://kampsporteidsvoll.no" style="color: #2563eb; text-decoration: none;">kampsporteidsvoll.no</a></td>
+                    </tr>
+                  </table>
+                </div>
+
+              </div>
+            `,
+          };
+
+          await transporter.sendMail(mailOptionsFollowup);
+
+          // Marker at oppfølgingsepost er sendt
+          await doc.ref.update({
+            followupSent: true,
+            followupSentAt: admin.firestore.FieldValue.serverTimestamp(),
+          });
+
+          count++;
+        }
+      }
+
+      console.log(`Fullførte daglig oppfølgingssjekk. Sendte ${count} oppfølgingse-poster.`);
+    } catch (err) {
+      console.error("Feil under kjøring av sendTrialWeekFollowup:", err);
     }
   }
 );

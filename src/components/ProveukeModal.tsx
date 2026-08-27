@@ -14,11 +14,14 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const getTodayString = () => new Date().toISOString().split("T")[0];
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     category: "Voksen / Ungdom (fra 14 år)",
+    startDate: getTodayString(),
     message: "",
   });
 
@@ -37,19 +40,44 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
     };
   }, [open]);
 
+  // Beregn sluttdato (7 dager etter valgt startdato)
+  const calculateEndDate = (startDateStr: string) => {
+    if (!startDateStr) return "";
+    const start = new Date(startDateStr + "T00:00:00");
+    if (isNaN(start.getTime())) return "";
+    const end = new Date(start);
+    end.setDate(start.getDate() + 7);
+    return end.toISOString().split("T")[0];
+  };
+
+  const formatDateDisplay = (dateStr: string) => {
+    if (!dateStr) return "";
+    const d = new Date(dateStr + "T00:00:00");
+    if (isNaN(d.getTime())) return dateStr;
+    return d.toLocaleDateString("nb-NO", { day: "2-digit", month: "2-digit", year: "numeric" });
+  };
+
+  const calculatedEndDate = calculateEndDate(formData.startDate);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
     setErrorMessage("");
 
     try {
+      const endDate = calculateEndDate(formData.startDate);
+
       await addDoc(collection(db, "messages"), {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         subject: `[Gratis Prøveuke] ${formData.category}`,
-        message: `PÅMELDING TIL GRATIS PRØVEUKE\n\nNavn: ${formData.name}\nE-post: ${formData.email}\nTelefon: ${formData.phone}\nKategori/Alder: ${formData.category}\n\nEkstra melding/spørsmål:\n${formData.message || "Ingen melding angitt."}`,
+        message: `PÅMELDING TIL GRATIS PRØVEUKE\n\nNavn: ${formData.name}\nE-post: ${formData.email}\nTelefon: ${formData.phone}\nKategori/Alder: ${formData.category}\nØnsket Startdato: ${formData.startDate} (${formatDateDisplay(formData.startDate)})\nSluttdato prøveuke: ${endDate} (${formatDateDisplay(endDate)})\n\nEkstra melding/spørsmål:\n${formData.message || "Ingen melding angitt."}`,
         category: formData.category,
+        startDate: formData.startDate,
+        endDate: endDate,
+        isProveuke: true,
+        followupSent: false,
         createdAt: serverTimestamp(),
       });
 
@@ -59,6 +87,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
         email: "",
         phone: "",
         category: "Voksen / Ungdom (fra 14 år)",
+        startDate: getTodayString(),
         message: "",
       });
     } catch (err: any) {
@@ -111,7 +140,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               </div>
               <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">Påmelding mottatt!</h3>
               <p className="text-muted-foreground text-base leading-relaxed max-w-sm mx-auto">
-                Takk for din påmelding. Vi har sendt en bekreftelse til din e-postadresse. Du er velkommen til å møte opp på neste trening!
+                Takk for din påmelding. Vi har sendt en bekreftelse til din e-postadresse med datoer for din prøveuke. Du er hjertelig velkommen!
               </p>
               <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
                 <Link href="/timeplan" onClick={() => setOpen(false)}>
@@ -196,6 +225,27 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                 </div>
               </div>
 
+              {/* Start Date Field */}
+              <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                <div className="flex justify-between items-center">
+                  <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">Ønsket Startdato *</label>
+                  {calculatedEndDate && (
+                    <span className="text-[11px] font-semibold text-primary">
+                      Prøveperiode: {formatDateDisplay(formData.startDate)} – {formatDateDisplay(calculatedEndDate)}
+                    </span>
+                  )}
+                </div>
+                <input
+                  id="modal-startdate"
+                  required
+                  type="date"
+                  min={getTodayString()}
+                  value={formData.startDate}
+                  onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                  className="w-full bg-transparent text-lg font-bold outline-none text-foreground cursor-pointer"
+                />
+              </div>
+
               <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                 <label htmlFor="modal-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">Melding eller spørsmål (Valgfritt)</label>
                 <textarea
@@ -223,7 +273,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               </Button>
 
               <p className="text-xs text-muted-foreground text-center">
-                Uforpliktende prøveordning hos Eidsvoll Kampsportklubb på Dal.
+                Uforpliktende 7-dagers prøveordning hos Eidsvoll Kampsportklubb på Dal.
               </p>
             </form>
           )}
