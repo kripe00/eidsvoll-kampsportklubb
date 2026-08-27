@@ -15,10 +15,10 @@ export function ProveukeSection() {
             Prøveordning for nybegynnere
           </span>
           <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground leading-none mb-6">
-            Prøv alle våre sporter i 1 uke
+            Prøv alle våre sporter i 2 uker (14 dager)
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            Hos oss trenger du ikke velge én idrett. I prøveuken har du fri tilgang til å delta på alle våre treninger i nye lokaler på Dal.
+            Hos oss trenger du ikke velge én idrett. I prøveperioden på 14 dager har du fri tilgang til å delta på alle våre treninger i nye lokaler på Dal.
           </p>
         </div>
 
@@ -37,7 +37,7 @@ export function ProveukeSection() {
               Offisiell Checkmat-klubb. Både gi og no-gi for barn, ungdom og voksne.
             </p>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">
-              Fri tilgang
+              Fri tilgang (2 uker)
             </span>
           </div>
 
@@ -53,7 +53,7 @@ export function ProveukeSection() {
               Strukturert thaiboksing med fokus på teknikk, styrke og kondisjon.
             </p>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">
-              Fri tilgang
+              Fri tilgang (2 uker)
             </span>
           </div>
 
@@ -69,7 +69,7 @@ export function ProveukeSection() {
               Funksjonell styrke og utholdenhet tilpasset eget nivå i eget sal.
             </p>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">
-              Fri tilgang
+              Fri tilgang (2 uker)
             </span>
           </div>
 
@@ -85,7 +85,7 @@ export function ProveukeSection() {
               Bevegelighet og restitusjon som bygger smidighet og forebygger skader.
             </p>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">
-              Fri tilgang
+              Fri tilgang (2 uker)
             </span>
           </div>
 
@@ -98,14 +98,14 @@ export function ProveukeSection() {
               Ønsker du å prøve matta på Dal?
             </h4>
             <p className="text-muted-foreground text-xs">
-              Meld deg på prøveuken for å motta bekreftelse og timeplaninformasjon.
+              Meld deg på for 2 ukers uforpliktende prøveperiode for å motta bekreftelse og timeplaninformasjon.
             </p>
           </div>
           <div className="shrink-0">
             <ProveukeModal 
               trigger={
                 <Button className="font-bold px-7 py-6 text-sm rounded-lg uppercase tracking-wider">
-                  Meld deg på prøveuke
+                  Meld deg på (2 uker gratis)
                 </Button>
               } 
             />

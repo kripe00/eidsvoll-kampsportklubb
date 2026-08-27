@@ -40,13 +40,13 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
     };
   }, [open]);
 
-  // Beregn sluttdato (7 dager etter valgt startdato)
+  // Beregn sluttdato (14 dager / 2 uker etter valgt startdato)
   const calculateEndDate = (startDateStr: string) => {
     if (!startDateStr) return "";
     const start = new Date(startDateStr + "T00:00:00");
     if (isNaN(start.getTime())) return "";
     const end = new Date(start);
-    end.setDate(start.getDate() + 7);
+    end.setDate(start.getDate() + 14);
     return end.toISOString().split("T")[0];
   };
 
@@ -71,8 +71,8 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        subject: `[Gratis Prøveuke] ${formData.category}`,
-        message: `PÅMELDING TIL GRATIS PRØVEUKE\n\nNavn: ${formData.name}\nE-post: ${formData.email}\nTelefon: ${formData.phone}\nKategori/Alder: ${formData.category}\nØnsket Startdato: ${formData.startDate} (${formatDateDisplay(formData.startDate)})\nSluttdato prøveuke: ${endDate} (${formatDateDisplay(endDate)})\n\nEkstra melding/spørsmål:\n${formData.message || "Ingen melding angitt."}`,
+        subject: `[Gratis Prøveperiode 14 Dager] ${formData.category}`,
+        message: `PÅMELDING TIL GRATIS PRØVEPERIODE (14 DAGER / 2 UKER)\n\nNavn: ${formData.name}\nE-post: ${formData.email}\nTelefon: ${formData.phone}\nKategori/Alder: ${formData.category}\nØnsket Startdato: ${formData.startDate} (${formatDateDisplay(formData.startDate)})\nSluttdato prøveperiode: ${endDate} (${formatDateDisplay(endDate)})\n\nEkstra melding/spørsmål:\n${formData.message || "Ingen melding angitt."}`,
         category: formData.category,
         startDate: formData.startDate,
         endDate: endDate,
@@ -91,7 +91,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
         message: "",
       });
     } catch (err: any) {
-      console.error("Feil ved påmelding til prøveuke:", err);
+      console.error("Feil ved påmelding til prøveperiode:", err);
       setStatus("error");
       setErrorMessage("Det oppstod en feil under påmeldingen. Vennligst prøv igjen eller ta kontakt med oss på kontakt@kampsporteidsvoll.no.");
     }
@@ -124,10 +124,10 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
             Eidsvoll Kampsportklubb
           </span>
           <h2 className="text-3xl font-black uppercase tracking-tight text-foreground leading-none mb-3">
-            Gratis prøveuke
+            Gratis prøveperiode (2 uker)
           </h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Hos oss trenger du ikke velge én idrett. I prøveuken har du fri tilgang til å prøve både BJJ, Muay Thai, Crosstrening og Yoga på Dal.
+            Hos oss trenger du ikke velge én idrett. I den 14 dagers prøveperioden har du fri tilgang til å prøve både BJJ, Muay Thai, Crosstrening og Yoga på Dal.
           </p>
         </div>
 
@@ -140,7 +140,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               </div>
               <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">Påmelding mottatt!</h3>
               <p className="text-muted-foreground text-base leading-relaxed max-w-sm mx-auto">
-                Takk for din påmelding. Vi har sendt en bekreftelse til din e-postadresse med datoer for din prøveuke. Du er hjertelig velkommen!
+                Takk for din påmelding. Vi har sendt en bekreftelse til din e-postadresse med datoer for din 14 dagers prøveperiode. Du er hjertelig velkommen!
               </p>
               <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
                 <Link href="/timeplan" onClick={() => setOpen(false)}>
@@ -160,7 +160,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               {/* Disciplines badge list */}
               <div className="bg-muted/40 border border-border/60 rounded-xl p-4">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">
-                  Inkludert i prøveuken:
+                  Inkludert i prøveperioden (2 uker / 14 dager):
                 </span>
                 <div className="flex flex-wrap gap-2 text-xs font-bold text-foreground">
                   <span className="bg-background px-3 py-1 rounded-md border border-border/60">BJJ (Jiu-Jitsu)</span>
@@ -231,7 +231,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                   <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">Ønsket Startdato *</label>
                   {calculatedEndDate && (
                     <span className="text-[11px] font-semibold text-primary">
-                      Prøveperiode: {formatDateDisplay(formData.startDate)} – {formatDateDisplay(calculatedEndDate)}
+                      Prøveperiode (14 dager): {formatDateDisplay(formData.startDate)} – {formatDateDisplay(calculatedEndDate)}
                     </span>
                   )}
                 </div>
@@ -269,11 +269,11 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                 disabled={status === "loading"}
                 className="w-full font-bold py-6 text-sm uppercase tracking-widest rounded-lg shadow-md transition-all"
               >
-                {status === "loading" ? "Sendes..." : "Meld deg på gratis prøveuke"}
+                {status === "loading" ? "Sendes..." : "Meld deg på gratis 2 ukers prøveperiode"}
               </Button>
 
               <p className="text-xs text-muted-foreground text-center">
-                Uforpliktende 7-dagers prøveordning hos Eidsvoll Kampsportklubb på Dal.
+                Uforpliktende 14-dagers prøveordning hos Eidsvoll Kampsportklubb på Dal.
               </p>
             </form>
           )}
@@ -287,7 +287,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
       <div onClick={() => setOpen(true)} className="inline-block cursor-pointer">
         {trigger || (
           <Button size="sm" variant="outline" className="rounded-full px-5 py-2 font-bold border-primary/40 text-foreground hover:bg-primary/10 transition-all">
-            Gratis prøveuke
+            Gratis prøveperiode (2 uker)
           </Button>
         )}
       </div>

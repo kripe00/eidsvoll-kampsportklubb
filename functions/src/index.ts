@@ -70,10 +70,10 @@ export const sendContactEmail = onDocumentCreated(
       to: emailTo,
       replyTo: email,
       subject: isTrialWeek
-        ? `[GRATIS PRØVEUKE] ${name} (${category || "Prøveuke"})`
+        ? `[GRATIS PRØVEPERIODE 14 DAGER] ${name} (${category || "Prøveperiode"})`
         : `[Kontaktskjema] ${subject || "Ny henvendelse"}`,
       text: isTrialWeek
-        ? `Ny påmelding til gratis prøveuke!\n\nNavn: ${name}\nE-post: ${email}\nTelefon: ${phone || "Ikke oppgitt"}\nKategori: ${category || "Ikke oppgitt"}\nStartdato: ${formattedStartDate}\nSluttdato prøveuke: ${formattedEndDate}\n\nMelding:\n${message}`
+        ? `Ny påmelding til gratis prøveperiode (14 dager / 2 uker)!\n\nNavn: ${name}\nE-post: ${email}\nTelefon: ${phone || "Ikke oppgitt"}\nKategori: ${category || "Ikke oppgitt"}\nStartdato: ${formattedStartDate}\nSluttdato prøveperiode: ${formattedEndDate}\n\nMelding:\n${message}`
         : `Du har mottatt en ny melding fra kontaktskjemaet på nettsiden.\n\nNavn: ${name}\nE-post: ${email}\nEmne: ${subject}\n\nMelding:\n${message}`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; color: #1e293b; background-color: #ffffff;">
@@ -82,7 +82,7 @@ export const sendContactEmail = onDocumentCreated(
               Eidsvoll Kampsportklubb
             </h2>
             <p style="color: #64748b; font-size: 14px; margin: 4px 0 0 0;">
-              ${isTrialWeek ? "Ny påmelding til gratis prøveuke" : "Ny melding fra kontaktskjemaet"}
+              ${isTrialWeek ? "Ny påmelding til gratis prøveperiode (14 dager)" : "Ny melding fra kontaktskjemaet"}
             </p>
           </div>
 
@@ -113,7 +113,7 @@ export const sendContactEmail = onDocumentCreated(
                 <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 700; color: #2563eb;">${formattedStartDate}</td>
               </tr>
               <tr>
-                <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Sluttdato prøveuke:</td>
+                <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Sluttdato (14 dager):</td>
                 <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 700; color: #0f172a;">${formattedEndDate}</td>
               </tr>` : `
               <tr>
@@ -140,10 +140,10 @@ export const sendContactEmail = onDocumentCreated(
       from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
       to: email,
       subject: isTrialWeek
-        ? `Bekreftelse på gratis prøveuke – Eidsvoll Kampsportklubb`
+        ? `Bekreftelse på 2 ukers gratis prøveperiode – Eidsvoll Kampsportklubb`
         : `Takk for din henvendelse – Eidsvoll Kampsportklubb`,
       text: isTrialWeek
-        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveuke hos Eidsvoll Kampsportklubb.\n\nDin prøveuke starter ${formattedStartDate} og varer til og med ${formattedEndDate}.\n\nDu kan prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nAdresse: Trondheimsvegen 71B, 2072 Dal\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
+        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveperiode (2 uker / 14 dager) hos Eidsvoll Kampsportklubb.\n\nDin prøveperiode starter ${formattedStartDate} og varer til og med ${formattedEndDate} (14 dager).\n\nDu har fri tilgang til å prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nAdresse: Trondheimsvegen 71B, 2072 Dal\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
         : `Hei ${name}!\n\nTakk for at du tok kontakt med oss i Eidsvoll Kampsportklubb.\n\nVi har mottatt meldingen din og vil svare deg så fort som mulig.\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
@@ -154,7 +154,7 @@ export const sendContactEmail = onDocumentCreated(
               Eidsvoll Kampsportklubb
             </h1>
             <span style="display: inline-block; background-color: #eff6ff; color: #2563eb; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid #dbeafe;">
-              ${isTrialWeek ? "Gratis Prøveuke Registrert" : "Takk for din henvendelse"}
+              ${isTrialWeek ? "Gratis Prøveperiode (14 Dager) Registrert" : "Takk for din henvendelse"}
             </span>
           </div>
 
@@ -165,7 +165,7 @@ export const sendContactEmail = onDocumentCreated(
             </p>
             <p>
               ${isTrialWeek
-                ? "Velkommen til gratis prøveuke hos oss i <strong>Eidsvoll Kampsportklubb</strong>! Vi har registrert din påmelding og gleder oss til å se deg på matta."
+                ? "Velkommen til 2 ukers gratis prøveperiode hos oss i <strong>Eidsvoll Kampsportklubb</strong>! Vi har registrert din påmelding og gleder oss til å se deg på matta."
                 : "Takk for at du tok kontakt med oss i <strong>Eidsvoll Kampsportklubb</strong>. Vi har mottatt meldingen din og vil gi deg et svar så raskt vi kan."}
             </p>
 
@@ -173,7 +173,7 @@ export const sendContactEmail = onDocumentCreated(
             <!-- Trial Week Details Box -->
             <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 24px 0; border-left: 4px solid #2563eb;">
               <p style="margin: 0 0 12px 0; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b;">
-                DETALJER FOR DIN PRØVEUKE:
+                DETALJER FOR DIN PRØVEPERIODE (14 DAGER / 2 UKER):
               </p>
               <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
                 <tr>
@@ -186,7 +186,7 @@ export const sendContactEmail = onDocumentCreated(
                 </tr>
                 <tr>
                   <td style="padding: 6px 0; color: #64748b; font-weight: 600;">Inkludert:</td>
-                  <td style="padding: 6px 0; color: #0f172a; font-weight: 600;">Fri tilgang til BJJ, Muay Thai, Crosstrening og Yoga</td>
+                  <td style="padding: 6px 0; color: #0f172a; font-weight: 600;">Fri tilgang i 14 dager til BJJ, Muay Thai, Crosstrening og Yoga</td>
                 </tr>
               </table>
             </div>
@@ -258,7 +258,7 @@ export const sendContactEmail = onDocumentCreated(
 );
 
 /**
- * 3. Daglig scheduled oppgave som sjekker om prøveuken er over
+ * 3. Daglig scheduled oppgave som sjekker om prøveperioden er over (etter 14 dager)
  * Kjører hver dag kl 09:00 (Norsk tid) og sender oppfølgingsepost med innmeldingslenke
  */
 export const sendTrialWeekFollowup = onSchedule(
@@ -268,7 +268,7 @@ export const sendTrialWeekFollowup = onSchedule(
     secrets: [smtpUser, smtpPassword],
   },
   async () => {
-    console.log("Kjører daglig sjekk for fullførte prøveuker...");
+    console.log("Kjører daglig sjekk for fullførte prøveperioder (14 dager)...");
 
     const userVal = smtpUser.value();
     const passVal = smtpPassword.value();
@@ -303,7 +303,7 @@ export const sendTrialWeekFollowup = onSchedule(
         .get();
 
       if (snapshot.empty) {
-        console.log("Ingen prøveuker som krever oppfølging i dag.");
+        console.log("Ingen prøveperioder som krever oppfølging i dag.");
         return;
       }
 
@@ -315,13 +315,13 @@ export const sendTrialWeekFollowup = onSchedule(
 
         // Send oppfølging dersom sluttdatoen er nådd (dvs. endDate <= todayStr)
         if (endDate && endDate <= todayStr) {
-          console.log(`Sender oppfølgingse-post til ${email} for fullført prøveuke (Sluttdato var ${endDate})...`);
+          console.log(`Sender oppfølgingse-post til ${email} for fullført 14-dagers prøveperiode (Sluttdato var ${endDate})...`);
 
           const mailOptionsFollowup = {
             from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
             to: email,
-            subject: `Håper du likte prøveuken din hos Eidsvoll Kampsportklubb! 🥋`,
-            text: `Hei ${name}!\n\nVi håper du har hatt en flott prøveuke hos oss i Eidsvoll Kampsportklubb på Dal!\n\nØnsker du å fortsette treningen og bli fast medlem? Du kan enkelt melde deg inn direkte på nettsiden vår eller via Boost Medlemssystem.\n\nInnmeldingslenke: https://kampsporteidsvoll.no/medlemskap\nBoost Medlemsportal: https://portal.boostsystem.no/rambukk/member\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb\nkontakt@kampsporteidsvoll.no`,
+            subject: `Håper du likte de 2 prøveukene dine hos Eidsvoll Kampsportklubb! 🥋`,
+            text: `Hei ${name}!\n\nVi håper du har hatt 2 flotte prøveuker hos oss i Eidsvoll Kampsportklubb på Dal!\n\nØnsker du å fortsette treningen og bli fast medlem? Du kan enkelt melde deg inn direkte på nettsiden vår eller via Boost Medlemssystem.\n\nInnmeldingslenke: https://kampsporteidsvoll.no/medlemskap\nBoost Medlemsportal: https://portal.boostsystem.no/rambukk/member\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb\nkontakt@kampsporteidsvoll.no`,
             html: `
               <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
                 
@@ -331,7 +331,7 @@ export const sendTrialWeekFollowup = onSchedule(
                     Eidsvoll Kampsportklubb
                   </h1>
                   <span style="display: inline-block; background-color: #ecfdf5; color: #059669; font-size: 11px; font-weight: 800; padding: 4px 14px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em; border: 1px solid #a7f3d0;">
-                    Fullført Prøveuke 🥋
+                    Prøveperiode Fullført (2 uker) 🥋
                   </span>
                 </div>
 
@@ -341,7 +341,7 @@ export const sendTrialWeekFollowup = onSchedule(
                     Hei ${name}! 👋
                   </p>
                   <p>
-                    Prøveuken din hos Eidsvoll Kampsportklubb er nå omme. Vi håper du har hatt det gøy, lært noe nytt og fått kjenne på det gode miljøet på matta hos oss på Dal!
+                    Din 14-dagers prøveperiode hos Eidsvoll Kampsportklubb er nå omme. Vi håper du har hatt det gøy, lært noe nytt og fått kjenne på det gode miljøet på matta hos oss på Dal!
                   </p>
                   <p>
                     Ønsker du å fortsette treningen og bli en fast del av klubben? Du kan enkelt melde deg inn som fast medlem på under et minutt.
