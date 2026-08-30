@@ -138,6 +138,7 @@ export const sendContactEmail = onDocumentCreated(
     // 2. Automatisk bekreftelses-epost til avsenderen (Kunden)
     const mailOptionsUser = {
       from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
+      replyTo: emailTo,
       to: email,
       subject: isTrialWeek
         ? `Bekreftelse på 2 ukers gratis prøveperiode – Eidsvoll Kampsportklubb`
@@ -319,6 +320,7 @@ export const sendTrialWeekFollowup = onSchedule(
 
           const mailOptionsFollowup = {
             from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
+            replyTo: emailTo,
             to: email,
             subject: `Håper du likte de 2 prøveukene dine hos Eidsvoll Kampsportklubb! 🥋`,
             text: `Hei ${name}!\n\nVi håper du har hatt 2 flotte prøveuker hos oss i Eidsvoll Kampsportklubb!\n\nØnsker du å fortsette treningen og bli fast medlem? Du kan enkelt melde deg inn via Boost Medlemssystem.\n\nBli medlem: https://portal.boostsystem.no/rambukk/member\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb\nkontakt@kampsporteidsvoll.no`,
