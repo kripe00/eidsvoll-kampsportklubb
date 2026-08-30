@@ -127,7 +127,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
             Gratis prøveperiode (2 uker)
           </h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Hos oss trenger du ikke velge én idrett. I den 14 dagers prøveperioden har du fri tilgang til å prøve både BJJ, Muay Thai, Crosstrening og Yoga på Dal.
+            Hos oss trenger du ikke velge én idrett. I den 14 dagers prøveperioden har du fri tilgang til å prøve både BJJ, Muay Thai, Crosstrening og Yoga.
           </p>
         </div>
 
@@ -273,7 +273,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               </Button>
 
               <p className="text-xs text-muted-foreground text-center">
-                Uforpliktende 14-dagers prøveordning hos Eidsvoll Kampsportklubb på Dal.
+                Uforpliktende 14-dagers prøveordning hos Eidsvoll Kampsportklubb.
               </p>
             </form>
           )}

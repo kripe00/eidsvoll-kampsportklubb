@@ -18,7 +18,7 @@ export function ProveukeSection() {
             Prøv alle våre sporter i 2 uker (14 dager)
           </h2>
           <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-            Hos oss trenger du ikke velge én idrett. I prøveperioden på 14 dager har du fri tilgang til å delta på alle våre treninger i nye lokaler på Dal.
+            Hos oss trenger du ikke velge én idrett. I prøveperioden på 14 dager har du fri tilgang til å delta på alle våre treninger i våre lokaler på Dal.
           </p>
         </div>
 
@@ -95,7 +95,7 @@ export function ProveukeSection() {
         <div className="bg-card border border-border/60 rounded-2xl p-8 text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="text-left">
             <h4 className="text-xl font-bold text-foreground mb-1">
-              Ønsker du å prøve matta på Dal?
+              Ønsker du å prøve kampsport hos oss?
             </h4>
             <p className="text-muted-foreground text-xs">
               Meld deg på for 2 ukers uforpliktende prøveperiode for å motta bekreftelse og timeplaninformasjon.

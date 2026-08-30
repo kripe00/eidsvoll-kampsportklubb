@@ -143,7 +143,7 @@ export const sendContactEmail = onDocumentCreated(
         ? `Bekreftelse på 2 ukers gratis prøveperiode – Eidsvoll Kampsportklubb`
         : `Takk for din henvendelse – Eidsvoll Kampsportklubb`,
       text: isTrialWeek
-        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveperiode (2 uker / 14 dager) hos Eidsvoll Kampsportklubb.\n\nDin prøveperiode starter ${formattedStartDate} og varer til og med ${formattedEndDate} (14 dager).\n\nDu har fri tilgang til å prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nAdresse: Trondheimsvegen 71B, 2072 Dal\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
+        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveperiode (2 uker / 14 dager) hos Eidsvoll Kampsportklubb.\n\nDin prøveperiode starter ${formattedStartDate} og varer til og med ${formattedEndDate} (14 dager).\n\nDu har fri tilgang til å prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nAdresse: Trondheimsvegen 71B, 2072 Eidsvoll\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
         : `Hei ${name}!\n\nTakk for at du tok kontakt med oss i Eidsvoll Kampsportklubb.\n\nVi har mottatt meldingen din og vil svare deg så fort som mulig.\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
@@ -321,7 +321,7 @@ export const sendTrialWeekFollowup = onSchedule(
             from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
             to: email,
             subject: `Håper du likte de 2 prøveukene dine hos Eidsvoll Kampsportklubb! 🥋`,
-            text: `Hei ${name}!\n\nVi håper du har hatt 2 flotte prøveuker hos oss i Eidsvoll Kampsportklubb på Dal!\n\nØnsker du å fortsette treningen og bli fast medlem? Du kan enkelt melde deg inn direkte på nettsiden vår eller via Boost Medlemssystem.\n\nInnmeldingslenke: https://kampsporteidsvoll.no/medlemskap\nBoost Medlemsportal: https://portal.boostsystem.no/rambukk/member\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb\nkontakt@kampsporteidsvoll.no`,
+            text: `Hei ${name}!\n\nVi håper du har hatt 2 flotte prøveuker hos oss i Eidsvoll Kampsportklubb!\n\nØnsker du å fortsette treningen og bli fast medlem? Du kan enkelt melde deg inn via Boost Medlemssystem.\n\nBli medlem: https://portal.boostsystem.no/rambukk/member\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb\nkontakt@kampsporteidsvoll.no`,
             html: `
               <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
                 
@@ -341,31 +341,24 @@ export const sendTrialWeekFollowup = onSchedule(
                     Hei ${name}! 👋
                   </p>
                   <p>
-                    Din 14-dagers prøveperiode hos Eidsvoll Kampsportklubb er nå omme. Vi håper du har hatt det gøy, lært noe nytt og fått kjenne på det gode miljøet på matta hos oss på Dal!
+                    Din 14-dagers prøveperiode hos Eidsvoll Kampsportklubb er nå omme. Vi håper du har hatt det gøy, lært noe nytt og fått kjenne på det gode miljøet på matta hos oss!
                   </p>
                   <p>
                     Ønsker du å fortsette treningen og bli en fast del av klubben? Du kan enkelt melde deg inn som fast medlem på under et minutt.
                   </p>
 
                   <!-- Call to Action Box -->
-                  <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; margin: 28px 0; text-align: center;">
-                    <h3 style="margin: 0 0 12px 0; font-size: 18px; font-weight: 800; color: #0f172a;">
+                  <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 28px 20px; margin: 28px 0; text-align: center;">
+                    <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: 800; color: #0f172a;">
                       Bli medlem i Eidsvoll Kampsportklubb
                     </h3>
                     <p style="margin: 0 0 20px 0; font-size: 13px; color: #64748b; line-height: 1.5;">
-                      Meld deg inn og få full tilgang til våre partier og treninger.
+                      Klikk på knappen under for å melde deg inn direkte via Boost.
                     </p>
 
-                    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
-                      <a href="https://kampsporteidsvoll.no/medlemskap" style="display: inline-block; background-color: #2563eb; color: #ffffff; font-weight: 800; text-decoration: none; padding: 14px 32px; border-radius: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                        Se medlemskap & priser
-                      </a>
-                      <div style="margin-top: 10px;">
-                        <a href="https://portal.boostsystem.no/rambukk/member" style="display: inline-block; background-color: #059669; color: #ffffff; font-weight: 800; text-decoration: none; padding: 12px 24px; border-radius: 10px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em;">
-                          Direkte til Boost Medlemssystem →
-                        </a>
-                      </div>
-                    </div>
+                    <a href="https://portal.boostsystem.no/rambukk/member" style="display: inline-block; background-color: #2563eb; color: #ffffff; font-weight: 800; text-decoration: none; padding: 16px 36px; border-radius: 10px; font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; shadow: 0 4px 6px rgba(37,99,235,0.2);">
+                      Bli medlem i Eidsvoll Kampsportklubb
+                    </a>
                   </div>
 
                   <p style="font-size: 14px; color: #64748b;">
