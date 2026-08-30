@@ -267,9 +267,9 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               <Button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full font-bold py-6 text-sm uppercase tracking-widest rounded-lg shadow-md transition-all"
+                className="w-full font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-lg shadow-md transition-all whitespace-normal h-auto leading-snug px-4 text-center"
               >
-                {status === "loading" ? "Sendes..." : "Meld deg på gratis 2 ukers prøveperiode"}
+                {status === "loading" ? "Sendes..." : "Meld deg på (2 uker gratis)"}
               </Button>
 
               <p className="text-xs text-muted-foreground text-center">
