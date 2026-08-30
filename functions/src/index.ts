@@ -260,7 +260,8 @@ export const sendContactEmail = onDocumentCreated(
 
 /**
  * 3. Daglig scheduled oppgave som sjekker om prøveperioden er over (etter 14 dager)
- * Kjører hver dag kl 09:00 (Norsk tid) og sender oppfølgingsepost med innmeldingslenke
+ * Kjører hver dag kl 09:00 (Norsk tid) og sender oppfølgingsepost med innmeldingslenke.
+ * Håndterer også legacy-registreringer (som mangler explicit endDate eller followupSent-felt).
  */
 export const sendTrialWeekFollowup = onSchedule(
   {
@@ -269,7 +270,7 @@ export const sendTrialWeekFollowup = onSchedule(
     secrets: [smtpUser, smtpPassword],
   },
   async () => {
-    console.log("Kjører daglig sjekk for fullførte prøveperioder (14 dager)...");
+    console.log("Kjører daglig sjekk for fullførte prøveperioder (inkludert legacy)...");
 
     const userVal = smtpUser.value();
     const passVal = smtpPassword.value();
@@ -296,15 +297,14 @@ export const sendTrialWeekFollowup = onSchedule(
     const db = admin.firestore();
 
     try {
-      // Hent alle prøveukepåmeldinger hvor followupSent er false eller mangler
+      // Hent alle prøveukepåmeldinger uavhengig av om followupSent-feltet eksisterer
       const snapshot = await db
         .collection("messages")
         .where("isProveuke", "==", true)
-        .where("followupSent", "==", false)
         .get();
 
       if (snapshot.empty) {
-        console.log("Ingen prøveperioder som krever oppfølging i dag.");
+        console.log("Ingen prøveperioder funnet i databasen.");
         return;
       }
 
@@ -312,11 +312,38 @@ export const sendTrialWeekFollowup = onSchedule(
 
       for (const doc of snapshot.docs) {
         const data = doc.data();
-        const { name, email, endDate } = data;
 
-        // Send oppfølging dersom sluttdatoen er nådd (dvs. endDate <= todayStr)
-        if (endDate && endDate <= todayStr) {
-          console.log(`Sender oppfølgingse-post til ${email} for fullført 14-dagers prøveperiode (Sluttdato var ${endDate})...`);
+        // Hopp over dersom oppfølging allerede er sendt
+        if (data.followupSent === true) {
+          continue;
+        }
+
+        const { name, email, endDate, startDate, createdAt } = data;
+
+        if (!email) continue;
+
+        let targetEndDateStr = endDate;
+
+        // For legacy-påmeldinger som mangler explicit endDate:
+        if (!targetEndDateStr) {
+          let baseDate: Date | null = null;
+
+          if (startDate) {
+            baseDate = new Date(startDate + "T00:00:00");
+          } else if (createdAt) {
+            baseDate = typeof createdAt.toDate === "function" ? createdAt.toDate() : new Date(createdAt);
+          }
+
+          if (baseDate && !isNaN(baseDate.getTime())) {
+            // Beregn 14 dager frem fra registrering/startdato
+            const calculatedEnd = new Date(baseDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+            targetEndDateStr = calculatedEnd.toISOString().split("T")[0];
+          }
+        }
+
+        // Dersom sluttdatoen er beregnet/angitt og nådd (dvs. targetEndDateStr <= todayStr)
+        if (targetEndDateStr && targetEndDateStr <= todayStr) {
+          console.log(`Sender oppfølgingse-post til ${email} for fullført prøveperiode (Sluttdato: ${targetEndDateStr})...`);
 
           const mailOptionsFollowup = {
             from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
