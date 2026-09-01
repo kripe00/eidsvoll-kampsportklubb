@@ -47,10 +47,10 @@ export function BlockRenderer({ blocks }: { blocks: any[] }) {
             return <CheckmatSection key={i} {...block} />;
           }
           
-          console.warn(`No component for template: ${template}`);
+          console.warn("No component for template:", template);
           return null;
         } catch (err) {
-          console.error(`Error rendering block ${i} (${template}):`, err);
+          console.error("Error rendering block index:", i, "template:", template, err);
           return (
             <div key={i} className="p-4 border border-red-200 bg-red-50 text-red-600 rounded-lg text-xs">
               Feil ved visning av blokk: {template}
