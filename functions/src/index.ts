@@ -17,11 +17,22 @@ const smtpSecure = process.env.SMTP_SECURE === "true";
 const emailTo = process.env.EMAIL_TO || "kontakt@kampsporteidsvoll.no";
 const senderEmail = process.env.SENDER_EMAIL || "noreply@kampsporteidsvoll.no";
 
+// Sikkerhetsfunksjon for HTML entity sanitering (forhindrer HTML/Email template injection)
+const escapeHtml = (unsafe?: string): string => {
+  if (!unsafe) return "";
+  return String(unsafe)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+};
+
 // Hjelpefunksjon for norsk datoformatering
 const formatNorwegianDate = (dateStr?: string) => {
   if (!dateStr) return "";
   const d = new Date(dateStr + "T00:00:00");
-  if (isNaN(d.getTime())) return dateStr;
+  if (isNaN(d.getTime())) return escapeHtml(dateStr);
   return d.toLocaleDateString("nb-NO", { day: "numeric", month: "long", year: "numeric" });
 };
 
@@ -38,7 +49,22 @@ export const sendContactEmail = onDocumentCreated(
     }
 
     const data = snapshot.data();
+
+    // 1. Anti-bot honeypot sjekk
+    if (data.website && String(data.website).trim() !== "") {
+      console.warn(`Spam-forsøk oppdaget via honeypot-felt fra ${data.email || "ukjent"}. Ignorerer melding.`);
+      return;
+    }
+
     const { name, email, phone, subject, message, isProveuke, startDate, endDate, category } = data;
+
+    // 2. Sanitiser all brukerstyrt input for å forhindre HTML-injeksjon i e-post
+    const safeName = escapeHtml(name || "Ukjent avsender");
+    const safeEmail = escapeHtml(email || "");
+    const safePhone = escapeHtml(phone || "");
+    const safeSubject = escapeHtml(subject || "Ingen emne angitt");
+    const safeMessage = escapeHtml(message || "");
+    const safeCategory = escapeHtml(category || "Voksen/Ungdom");
 
     console.log(`Mottok ny henvendelse (${event.params.messageId}) fra ${email}. Sender e-post...`);
 
@@ -66,7 +92,7 @@ export const sendContactEmail = onDocumentCreated(
 
     // 1. E-post til klubben (Administrasjonen)
     const mailOptionsAdmin = {
-      from: `"${name} via Nettsiden" <${senderEmail}>`,
+      from: `"${safeName} via Nettsiden" <${senderEmail}>`,
       to: emailTo,
       replyTo: email,
       subject: isTrialWeek
@@ -90,23 +116,23 @@ export const sendContactEmail = onDocumentCreated(
             <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
               <tr>
                 <td style="padding: 10px 0; font-weight: bold; width: 140px; border-bottom: 1px solid #f1f5f9; color: #475569;">Navn:</td>
-                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${name}</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${safeName}</td>
               </tr>
               <tr>
                 <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">E-post:</td>
                 <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9;">
-                  <a href="mailto:${email}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${email}</a>
+                  <a href="mailto:${safeEmail}" style="color: #2563eb; text-decoration: none; font-weight: 600;">${safeEmail}</a>
                 </td>
               </tr>
-              ${phone ? `
+              ${safePhone ? `
               <tr>
                 <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Telefon:</td>
-                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${phone}</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${safePhone}</td>
               </tr>` : ""}
               ${isTrialWeek ? `
               <tr>
                 <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Aldersgruppe:</td>
-                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${category || "Voksen/Ungdom"}</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 600; color: #0f172a;">${safeCategory}</td>
               </tr>
               <tr>
                 <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Startdato:</td>
@@ -118,18 +144,18 @@ export const sendContactEmail = onDocumentCreated(
               </tr>` : `
               <tr>
                 <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Emne:</td>
-                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${subject || "Ingen emne angitt"}</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${safeSubject}</td>
               </tr>`}
             </table>
 
             <div style="background-color: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid #2563eb; margin-bottom: 20px;">
               <h4 style="margin: 0 0 8px 0; color: #475569; font-size: 12px; text-transform: uppercase; tracking: 0.05em;">Melding/Tilleggsinformasjon:</h4>
-              <p style="margin: 0; white-space: pre-wrap; line-height: 1.6; font-size: 15px; color: #0f172a;">${message}</p>
+              <p style="margin: 0; white-space: pre-wrap; line-height: 1.6; font-size: 15px; color: #0f172a;">${safeMessage}</p>
             </div>
           </div>
 
           <div style="font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #f1f5f9; padding-top: 16px;">
-            Når du svarer på denne e-posten, svarer du direkte til <strong>${email}</strong>.
+            Når du svarer på denne e-posten, svarer du direkte til <strong>${safeEmail}</strong>.
           </div>
         </div>
       `,
@@ -162,7 +188,7 @@ export const sendContactEmail = onDocumentCreated(
           <!-- Content Body -->
           <div style="padding: 28px 0; font-size: 15px; line-height: 1.6; color: #334155;">
             <p style="margin-top: 0; font-size: 17px; font-weight: 700; color: #0f172a;">
-              Hei ${name},
+              Hei ${safeName},
             </p>
             <p>
               ${isTrialWeek
@@ -195,7 +221,7 @@ export const sendContactEmail = onDocumentCreated(
             <div style="background-color: #eff6ff; border: 1px solid #dbeafe; border-radius: 12px; padding: 16px 20px; margin-bottom: 24px;">
               <p style="margin: 0 0 6px 0; font-size: 13px; font-weight: 700; color: #1e40af;">Hva trenger du å ta med?</p>
               <p style="margin: 0; font-size: 13px; color: #1e3a8a; line-height: 1.5;">
-                Rent, vanlig treningstøy uden glidelåser (f.eks. t-skjorte og shorts/treningsbukse) samt en vannflaske. Vi trener barfot på mattene!
+                Rent, vanlig treningstøy uten glidelåser (f.eks. t-skjorte og shorts/treningsbukse) samt en vannflaske. Vi trener barfot på mattene!
               </p>
             </div>
             ` : `
@@ -204,9 +230,9 @@ export const sendContactEmail = onDocumentCreated(
               <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b;">
                 Din melding:
               </p>
-              ${subject ? `<p style="margin: 0 0 8px 0; font-weight: 700; color: #0f172a;">Emne: ${subject}</p>` : ""}
+              ${subject ? `<p style="margin: 0 0 8px 0; font-weight: 700; color: #0f172a;">Emne: ${safeSubject}</p>` : ""}
               <p style="margin: 0; font-style: italic; color: #334155; white-space: pre-wrap; font-size: 14px; line-height: 1.5;">
-                "${message}"
+                "${safeMessage}"
               </p>
             </div>
             `}
@@ -297,10 +323,11 @@ export const sendTrialWeekFollowup = onSchedule(
     const db = admin.firestore();
 
     try {
-      // Hent alle prøveukepåmeldinger uavhengig av om followupSent-feltet eksisterer
+      // Hent prøveukepåmeldinger med en sikker øvre batchgrense (maks 250 per kjøring for å unngå memory exhaustion)
       const snapshot = await db
         .collection("messages")
         .where("isProveuke", "==", true)
+        .limit(250)
         .get();
 
       if (snapshot.empty) {
@@ -343,6 +370,7 @@ export const sendTrialWeekFollowup = onSchedule(
 
         // Dersom sluttdatoen er beregnet/angitt og nådd (dvs. targetEndDateStr <= todayStr)
         if (targetEndDateStr && targetEndDateStr <= todayStr) {
+          const safeName = escapeHtml(name || "medlem");
           console.log(`Sender oppfølgingse-post til ${email} for fullført prøveperiode (Sluttdato: ${targetEndDateStr})...`);
 
           const mailOptionsFollowup = {
@@ -367,7 +395,7 @@ export const sendTrialWeekFollowup = onSchedule(
                 <!-- Content Body -->
                 <div style="padding: 28px 0; font-size: 15px; line-height: 1.6; color: #334155;">
                   <p style="margin-top: 0; font-size: 18px; font-weight: 800; color: #0f172a;">
-                    Hei ${name}! 👋
+                    Hei ${safeName}! 👋
                   </p>
                   <p>
                     Din 14-dagers prøveperiode hos Eidsvoll Kampsportklubb er nå omme. Vi håper du har hatt det gøy, lært noe nytt og fått kjenne på det gode miljøet på matta hos oss!

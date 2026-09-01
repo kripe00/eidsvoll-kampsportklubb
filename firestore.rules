@@ -3,23 +3,37 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /messages/{messageId} {
-      // Allow anybody to send a message (create only)
+      // Allow anybody to send a contact or trial week message (create only) with strict validation
       allow create: if
-        // Mandatory fields
+        // Mandatory fields & types
         request.resource.data.name is string &&
         request.resource.data.email is string &&
         request.resource.data.subject is string &&
         request.resource.data.message is string &&
         request.resource.data.createdAt is timestamp &&
         
-        // Basic validation
+        // Field lengths & validation
         request.resource.data.name.size() > 0 &&
-        request.resource.data.name.size() < 100 &&
-        request.resource.data.email.matches('.+@.+\\..+') &&
+        request.resource.data.name.size() <= 100 &&
+        request.resource.data.email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$') &&
+        request.resource.data.email.size() <= 150 &&
+        request.resource.data.subject.size() > 0 &&
+        request.resource.data.subject.size() <= 200 &&
         request.resource.data.message.size() > 0 &&
-        request.resource.data.message.size() < 5000;
+        request.resource.data.message.size() <= 5000 &&
+
+        // Optional fields validation
+        (!('phone' in request.resource.data) || (request.resource.data.phone is string && request.resource.data.phone.size() <= 40)) &&
+        (!('category' in request.resource.data) || (request.resource.data.category is string && request.resource.data.category.size() <= 80)) &&
+        (!('startDate' in request.resource.data) || (request.resource.data.startDate is string && request.resource.data.startDate.size() <= 30)) &&
+        (!('endDate' in request.resource.data) || (request.resource.data.endDate is string && request.resource.data.endDate.size() <= 30)) &&
+        (!('isProveuke' in request.resource.data) || request.resource.data.isProveuke is bool) &&
+        (!('followupSent' in request.resource.data) || request.resource.data.followupSent is bool) &&
+
+        // Anti-bot Honeypot check: If 'website' field is sent, it must be completely empty
+        (!('website' in request.resource.data) || request.resource.data.website == '');
       
-      // Prevent anyone from reading, updating, or deleting messages
+      // Prevent anyone from reading, updating, or deleting messages directly from client
       allow read, update, delete: if false;
     }
   }

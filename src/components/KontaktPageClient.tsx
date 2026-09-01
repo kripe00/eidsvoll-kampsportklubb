@@ -28,7 +28,8 @@ export function KontaktPageClient(props: {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
+    website: "", // Anti-bot honeypot
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,7 +45,7 @@ export function KontaktPageClient(props: {
         createdAt: serverTimestamp()
       });
       setStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", subject: "", message: "", website: "" });
     } catch (error: any) {
       console.error("Error submitting form:", error);
       setStatus("error");
@@ -194,6 +195,20 @@ export function KontaktPageClient(props: {
                 </div>
               ) : (
                 <form className="space-y-10" onSubmit={handleSubmit}>
+                  {/* Anti-bot honeypot field (hidden from humans) */}
+                  <div className="hidden opacity-0 pointer-events-none absolute w-0 h-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
+                    <label htmlFor="contact-website">Website</label>
+                    <input 
+                      id="contact-website"
+                      type="text" 
+                      name="website"
+                      tabIndex={-1} 
+                      autoComplete="off"
+                      value={formData.website}
+                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                    />
+                  </div>
+
                   <div className="grid md:grid-cols-2 gap-10">
                     <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                       <label htmlFor="contact-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Fullt Navn</label>

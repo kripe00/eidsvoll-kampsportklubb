@@ -23,6 +23,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
     category: "Voksen / Ungdom (fra 14 år)",
     startDate: getTodayString(),
     message: "",
+    website: "", // Anti-bot honeypot
   });
 
   useEffect(() => {
@@ -78,6 +79,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
         endDate: endDate,
         isProveuke: true,
         followupSent: false,
+        website: formData.website,
         createdAt: serverTimestamp(),
       });
 
@@ -89,6 +91,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
         category: "Voksen / Ungdom (fra 14 år)",
         startDate: getTodayString(),
         message: "",
+        website: "",
       });
     } catch (err: any) {
       console.error("Feil ved påmelding til prøveperiode:", err);
@@ -168,6 +171,20 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                   <span className="bg-background px-3 py-1 rounded-md border border-border/60">Crosstrening</span>
                   <span className="bg-background px-3 py-1 rounded-md border border-border/60">Yoga</span>
                 </div>
+              </div>
+
+              {/* Anti-bot honeypot field (hidden from humans) */}
+              <div className="hidden opacity-0 pointer-events-none absolute w-0 h-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
+                <label htmlFor="modal-website">Website</label>
+                <input
+                  id="modal-website"
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.website}
+                  onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
