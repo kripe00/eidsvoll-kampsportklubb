@@ -13,20 +13,14 @@ export function NyheterListClient(props: {
   query: string;
   variables: any;
 }) {
-  const hasNews = !!props.data?.newsConnection;
-  let data = props.data;
+  const { data } = useTina({
+    query: props.query || "{ __typename }",
+    variables: props.variables || {},
+    data: props.data || {},
+  });
 
-  // useTina might error if data is empty, handle carefully
-  if (hasNews && props.query) {
-    const tinaData = useTina({
-      query: props.query,
-      variables: props.variables,
-      data: props.data,
-    });
-    data = tinaData.data;
-  }
-
-  const edges = hasNews ? data?.newsConnection?.edges || [] : [];
+  const displayData = props.data || data;
+  const edges = displayData?.newsConnection?.edges || [];
   
   // Sorter nyheter etter dato, nyeste først
   const sortedEdges = [...edges].sort((a, b) => {
@@ -70,7 +64,7 @@ export function NyheterListClient(props: {
                   : "";
 
                 return (
-                  <Link href={`/nyheter/${post._sys.filename}`} key={post.id} className="group">
+                  <Link href={`/nyheter/${post._sys.filename}`} key={post.id || post._sys?.filename} className="group">
                     <Card className="h-full overflow-hidden border-border/50 transition-all duration-300 hover:shadow-lg hover:border-primary/30 flex flex-col bg-card">
                       {post.image ? (
                         <div className="relative aspect-video w-full overflow-hidden bg-muted">

@@ -1,10 +1,8 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
 import { RichText } from "./RichText";
 import { OptimizedImage } from "./ui/optimized-image";
 import { ProveukeModal } from "./ProveukeModal";
-import { Flame } from "lucide-react";
 
 interface HeroProps {
   welcomeText?: string;

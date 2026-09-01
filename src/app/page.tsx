@@ -45,7 +45,7 @@ export default async function Home() {
     },
   };
 
-  let pageRes: any = { data: fallbackData, query: "", variables: {} };
+  const pageRes: any = { data: fallbackData, query: "", variables: {} };
 
   try {
     const res = await client.queries.hero({ relativePath: "index.json" });

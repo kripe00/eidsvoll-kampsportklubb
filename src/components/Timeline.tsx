@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Building2, ShieldCheck, MapPin, Sparkles } from "lucide-react";
+import { Calendar, Building2, ShieldCheck, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TimelineEvent {

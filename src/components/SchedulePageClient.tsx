@@ -58,13 +58,6 @@ export function SchedulePageClient(props: {
     return Array.from(new Set(startTimes)).sort((a, b) => a.localeCompare(b));
   };
 
-  // Helper to get unique start times across the entire week
-  const getUniqueStartTimesForWeek = (allDays: Day[] = []) => {
-    const allSlots = allDays.flatMap((d) => d.slots || []);
-    const startTimes = allSlots.map((s) => s.time.split("-")[0].trim());
-    return Array.from(new Set(startTimes)).sort((a, b) => a.localeCompare(b));
-  };
-
   // Helper to get sport styles
   const getActivityStyles = (activity: string) => {
     const act = activity.toLowerCase();
@@ -113,7 +106,6 @@ export function SchedulePageClient(props: {
   const sal2Slots = getSlotsForRoom(currentDay?.slots, "sal2");
   const ctyogaSlots = getSlotsForRoom(currentDay?.slots, "ctyoga");
   const uniqueStartTimes = getUniqueStartTimes(currentDay?.slots);
-  const weekStartTimes = getUniqueStartTimesForWeek(days);
 
   const roomsConfig = [
     { key: "sal1", name: "Sal 1", desc: "Flerbruksmatte for BJJ og Muay Thai", slots: sal1Slots },

@@ -1,6 +1,6 @@
 "use client";
 
-import { Info, CreditCard, ShieldAlert, ArrowRight, Building } from "lucide-react";
+import { CreditCard, ShieldAlert, Building } from "lucide-react";
 
 interface OrgSeparationProps {
   title?: string;

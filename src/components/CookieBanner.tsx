@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function CookieBanner() {

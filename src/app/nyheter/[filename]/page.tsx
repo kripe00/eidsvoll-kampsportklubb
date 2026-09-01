@@ -36,21 +36,28 @@ export async function generateMetadata({ params }: { params: Promise<{ filename:
 }
 
 export default async function NyhetPostPage({ params }: { params: Promise<{ filename: string }> }) {
+  const { filename } = await params;
+  const decodedFilename = decodeURIComponent(filename);
+  let res: any;
+
   try {
-    const { filename } = await params;
-    const decodedFilename = decodeURIComponent(filename);
-    const res = await client.queries.news({ relativePath: `${decodedFilename}.md` });
-    return (
-      <NyheterPostClient 
-        data={res.data} 
-        query={res.query} 
-        variables={res.variables} 
-      />
-    );
+    res = await client.queries.news({ relativePath: `${decodedFilename}.md` });
   } catch (error) {
     console.error("Could not fetch individual news post:", error);
     notFound();
   }
+
+  if (!res?.data?.news) {
+    notFound();
+  }
+
+  return (
+    <NyheterPostClient 
+      data={res.data} 
+      query={res.query} 
+      variables={res.variables} 
+    />
+  );
 }
 
 export async function generateStaticParams() {

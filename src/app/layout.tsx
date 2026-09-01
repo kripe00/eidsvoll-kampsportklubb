@@ -87,7 +87,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let globalData: any = {
+  const globalData: any = {
     global: globalJson
   };
   let globalRes: any = { data: globalData, query: "", variables: {} };
