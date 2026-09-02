@@ -47,6 +47,7 @@ export default async function MedlemskapPage() {
       data={pageRes.data as any} 
       query={pageRes.query} 
       variables={pageRes.variables} 
+      hideHeader={true}
     />
   );
 }

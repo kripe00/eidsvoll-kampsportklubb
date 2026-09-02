@@ -24,8 +24,8 @@ export function Membership(props: MembershipProps) {
   const boostEnabled = props.boostEnabled !== false;
 
   return (
-    <section id="medlemskap" className="py-24 md:py-36 bg-background border-y border-border/40">
-      <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
+    <section id="medlemskap" className="w-full">
+      <div className="max-w-6xl mx-auto">
         
         {/* Seksjonsoverskrift og ingress */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
