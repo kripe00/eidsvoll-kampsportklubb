@@ -13,24 +13,16 @@
       "href": "/timeplan"
     },
     {
-      "label": "Styret",
-      "href": "/styret"
+      "label": "Medlemskap",
+      "href": "/medlemskap"
     },
     {
       "label": "Om oss",
       "href": "/om-oss"
     },
     {
-      "label": "Medlemskap",
-      "href": "/medlemskap"
-    },
-    {
       "label": "Kontakt",
       "href": "/kontakt"
-    },
-    {
-      "label": "Sponsorer",
-      "href": "/sponsorer"
     }
   ],
   "sponsors": [
@@ -39,9 +31,9 @@
       "url": "https://example.com"
     }
   ],
-  "footerDescription": "",
+  "footerDescription": "Vi vil gjerne høre fra deg! Enten du har spørsmål om treningstider, medlemskap, eller bare vil slå av en prat før du bestemmer deg for å prøve, er du alltid velkommen til å ta kontakt.",
   "footerEmail": "kontakt@kampsporteidsvoll.no",
   "footerPhone": "976 10 229",
-  "footerAddress": "Trondheimsvegen 71B 2072 Dal",
+  "footerAddress": "Trondheimsvegen 71B, 2072 Dal",
   "footerOrgNumber": "932716461"
 }

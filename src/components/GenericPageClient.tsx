@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { useTina } from "tinacms/dist/react";
 import { BlockRenderer } from "./blocks/BlockRenderer";
 import { RichText } from "./RichText";
@@ -10,6 +11,7 @@ export function GenericPageClient(props: {
   query: string;
   variables: any;
   hideHeader?: boolean;
+  extraContent?: React.ReactNode;
 }) {
   const { data } = useTina({
     query: props.query || "{ __typename }",
@@ -50,6 +52,7 @@ export function GenericPageClient(props: {
       )}
       <div className={`container mx-auto px-4 lg:px-8 ${props.hideHeader ? "pt-28 md:pt-36 pb-20" : "py-20"} max-w-6xl`}>
         <BlockRenderer blocks={page.blocks} />
+        {props.extraContent}
       </div>
     </main>
   );
