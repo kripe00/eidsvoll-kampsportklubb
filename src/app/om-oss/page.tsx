@@ -118,7 +118,6 @@ const fallbackOmOssData = {
         {
           name: "Pernille Støen",
           role: "Barnetrener BJJ",
-          image: "/Litt juks.JPG",
           bio: "Som barnetrener i Eidsvoll Kampsportklubb brenner Pernille for å skape treningsglede og samhold fra første stund på matta. Hun kombinerer høyt energinivå og lek med tydelige rammer, slik at barna lærer kampsport i et trygt og forutsigbart miljø. For Pernille er det viktig å bygge et sterkt fundament av balanse, koordinasjon og kroppsbeherskelse hos de yngste utøverne. Med sitt smittende engasjement og varme vesen hjelper hun barna med å tørre å utfordre seg selv, bygge varige vennskap og oppleve gleden av å vokse – både som utøvere og som trygge individer.",
         },
       ],
