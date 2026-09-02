@@ -14,7 +14,7 @@ blocks:
   - title: Ofte stilte spørsmål
     items:
       - question: Hva er forskjellen på Boost og MinIdrett, og må jeg betale i begge?
-        answer: "Ja, for å trene fast må du registrere deg i begge systemene: 1) Boost er klubbens medlemssystem for den månedlige treningsavgiften (ditt månedlige abonnement for å delta på treninger). 2) MinIdrett er Norges Idrettsforbunds (NIF) portal der du betaler den årlige medlemskontingenten til idrettslaget (1 gang per år), som sikrer din skadeforsikring på matta og rett til gradering/stevner. Har du kun betalt i MinIdrett, har du ikke betalt for selve månedstreningen."
+        answer: "Ja, for å trene fast må du registrere deg i begge systemene: 1) Boost er klubbens medlemssystem for den månedlige treningsavgiften (ditt månedlige abonnement for å delta på treninger). 2) MinIdrett er Norges Idrettsforbunds (NIF) portal der du betaler den årlige medlemskontingenten til idrettslaget (1 gang per år), som sikrer din skadeforsikring på matta og rett til å delta på stevner i regi av NIF / forbundet. Har du kun betalt i MinIdrett, har du ikke betalt for selve månedstreningen."
       - question: Trenger jeg noen forkunnskaper for å begynne?
         answer: "Nei, overhodet ikke! De aller fleste av våre medlemmer startet uten noen form for kampsportbakgrunn. Vi har partier tilpasset alle nivåer, og våre instruktører sørger for en trygg og god innføring for alle nybegynnere."
       - question: Hva slags utstyr må jeg ha til min første trening?

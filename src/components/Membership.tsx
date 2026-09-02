@@ -158,7 +158,7 @@ export function Membership(props: MembershipProps) {
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-primary font-bold text-lg leading-none">✓</span>
-                    <span>Gir rett til offisiell beltegradering og deltakelse på stevner</span>
+                    <span>Gir rett til å delta på stevner og konkurranser i regi av NIF / kampsportforbundet</span>
                   </li>
                 </ul>
               </div>
