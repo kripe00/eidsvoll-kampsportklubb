@@ -101,10 +101,10 @@ export function Membership(props: MembershipProps) {
                 >
                   <Button
                     size="lg"
-                    className="w-full h-16 sm:h-20 px-8 text-base sm:text-lg font-black rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-emerald-600/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group"
+                    className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-emerald-600/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
                   >
                     <span>Meld deg inn i Boost</span>
-                    <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform shrink-0" />
+                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1.5 transition-transform shrink-0" />
                   </Button>
                 </Link>
               ) : (
@@ -112,7 +112,7 @@ export function Membership(props: MembershipProps) {
                   <Button
                     size="lg"
                     disabled
-                    className="w-full h-16 sm:h-20 px-8 text-base sm:text-lg font-bold rounded-xl bg-muted border border-border text-muted-foreground/40 cursor-not-allowed flex items-center justify-center uppercase tracking-wider"
+                    className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-bold rounded-xl bg-muted border border-border text-muted-foreground/40 cursor-not-allowed flex items-center justify-center uppercase tracking-wider text-center whitespace-normal leading-tight"
                   >
                     Boost Medlemssystem
                   </Button>
@@ -175,10 +175,10 @@ export function Membership(props: MembershipProps) {
               >
                 <Button
                   size="lg"
-                  className="w-full h-16 sm:h-20 px-8 text-base sm:text-lg font-black rounded-xl bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-primary/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group"
+                  className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-primary/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
                 >
                   <span>Betal kontingent (MinIdrett)</span>
-                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform shrink-0" />
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1.5 transition-transform shrink-0" />
                 </Button>
               </Link>
             </div>
