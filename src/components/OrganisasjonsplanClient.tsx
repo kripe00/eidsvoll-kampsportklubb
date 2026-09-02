@@ -2,7 +2,7 @@
 
 import { useTina } from "tinacms/dist/react";
 import { tinaField } from "tinacms/dist/react";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { RichText } from "./RichText";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 
@@ -18,6 +18,14 @@ export function OrganisasjonsplanClient(props: {
   });
 
   const content = data?.organisasjonsplan || props.data?.organisasjonsplan;
+
+  if (!content) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-muted-foreground">Kunne ikke laste organisasjonsplanen.</p>
+      </div>
+    );
+  }
 
   return (
     <main className="bg-background min-h-screen pb-32">
@@ -50,7 +58,7 @@ export function OrganisasjonsplanClient(props: {
             className="prose prose-xl max-w-none prose-p:text-slate-700 prose-p:leading-relaxed prose-headings:text-foreground prose-headings:uppercase prose-headings:tracking-tighter prose-strong:text-primary prose-strong:font-black prose-h2:mt-24 prose-h2:mb-12 prose-h2:pb-4 prose-h2:border-b prose-h2:border-border/40 prose-ul:my-10 prose-li:my-4"
             data-tina-field={tinaField(content, 'body')}
           >
-            <TinaMarkdown content={content.body} />
+            <RichText content={content.body} />
           </div>
         </div>
       </div>

@@ -159,7 +159,7 @@ export function StyretPageClient(props: {
         {/* Organization Plan CTA */}
         <div className="mt-40 pt-20 border-t border-border/40 flex flex-col items-center text-center">
           <p className="text-muted-foreground mb-8 max-w-xl mx-auto font-light text-lg">
-            For en dypere innsikt i hvordan klubben vår er strukturert, ansvarsfordeling og våre lovpålagte organer, kan du lese vår fullstendige organisasjonsplan.
+            For en dypere innsikt i hvordan klubben vår er strukturert, ansvarsfordeling og våre styringsorganer, kan du lese vår fullstendige organisasjonsplan.
           </p>
           <Link 
             href="/styret/organisasjonsplan"

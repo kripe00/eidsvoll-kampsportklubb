@@ -1,32 +1,56 @@
 import { client } from "../../../../tina/__generated__/client";
 import { OrganisasjonsplanClient } from "@/components/OrganisasjonsplanClient";
 import type { Metadata } from "next";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
 export const metadata: Metadata = {
   title: "Organisasjonsplan",
-  description: "Les Eidsvoll Kampsportklubbs organisasjonsplan. Informasjon om klubbens struktur, ansvarsområder og lovpålagte organer.",
+  description: "Les Eidsvoll Kampsportklubbs organisasjonsplan. Informasjon om klubbens struktur, ansvarsområder og styringsorganer.",
 };
 
 export default async function OrganisasjonsplanPage() {
-  let pageRes: any = { data: null, query: "", variables: {} };
+  const filePath = path.join(process.cwd(), "content/organisasjonsplan/index.md");
+  let localData = {
+    organisasjonsplan: {
+      title: "Organisasjonsplan for Eidsvoll Kampsportklubb",
+      body: "",
+    },
+  };
+
+  try {
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    const { data: frontmatter, content } = matter(fileContent);
+    localData = {
+      organisasjonsplan: {
+        title: frontmatter.title || "Organisasjonsplan for Eidsvoll Kampsportklubb",
+        body: content,
+      },
+    };
+  } catch (err) {
+    console.warn("Could not read local organisasjonsplan markdown file:", err);
+  }
+
+  let pageRes: any = { data: localData, query: "", variables: {} };
 
   try {
     const res = await client.queries.organisasjonsplan({ relativePath: "index.md" });
-    pageRes = {
-      data: res.data,
-      query: res.query,
-      variables: res.variables,
-    };
+    if (res.data?.organisasjonsplan) {
+      pageRes = {
+        ...res,
+        data: {
+          ...localData,
+          ...res.data,
+          organisasjonsplan: {
+            ...localData.organisasjonsplan,
+            ...res.data.organisasjonsplan,
+          },
+        },
+      };
+    }
   } catch (error) {
-    console.error("TinaCMS Organisasjonsplan fetch failed:", error);
-  }
-
-  if (!pageRes.data) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Kunne ikke laste organisasjonsplanen.</p>
-      </div>
-    );
+    console.warn("TinaCMS Organisasjonsplan fetch failed (using local fallback data):", error);
   }
 
   return (
