@@ -3,19 +3,18 @@ title: Medlemskap
 blocks:
   - title: Bli en del av Eidsvoll Kampsportklubb!
     description: |+
-      Vi har plass til alle, uansett om du er nybegynner eller har trent kampsport i mange år. Enten du vil trene BJJ, Muay Thai eller delta på vår Cross-trening, er du hjertelig velkommen i klubben vår.
+      For å trene fast hos oss benytter vi to systemer: Boost for det månedlige treningsabonnementet, og MinIdrett for lovpålagt årlig medlemskontingent og forsikring.
 
-    linkUrl: 'https://www.minidrett.no/medlemskap/988726'
     boostLinkUrl: 'https://portal.boostsystem.no/rambukk/member'
     boostEnabled: true
+    linkUrl: 'https://www.minidrett.no/medlemskap/988726'
     extraInfo: >-
-      Medlemskontingenten betales via MinIdrett og gir deg medlemskap i idrettslaget.
-      Dette gir deg forsikring gjennom Norges Kampsportforbund og rett til
-      å konkurrere på stevner. Treningsavgiften (det månedlige abonnementet for selve
-      treningen i klubben) vil betales gjennom vårt medlemssystem Boost.
+      Husk at du må registrere deg i både Boost (månedlig treningsavgift) og MinIdrett (årlig klubbkontingent og forsikring) for å ha fullverdig medlemskap og treningstilgang.
     _template: membership
   - title: Ofte stilte spørsmål
     items:
+      - question: Hva er forskjellen på Boost og MinIdrett, og må jeg betale i begge?
+        answer: "Ja, for å trene fast må du registrere deg i begge systemene: 1) Boost er klubbens medlemssystem for den månedlige treningsavgiften (ditt månedlige abonnement for å delta på treninger). 2) MinIdrett er Norges Idrettsforbunds (NIF) portal der du betaler den lovpålagte årlige medlemskontingenten (1 gang per år), som sikrer din skadeforsikring på matta og rett til gradering/stevner. Har du kun betalt i MinIdrett, har du ikke betalt for selve månedstreningen."
       - question: Trenger jeg noen forkunnskaper for å begynne?
         answer: "Nei, overhodet ikke! De aller fleste av våre medlemmer startet uten noen form for kampsportbakgrunn. Vi har partier tilpasset alle nivåer, og våre instruktører sørger for en trygg og god innføring for alle nybegynnere."
       - question: Hva slags utstyr må jeg ha til min første trening?
