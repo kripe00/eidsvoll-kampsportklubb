@@ -18,7 +18,7 @@ export function Membership(props: MembershipProps) {
   const title = props.title || "Bli medlem i Eidsvoll Kampsportklubb";
   const description =
     props.description ||
-    "For å trene fast hos oss benytter vi to systemer: Boost for det månedlige treningsabonnementet, og MinIdrett for lovpålagt årlig medlemskontingent og forsikring.";
+    "For å trene fast hos oss benytter vi to systemer: Boost for det månedlige treningsabonnementet, og MinIdrett for årlig medlemskontingent og forsikring.";
   const linkUrl = props.linkUrl || "https://www.minidrett.no/medlemskap/988726";
   const boostLinkUrl = props.boostLinkUrl || "https://portal.boostsystem.no/rambukk/member";
   const boostEnabled = props.boostEnabled !== false;
@@ -145,7 +145,7 @@ export function Membership(props: MembershipProps) {
               {/* Forklaring med stor skrift og god luft */}
               <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
                 <p>
-                  <strong className="text-foreground font-bold">Lovpålagt medlemskap i idrettslaget.</strong> Eidsvoll Kampsportklubb er tilknyttet Norges Idrettsforbund (NIF). Alle som trener fast må være registrert i MinIdrett én gang per år.
+                  <strong className="text-foreground font-bold">Klubbmedlemskap i idrettslaget.</strong> Eidsvoll Kampsportklubb er tilknyttet Norges Idrettsforbund (NIF). Alle som trener fast må være registrert som medlem i MinIdrett (betales én gang per år).
                 </p>
                 <ul className="space-y-2.5 text-sm sm:text-base text-foreground font-medium pt-2">
                   <li className="flex items-start gap-2.5">
