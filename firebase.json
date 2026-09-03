@@ -8,16 +8,6 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [
-      {
-        "source": "/admin",
-        "destination": "/admin/index.html"
-      },
-      {
-        "source": "/admin/**",
-        "destination": "/admin/index.html"
-      }
-    ],
     "headers": [
       {
         "source": "/**",
@@ -45,7 +35,25 @@
         ]
       },
       {
-        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico|mp4|webm)",
+        "source": "/admin",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "/admin/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      },
+      {
+        "source": "/admin/assets/**",
         "headers": [
           {
             "key": "Cache-Control",
@@ -54,7 +62,7 @@
         ]
       },
       {
-        "source": "/admin/assets/**",
+        "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|ico|mp4|webm)",
         "headers": [
           {
             "key": "Cache-Control",
