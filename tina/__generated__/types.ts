@@ -7,13 +7,12 @@
     })
     return str
   }
-  export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+  /** Internal type. DO NOT USE DIRECTLY. */
+type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+/** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -3230,236 +3229,1248 @@ export type GlobalMutation = {
   footerOrgNumber?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type OmOssPartsFragment = { __typename: 'OmOss', title: string, description?: string | null, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
+export type StringFilter = {
+  startsWith?: string | null | undefined;
+  eq?: string | null | undefined;
+  exists?: boolean | null | undefined;
+  in?: Array<string | null | undefined> | null | undefined;
+};
 
-export type PagePartsFragment = { __typename: 'Page', title: string, description?: string | null, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'PageBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'PageBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'PageBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'PageBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'PageBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'PageBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
+export type ImageFilter = {
+  startsWith?: string | null | undefined;
+  eq?: string | null | undefined;
+  exists?: boolean | null | undefined;
+  in?: Array<string | null | undefined> | null | undefined;
+};
 
-export type HeroPartsFragment = { __typename: 'Hero', welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null };
+export type OmOssBlocksAboutFilter = {
+  title?: StringFilter | null | undefined;
+  body?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  video?: ImageFilter | null | undefined;
+};
 
-export type SchedulePartsFragment = { __typename: 'Schedule', days?: Array<{ __typename: 'ScheduleDays', day: string, slots?: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer?: string | null } | null> | null } | null> | null };
+export type OmOssBlocksValuesItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
 
-export type StyretPartsFragment = { __typename: 'Styret', title?: string | null, description?: any | null, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'StyretBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'StyretBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'StyretBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'StyretBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'StyretBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'StyretBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksFaq', title?: string | null, items?: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'StyretBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'StyretBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'StyretBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'StyretBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'StyretBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null };
+export type OmOssBlocksValuesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  variant?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  items?: OmOssBlocksValuesItemsFilter | null | undefined;
+};
 
-export type OrganisasjonsplanPartsFragment = { __typename: 'Organisasjonsplan', title: string, body?: any | null };
+export type BooleanFilter = {
+  eq?: boolean | null | undefined;
+  exists?: boolean | null | undefined;
+};
 
-export type NewsPartsFragment = { __typename: 'News', title: string, date: string, category?: string | null, image?: string | null, description?: string | null, body?: any | null };
+export type OmOssBlocksMembershipFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  linkUrl?: StringFilter | null | undefined;
+  boostLinkUrl?: StringFilter | null | undefined;
+  boostEnabled?: BooleanFilter | null | undefined;
+  extraInfo?: StringFilter | null | undefined;
+};
 
-export type SponsorerPartsFragment = { __typename: 'Sponsorer', title: string, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'SponsorerBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'SponsorerBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'SponsorerBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksFaq', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'SponsorerBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
+export type OmOssBlocksTrainersTrainerListFilter = {
+  name?: StringFilter | null | undefined;
+  role?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  bio?: StringFilter | null | undefined;
+};
 
-export type MedlemskapPartsFragment = { __typename: 'Medlemskap', title: string, blocks?: Array<{ __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'MedlemskapBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'MedlemskapBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'MedlemskapBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null };
+export type OmOssBlocksTrainersFilter = {
+  title?: StringFilter | null | undefined;
+  trainerList?: OmOssBlocksTrainersTrainerListFilter | null | undefined;
+};
 
-export type ContactPartsFragment = { __typename: 'Contact', email?: string | null, phone?: string | null, address?: string | null, facebook?: string | null, instagram?: string | null, image?: string | null };
+export type OmOssBlocksSponsorsSponsorListFilter = {
+  name?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  url?: StringFilter | null | undefined;
+};
 
-export type GlobalPartsFragment = { __typename: 'Global', clubName?: string | null, logo?: string | null, facebook?: string | null, instagram?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, footerOrgNumber?: string | null, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null, sponsors?: Array<{ __typename: 'GlobalSponsors', name?: string | null, logo?: string | null, url?: string | null } | null> | null };
+export type OmOssBlocksSponsorsFilter = {
+  title?: StringFilter | null | undefined;
+  sponsorList?: OmOssBlocksSponsorsSponsorListFilter | null | undefined;
+};
+
+export type OmOssBlocksBenefitsItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type OmOssBlocksBenefitsFilter = {
+  title?: StringFilter | null | undefined;
+  items?: OmOssBlocksBenefitsItemsFilter | null | undefined;
+};
+
+export type OmOssBlocksFaqItemsFilter = {
+  question?: StringFilter | null | undefined;
+  answer?: StringFilter | null | undefined;
+};
+
+export type OmOssBlocksFaqFilter = {
+  title?: StringFilter | null | undefined;
+  items?: OmOssBlocksFaqItemsFilter | null | undefined;
+};
+
+export type OmOssBlocksPackagesPackagesListFilter = {
+  name?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  perks?: StringFilter | null | undefined;
+  highlighted?: BooleanFilter | null | undefined;
+};
+
+export type OmOssBlocksPackagesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  packagesList?: OmOssBlocksPackagesPackagesListFilter | null | undefined;
+};
+
+export type OmOssBlocksTimelineEventsFilter = {
+  year?: StringFilter | null | undefined;
+  title?: StringFilter | null | undefined;
+  location?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  highlight?: BooleanFilter | null | undefined;
+};
+
+export type OmOssBlocksTimelineFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  events?: OmOssBlocksTimelineEventsFilter | null | undefined;
+};
+
+export type OmOssBlocksOrgSeparationFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+};
+
+export type OmOssBlocksCheckmatFeaturesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type OmOssBlocksCheckmatFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  features?: OmOssBlocksCheckmatFeaturesFilter | null | undefined;
+};
+
+export type OmOssBlocksFilter = {
+  about?: OmOssBlocksAboutFilter | null | undefined;
+  values?: OmOssBlocksValuesFilter | null | undefined;
+  membership?: OmOssBlocksMembershipFilter | null | undefined;
+  trainers?: OmOssBlocksTrainersFilter | null | undefined;
+  sponsors?: OmOssBlocksSponsorsFilter | null | undefined;
+  benefits?: OmOssBlocksBenefitsFilter | null | undefined;
+  faq?: OmOssBlocksFaqFilter | null | undefined;
+  packages?: OmOssBlocksPackagesFilter | null | undefined;
+  timeline?: OmOssBlocksTimelineFilter | null | undefined;
+  orgSeparation?: OmOssBlocksOrgSeparationFilter | null | undefined;
+  checkmat?: OmOssBlocksCheckmatFilter | null | undefined;
+};
+
+export type OmOssFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  blocks?: OmOssBlocksFilter | null | undefined;
+};
+
+export type PageBlocksAboutFilter = {
+  title?: StringFilter | null | undefined;
+  body?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  video?: ImageFilter | null | undefined;
+};
+
+export type PageBlocksValuesItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type PageBlocksValuesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  variant?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  items?: PageBlocksValuesItemsFilter | null | undefined;
+};
+
+export type PageBlocksMembershipFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  linkUrl?: StringFilter | null | undefined;
+  boostLinkUrl?: StringFilter | null | undefined;
+  boostEnabled?: BooleanFilter | null | undefined;
+  extraInfo?: StringFilter | null | undefined;
+};
+
+export type PageBlocksTrainersTrainerListFilter = {
+  name?: StringFilter | null | undefined;
+  role?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  bio?: StringFilter | null | undefined;
+};
+
+export type PageBlocksTrainersFilter = {
+  title?: StringFilter | null | undefined;
+  trainerList?: PageBlocksTrainersTrainerListFilter | null | undefined;
+};
+
+export type PageBlocksSponsorsSponsorListFilter = {
+  name?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  url?: StringFilter | null | undefined;
+};
+
+export type PageBlocksSponsorsFilter = {
+  title?: StringFilter | null | undefined;
+  sponsorList?: PageBlocksSponsorsSponsorListFilter | null | undefined;
+};
+
+export type PageBlocksBenefitsItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type PageBlocksBenefitsFilter = {
+  title?: StringFilter | null | undefined;
+  items?: PageBlocksBenefitsItemsFilter | null | undefined;
+};
+
+export type PageBlocksFaqItemsFilter = {
+  question?: StringFilter | null | undefined;
+  answer?: StringFilter | null | undefined;
+};
+
+export type PageBlocksFaqFilter = {
+  title?: StringFilter | null | undefined;
+  items?: PageBlocksFaqItemsFilter | null | undefined;
+};
+
+export type PageBlocksPackagesPackagesListFilter = {
+  name?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  perks?: StringFilter | null | undefined;
+  highlighted?: BooleanFilter | null | undefined;
+};
+
+export type PageBlocksPackagesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  packagesList?: PageBlocksPackagesPackagesListFilter | null | undefined;
+};
+
+export type PageBlocksTimelineEventsFilter = {
+  year?: StringFilter | null | undefined;
+  title?: StringFilter | null | undefined;
+  location?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  highlight?: BooleanFilter | null | undefined;
+};
+
+export type PageBlocksTimelineFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  events?: PageBlocksTimelineEventsFilter | null | undefined;
+};
+
+export type PageBlocksOrgSeparationFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+};
+
+export type PageBlocksCheckmatFeaturesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type PageBlocksCheckmatFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  features?: PageBlocksCheckmatFeaturesFilter | null | undefined;
+};
+
+export type PageBlocksFilter = {
+  about?: PageBlocksAboutFilter | null | undefined;
+  values?: PageBlocksValuesFilter | null | undefined;
+  membership?: PageBlocksMembershipFilter | null | undefined;
+  trainers?: PageBlocksTrainersFilter | null | undefined;
+  sponsors?: PageBlocksSponsorsFilter | null | undefined;
+  benefits?: PageBlocksBenefitsFilter | null | undefined;
+  faq?: PageBlocksFaqFilter | null | undefined;
+  packages?: PageBlocksPackagesFilter | null | undefined;
+  timeline?: PageBlocksTimelineFilter | null | undefined;
+  orgSeparation?: PageBlocksOrgSeparationFilter | null | undefined;
+  checkmat?: PageBlocksCheckmatFilter | null | undefined;
+};
+
+export type PageFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  blocks?: PageBlocksFilter | null | undefined;
+};
+
+export type HeroInstagramImagesFilter = {
+  image?: ImageFilter | null | undefined;
+  caption?: StringFilter | null | undefined;
+  postUrl?: StringFilter | null | undefined;
+};
+
+export type HeroFilter = {
+  welcomeText?: StringFilter | null | undefined;
+  highlightedText?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  backgroundImage?: ImageFilter | null | undefined;
+  backgroundVideo?: ImageFilter | null | undefined;
+  instagramTitle?: StringFilter | null | undefined;
+  instagramUsername?: StringFilter | null | undefined;
+  instagramLink?: StringFilter | null | undefined;
+  instagramImages?: HeroInstagramImagesFilter | null | undefined;
+};
+
+export type ScheduleDaysSlotsFilter = {
+  time?: StringFilter | null | undefined;
+  activity?: StringFilter | null | undefined;
+  group?: StringFilter | null | undefined;
+  room?: StringFilter | null | undefined;
+  trainer?: StringFilter | null | undefined;
+};
+
+export type ScheduleDaysFilter = {
+  day?: StringFilter | null | undefined;
+  slots?: ScheduleDaysSlotsFilter | null | undefined;
+};
+
+export type ScheduleFilter = {
+  days?: ScheduleDaysFilter | null | undefined;
+};
+
+export type RichTextFilter = {
+  startsWith?: string | null | undefined;
+  eq?: string | null | undefined;
+  exists?: boolean | null | undefined;
+};
+
+export type StyretBlocksAboutFilter = {
+  title?: StringFilter | null | undefined;
+  body?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  video?: ImageFilter | null | undefined;
+};
+
+export type StyretBlocksValuesItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type StyretBlocksValuesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  variant?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  items?: StyretBlocksValuesItemsFilter | null | undefined;
+};
+
+export type StyretBlocksMembershipFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  linkUrl?: StringFilter | null | undefined;
+  boostLinkUrl?: StringFilter | null | undefined;
+  boostEnabled?: BooleanFilter | null | undefined;
+  extraInfo?: StringFilter | null | undefined;
+};
+
+export type StyretBlocksTrainersTrainerListFilter = {
+  name?: StringFilter | null | undefined;
+  role?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  bio?: StringFilter | null | undefined;
+};
+
+export type StyretBlocksTrainersFilter = {
+  title?: StringFilter | null | undefined;
+  trainerList?: StyretBlocksTrainersTrainerListFilter | null | undefined;
+};
+
+export type StyretBlocksSponsorsSponsorListFilter = {
+  name?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  url?: StringFilter | null | undefined;
+};
+
+export type StyretBlocksSponsorsFilter = {
+  title?: StringFilter | null | undefined;
+  sponsorList?: StyretBlocksSponsorsSponsorListFilter | null | undefined;
+};
+
+export type StyretBlocksBenefitsItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type StyretBlocksBenefitsFilter = {
+  title?: StringFilter | null | undefined;
+  items?: StyretBlocksBenefitsItemsFilter | null | undefined;
+};
+
+export type StyretBlocksFaqItemsFilter = {
+  question?: StringFilter | null | undefined;
+  answer?: StringFilter | null | undefined;
+};
+
+export type StyretBlocksFaqFilter = {
+  title?: StringFilter | null | undefined;
+  items?: StyretBlocksFaqItemsFilter | null | undefined;
+};
+
+export type StyretBlocksPackagesPackagesListFilter = {
+  name?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  perks?: StringFilter | null | undefined;
+  highlighted?: BooleanFilter | null | undefined;
+};
+
+export type StyretBlocksPackagesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  packagesList?: StyretBlocksPackagesPackagesListFilter | null | undefined;
+};
+
+export type StyretBlocksTimelineEventsFilter = {
+  year?: StringFilter | null | undefined;
+  title?: StringFilter | null | undefined;
+  location?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  highlight?: BooleanFilter | null | undefined;
+};
+
+export type StyretBlocksTimelineFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  events?: StyretBlocksTimelineEventsFilter | null | undefined;
+};
+
+export type StyretBlocksOrgSeparationFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+};
+
+export type StyretBlocksCheckmatFeaturesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type StyretBlocksCheckmatFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  features?: StyretBlocksCheckmatFeaturesFilter | null | undefined;
+};
+
+export type StyretBlocksFilter = {
+  about?: StyretBlocksAboutFilter | null | undefined;
+  values?: StyretBlocksValuesFilter | null | undefined;
+  membership?: StyretBlocksMembershipFilter | null | undefined;
+  trainers?: StyretBlocksTrainersFilter | null | undefined;
+  sponsors?: StyretBlocksSponsorsFilter | null | undefined;
+  benefits?: StyretBlocksBenefitsFilter | null | undefined;
+  faq?: StyretBlocksFaqFilter | null | undefined;
+  packages?: StyretBlocksPackagesFilter | null | undefined;
+  timeline?: StyretBlocksTimelineFilter | null | undefined;
+  orgSeparation?: StyretBlocksOrgSeparationFilter | null | undefined;
+  checkmat?: StyretBlocksCheckmatFilter | null | undefined;
+};
+
+export type StyretMembersFilter = {
+  role?: StringFilter | null | undefined;
+  name?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+};
+
+export type StyretCommitteesPeopleFilter = {
+  role?: StringFilter | null | undefined;
+  name?: StringFilter | null | undefined;
+};
+
+export type StyretCommitteesFilter = {
+  name?: StringFilter | null | undefined;
+  people?: StyretCommitteesPeopleFilter | null | undefined;
+};
+
+export type StyretFilter = {
+  title?: StringFilter | null | undefined;
+  description?: RichTextFilter | null | undefined;
+  blocks?: StyretBlocksFilter | null | undefined;
+  members?: StyretMembersFilter | null | undefined;
+  committees?: StyretCommitteesFilter | null | undefined;
+};
+
+export type OrganisasjonsplanFilter = {
+  title?: StringFilter | null | undefined;
+  body?: RichTextFilter | null | undefined;
+};
+
+export type DatetimeFilter = {
+  after?: string | null | undefined;
+  before?: string | null | undefined;
+  eq?: string | null | undefined;
+  exists?: boolean | null | undefined;
+  in?: Array<string | null | undefined> | null | undefined;
+};
+
+export type NewsFilter = {
+  title?: StringFilter | null | undefined;
+  date?: DatetimeFilter | null | undefined;
+  category?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  body?: RichTextFilter | null | undefined;
+};
+
+export type SponsorerBlocksAboutFilter = {
+  title?: StringFilter | null | undefined;
+  body?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  video?: ImageFilter | null | undefined;
+};
+
+export type SponsorerBlocksValuesItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type SponsorerBlocksValuesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  variant?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  items?: SponsorerBlocksValuesItemsFilter | null | undefined;
+};
+
+export type SponsorerBlocksMembershipFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  linkUrl?: StringFilter | null | undefined;
+  boostLinkUrl?: StringFilter | null | undefined;
+  boostEnabled?: BooleanFilter | null | undefined;
+  extraInfo?: StringFilter | null | undefined;
+};
+
+export type SponsorerBlocksTrainersTrainerListFilter = {
+  name?: StringFilter | null | undefined;
+  role?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  bio?: StringFilter | null | undefined;
+};
+
+export type SponsorerBlocksTrainersFilter = {
+  title?: StringFilter | null | undefined;
+  trainerList?: SponsorerBlocksTrainersTrainerListFilter | null | undefined;
+};
+
+export type SponsorerBlocksSponsorsSponsorListFilter = {
+  name?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  url?: StringFilter | null | undefined;
+};
+
+export type SponsorerBlocksSponsorsFilter = {
+  title?: StringFilter | null | undefined;
+  sponsorList?: SponsorerBlocksSponsorsSponsorListFilter | null | undefined;
+};
+
+export type SponsorerBlocksBenefitsItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type SponsorerBlocksBenefitsFilter = {
+  title?: StringFilter | null | undefined;
+  items?: SponsorerBlocksBenefitsItemsFilter | null | undefined;
+};
+
+export type SponsorerBlocksFaqItemsFilter = {
+  question?: StringFilter | null | undefined;
+  answer?: StringFilter | null | undefined;
+};
+
+export type SponsorerBlocksFaqFilter = {
+  title?: StringFilter | null | undefined;
+  items?: SponsorerBlocksFaqItemsFilter | null | undefined;
+};
+
+export type SponsorerBlocksPackagesPackagesListFilter = {
+  name?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  perks?: StringFilter | null | undefined;
+  highlighted?: BooleanFilter | null | undefined;
+};
+
+export type SponsorerBlocksPackagesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  packagesList?: SponsorerBlocksPackagesPackagesListFilter | null | undefined;
+};
+
+export type SponsorerBlocksTimelineEventsFilter = {
+  year?: StringFilter | null | undefined;
+  title?: StringFilter | null | undefined;
+  location?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  highlight?: BooleanFilter | null | undefined;
+};
+
+export type SponsorerBlocksTimelineFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  events?: SponsorerBlocksTimelineEventsFilter | null | undefined;
+};
+
+export type SponsorerBlocksOrgSeparationFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+};
+
+export type SponsorerBlocksCheckmatFeaturesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type SponsorerBlocksCheckmatFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  features?: SponsorerBlocksCheckmatFeaturesFilter | null | undefined;
+};
+
+export type SponsorerBlocksFilter = {
+  about?: SponsorerBlocksAboutFilter | null | undefined;
+  values?: SponsorerBlocksValuesFilter | null | undefined;
+  membership?: SponsorerBlocksMembershipFilter | null | undefined;
+  trainers?: SponsorerBlocksTrainersFilter | null | undefined;
+  sponsors?: SponsorerBlocksSponsorsFilter | null | undefined;
+  benefits?: SponsorerBlocksBenefitsFilter | null | undefined;
+  faq?: SponsorerBlocksFaqFilter | null | undefined;
+  packages?: SponsorerBlocksPackagesFilter | null | undefined;
+  timeline?: SponsorerBlocksTimelineFilter | null | undefined;
+  orgSeparation?: SponsorerBlocksOrgSeparationFilter | null | undefined;
+  checkmat?: SponsorerBlocksCheckmatFilter | null | undefined;
+};
+
+export type SponsorerFilter = {
+  title?: StringFilter | null | undefined;
+  blocks?: SponsorerBlocksFilter | null | undefined;
+};
+
+export type MedlemskapBlocksAboutFilter = {
+  title?: StringFilter | null | undefined;
+  body?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  video?: ImageFilter | null | undefined;
+};
+
+export type MedlemskapBlocksValuesItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type MedlemskapBlocksValuesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  variant?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  items?: MedlemskapBlocksValuesItemsFilter | null | undefined;
+};
+
+export type MedlemskapBlocksMembershipFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  linkUrl?: StringFilter | null | undefined;
+  boostLinkUrl?: StringFilter | null | undefined;
+  boostEnabled?: BooleanFilter | null | undefined;
+  extraInfo?: StringFilter | null | undefined;
+};
+
+export type MedlemskapBlocksTrainersTrainerListFilter = {
+  name?: StringFilter | null | undefined;
+  role?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+  bio?: StringFilter | null | undefined;
+};
+
+export type MedlemskapBlocksTrainersFilter = {
+  title?: StringFilter | null | undefined;
+  trainerList?: MedlemskapBlocksTrainersTrainerListFilter | null | undefined;
+};
+
+export type MedlemskapBlocksSponsorsSponsorListFilter = {
+  name?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  url?: StringFilter | null | undefined;
+};
+
+export type MedlemskapBlocksSponsorsFilter = {
+  title?: StringFilter | null | undefined;
+  sponsorList?: MedlemskapBlocksSponsorsSponsorListFilter | null | undefined;
+};
+
+export type MedlemskapBlocksBenefitsItemsFilter = {
+  title?: StringFilter | null | undefined;
+  text?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type MedlemskapBlocksBenefitsFilter = {
+  title?: StringFilter | null | undefined;
+  items?: MedlemskapBlocksBenefitsItemsFilter | null | undefined;
+};
+
+export type MedlemskapBlocksFaqItemsFilter = {
+  question?: StringFilter | null | undefined;
+  answer?: StringFilter | null | undefined;
+};
+
+export type MedlemskapBlocksFaqFilter = {
+  title?: StringFilter | null | undefined;
+  items?: MedlemskapBlocksFaqItemsFilter | null | undefined;
+};
+
+export type MedlemskapBlocksPackagesPackagesListFilter = {
+  name?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  perks?: StringFilter | null | undefined;
+  highlighted?: BooleanFilter | null | undefined;
+};
+
+export type MedlemskapBlocksPackagesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  packagesList?: MedlemskapBlocksPackagesPackagesListFilter | null | undefined;
+};
+
+export type MedlemskapBlocksTimelineEventsFilter = {
+  year?: StringFilter | null | undefined;
+  title?: StringFilter | null | undefined;
+  location?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  highlight?: BooleanFilter | null | undefined;
+};
+
+export type MedlemskapBlocksTimelineFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  events?: MedlemskapBlocksTimelineEventsFilter | null | undefined;
+};
+
+export type MedlemskapBlocksOrgSeparationFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+};
+
+export type MedlemskapBlocksCheckmatFeaturesFilter = {
+  title?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  icon?: StringFilter | null | undefined;
+};
+
+export type MedlemskapBlocksCheckmatFilter = {
+  title?: StringFilter | null | undefined;
+  subtitle?: StringFilter | null | undefined;
+  description?: StringFilter | null | undefined;
+  features?: MedlemskapBlocksCheckmatFeaturesFilter | null | undefined;
+};
+
+export type MedlemskapBlocksFilter = {
+  about?: MedlemskapBlocksAboutFilter | null | undefined;
+  values?: MedlemskapBlocksValuesFilter | null | undefined;
+  membership?: MedlemskapBlocksMembershipFilter | null | undefined;
+  trainers?: MedlemskapBlocksTrainersFilter | null | undefined;
+  sponsors?: MedlemskapBlocksSponsorsFilter | null | undefined;
+  benefits?: MedlemskapBlocksBenefitsFilter | null | undefined;
+  faq?: MedlemskapBlocksFaqFilter | null | undefined;
+  packages?: MedlemskapBlocksPackagesFilter | null | undefined;
+  timeline?: MedlemskapBlocksTimelineFilter | null | undefined;
+  orgSeparation?: MedlemskapBlocksOrgSeparationFilter | null | undefined;
+  checkmat?: MedlemskapBlocksCheckmatFilter | null | undefined;
+};
+
+export type MedlemskapFilter = {
+  title?: StringFilter | null | undefined;
+  blocks?: MedlemskapBlocksFilter | null | undefined;
+};
+
+export type ContactFilter = {
+  email?: StringFilter | null | undefined;
+  phone?: StringFilter | null | undefined;
+  address?: StringFilter | null | undefined;
+  facebook?: StringFilter | null | undefined;
+  instagram?: StringFilter | null | undefined;
+  image?: ImageFilter | null | undefined;
+};
+
+export type GlobalNavFilter = {
+  label?: StringFilter | null | undefined;
+  href?: StringFilter | null | undefined;
+};
+
+export type GlobalSponsorsFilter = {
+  name?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  url?: StringFilter | null | undefined;
+};
+
+export type GlobalFilter = {
+  clubName?: StringFilter | null | undefined;
+  logo?: ImageFilter | null | undefined;
+  facebook?: StringFilter | null | undefined;
+  instagram?: StringFilter | null | undefined;
+  nav?: GlobalNavFilter | null | undefined;
+  sponsors?: GlobalSponsorsFilter | null | undefined;
+  footerDescription?: StringFilter | null | undefined;
+  footerEmail?: StringFilter | null | undefined;
+  footerPhone?: StringFilter | null | undefined;
+  footerAddress?: StringFilter | null | undefined;
+  footerOrgNumber?: StringFilter | null | undefined;
+};
+
+export type OmOssPartsFragment = { __typename: 'OmOss', title: string, description: string | null, blocks: Array<
+    | { __typename: 'OmOssBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+    | { __typename: 'OmOssBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'OmOssBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'OmOssBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+    | { __typename: 'OmOssBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+    | { __typename: 'OmOssBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+    | { __typename: 'OmOssBlocksBenefits', title: string | null, items: Array<{ __typename: 'OmOssBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'OmOssBlocksFaq', title: string | null, items: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null }
+    | { __typename: 'OmOssBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+    | { __typename: 'OmOssBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'OmOssBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+    | { __typename: 'OmOssBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+    | { __typename: 'OmOssBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+   | null> | null };
+
+export type PagePartsFragment = { __typename: 'Page', title: string, description: string | null, blocks: Array<
+    | { __typename: 'PageBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+    | { __typename: 'PageBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'PageBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'PageBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+    | { __typename: 'PageBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'PageBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+    | { __typename: 'PageBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+    | { __typename: 'PageBlocksBenefits', title: string | null, items: Array<{ __typename: 'PageBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'PageBlocksFaq', title: string | null, items: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null }
+    | { __typename: 'PageBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+    | { __typename: 'PageBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'PageBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+    | { __typename: 'PageBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+    | { __typename: 'PageBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'PageBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+   | null> | null };
+
+export type HeroPartsFragment = { __typename: 'Hero', welcomeText: string | null, highlightedText: string | null, description: string | null, backgroundImage: string | null, backgroundVideo: string | null, instagramTitle: string | null, instagramUsername: string | null, instagramLink: string | null, instagramImages: Array<{ __typename: 'HeroInstagramImages', image: string, caption: string | null, postUrl: string | null } | null> | null };
+
+export type SchedulePartsFragment = { __typename: 'Schedule', days: Array<{ __typename: 'ScheduleDays', day: string, slots: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer: string | null } | null> | null } | null> | null };
+
+export type StyretPartsFragment = { __typename: 'Styret', title: string | null, description: any, blocks: Array<
+    | { __typename: 'StyretBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+    | { __typename: 'StyretBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'StyretBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'StyretBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+    | { __typename: 'StyretBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+    | { __typename: 'StyretBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+    | { __typename: 'StyretBlocksBenefits', title: string | null, items: Array<{ __typename: 'StyretBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'StyretBlocksFaq', title: string | null, items: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null }
+    | { __typename: 'StyretBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+    | { __typename: 'StyretBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'StyretBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+    | { __typename: 'StyretBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+    | { __typename: 'StyretBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+   | null> | null, members: Array<{ __typename: 'StyretMembers', role: string | null, name: string | null, image: string | null } | null> | null, committees: Array<{ __typename: 'StyretCommittees', name: string | null, people: Array<{ __typename: 'StyretCommitteesPeople', role: string | null, name: string | null } | null> | null } | null> | null };
+
+export type OrganisasjonsplanPartsFragment = { __typename: 'Organisasjonsplan', title: string, body: any };
+
+export type NewsPartsFragment = { __typename: 'News', title: string, date: string, category: string | null, image: string | null, description: string | null, body: any };
+
+export type SponsorerPartsFragment = { __typename: 'Sponsorer', title: string, blocks: Array<
+    | { __typename: 'SponsorerBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+    | { __typename: 'SponsorerBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'SponsorerBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'SponsorerBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+    | { __typename: 'SponsorerBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+    | { __typename: 'SponsorerBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+    | { __typename: 'SponsorerBlocksBenefits', title: string | null, items: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'SponsorerBlocksFaq', title: string | null, items: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null }
+    | { __typename: 'SponsorerBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+    | { __typename: 'SponsorerBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+    | { __typename: 'SponsorerBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+    | { __typename: 'SponsorerBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+   | null> | null };
+
+export type MedlemskapPartsFragment = { __typename: 'Medlemskap', title: string, blocks: Array<
+    | { __typename: 'MedlemskapBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+    | { __typename: 'MedlemskapBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'MedlemskapBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'MedlemskapBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+    | { __typename: 'MedlemskapBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+    | { __typename: 'MedlemskapBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+    | { __typename: 'MedlemskapBlocksBenefits', title: string | null, items: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+    | { __typename: 'MedlemskapBlocksFaq', title: string | null, items: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null }
+    | { __typename: 'MedlemskapBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+    | { __typename: 'MedlemskapBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+    | { __typename: 'MedlemskapBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+    | { __typename: 'MedlemskapBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+   | null> | null };
+
+export type ContactPartsFragment = { __typename: 'Contact', email: string | null, phone: string | null, address: string | null, facebook: string | null, instagram: string | null, image: string | null };
+
+export type GlobalPartsFragment = { __typename: 'Global', clubName: string | null, logo: string | null, facebook: string | null, instagram: string | null, footerDescription: string | null, footerEmail: string | null, footerPhone: string | null, footerAddress: string | null, footerOrgNumber: string | null, nav: Array<{ __typename: 'GlobalNav', label: string | null, href: string | null } | null> | null, sponsors: Array<{ __typename: 'GlobalSponsors', name: string | null, logo: string | null, url: string | null } | null> | null };
 
 export type OmOssQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type OmOssQuery = { __typename?: 'Query', omOss: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
+export type OmOssQuery = { omOss: { __typename: 'OmOss', id: string, title: string, description: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+      | { __typename: 'OmOssBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+      | { __typename: 'OmOssBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'OmOssBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'OmOssBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+      | { __typename: 'OmOssBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+      | { __typename: 'OmOssBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+      | { __typename: 'OmOssBlocksBenefits', title: string | null, items: Array<{ __typename: 'OmOssBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'OmOssBlocksFaq', title: string | null, items: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null }
+      | { __typename: 'OmOssBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+      | { __typename: 'OmOssBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'OmOssBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+      | { __typename: 'OmOssBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+      | { __typename: 'OmOssBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+     | null> | null } };
 
 export type OmOssConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<OmOssFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: OmOssFilter | null | undefined;
 }>;
 
 
-export type OmOssConnectionQuery = { __typename?: 'Query', omOssConnection: { __typename?: 'OmOssConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'OmOssConnectionEdges', cursor: string, node?: { __typename: 'OmOss', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'OmOssBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'OmOssBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'OmOssBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'OmOssBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'OmOssBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'OmOssBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'OmOssBlocksFaq', title?: string | null, items?: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'OmOssBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'OmOssBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'OmOssBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'OmOssBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type OmOssConnectionQuery = { omOssConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'OmOss', id: string, title: string, description: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+          | { __typename: 'OmOssBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+          | { __typename: 'OmOssBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'OmOssBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'OmOssBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+          | { __typename: 'OmOssBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'OmOssBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+          | { __typename: 'OmOssBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'OmOssBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+          | { __typename: 'OmOssBlocksBenefits', title: string | null, items: Array<{ __typename: 'OmOssBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'OmOssBlocksFaq', title: string | null, items: Array<{ __typename: 'OmOssBlocksFaqItems', question: string, answer: string } | null> | null }
+          | { __typename: 'OmOssBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'OmOssBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+          | { __typename: 'OmOssBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'OmOssBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+          | { __typename: 'OmOssBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+          | { __typename: 'OmOssBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'OmOssBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+         | null> | null } | null } | null> | null } };
 
 export type PageQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type PageQuery = { __typename?: 'Query', page: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'PageBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'PageBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'PageBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'PageBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'PageBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'PageBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
+export type PageQuery = { page: { __typename: 'Page', id: string, title: string, description: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+      | { __typename: 'PageBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+      | { __typename: 'PageBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'PageBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'PageBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+      | { __typename: 'PageBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'PageBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+      | { __typename: 'PageBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+      | { __typename: 'PageBlocksBenefits', title: string | null, items: Array<{ __typename: 'PageBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'PageBlocksFaq', title: string | null, items: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null }
+      | { __typename: 'PageBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+      | { __typename: 'PageBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'PageBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+      | { __typename: 'PageBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+      | { __typename: 'PageBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'PageBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+     | null> | null } };
 
 export type PageConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<PageFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: PageFilter | null | undefined;
 }>;
 
 
-export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'PageConnectionEdges', cursor: string, node?: { __typename: 'Page', id: string, title: string, description?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'PageBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'PageBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'PageBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'PageBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'PageBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'PageBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'PageBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'PageBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'PageBlocksFaq', title?: string | null, items?: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'PageBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'PageBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'PageBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'PageBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'PageBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'PageBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type PageConnectionQuery = { pageConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Page', id: string, title: string, description: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+          | { __typename: 'PageBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+          | { __typename: 'PageBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'PageBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'PageBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+          | { __typename: 'PageBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'PageBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+          | { __typename: 'PageBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'PageBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+          | { __typename: 'PageBlocksBenefits', title: string | null, items: Array<{ __typename: 'PageBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'PageBlocksFaq', title: string | null, items: Array<{ __typename: 'PageBlocksFaqItems', question: string, answer: string } | null> | null }
+          | { __typename: 'PageBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'PageBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+          | { __typename: 'PageBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'PageBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+          | { __typename: 'PageBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+          | { __typename: 'PageBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'PageBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+         | null> | null } | null } | null> | null } };
 
 export type HeroQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type HeroQuery = { __typename?: 'Query', hero: { __typename: 'Hero', id: string, welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null } };
+export type HeroQuery = { hero: { __typename: 'Hero', id: string, welcomeText: string | null, highlightedText: string | null, description: string | null, backgroundImage: string | null, backgroundVideo: string | null, instagramTitle: string | null, instagramUsername: string | null, instagramLink: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, instagramImages: Array<{ __typename: 'HeroInstagramImages', image: string, caption: string | null, postUrl: string | null } | null> | null } };
 
 export type HeroConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<HeroFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: HeroFilter | null | undefined;
 }>;
 
 
-export type HeroConnectionQuery = { __typename?: 'Query', heroConnection: { __typename?: 'HeroConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HeroConnectionEdges', cursor: string, node?: { __typename: 'Hero', id: string, welcomeText?: string | null, highlightedText?: string | null, description?: string | null, backgroundImage?: string | null, backgroundVideo?: string | null, instagramTitle?: string | null, instagramUsername?: string | null, instagramLink?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, instagramImages?: Array<{ __typename: 'HeroInstagramImages', image: string, caption?: string | null, postUrl?: string | null } | null> | null } | null } | null> | null } };
+export type HeroConnectionQuery = { heroConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Hero', id: string, welcomeText: string | null, highlightedText: string | null, description: string | null, backgroundImage: string | null, backgroundVideo: string | null, instagramTitle: string | null, instagramUsername: string | null, instagramLink: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, instagramImages: Array<{ __typename: 'HeroInstagramImages', image: string, caption: string | null, postUrl: string | null } | null> | null } | null } | null> | null } };
 
 export type ScheduleQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type ScheduleQuery = { __typename?: 'Query', schedule: { __typename: 'Schedule', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, days?: Array<{ __typename: 'ScheduleDays', day: string, slots?: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer?: string | null } | null> | null } | null> | null } };
+export type ScheduleQuery = { schedule: { __typename: 'Schedule', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, days: Array<{ __typename: 'ScheduleDays', day: string, slots: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer: string | null } | null> | null } | null> | null } };
 
 export type ScheduleConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<ScheduleFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: ScheduleFilter | null | undefined;
 }>;
 
 
-export type ScheduleConnectionQuery = { __typename?: 'Query', scheduleConnection: { __typename?: 'ScheduleConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ScheduleConnectionEdges', cursor: string, node?: { __typename: 'Schedule', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, days?: Array<{ __typename: 'ScheduleDays', day: string, slots?: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type ScheduleConnectionQuery = { scheduleConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Schedule', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, days: Array<{ __typename: 'ScheduleDays', day: string, slots: Array<{ __typename: 'ScheduleDaysSlots', time: string, activity: string, group: string, room: string, trainer: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type StyretQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type StyretQuery = { __typename?: 'Query', styret: { __typename: 'Styret', id: string, title?: string | null, description?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'StyretBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'StyretBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'StyretBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'StyretBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'StyretBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'StyretBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksFaq', title?: string | null, items?: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'StyretBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'StyretBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'StyretBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'StyretBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'StyretBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null } };
+export type StyretQuery = { styret: { __typename: 'Styret', id: string, title: string | null, description: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+      | { __typename: 'StyretBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+      | { __typename: 'StyretBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'StyretBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'StyretBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+      | { __typename: 'StyretBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+      | { __typename: 'StyretBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+      | { __typename: 'StyretBlocksBenefits', title: string | null, items: Array<{ __typename: 'StyretBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'StyretBlocksFaq', title: string | null, items: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null }
+      | { __typename: 'StyretBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+      | { __typename: 'StyretBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'StyretBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+      | { __typename: 'StyretBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+      | { __typename: 'StyretBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+     | null> | null, members: Array<{ __typename: 'StyretMembers', role: string | null, name: string | null, image: string | null } | null> | null, committees: Array<{ __typename: 'StyretCommittees', name: string | null, people: Array<{ __typename: 'StyretCommitteesPeople', role: string | null, name: string | null } | null> | null } | null> | null } };
 
 export type StyretConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<StyretFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: StyretFilter | null | undefined;
 }>;
 
 
-export type StyretConnectionQuery = { __typename?: 'Query', styretConnection: { __typename?: 'StyretConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'StyretConnectionEdges', cursor: string, node?: { __typename: 'Styret', id: string, title?: string | null, description?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'StyretBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'StyretBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'StyretBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'StyretBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'StyretBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'StyretBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'StyretBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'StyretBlocksFaq', title?: string | null, items?: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'StyretBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'StyretBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'StyretBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'StyretBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'StyretBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null, members?: Array<{ __typename: 'StyretMembers', role?: string | null, name?: string | null, image?: string | null } | null> | null, committees?: Array<{ __typename: 'StyretCommittees', name?: string | null, people?: Array<{ __typename: 'StyretCommitteesPeople', role?: string | null, name?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type StyretConnectionQuery = { styretConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Styret', id: string, title: string | null, description: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+          | { __typename: 'StyretBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+          | { __typename: 'StyretBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'StyretBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'StyretBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+          | { __typename: 'StyretBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'StyretBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+          | { __typename: 'StyretBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'StyretBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+          | { __typename: 'StyretBlocksBenefits', title: string | null, items: Array<{ __typename: 'StyretBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'StyretBlocksFaq', title: string | null, items: Array<{ __typename: 'StyretBlocksFaqItems', question: string, answer: string } | null> | null }
+          | { __typename: 'StyretBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'StyretBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+          | { __typename: 'StyretBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'StyretBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+          | { __typename: 'StyretBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+          | { __typename: 'StyretBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'StyretBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+         | null> | null, members: Array<{ __typename: 'StyretMembers', role: string | null, name: string | null, image: string | null } | null> | null, committees: Array<{ __typename: 'StyretCommittees', name: string | null, people: Array<{ __typename: 'StyretCommitteesPeople', role: string | null, name: string | null } | null> | null } | null> | null } | null } | null> | null } };
 
 export type OrganisasjonsplanQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type OrganisasjonsplanQuery = { __typename?: 'Query', organisasjonsplan: { __typename: 'Organisasjonsplan', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type OrganisasjonsplanQuery = { organisasjonsplan: { __typename: 'Organisasjonsplan', id: string, title: string, body: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type OrganisasjonsplanConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<OrganisasjonsplanFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: OrganisasjonsplanFilter | null | undefined;
 }>;
 
 
-export type OrganisasjonsplanConnectionQuery = { __typename?: 'Query', organisasjonsplanConnection: { __typename?: 'OrganisasjonsplanConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'OrganisasjonsplanConnectionEdges', cursor: string, node?: { __typename: 'Organisasjonsplan', id: string, title: string, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type OrganisasjonsplanConnectionQuery = { organisasjonsplanConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Organisasjonsplan', id: string, title: string, body: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type NewsQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type NewsQuery = { __typename?: 'Query', news: { __typename: 'News', id: string, title: string, date: string, category?: string | null, image?: string | null, description?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type NewsQuery = { news: { __typename: 'News', id: string, title: string, date: string, category: string | null, image: string | null, description: string | null, body: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type NewsConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<NewsFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: NewsFilter | null | undefined;
 }>;
 
 
-export type NewsConnectionQuery = { __typename?: 'Query', newsConnection: { __typename?: 'NewsConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'NewsConnectionEdges', cursor: string, node?: { __typename: 'News', id: string, title: string, date: string, category?: string | null, image?: string | null, description?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type NewsConnectionQuery = { newsConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'News', id: string, title: string, date: string, category: string | null, image: string | null, description: string | null, body: any, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type SponsorerQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type SponsorerQuery = { __typename?: 'Query', sponsorer: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'SponsorerBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'SponsorerBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'SponsorerBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksFaq', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'SponsorerBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
+export type SponsorerQuery = { sponsorer: { __typename: 'Sponsorer', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+      | { __typename: 'SponsorerBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+      | { __typename: 'SponsorerBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'SponsorerBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'SponsorerBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+      | { __typename: 'SponsorerBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+      | { __typename: 'SponsorerBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+      | { __typename: 'SponsorerBlocksBenefits', title: string | null, items: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'SponsorerBlocksFaq', title: string | null, items: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null }
+      | { __typename: 'SponsorerBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+      | { __typename: 'SponsorerBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+      | { __typename: 'SponsorerBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+      | { __typename: 'SponsorerBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+     | null> | null } };
 
 export type SponsorerConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<SponsorerFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: SponsorerFilter | null | undefined;
 }>;
 
 
-export type SponsorerConnectionQuery = { __typename?: 'Query', sponsorerConnection: { __typename?: 'SponsorerConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'SponsorerConnectionEdges', cursor: string, node?: { __typename: 'Sponsorer', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'SponsorerBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'SponsorerBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'SponsorerBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'SponsorerBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'SponsorerBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'SponsorerBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'SponsorerBlocksFaq', title?: string | null, items?: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'SponsorerBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'SponsorerBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'SponsorerBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type SponsorerConnectionQuery = { sponsorerConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Sponsorer', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+          | { __typename: 'SponsorerBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+          | { __typename: 'SponsorerBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'SponsorerBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'SponsorerBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+          | { __typename: 'SponsorerBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'SponsorerBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+          | { __typename: 'SponsorerBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'SponsorerBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+          | { __typename: 'SponsorerBlocksBenefits', title: string | null, items: Array<{ __typename: 'SponsorerBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'SponsorerBlocksFaq', title: string | null, items: Array<{ __typename: 'SponsorerBlocksFaqItems', question: string, answer: string } | null> | null }
+          | { __typename: 'SponsorerBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'SponsorerBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+          | { __typename: 'SponsorerBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'SponsorerBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+          | { __typename: 'SponsorerBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+          | { __typename: 'SponsorerBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'SponsorerBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+         | null> | null } | null } | null> | null } };
 
 export type MedlemskapQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type MedlemskapQuery = { __typename?: 'Query', medlemskap: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'MedlemskapBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'MedlemskapBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'MedlemskapBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } };
+export type MedlemskapQuery = { medlemskap: { __typename: 'Medlemskap', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+      | { __typename: 'MedlemskapBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+      | { __typename: 'MedlemskapBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'MedlemskapBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'MedlemskapBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+      | { __typename: 'MedlemskapBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+      | { __typename: 'MedlemskapBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+      | { __typename: 'MedlemskapBlocksBenefits', title: string | null, items: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+      | { __typename: 'MedlemskapBlocksFaq', title: string | null, items: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null }
+      | { __typename: 'MedlemskapBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+      | { __typename: 'MedlemskapBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+      | { __typename: 'MedlemskapBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+      | { __typename: 'MedlemskapBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+     | null> | null } };
 
 export type MedlemskapConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<MedlemskapFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: MedlemskapFilter | null | undefined;
 }>;
 
 
-export type MedlemskapConnectionQuery = { __typename?: 'Query', medlemskapConnection: { __typename?: 'MedlemskapConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'MedlemskapConnectionEdges', cursor: string, node?: { __typename: 'Medlemskap', id: string, title: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks?: Array<{ __typename: 'MedlemskapBlocksAbout', title?: string | null, body?: string | null, image?: string | null, video?: string | null } | { __typename: 'MedlemskapBlocksValues', title?: string | null, description?: string | null, variant?: string | null, image?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksValuesItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksMembership', title?: string | null, description?: string | null, linkUrl?: string | null, boostLinkUrl?: string | null, boostEnabled?: boolean | null, extraInfo?: string | null } | { __typename: 'MedlemskapBlocksTrainers', title?: string | null, trainerList?: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name?: string | null, role?: string | null, image?: string | null, bio?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksSponsors', title?: string | null, sponsorList?: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksBenefits', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title?: string | null, text?: string | null, icon?: string | null } | null> | null } | { __typename: 'MedlemskapBlocksFaq', title?: string | null, items?: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null } | { __typename: 'MedlemskapBlocksPackages', title?: string | null, description?: string | null, packagesList?: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description?: string | null, perks?: Array<string | null> | null, highlighted?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksTimeline', title?: string | null, subtitle?: string | null, events?: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year?: string | null, title?: string | null, location?: string | null, description?: string | null, highlight?: boolean | null } | null> | null } | { __typename: 'MedlemskapBlocksOrgSeparation', title?: string | null, subtitle?: string | null, description?: string | null } | { __typename: 'MedlemskapBlocksCheckmat', title?: string | null, subtitle?: string | null, description?: string | null, features?: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title?: string | null, description?: string | null, icon?: string | null } | null> | null } | null> | null } | null } | null> | null } };
+export type MedlemskapConnectionQuery = { medlemskapConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Medlemskap', id: string, title: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, blocks: Array<
+          | { __typename: 'MedlemskapBlocksAbout', title: string | null, body: string | null, image: string | null, video: string | null }
+          | { __typename: 'MedlemskapBlocksValues', title: string | null, description: string | null, variant: string | null, image: string | null, items: Array<{ __typename: 'MedlemskapBlocksValuesItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'MedlemskapBlocksMembership', title: string | null, description: string | null, linkUrl: string | null, boostLinkUrl: string | null, boostEnabled: boolean | null, extraInfo: string | null }
+          | { __typename: 'MedlemskapBlocksTrainers', title: string | null, trainerList: Array<{ __typename: 'MedlemskapBlocksTrainersTrainerList', name: string | null, role: string | null, image: string | null, bio: string | null } | null> | null }
+          | { __typename: 'MedlemskapBlocksSponsors', title: string | null, sponsorList: Array<{ __typename: 'MedlemskapBlocksSponsorsSponsorList', name: string | null, logo: string | null, url: string | null } | null> | null }
+          | { __typename: 'MedlemskapBlocksBenefits', title: string | null, items: Array<{ __typename: 'MedlemskapBlocksBenefitsItems', title: string | null, text: string | null, icon: string | null } | null> | null }
+          | { __typename: 'MedlemskapBlocksFaq', title: string | null, items: Array<{ __typename: 'MedlemskapBlocksFaqItems', question: string, answer: string } | null> | null }
+          | { __typename: 'MedlemskapBlocksPackages', title: string | null, description: string | null, packagesList: Array<{ __typename: 'MedlemskapBlocksPackagesPackagesList', name: string, description: string | null, perks: Array<string | null> | null, highlighted: boolean | null } | null> | null }
+          | { __typename: 'MedlemskapBlocksTimeline', title: string | null, subtitle: string | null, events: Array<{ __typename: 'MedlemskapBlocksTimelineEvents', year: string | null, title: string | null, location: string | null, description: string | null, highlight: boolean | null } | null> | null }
+          | { __typename: 'MedlemskapBlocksOrgSeparation', title: string | null, subtitle: string | null, description: string | null }
+          | { __typename: 'MedlemskapBlocksCheckmat', title: string | null, subtitle: string | null, description: string | null, features: Array<{ __typename: 'MedlemskapBlocksCheckmatFeatures', title: string | null, description: string | null, icon: string | null } | null> | null }
+         | null> | null } | null } | null> | null } };
 
 export type ContactQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type ContactQuery = { __typename?: 'Query', contact: { __typename: 'Contact', id: string, email?: string | null, phone?: string | null, address?: string | null, facebook?: string | null, instagram?: string | null, image?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type ContactQuery = { contact: { __typename: 'Contact', id: string, email: string | null, phone: string | null, address: string | null, facebook: string | null, instagram: string | null, image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type ContactConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<ContactFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: ContactFilter | null | undefined;
 }>;
 
 
-export type ContactConnectionQuery = { __typename?: 'Query', contactConnection: { __typename?: 'ContactConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ContactConnectionEdges', cursor: string, node?: { __typename: 'Contact', id: string, email?: string | null, phone?: string | null, address?: string | null, facebook?: string | null, instagram?: string | null, image?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type ContactConnectionQuery = { contactConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Contact', id: string, email: string | null, phone: string | null, address: string | null, facebook: string | null, instagram: string | null, image: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type GlobalQueryVariables = Exact<{
-  relativePath: Scalars['String']['input'];
+  relativePath: string;
 }>;
 
 
-export type GlobalQuery = { __typename?: 'Query', global: { __typename: 'Global', id: string, clubName?: string | null, logo?: string | null, facebook?: string | null, instagram?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, footerOrgNumber?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null, sponsors?: Array<{ __typename: 'GlobalSponsors', name?: string | null, logo?: string | null, url?: string | null } | null> | null } };
+export type GlobalQuery = { global: { __typename: 'Global', id: string, clubName: string | null, logo: string | null, facebook: string | null, instagram: string | null, footerDescription: string | null, footerEmail: string | null, footerPhone: string | null, footerAddress: string | null, footerOrgNumber: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, nav: Array<{ __typename: 'GlobalNav', label: string | null, href: string | null } | null> | null, sponsors: Array<{ __typename: 'GlobalSponsors', name: string | null, logo: string | null, url: string | null } | null> | null } };
 
 export type GlobalConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<GlobalFilter>;
+  before?: string | null | undefined;
+  after?: string | null | undefined;
+  first?: number | null | undefined;
+  last?: number | null | undefined;
+  sort?: string | null | undefined;
+  filter?: GlobalFilter | null | undefined;
 }>;
 
 
-export type GlobalConnectionQuery = { __typename?: 'Query', globalConnection: { __typename?: 'GlobalConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'GlobalConnectionEdges', cursor: string, node?: { __typename: 'Global', id: string, clubName?: string | null, logo?: string | null, facebook?: string | null, instagram?: string | null, footerDescription?: string | null, footerEmail?: string | null, footerPhone?: string | null, footerAddress?: string | null, footerOrgNumber?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, nav?: Array<{ __typename: 'GlobalNav', label?: string | null, href?: string | null } | null> | null, sponsors?: Array<{ __typename: 'GlobalSponsors', name?: string | null, logo?: string | null, url?: string | null } | null> | null } | null } | null> | null } };
+export type GlobalConnectionQuery = { globalConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Global', id: string, clubName: string | null, logo: string | null, facebook: string | null, instagram: string | null, footerDescription: string | null, footerEmail: string | null, footerPhone: string | null, footerAddress: string | null, footerOrgNumber: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, nav: Array<{ __typename: 'GlobalNav', label: string | null, href: string | null } | null> | null, sponsors: Array<{ __typename: 'GlobalSponsors', name: string | null, logo: string | null, url: string | null } | null> | null } | null } | null> | null } };
 
 export const OmOssPartsFragmentDoc = gql`
     fragment OmOssParts on OmOss {
@@ -4862,7 +5873,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "http://localhost:4001/graphql",
+        url: "https://content.tinajs.io/2.4/content/810c085c-dd16-47c3-8ca2-865f4019e4ca/github/main",
         queries,
       })
     )
@@ -4874,5 +5885,7 @@ export const queries = (
   const requester = generateRequester(client)
   return getSdk(requester)
 }
+
+export type { Exact };
 
   
