@@ -23,8 +23,8 @@
         "source": "/**",
         "headers": [
           {
-            "key": "X-Frame-Options",
-            "value": "SAMEORIGIN"
+            "key": "Content-Security-Policy",
+            "value": "frame-ancestors 'self' https://app.tina.io https://*.tinajs.io https://kampsporteidsvoll.no https://*.web.app https://*.firebaseapp.com http://localhost:*;"
           },
           {
             "key": "X-Content-Type-Options",

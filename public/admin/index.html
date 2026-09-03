@@ -4,67 +4,23 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/admin/assets/favicon-CCqH8YbW.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TinaCMS</title>
+    <title>TinaCMS Admin</title>
     <script type="module" crossorigin src="/admin/assets/index-Bo-4iavk.js"></script>
     <link rel="stylesheet" crossorigin href="/admin/assets/index-BL0kiTsf.css">
   </head>
   <body class="tina-tailwind">
-    <div id="root"></div>
-    <script>
-      function handleLoadError() {
-        console.error('Failed to load assets')
-        // Assets have failed to load
-        document.getElementById('root').innerHTML =
-          '<style type="text/css">\
-        #no-assets-placeholder body {\
-          font-family: sans-serif;\
-          font-size: 16px;\
-          line-height: 1.4;\
-          color: #333;\
-          background-color: #f5f5f5;\
-        }\
-        #no-assets-placeholder {\
-          max-width: 600px;\
-          margin: 0 auto;\
-          padding: 40px;\
-          text-align: center;\
-          background-color: #fff;\
-          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);\
-        }\
-        #no-assets-placeholder h1 {\
-          font-size: 24px;\
-          margin-bottom: 20px;\
-        }\
-        #no-assets-placeholder p {\
-          margin-bottom: 10px;\
-        }\
-        #no-assets-placeholder a {\
-          color: #0077cc;\
-          text-decoration: none;\
-        }\
-        #no-assets-placeholder a:hover {\
-          text-decoration: underline;\
-        }\
-        </style>\
-        <div id=\'no-assets-placeholder\'>\
-          <h1>Failed loading TinaCMS assets</h1>\
-          <p>\
-            Your TinaCMS configuration may be misconfigured, and we could not load\
-            the assets for this page.\
-          </p>\
-          <p>\
-            Please visit <a href="https://tina.io/docs/r/FAQ/#13-how-do-i-resolve-failed-loading-tinacms-assets-error">this doc</a> for help.\
-          </p>\
-        </div>'
+    <div id="root">
+      <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: system-ui, -apple-system, sans-serif; background: #f8fafc;">
+        <div style="text-align: center;">
+          <div style="width: 40px; height: 40px; border: 3px solid #e2e8f0; border-top-color: #2563eb; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
+          <p style="color: #64748b; font-weight: 600; font-size: 15px;">Laster TinaCMS...</p>
+        </div>
+      </div>
+    </div>
+    <style>
+      @keyframes spin {
+        to { transform: rotate(360deg); }
       }
-
-      // Check if #root has children after 20 seconds
-      // If not, we assume that the assets have failed to load
-      setTimeout(() => {
-        if (!document.getElementById('root').children.length) {
-          handleLoadError()
-        }
-      }, 20000)
-    </script>
+    </style>
   </body>
 </html>
