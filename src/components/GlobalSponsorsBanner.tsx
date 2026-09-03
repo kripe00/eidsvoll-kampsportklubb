@@ -17,15 +17,15 @@ export function GlobalSponsorsBanner({ sponsors }: { sponsors: any[] }) {
     return items.map((sponsor, index) => {
       const content = (
         <div 
-          className="flex items-center justify-center w-32 h-16 md:w-48 md:h-24 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 relative"
+          className="flex items-center justify-center px-4 py-2 h-14 md:h-20 min-w-[140px] md:min-w-[180px] opacity-80 hover:opacity-100 transition-all duration-300 relative"
         >
           {sponsor.logo ? (
             <OptimizedImage 
               src={sponsor.logo} 
               alt={sponsor.name || "Sponsor"} 
-              width={192}
-              height={96}
-              className="max-w-full max-h-full object-contain w-auto h-auto"
+              width={220}
+              height={100}
+              className="max-h-12 md:max-h-16 max-w-[200px] md:max-w-[240px] object-contain w-auto h-auto"
             />
           ) : (
             <span className="text-lg md:text-xl font-black tracking-tighter uppercase text-muted-foreground whitespace-nowrap">
