@@ -1,7 +1,7 @@
 "use client";
 
 import { useTina } from "tinacms/dist/react";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { RichText } from "./RichText";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -14,12 +14,12 @@ export function NyheterPostClient(props: {
   variables: any;
 }) {
   const { data } = useTina({
-    query: props.query,
+    query: props.query || "{ __typename }",
     variables: props.variables,
     data: props.data,
   });
 
-  const post = data.news;
+  const post = data?.news || props.data?.news;
   
   if (!post) {
     return <div className="min-h-screen flex items-center justify-center">Laster inn...</div>;
@@ -28,6 +28,8 @@ export function NyheterPostClient(props: {
   const formattedDate = post.date 
     ? format(new Date(post.date), "d. MMMM yyyy", { locale: nb })
     : "";
+
+  const isLogo = post.image && (post.image.includes("sanita") || post.image.includes("logo") || post.image.includes("sponsor"));
 
   return (
     <article className="min-h-screen pb-24 bg-background">
@@ -51,19 +53,19 @@ export function NyheterPostClient(props: {
               </div>
             )}
             
-            <h1 className="text-4xl md:text-5xl lg:text-8xl font-black tracking-tighter text-foreground leading-[0.85] mb-8 uppercase" data-tina-field={post._tina_metadata?.fields?.title}>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter text-foreground leading-[1.0] mb-8 uppercase" data-tina-field={post._tina_metadata?.fields?.title}>
               {post.title}
             </h1>
             
             {post.description && (
-              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed" data-tina-field={post._tina_metadata?.fields?.description}>
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-light" data-tina-field={post._tina_metadata?.fields?.description}>
                 {post.description}
               </p>
             )}
 
             {formattedDate && (
-              <div className="flex items-center mt-8 text-muted-foreground font-medium" data-tina-field={post._tina_metadata?.fields?.date}>
-                <CalendarIcon className="w-5 h-5 mr-2 opacity-70" />
+              <div className="flex items-center mt-8 text-muted-foreground font-medium text-sm" data-tina-field={post._tina_metadata?.fields?.date}>
+                <CalendarIcon className="w-4 h-4 mr-2 opacity-70 text-primary" />
                 Dato publisert: {formattedDate}
               </div>
             )}
@@ -73,12 +75,14 @@ export function NyheterPostClient(props: {
 
       {post.image && (
         <div className="max-w-5xl mx-auto px-4 md:px-6 -mt-10 md:-mt-16 relative z-10" data-tina-field={post._tina_metadata?.fields?.image}>
-          <div className="aspect-[21/9] w-full relative rounded-xl overflow-hidden shadow-2xl border border-border/20 bg-muted">
+          <div className={`aspect-[21/9] w-full relative rounded-2xl overflow-hidden shadow-2xl border border-border/40 ${isLogo ? "bg-card flex items-center justify-center p-8 md:p-16" : "bg-muted"}`}>
             <Image
               src={post.image}
               alt={post.title}
-              fill
-              className="object-cover"
+              fill={!isLogo}
+              width={isLogo ? 500 : undefined}
+              height={isLogo ? 220 : undefined}
+              className={isLogo ? "max-h-36 md:max-h-52 w-auto object-contain mx-auto" : "object-cover"}
               priority
             />
           </div>
@@ -88,8 +92,8 @@ export function NyheterPostClient(props: {
       {/* Body Content */}
       {post.body && (
         <div className="container mx-auto px-4 md:px-6 mt-16 md:mt-24">
-          <div className="max-w-3xl mx-auto prose prose-lg md:prose-xl prose-slate dark:prose-invert" data-tina-field={post._tina_metadata?.fields?.body}>
-            <TinaMarkdown content={post.body} />
+          <div className="max-w-3xl mx-auto prose prose-lg md:prose-xl prose-slate dark:prose-invert prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase prose-a:text-primary prose-a:font-bold prose-p:leading-relaxed prose-p:font-light" data-tina-field={post._tina_metadata?.fields?.body}>
+            <RichText content={post.body} />
           </div>
         </div>
       )}

@@ -3,23 +3,42 @@ import { NyheterPostClient } from "@/components/NyheterPostClient";
 import { notFound } from "next/navigation";
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
 import type { Metadata } from "next";
 
 export async function generateMetadata({ params }: { params: Promise<{ filename: string }> }): Promise<Metadata> {
   try {
     const { filename } = await params;
     const decodedFilename = decodeURIComponent(filename);
-    const res = await client.queries.news({ relativePath: `${decodedFilename}.md` });
-    const post = res.data?.news;
+    const filePath = path.join(process.cwd(), "content/news", `${decodedFilename}.md`);
     
-    // We can also extract a short snippet from the description if present
+    let post: any = null;
+    if (fs.existsSync(filePath)) {
+      const fileContent = fs.readFileSync(filePath, "utf8");
+      const { data } = matter(fileContent);
+      post = data;
+    }
+
+    try {
+      const res = await client.queries.news({ relativePath: `${decodedFilename}.md` });
+      if (res.data?.news) {
+        post = { ...post, ...res.data.news };
+      }
+    } catch {
+      // Use local fallback
+    }
+
+    if (!post) {
+      return { title: "Nyheter" };
+    }
+
     return {
-      title: post?.title,
-      description: post?.description || `Les nyheten "${post?.title}" hos Eidsvoll Kampsportklubb.`,
+      title: post.title,
+      description: post.description || `Les nyheten "${post.title}" hos Eidsvoll Kampsportklubb.`,
       openGraph: {
-        title: post?.title,
-        description: post?.description || `Les nyheten "${post?.title}" hos Eidsvoll Kampsportklubb.`,
-        images: post?.image ? [
+        title: post.title,
+        description: post.description || `Les nyheten "${post.title}" hos Eidsvoll Kampsportklubb.`,
+        images: post.image ? [
           {
             url: post.image,
             alt: post.title || "Nyhetsbilde",
@@ -38,24 +57,50 @@ export async function generateMetadata({ params }: { params: Promise<{ filename:
 export default async function NyhetPostPage({ params }: { params: Promise<{ filename: string }> }) {
   const { filename } = await params;
   const decodedFilename = decodeURIComponent(filename);
-  let res: any;
+  const filePath = path.join(process.cwd(), "content/news", `${decodedFilename}.md`);
 
-  try {
-    res = await client.queries.news({ relativePath: `${decodedFilename}.md` });
-  } catch (error) {
-    console.error("Could not fetch individual news post:", error);
-    notFound();
+  let localPostData: any = null;
+  if (fs.existsSync(filePath)) {
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    const { data, content } = matter(fileContent);
+    localPostData = {
+      news: {
+        ...data,
+        body: content,
+      },
+    };
   }
 
-  if (!res?.data?.news) {
+  let pageRes: any = { data: localPostData, query: "", variables: {} };
+
+  try {
+    const res = await client.queries.news({ relativePath: `${decodedFilename}.md` });
+    if (res?.data?.news) {
+      pageRes = {
+        ...res,
+        data: {
+          ...localPostData,
+          ...res.data,
+          news: {
+            ...localPostData?.news,
+            ...res.data.news,
+          },
+        },
+      };
+    }
+  } catch (error) {
+    console.warn("TinaCMS individual news fetch failed (using local fallback data):", error);
+  }
+
+  if (!pageRes?.data?.news) {
     notFound();
   }
 
   return (
     <NyheterPostClient 
-      data={res.data} 
-      query={res.query} 
-      variables={res.variables} 
+      data={pageRes.data} 
+      query={pageRes.query} 
+      variables={pageRes.variables} 
     />
   );
 }
