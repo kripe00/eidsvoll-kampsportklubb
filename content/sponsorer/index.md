@@ -80,6 +80,10 @@ blocks:
         icon: Activity
     _template: benefits
   - title: Våre støttespillere
+    sponsorList:
+      - name: Sanita
+        logo: /images/sponsors/sanita.png
+        url: https://www.sanita.no
     _template: sponsors
 ---
 

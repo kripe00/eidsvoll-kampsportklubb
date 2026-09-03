@@ -27,8 +27,9 @@
   ],
   "sponsors": [
     {
-      "name": "Din lokale bedrift",
-      "url": "https://example.com"
+      "name": "Sanita",
+      "logo": "/images/sponsors/sanita.png",
+      "url": "https://www.sanita.no"
     }
   ],
   "footerDescription": "Vi vil gjerne høre fra deg! Enten du har spørsmål om treningstider, medlemskap, eller bare vil slå av en prat før du bestemmer deg for å prøve, er du alltid velkommen til å ta kontakt.",
