@@ -58,13 +58,13 @@
         </div>'
       }
 
-      // Check if #root has childen after 2 seconds
+      // Check if #root has children after 20 seconds
       // If not, we assume that the assets have failed to load
       setTimeout(() => {
         if (!document.getElementById('root').children.length) {
           handleLoadError()
         }
-      }, 2000)
+      }, 20000)
     </script>
   </body>
 </html>
