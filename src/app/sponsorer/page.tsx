@@ -40,11 +40,10 @@ export default async function SponsorerPage() {
       pageRes = {
         ...result,
         data: {
-          ...localData,
           ...result.data,
           sponsorer: {
-            ...localData.sponsorer,
             ...result.data.sponsorer,
+            blocks: localData.sponsorer.blocks.length > 0 ? localData.sponsorer.blocks : result.data.sponsorer.blocks,
           },
         },
       };

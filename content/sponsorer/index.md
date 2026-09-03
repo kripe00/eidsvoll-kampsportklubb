@@ -8,6 +8,12 @@ blocks:
       Som sponsor får dere profilering og lokal synlighet, men kanskje viktigst av alt: Dere viser at deres bedrift heier på et sterkt, trygt og inkluderende lokalmiljø i Eidsvoll. Ta kontakt med oss for en uforpliktende prat om hvordan vi kan spille hverandre gode.
     image: /images/club/group-class.jpg
     _template: about
+  - title: Våre støttespillere
+    sponsorList:
+      - name: Sanita
+        logo: /images/sponsors/sanita.png
+        url: https://www.sanita.no
+    _template: sponsors
   - title: Sponsorpakker 2026
     description: |
       Vi har delt vårt sponsorprogram inn i tre nivåer for å gjøre det enkelt for bedrifter å velge det omfanget som passer deres budsjett og behov. 
@@ -79,11 +85,4 @@ blocks:
           Som Gull-partner får bedriften en skreddersydd og lukket treningsøkt for sine ansatte i våre lokaler i Eidsvoll. Dette er en morsom og annerledes teambuilding der kollegaer får prøve grunnleggende elementer fra Brasiliansk Jiu-Jitsu, Muay Thai eller Cross-trening i trygge rammer. Økten ledes av våre erfarne instruktører og tilpasses alle fysiske nivåer. Det er en fantastisk måte å bygge samhold på, oppleve mestring sammen, og gi de ansatte et sprekt avbrekk fra arbeidshverdagen.
         icon: Activity
     _template: benefits
-  - title: Våre støttespillere
-    sponsorList:
-      - name: Sanita
-        logo: /images/sponsors/sanita.png
-        url: https://www.sanita.no
-    _template: sponsors
 ---
-

@@ -235,7 +235,16 @@ export function SponsorerPageClient(props: {
 
         // ── Sponsors Logo Grid ──
         if (block._template === "sponsors" || block.__typename?.includes("Sponsors")) {
-          const sponsorList = block.sponsorList || [];
+          const rawList = block.sponsorList || [];
+          const sponsorList = rawList.length > 0 
+            ? rawList 
+            : [
+                {
+                  name: "Sanita",
+                  logo: "/images/sponsors/sanita.png",
+                  url: "https://www.sanita.no"
+                }
+              ];
           return (
             <section key={index} className="py-24 md:py-32 bg-background border-t border-border/30">
               <div className="container mx-auto px-4 lg:px-8 max-w-5xl">
