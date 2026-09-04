@@ -40,6 +40,22 @@ function getLocalNews() {
   }
 }
 
+function mergeNews(localNews: any[], remoteEdges: any[] = []) {
+  const map = new Map();
+  for (const edge of remoteEdges) {
+    if (edge?.node?._sys?.filename) {
+      map.set(edge.node._sys.filename, edge);
+    }
+  }
+  for (const edge of localNews) {
+    if (edge?.node?._sys?.filename) {
+      map.set(edge.node._sys.filename, edge);
+    }
+  }
+  const merged = Array.from(map.values());
+  return merged.sort((a, b) => new Date(b.node.date).getTime() - new Date(a.node.date).getTime());
+}
+
 export default async function NyheterPage() {
   const localNews = getLocalNews();
   let pageData: any = { newsConnection: { edges: localNews } };
@@ -48,12 +64,16 @@ export default async function NyheterPage() {
 
   try {
     const newsRes = await client.queries.newsConnection();
-    const edges = newsRes?.data?.newsConnection?.edges;
-    if (Array.isArray(edges) && edges.length > 0) {
-      pageData = newsRes.data;
-      query = newsRes.query;
-      variables = newsRes.variables;
-    }
+    const edges = newsRes?.data?.newsConnection?.edges || [];
+    const mergedNews = mergeNews(localNews, edges);
+    pageData = {
+      ...newsRes?.data,
+      newsConnection: {
+        edges: mergedNews,
+      },
+    };
+    query = newsRes.query;
+    variables = newsRes.variables;
   } catch (error) {
     console.warn("Could not fetch news connection from Tina Cloud:", error);
   }

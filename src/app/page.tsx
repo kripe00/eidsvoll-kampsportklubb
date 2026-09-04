@@ -35,6 +35,22 @@ function getLocalNews() {
   }
 }
 
+function mergeNews(localNews: any[], remoteEdges: any[] = []) {
+  const map = new Map();
+  for (const edge of remoteEdges) {
+    if (edge?.node?._sys?.filename) {
+      map.set(edge.node._sys.filename, edge);
+    }
+  }
+  for (const edge of localNews) {
+    if (edge?.node?._sys?.filename) {
+      map.set(edge.node._sys.filename, edge);
+    }
+  }
+  const merged = Array.from(map.values());
+  return merged.sort((a, b) => new Date(b.node.date).getTime() - new Date(a.node.date).getTime());
+}
+
 export default async function Home() {
   const localNews = getLocalNews();
 
@@ -54,16 +70,17 @@ export default async function Home() {
     if (res.data?.hero) {
       pageRes.data.hero = {
         ...res.data.hero,
-        ...heroJson, // Lokale data fra git (med tom instagramImages: []) overstyrer remote Tina Cloud-cache
+        ...heroJson, // Lokale data fra git overstyrer remote Tina Cloud-cache
       };
       pageRes.query = res.query;
       pageRes.variables = res.variables;
     }
 
-    const newsEdges = newsRes?.data?.newsConnection?.edges;
-    if (Array.isArray(newsEdges) && newsEdges.length > 0) {
-      pageRes.data.newsConnection = newsRes.data.newsConnection;
-    }
+    const newsEdges = newsRes?.data?.newsConnection?.edges || [];
+    const mergedNews = mergeNews(localNews, newsEdges);
+    pageRes.data.newsConnection = {
+      edges: mergedNews.slice(0, 3),
+    };
   } catch (error) {
     console.warn("TinaCMS Home fetch failed (bruker lokale fallback data):", error);
   }
