@@ -38,8 +38,8 @@ interface InstagramFeedProps {
 
 export function InstagramFeed({
   title = "Følg oss på Instagram",
-  username = "@eidsvoll_kampsport",
-  profileUrl = "https://www.instagram.com/eidsvoll_kampsport/",
+  username = "@rambukk_",
+  profileUrl = "https://www.instagram.com/rambukk_/",
   images = [],
 }: InstagramFeedProps) {
   const hasImages = images && images.length > 0;

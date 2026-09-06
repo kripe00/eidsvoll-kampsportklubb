@@ -4,7 +4,28 @@
   "description": "Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter i Eidsvoll har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.",
   "backgroundImage": "/header.jpg",
   "instagramTitle": "Følg oss på Instagram",
-  "instagramUsername": "@eidsvoll_kampsport",
-  "instagramLink": "https://www.instagram.com/eidsvoll_kampsport/",
-  "instagramImages": []
+  "instagramUsername": "@rambukk_",
+  "instagramLink": "https://www.instagram.com/rambukk_/",
+  "instagramImages": [
+    {
+      "image": "/images/club/group-class.jpg",
+      "caption": "Mye energi og fantastisk samhold på matta! Bli med du også 🥋🔥",
+      "postUrl": "https://www.instagram.com/rambukk_/"
+    },
+    {
+      "image": "/images/club/sparring-action.jpg",
+      "caption": "Teknikk, fokus og god sparring. Vi utvikler oss sammen hver uke 👊",
+      "postUrl": "https://www.instagram.com/rambukk_/"
+    },
+    {
+      "image": "/images/club/happy-kids.jpg",
+      "caption": "Mestring, disiplin og ekte idrettsglede for de yngre utøverne våre på Dal 🥇",
+      "postUrl": "https://www.instagram.com/rambukk_/"
+    },
+    {
+      "image": "/header.jpg",
+      "caption": "Gode treningsøkter og fellesskap i nyoppussede lokaler. Sjekk timeplanen og bli med!",
+      "postUrl": "https://www.instagram.com/rambukk_/"
+    }
+  ]
 }
