@@ -76,8 +76,8 @@ export function NyheterListClient(props: {
                           />
                         </div>
                       ) : (
-                        <div className="relative aspect-video w-full bg-muted flex items-center justify-center">
-                          <span className="text-muted-foreground font-medium uppercase tracking-widest text-sm opacity-50">Ingen bilde</span>
+                        <div className="relative aspect-video w-full bg-muted/60 flex items-center justify-center">
+                          <img src="/logo.png" alt="Eidsvoll Kampsportklubb" className="w-16 h-16 object-contain opacity-20" />
                         </div>
                       )}
                       

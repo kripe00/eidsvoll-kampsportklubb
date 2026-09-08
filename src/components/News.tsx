@@ -27,8 +27,8 @@ export function News({ newsItems = [] }: { newsItems?: any[] }) {
             const node = item.node;
             return (
               <Card key={node._sys.filename} className="overflow-hidden border-border/50 hover:shadow-md transition-shadow">
-                <div className="aspect-video relative overflow-hidden bg-muted">
-                  {node.image && (
+                <div className="aspect-video relative overflow-hidden bg-muted/60 flex items-center justify-center">
+                  {node.image ? (
                     <OptimizedImage 
                       src={node.image} 
                       alt={node.title}
@@ -36,6 +36,8 @@ export function News({ newsItems = [] }: { newsItems?: any[] }) {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover hover:scale-105 transition-transform duration-500"
                     />
+                  ) : (
+                    <img src="/logo.png" alt="Eidsvoll Kampsportklubb" className="w-16 h-16 object-contain opacity-20" />
                   )}
                   <Badge className="absolute top-4 left-4 bg-primary text-white border-none">
                     {node.category}
