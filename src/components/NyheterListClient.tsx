@@ -5,14 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
 import { format } from "date-fns";
-import { nb } from "date-fns/locale";
+import { nb, enUS, pl as plLocale } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function NyheterListClient(props: {
   data: any;
   query: string;
   variables: any;
 }) {
+  const { locale, t } = useLanguage();
+
   const { data } = useTina({
     query: props.query || "{ __typename }",
     variables: props.variables || {},
@@ -29,6 +32,8 @@ export function NyheterListClient(props: {
     return dateB - dateA;
   });
 
+  const dateLocale = locale === "pl" ? plLocale : locale === "en" ? enUS : nb;
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Seksjon Header (Lyst design for undersider) */}
@@ -36,10 +41,10 @@ export function NyheterListClient(props: {
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-8xl font-black tracking-tighter mb-6 text-foreground uppercase leading-[0.85]">
-              Nyheter
+              {t.news.heading}
             </h1>
             <p className="text-lg md:text-2xl text-muted-foreground/80 font-light italic">
-              Hold deg oppdatert med det siste fra klubben, viktig informasjon og kommende aktiviteter.
+              {t.news.subheading}
             </p>
           </div>
         </div>
@@ -50,8 +55,7 @@ export function NyheterListClient(props: {
         <div className="container mx-auto px-4 md:px-6">
           {sortedEdges.length === 0 ? (
             <div className="text-center py-20 bg-muted/30 rounded-lg border border-border/50">
-              <h2 className="text-2xl font-semibold mb-2">Ingen nyheter foreløpig</h2>
-              <p className="text-muted-foreground">Det er ikke publisert noen nyheter enda. Sjekk tilbake senere!</p>
+              <h2 className="text-2xl font-semibold mb-2">{t.news.noNews}</h2>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -60,7 +64,7 @@ export function NyheterListClient(props: {
                 if (!post) return null;
                 
                 const formattedDate = post.date 
-                  ? format(new Date(post.date), "d. MMMM yyyy", { locale: nb })
+                  ? format(new Date(post.date), "d. MMMM yyyy", { locale: dateLocale })
                   : "";
 
                 return (

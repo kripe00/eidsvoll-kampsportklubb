@@ -2,16 +2,19 @@
 
 import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function Footer({ data }: { data?: any }) {
+  const { t, locale } = useLanguage();
   const clubName = data?.clubName || "Eidsvoll Kampsportklubb";
   const description =
-    data?.footerDescription ||
-    "Vi vil gjerne høre fra deg! Enten du har spørsmål om treningstider, medlemskap, eller bare vil slå av en prat før du bestemmer deg for å prøve, er du alltid velkommen til å ta kontakt.";
+    locale === "no"
+      ? (data?.footerDescription || t.footer.description)
+      : t.footer.description;
   const email = data?.footerEmail || "kontakt@kampsporteidsvoll.no";
   const phone = data?.footerPhone || "976 10 229";
-  const orgNumber = data?.footerOrgNumber || "";
-  const address = data?.footerAddress || "";
+  const orgNumber = data?.footerOrgNumber || "932716461";
+  const address = data?.footerAddress || "Trondheimsvegen 71B, 2072 Dal";
 
   return (
     <footer id="kontakt" className="bg-slate-950 text-slate-300 py-16 md:py-24 border-t border-slate-900">
@@ -43,28 +46,28 @@ export function Footer({ data }: { data?: any }) {
           {/* Kolonne 3: Trening & Medlemskap */}
           <div>
             <h4 className="text-white font-bold text-base mb-5 uppercase tracking-wider text-xs">
-              Trening & Medlem
+              {t.footer.trainingAndMember}
             </h4>
             <nav aria-label="Trening og medlemskap">
               <ul className="space-y-3 text-sm">
                 <li>
                   <Link href="/nyheter" className="hover:text-white transition-colors">
-                    Siste nyheter
+                    {t.footer.latestNews}
                   </Link>
                 </li>
                 <li>
                   <Link href="/timeplan" className="hover:text-white transition-colors">
-                    Timeplan & treninger
+                    {t.footer.schedule}
                   </Link>
                 </li>
                 <li>
                   <Link href="/medlemskap" className="hover:text-white transition-colors">
-                    Bli medlem / Innmelding
+                    {t.footer.membership}
                   </Link>
                 </li>
                 <li>
                   <Link href="/kontakt" className="hover:text-white transition-colors">
-                    Kontakt oss
+                    {t.footer.contactUs}
                   </Link>
                 </li>
               </ul>
@@ -74,33 +77,33 @@ export function Footer({ data }: { data?: any }) {
           {/* Kolonne 4: Om klubben & Styret */}
           <div>
             <h4 className="text-white font-bold text-base mb-5 uppercase tracking-wider text-xs">
-              Klubbinformasjon
+              {t.footer.clubInfo}
             </h4>
             <nav aria-label="Klubbinformasjon">
               <ul className="space-y-3 text-sm">
                 <li>
                   <Link href="/om-oss" className="hover:text-white transition-colors">
-                    Om klubben & historie
+                    {t.footer.aboutClub}
                   </Link>
                 </li>
                 <li>
                   <Link href="/styret" className="hover:text-white transition-colors font-medium text-slate-200 hover:underline">
-                    Styret og ledelse
+                    {t.footer.board}
                   </Link>
                 </li>
                 <li>
                   <Link href="/styret/organisasjonsplan" className="hover:text-white transition-colors">
-                    Organisasjonsplan
+                    {t.footer.orgPlan}
                   </Link>
                 </li>
                 <li>
                   <Link href="/sponsorer" className="hover:text-white transition-colors font-medium text-slate-200 hover:underline">
-                    Våre sponsorer
+                    {t.footer.sponsors}
                   </Link>
                 </li>
                 <li>
                   <Link href="/samtykke" className="hover:text-white transition-colors text-slate-400">
-                    Samtykke bildedeling
+                    {t.footer.photoConsent}
                   </Link>
                 </li>
               </ul>
@@ -110,14 +113,14 @@ export function Footer({ data }: { data?: any }) {
           {/* Kolonne 5: Kontakt & Adresse */}
           <div>
             <h4 className="text-white font-bold text-base mb-5 uppercase tracking-wider text-xs">
-              Kontakt
+              {t.footer.contact}
             </h4>
             <ul className="space-y-3 text-sm">
               <li
                 className="flex flex-col"
                 data-tina-field={data ? tinaField(data, "footerEmail") : undefined}
               >
-                <span className="text-slate-500 text-xs">E-post:</span>
+                <span className="text-slate-500 text-xs">E-post / Email:</span>
                 <a href={`mailto:${email}`} className="hover:text-white transition-colors font-medium">
                   {email}
                 </a>
@@ -126,7 +129,7 @@ export function Footer({ data }: { data?: any }) {
                 className="flex flex-col"
                 data-tina-field={data ? tinaField(data, "footerPhone") : undefined}
               >
-                <span className="text-slate-500 text-xs">Tlf:</span>
+                <span className="text-slate-500 text-xs">Tlf / Phone:</span>
                 <a href={`tel:+47${phone.replace(/\s/g, "")}`} className="hover:text-white transition-colors font-medium">
                   {phone}
                 </a>
@@ -136,7 +139,7 @@ export function Footer({ data }: { data?: any }) {
                   className="flex flex-col"
                   data-tina-field={data ? tinaField(data, "footerOrgNumber") : undefined}
                 >
-                  <span className="text-slate-500 text-xs">Org.nr:</span>
+                  <span className="text-slate-500 text-xs">{t.footer.orgNr}</span>
                   <span className="text-slate-300">{orgNumber}</span>
                 </li>
               )}
@@ -145,7 +148,7 @@ export function Footer({ data }: { data?: any }) {
                   className="flex flex-col pt-1"
                   data-tina-field={data ? tinaField(data, "footerAddress") : undefined}
                 >
-                  <span className="text-slate-500 text-xs">Adresse:</span>
+                  <span className="text-slate-500 text-xs">{t.footer.address}</span>
                   <span className="text-slate-300">{address}</span>
                 </li>
               )}
@@ -156,7 +159,7 @@ export function Footer({ data }: { data?: any }) {
         
         {/* Bunnlinje med sosiale medier og copyright */}
         <div className="border-t border-slate-900 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-          <p>&copy; {new Date().getFullYear()} {clubName}. Med enerett.</p>
+          <p>&copy; {new Date().getFullYear()} {clubName}. {t.footer.rights}</p>
           {(data?.facebook || data?.instagram) && (
             <div className="flex items-center gap-4">
               {data.facebook && (
@@ -201,7 +204,7 @@ export function Footer({ data }: { data?: any }) {
                   >
                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                   </svg>
                 </Link>
               )}

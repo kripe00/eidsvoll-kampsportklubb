@@ -3,6 +3,7 @@
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -42,7 +43,9 @@ export function InstagramFeed({
   profileUrl = "https://www.instagram.com/rambukk_/",
   images = [],
 }: InstagramFeedProps) {
+  const { t, locale } = useLanguage();
   const hasImages = images && images.length > 0;
+  const displayTitle = locale === "no" ? title : t.instagram.title;
 
   return (
     <section className="w-full bg-background py-24 border-t border-border/40">
@@ -51,7 +54,7 @@ export function InstagramFeed({
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-foreground">
-            {title}
+            {displayTitle}
           </h2>
           <Link 
             href={profileUrl} 
@@ -102,7 +105,7 @@ export function InstagramFeed({
                     </div>
 
                     <div className="text-[10px] text-white/50 tracking-wider text-center uppercase font-semibold">
-                      Åpne på Instagram
+                      {t.instagram.openInInstagram}
                     </div>
                   </div>
                 </Link>
@@ -117,7 +120,7 @@ export function InstagramFeed({
               >
                 <InstagramIcon className="w-10 h-10 text-muted-foreground/20" />
                 <span className="text-[10px] text-muted-foreground/30 font-semibold tracking-wider uppercase mt-2">
-                  Kommer snart
+                  {locale === "pl" ? "Wkrótce" : locale === "en" ? "Coming soon" : "Kommer snart"}
                 </span>
               </div>
             ))
@@ -129,7 +132,7 @@ export function InstagramFeed({
           <Link href={profileUrl} target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="group h-14 px-8 text-sm font-bold rounded-none bg-primary hover:bg-primary/90 text-white transition-all duration-300 flex items-center gap-2">
               <InstagramIcon className="w-4 h-4" />
-              <span>GÅ TIL VÅR PROFIL</span>
+              <span>{t.instagram.goToProfile}</span>
             </Button>
           </Link>
         </div>

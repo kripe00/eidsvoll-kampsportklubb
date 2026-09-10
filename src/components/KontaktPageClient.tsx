@@ -8,12 +8,15 @@ import { RichText } from "./RichText";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { OptimizedImage } from "./ui/optimized-image";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function KontaktPageClient(props: {
   data: any;
   query: string;
   variables: any;
 }) {
+  const { locale, t } = useLanguage();
+
   const { data } = useTina({
     query: props.query || "{ __typename }",
     variables: props.variables,
@@ -49,9 +52,11 @@ export function KontaktPageClient(props: {
     } catch (error: any) {
       console.error("Error submitting form:", error);
       setStatus("error");
-      setErrorMessage("Beklager, det oppstod en feil. Vennligst prøv igjen senere.");
+      setErrorMessage(t.contact.errorMessage);
     }
   };
+
+  const pageTitle = locale === "no" ? (page?.title || t.contact.title) : t.contact.title;
 
   return (
     <main className="bg-background min-h-screen pb-32">
@@ -60,12 +65,18 @@ export function KontaktPageClient(props: {
         {/* Editorial Header Area */}
         <div className="pt-32 pb-20">
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-black tracking-tighter text-foreground uppercase leading-[0.85] mb-8 break-words" data-tina-field={tinaField(page, 'title')}>
-            {page?.title || "Kontakt oss"}
+            {pageTitle}
           </h1>
           <div className="max-w-3xl text-xl md:text-2xl text-muted-foreground/80 leading-relaxed font-light italic" data-tina-field={tinaField(page, 'description')}>
-            <RichText content={page?.description} />
-            {!page?.description && (
-              <p>Vi vil gjerne høre fra deg! Enten du har spørsmål om treningstider, medlemskap, eller bare vil slå av en prat før du bestemmer deg for å prøve.</p>
+            {locale === "no" ? (
+              <>
+                <RichText content={page?.description} />
+                {!page?.description && (
+                  <p>{t.contact.subtitle}</p>
+                )}
+              </>
+            ) : (
+              <p>{t.contact.subtitle}</p>
             )}
           </div>
         </div>
@@ -76,7 +87,9 @@ export function KontaktPageClient(props: {
           <div className="lg:col-span-4 space-y-16">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-8 h-[1px] bg-primary" />
-              <span className="text-primary font-bold tracking-[0.2em] uppercase text-sm">Informasjon</span>
+              <span className="text-primary font-bold tracking-[0.2em] uppercase text-sm">
+                {t.contact.infoBadge}
+              </span>
             </div>
 
             {contact?.image && (
@@ -96,7 +109,7 @@ export function KontaktPageClient(props: {
               <div className="group" data-tina-field={tinaField(contact, 'address')}>
                 <div className="flex items-center gap-3 mb-3 text-primary/40 group-hover:text-primary transition-colors">
                   <MapPin size={20} className="stroke-[1.5px]" />
-                  <h3 className="text-xs font-bold uppercase tracking-[0.2em]">Besøk oss</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t.contact.visitUs}</h3>
                 </div>
                 <p className="text-2xl font-bold text-foreground leading-snug">{contact?.address}</p>
               </div>
@@ -104,7 +117,7 @@ export function KontaktPageClient(props: {
               <div className="group" data-tina-field={tinaField(contact, 'phone')}>
                 <div className="flex items-center gap-3 mb-3 text-primary/40 group-hover:text-primary transition-colors">
                   <Phone size={20} className="stroke-[1.5px]" />
-                  <h3 className="text-xs font-bold uppercase tracking-[0.2em]">Ring oss</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t.contact.callUs}</h3>
                 </div>
                 <p className="text-2xl font-bold text-foreground leading-snug">{contact?.phone}</p>
               </div>
@@ -112,7 +125,7 @@ export function KontaktPageClient(props: {
               <div className="group" data-tina-field={tinaField(contact, 'email')}>
                 <div className="flex items-center gap-3 mb-3 text-primary/40 group-hover:text-primary transition-colors">
                   <Mail size={20} className="stroke-[1.5px]" />
-                  <h3 className="text-xs font-bold uppercase tracking-[0.2em]">E-post</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t.contact.emailUs}</h3>
                 </div>
                 <p className="text-2xl font-bold text-foreground leading-snug break-all">{contact?.email}</p>
               </div>
@@ -120,7 +133,7 @@ export function KontaktPageClient(props: {
               {(contact?.facebook || contact?.instagram) && (
                 <div className="group pt-4">
                   <div className="flex items-center gap-3 mb-4 text-primary/40">
-                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">Følg oss</h3>
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t.contact.followUs}</h3>
                   </div>
                   <div className="flex gap-4">
                     {contact.facebook && (
@@ -129,7 +142,7 @@ export function KontaktPageClient(props: {
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-border bg-card hover:bg-primary hover:text-white transition-all text-muted-foreground duration-300"
-                        aria-label="Følg oss på Facebook"
+                        aria-label="Facebook"
                         data-tina-field={tinaField(contact, 'facebook')}
                       >
                         <svg
@@ -151,7 +164,7 @@ export function KontaktPageClient(props: {
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-border bg-card hover:bg-primary hover:text-white transition-all text-muted-foreground duration-300"
-                        aria-label="Følg oss på Instagram"
+                        aria-label="Instagram"
                         data-tina-field={tinaField(contact, 'instagram')}
                       >
                         <svg
@@ -177,20 +190,22 @@ export function KontaktPageClient(props: {
 
           {/* Form Column */}
           <div className="lg:col-span-8">
-            <div className="bg-muted/30 p-8 md:p-16">
-              <h2 className="text-3xl font-black uppercase tracking-tight mb-10 text-foreground">Send oss en melding</h2>
+            <div className="bg-muted/30 p-8 md:p-16 rounded-2xl">
+              <h2 className="text-3xl font-black uppercase tracking-tight mb-10 text-foreground">
+                {t.contact.formTitle}
+              </h2>
               
               {status === "success" ? (
                 <div className="bg-primary/10 border border-primary/20 p-8 rounded-2xl flex flex-col items-center text-center animate-in fade-in zoom-in duration-300">
                   <CheckCircle2 size={48} className="text-primary mb-4" />
-                  <h3 className="text-2xl font-bold mb-2">Melding sendt!</h3>
-                  <p className="text-muted-foreground mb-8 text-lg">Takk for din henvendelse. Vi svarer deg så snart vi kan.</p>
+                  <h3 className="text-2xl font-bold mb-2">{t.contact.successTitle}</h3>
+                  <p className="text-muted-foreground mb-8 text-lg">{t.contact.successMessage}</p>
                   <Button 
                     variant="outline" 
                     onClick={() => setStatus("idle")}
                     className="rounded-none border-primary text-primary hover:bg-primary hover:text-white uppercase tracking-widest font-bold"
                   >
-                    Send ny melding
+                    {t.contact.sendAnother}
                   </Button>
                 </div>
               ) : (
@@ -211,26 +226,30 @@ export function KontaktPageClient(props: {
 
                   <div className="grid md:grid-cols-2 gap-10">
                     <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                      <label htmlFor="contact-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Fullt Navn</label>
+                      <label htmlFor="contact-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                        {t.contact.nameLabel}
+                      </label>
                       <input 
                         id="contact-name"
                         type="text" 
                         required
                         className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
-                        placeholder="Ola Nordmann" 
+                        placeholder={t.contact.namePlaceholder} 
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         disabled={status === "loading"}
                       />
                     </div>
                     <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                      <label htmlFor="contact-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">E-post</label>
+                      <label htmlFor="contact-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                        {t.contact.emailLabel}
+                      </label>
                       <input 
                         id="contact-email"
                         type="email" 
                         required
                         className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
-                        placeholder="ola@eksempel.no" 
+                        placeholder={t.contact.emailPlaceholder} 
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         disabled={status === "loading"}
@@ -238,25 +257,29 @@ export function KontaktPageClient(props: {
                     </div>
                   </div>
                   <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                    <label htmlFor="contact-subject" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Emne</label>
+                    <label htmlFor="contact-subject" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                      {t.contact.subjectLabel}
+                    </label>
                     <input 
                       id="contact-subject"
                       type="text" 
                       required
                       className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
-                      placeholder="Hva gjelder det?" 
+                      placeholder={t.contact.subjectPlaceholder} 
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       disabled={status === "loading"}
                     />
                   </div>
                   <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                    <label htmlFor="contact-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Melding</label>
+                    <label htmlFor="contact-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
+                      {t.contact.messageLabel}
+                    </label>
                     <textarea 
                       id="contact-message"
                       required
                       className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20 min-h-[120px] resize-none" 
-                      placeholder="Skriv din melding her..."
+                      placeholder={t.contact.messagePlaceholder} 
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       disabled={status === "loading"}
@@ -278,10 +301,10 @@ export function KontaktPageClient(props: {
                     {status === "loading" ? (
                       <>
                         <Loader2 className="h-5 w-5 animate-spin" />
-                        Sender melding...
+                        {t.contact.sending}
                       </>
                     ) : (
-                      "Send Melding"
+                      t.contact.sendButton
                     )}
                   </Button>
                 </form>

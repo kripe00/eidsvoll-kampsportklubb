@@ -1,8 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { OptimizedImage } from "./ui/optimized-image";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-export function GlobalSponsorsBanner({ sponsors }: { sponsors: any[] }) {
+export function GlobalSponsorsBanner({ sponsors = [] }: { sponsors?: any[] }) {
+  const { t } = useLanguage();
+  
   if (!sponsors || sponsors.length === 0) {
     return null;
   }
@@ -57,7 +60,7 @@ export function GlobalSponsorsBanner({ sponsors }: { sponsors: any[] }) {
     <div className="w-full bg-muted/20 border-b border-border/30 overflow-hidden pt-24 pb-6 hover-pause relative">
       <div className="container mx-auto px-4 mb-3">
          <h3 className="text-center text-xs font-bold tracking-[0.2em] uppercase text-muted-foreground/80">
-           Stolt støttet av
+           {t.banner.proudSupporters}
          </h3>
       </div>
       

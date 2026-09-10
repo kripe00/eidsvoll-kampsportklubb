@@ -1,8 +1,11 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, Info } from "lucide-react";
 import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
 import { RichText } from "./RichText";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface MembershipProps {
   title?: string;
@@ -15,10 +18,10 @@ interface MembershipProps {
 }
 
 export function Membership(props: MembershipProps) {
-  const title = props.title || "Bli medlem i Eidsvoll Kampsportklubb";
-  const description =
-    props.description ||
-    "For å trene fast hos oss benytter vi to systemer: Boost for det månedlige treningsabonnementet, og MinIdrett for årlig medlemskontingent og forsikring.";
+  const { locale, t } = useLanguage();
+
+  const title = locale === "no" ? (props.title || t.membership.pageTitle) : t.membership.pageTitle;
+  const description = locale === "no" ? (props.description || t.membership.pageDescription) : t.membership.pageDescription;
   const linkUrl = props.linkUrl || "https://www.minidrett.no/medlemskap/988726";
   const boostLinkUrl = props.boostLinkUrl || "https://portal.boostsystem.no/rambukk/member";
   const boostEnabled = props.boostEnabled !== false;
@@ -30,7 +33,7 @@ export function Membership(props: MembershipProps) {
         {/* Seksjonsoverskrift og ingress */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <span className="text-xs md:text-sm font-bold uppercase tracking-[0.25em] text-primary block mb-3">
-            Innmelding & Medlemskap
+            {t.membership.badge}
           </span>
           <h2
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-foreground uppercase leading-[0.95] mb-6"
@@ -56,34 +59,34 @@ export function Membership(props: MembershipProps) {
               <div className="flex items-center justify-between gap-4 mb-6">
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
                   <CheckCircle2 className="w-4 h-4" />
-                  Steg 1 · Hovedinnmelding
+                  {t.membership.step1Badge}
                 </span>
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
-                  Månedlig
+                  {t.membership.step1Frequency}
                 </span>
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground mb-4">
-                1. Treningsavgift (Boost)
+                {t.membership.step1Title}
               </h3>
 
               {/* Forklaring med stor skrift og god luft */}
               <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
                 <p>
-                  <strong className="text-foreground font-bold">Dette er selve treningsabonnementet ditt.</strong> For å delta på fellestreninger i klubben oppretter du din månedlige treningsavtale i vårt medlemssystem Boost.
+                  {t.membership.step1Desc}
                 </p>
                 <ul className="space-y-2.5 text-sm sm:text-base text-foreground font-medium pt-2">
                   <li className="flex items-start gap-2.5">
                     <span className="text-emerald-600 font-bold text-lg leading-none">✓</span>
-                    <span>Fri tilgang til alle treninger (BJJ, Muay Thai, Crosstrening og Yoga)</span>
+                    <span>{t.membership.step1Perk1}</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-emerald-600 font-bold text-lg leading-none">✓</span>
-                    <span>Månedlig automatisk trekk via AvtaleGiro / kort</span>
+                    <span>{t.membership.step1Perk2}</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-emerald-600 font-bold text-lg leading-none">✓</span>
-                    <span>Enkel administrasjon og oversikt over ditt abonnement</span>
+                    <span>{t.membership.step1Perk3}</span>
                   </li>
                 </ul>
               </div>
@@ -103,7 +106,7 @@ export function Membership(props: MembershipProps) {
                     size="lg"
                     className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-emerald-600/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
                   >
-                    <span>Meld deg inn i Boost</span>
+                    <span>{t.membership.step1Btn}</span>
                     <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1.5 transition-transform shrink-0" />
                   </Button>
                 </Link>
@@ -114,10 +117,10 @@ export function Membership(props: MembershipProps) {
                     disabled
                     className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-bold rounded-xl bg-muted border border-border text-muted-foreground/40 cursor-not-allowed flex items-center justify-center uppercase tracking-wider text-center whitespace-normal leading-tight"
                   >
-                    Boost Medlemssystem
+                    Boost
                   </Button>
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-600/90 text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded border border-amber-500 shadow-sm whitespace-nowrap">
-                    Kommer snart
+                    {t.membership.comingSoon}
                   </span>
                 </div>
               )}
@@ -131,34 +134,34 @@ export function Membership(props: MembershipProps) {
               <div className="flex items-center justify-between gap-4 mb-6">
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider bg-primary/10 text-primary border border-primary/20">
                   <ShieldCheck className="w-4 h-4" />
-                  Steg 2 · Idrettsforbundet
+                  {t.membership.step2Badge}
                 </span>
                 <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">
-                  Årlig (1 gang per år)
+                  {t.membership.step2Frequency}
                 </span>
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground mb-4">
-                2. Årskontingent (MinIdrett)
+                {t.membership.step2Title}
               </h3>
 
               {/* Forklaring med stor skrift og god luft */}
               <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed mb-8">
                 <p>
-                  <strong className="text-foreground font-bold">Klubbmedlemskap i idrettslaget.</strong> Eidsvoll Kampsportklubb er tilknyttet Norges Idrettsforbund (NIF). Alle som trener fast må være registrert som medlem i MinIdrett (betales én gang per år).
+                  {t.membership.step2Desc}
                 </p>
                 <ul className="space-y-2.5 text-sm sm:text-base text-foreground font-medium pt-2">
                   <li className="flex items-start gap-2.5">
                     <span className="text-primary font-bold text-lg leading-none">✓</span>
-                    <span>Gir deg formelt medlemskap og stemmerett i idrettslaget</span>
+                    <span>{t.membership.step2Perk1}</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-primary font-bold text-lg leading-none">✓</span>
-                    <span>Dekker skadeforsikring gjennom Norges Kampsportforbund</span>
+                    <span>{t.membership.step2Perk2}</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-primary font-bold text-lg leading-none">✓</span>
-                    <span>Gir rett til å delta på stevner og konkurranser i regi av NIF / kampsportforbundet</span>
+                    <span>{t.membership.step2Perk3}</span>
                   </li>
                 </ul>
               </div>
@@ -177,7 +180,7 @@ export function Membership(props: MembershipProps) {
                   size="lg"
                   className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-primary/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
                 >
-                  <span>Betal kontingent (MinIdrett)</span>
+                  <span>{t.membership.step2Btn}</span>
                   <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1.5 transition-transform shrink-0" />
                 </Button>
               </Link>
@@ -193,16 +196,16 @@ export function Membership(props: MembershipProps) {
           </div>
           <div className="space-y-2 text-left">
             <h4 className="text-lg sm:text-xl font-bold text-foreground">
-              Viktig om betaling og tilgang til trening:
+              {t.membership.alertTitle}
             </h4>
             <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              Dersom du <strong>kun har betalt i MinIdrett</strong>, har du betalt den årlige medlemskontingenten til idrettslaget, men du har <em>ikke</em> betalt for selve månedstreningen. For å ha gyldig adgang til å trene fast på mattene må du også opprette treningsavtale i <strong>Boost</strong> (Steg 1).
+              {t.membership.alertDesc}
             </p>
           </div>
         </div>
 
         {/* Tilleggsinformasjon fra CMS dersom definert */}
-        {props.extraInfo && (
+        {props.extraInfo && locale === "no" && (
           <div className="mt-8 max-w-3xl mx-auto">
             <RichText
               content={props.extraInfo}
@@ -217,13 +220,13 @@ export function Membership(props: MembershipProps) {
           <p className="inline-flex items-center gap-2">
             <Info className="w-4 h-4 text-primary shrink-0" />
             <span>
-              Trenger du hjelp? Se våre{" "}
+              {t.membership.helpPrompt}{" "}
               <Link href="#faq" className="text-foreground font-bold underline underline-offset-4 hover:text-primary transition-colors">
-                ofte stilte spørsmål (FAQ) lenger ned
+                {t.membership.helpFaq}
               </Link>
-              , eller{" "}
+              , {locale === 'no' ? 'eller' : locale === 'pl' ? 'lub' : 'or'}{" "}
               <Link href="/kontakt" className="text-foreground font-bold underline underline-offset-4 hover:text-primary transition-colors">
-                kontakt oss direkte
+                {t.membership.helpContact}
               </Link>
               .
             </span>

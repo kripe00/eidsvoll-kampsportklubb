@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface FAQItem {
   question: string;
@@ -16,16 +17,30 @@ interface FAQProps {
 
 export function FAQ({ title, items = [] }: FAQProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const { locale, t } = useLanguage();
 
   const toggleIndex = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  // Use translated FAQs when not in Norwegian, if available
+  const displayItems = items.map((item, idx) => {
+    if (locale !== "no" && t.membership.faqs && t.membership.faqs[idx]) {
+      return {
+        question: t.membership.faqs[idx].question,
+        answer: t.membership.faqs[idx].answer,
+      };
+    }
+    return item;
+  });
+
+  const displayTitle = locale === "no" ? (title || t.membership.faqTitle) : t.membership.faqTitle;
+
   // Generate structured FAQ JSON-LD data for SEO
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": items.map((item) => ({
+    "mainEntity": displayItems.map((item) => ({
       "@type": "Question",
       "name": item.question,
       "acceptedAnswer": {
@@ -35,7 +50,7 @@ export function FAQ({ title, items = [] }: FAQProps) {
     })),
   };
 
-  if (!items || items.length === 0) return null;
+  if (!displayItems || displayItems.length === 0) return null;
 
   return (
     <section id="faq" className="w-full max-w-4xl mx-auto py-12 md:py-20 px-4 scroll-mt-24">
@@ -47,13 +62,13 @@ export function FAQ({ title, items = [] }: FAQProps) {
 
       <div className="text-center mb-12">
         <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-foreground">
-          {title || "Ofte stilte spørsmål (FAQ)"}
+          {displayTitle}
         </h2>
         <div className="w-16 h-[2px] bg-primary mx-auto mt-4" />
       </div>
 
       <div className="space-y-4">
-        {items.map((item, idx) => {
+        {displayItems.map((item, idx) => {
           const isOpen = activeIndex === idx;
           return (
             <div

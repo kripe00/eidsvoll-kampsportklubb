@@ -7,8 +7,10 @@ import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { CheckCircle2, Calendar, X } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
+  const { t, locale } = useLanguage();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -127,10 +129,10 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
             Eidsvoll Kampsportklubb
           </span>
           <h2 className="text-3xl font-black uppercase tracking-tight text-foreground leading-none mb-3">
-            Gratis prøveperiode (2 uker)
+            {t.proveuke.modalTitle}
           </h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
-            Hos oss trenger du ikke velge én idrett. I den 14 dagers prøveperioden har du fri tilgang til å prøve både BJJ, Muay Thai, Crosstrening og Yoga.
+            {t.proveuke.modalSubtitle}
           </p>
         </div>
 
@@ -141,19 +143,19 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               <div className="w-14 h-14 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto border border-primary/20">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">Påmelding mottatt!</h3>
+              <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">{t.proveuke.successTitle}</h3>
               <p className="text-muted-foreground text-base leading-relaxed max-w-sm mx-auto">
-                Takk for din påmelding. Vi har sendt en bekreftelse til din e-postadresse med datoer for din 14 dagers prøveperiode. Du er hjertelig velkommen!
+                {t.proveuke.successMessage}
               </p>
               <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
                 <Link href="/timeplan" onClick={() => setOpen(false)}>
                   <Button className="w-full sm:w-auto font-bold gap-2 rounded-lg">
                     <Calendar className="w-4 h-4" />
-                    Se timeplan
+                    {t.nav.schedule}
                   </Button>
                 </Link>
                 <Button variant="outline" onClick={() => { setStatus("idle"); setOpen(false); }} className="w-full sm:w-auto rounded-lg">
-                  Lukk
+                  {t.proveuke.closeButton}
                 </Button>
               </div>
             </div>
@@ -189,24 +191,24 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                  <label htmlFor="modal-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">Navn *</label>
+                  <label htmlFor="modal-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.nameLabel} *</label>
                   <input
                     id="modal-name"
                     required
                     type="text"
-                    placeholder="Fullt navn"
+                    placeholder={t.proveuke.namePlaceholder}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full bg-transparent text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
                 <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                  <label htmlFor="modal-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">E-post *</label>
+                  <label htmlFor="modal-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.emailLabel} *</label>
                   <input
                     id="modal-email"
                     required
                     type="email"
-                    placeholder="ola@eksempel.no"
+                    placeholder={t.proveuke.emailPlaceholder}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full bg-transparent text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
@@ -216,28 +218,36 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                  <label htmlFor="modal-phone" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">Telefon *</label>
+                  <label htmlFor="modal-phone" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.phoneLabel} *</label>
                   <input
                     id="modal-phone"
                     required
                     type="tel"
-                    placeholder="Mobilnummer"
+                    placeholder={t.proveuke.phonePlaceholder}
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full bg-transparent text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
                 <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                  <label htmlFor="modal-category" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">Aldersgruppe *</label>
+                  <label htmlFor="modal-category" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
+                    {locale === "pl" ? "Grupa wiekowa *" : locale === "en" ? "Age group *" : "Aldersgruppe *"}
+                  </label>
                   <select
                     id="modal-category"
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     className="w-full bg-transparent text-base font-bold outline-none text-foreground cursor-pointer"
                   >
-                    <option value="Voksen / Ungdom (fra 14 år)">Voksen / Ungdom (fra 14 år)</option>
-                    <option value="Barneparti 1 (6-9 år)">Barneparti 1 (6-9 år)</option>
-                    <option value="Barneparti 2 (10-13 år)">Barneparti 2 (10-13 år)</option>
+                    <option value="Voksen / Ungdom (fra 14 år)">
+                      {locale === "pl" ? "Dorośli / Młodzież (od 14 lat)" : locale === "en" ? "Adults / Youth (14+ yrs)" : "Voksen / Ungdom (fra 14 år)"}
+                    </option>
+                    <option value="Barneparti 1 (6-9 år)">
+                      {locale === "pl" ? "Dzieci 1 (6-9 lat)" : locale === "en" ? "Kids 1 (6-9 yrs)" : "Barneparti 1 (6-9 år)"}
+                    </option>
+                    <option value="Barneparti 2 (10-13 år)">
+                      {locale === "pl" ? "Dzieci 2 (10-13 lat)" : locale === "en" ? "Kids 2 (10-13 yrs)" : "Barneparti 2 (10-13 år)"}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -245,10 +255,12 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               {/* Start Date Field */}
               <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                 <div className="flex justify-between items-center">
-                  <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">Ønsket Startdato *</label>
+                  <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
+                    {locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Desired start date *" : "Ønsket Startdato *"}
+                  </label>
                   {calculatedEndDate && (
                     <span className="text-[11px] font-semibold text-primary">
-                      Prøveperiode (14 dager): {formatDateDisplay(formData.startDate)} – {formatDateDisplay(calculatedEndDate)}
+                      {formatDateDisplay(formData.startDate)} – {formatDateDisplay(calculatedEndDate)}
                     </span>
                   )}
                 </div>
@@ -264,10 +276,12 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               </div>
 
               <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                <label htmlFor="modal-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">Melding eller spørsmål (Valgfritt)</label>
+                <label htmlFor="modal-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
+                  {locale === "pl" ? "Wiadomość lub pytania (opcjonalnie)" : locale === "en" ? "Message or questions (optional)" : "Melding eller spørsmål (Valgfritt)"}
+                </label>
                 <textarea
                   id="modal-message"
-                  placeholder="Skriv inn en melding her..."
+                  placeholder={locale === "pl" ? "Wpisz wiadomość..." : locale === "en" ? "Write a message here..." : "Skriv inn en melding her..."}
                   rows={2}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -277,7 +291,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
 
               {status === "error" && (
                 <p className="text-xs text-destructive bg-destructive/10 p-3 rounded-lg border border-destructive/20">
-                  {errorMessage}
+                  {t.proveuke.errorMessage}
                 </p>
               )}
 
@@ -286,11 +300,11 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                 disabled={status === "loading"}
                 className="w-full font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-lg shadow-md transition-all whitespace-normal h-auto leading-snug px-4 text-center"
               >
-                {status === "loading" ? "Sendes..." : "Meld deg på (2 uker gratis)"}
+                {status === "loading" ? t.proveuke.submitting : t.proveuke.submitButton}
               </Button>
 
               <p className="text-xs text-muted-foreground text-center">
-                Uforpliktende 14-dagers prøveordning hos Eidsvoll Kampsportklubb.
+                {t.proveuke.card3Desc}
               </p>
             </form>
           )}
@@ -304,7 +318,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
       <div onClick={() => setOpen(true)} className="inline-block cursor-pointer">
         {trigger || (
           <Button size="sm" variant="outline" className="rounded-full px-5 py-2 font-bold border-primary/40 text-foreground hover:bg-primary/10 transition-all">
-            Gratis prøveperiode (2 uker)
+            {t.nav.tryFree}
           </Button>
         )}
       </div>

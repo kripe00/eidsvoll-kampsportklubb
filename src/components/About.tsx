@@ -1,6 +1,9 @@
+"use client";
+
 import { tinaField } from "tinacms/dist/react";
 import { RichText } from "./RichText";
 import { OptimizedImage } from "./ui/optimized-image";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface AboutProps {
   title?: string;
@@ -10,7 +13,10 @@ interface AboutProps {
 
 export function About(props: AboutProps) {
   const { title = "Vårt Tilbud", body, image, video } = props;
-  
+  const { locale, t } = useLanguage();
+
+  const displayTitle = locale === "no" ? title : t.about.offerTitle;
+
   return (
     <section id="om-oss" className="py-8 bg-background relative overflow-hidden" data-tina-field={tinaField(props, 'title')}>
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl overflow-hidden md:overflow-visible">
@@ -18,8 +24,6 @@ export function About(props: AboutProps) {
           
           {/* Left Column: Heading or Image/Video */}
           <div className="lg:w-1/2 space-y-12">
-
-
             {video ? (
               <div className="relative group overflow-hidden rounded-2xl shadow-2xl transition-transform duration-500 hover:scale-[1.02]" data-tina-field={tinaField(props, 'video')}>
                 <video 
@@ -37,7 +41,7 @@ export function About(props: AboutProps) {
               <div className="relative group overflow-hidden rounded-2xl shadow-2xl transition-transform duration-500 hover:scale-[1.02]" data-tina-field={tinaField(props, 'image')}>
                 <OptimizedImage 
                   src={image} 
-                  alt={title} 
+                  alt={displayTitle} 
                   width={600}
                   height={750}
                   className="w-full h-auto object-cover aspect-[4/5] md:aspect-auto"
@@ -50,14 +54,24 @@ export function About(props: AboutProps) {
           {/* Right Column: Body Content */}
           <div className="lg:w-1/2">
             <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight mb-10 text-foreground">
-              {title}
+              {displayTitle}
             </h3>
-            <div className="text-xl text-muted-foreground/90 leading-relaxed font-light space-y-8" data-tina-field={tinaField(props, 'body')}>
-              <RichText content={body} className="prose prose-lg prose-blue max-w-none text-muted-foreground/90 font-light" />
-              {!body && (
-                <p>
-                  Vårt kjernefokus ligger på kampsportene <strong>Brasiliansk Jiu-Jitsu (BJJ)</strong> og <strong>Muay Thai</strong>. Dette er sporter som bygger både fysisk styrke og mental robusthet. Som et viktig supplement tilbyr vi også <strong>Cross-trening</strong>, lagt opp for å bygge utholdenhet, styrke og forebygge skader.
-                </p>
+            <div className="text-xl text-muted-foreground/90 leading-relaxed font-light space-y-6" data-tina-field={tinaField(props, 'body')}>
+              {locale === "no" ? (
+                <>
+                  <RichText content={body} className="prose prose-lg prose-blue max-w-none text-muted-foreground/90 font-light" />
+                  {!body && (
+                    <p>
+                      Vårt kjernefokus ligger på kampsportene <strong>Brasiliansk Jiu-Jitsu (BJJ)</strong> og <strong>Muay Thai</strong>. Dette er sporter som bygger både fysisk styrke og mental robusthet. Som et viktig supplement tilbyr vi også <strong>Cross-trening</strong>, lagt opp for å bygge utholdenhet, styrke og forebygge skader.
+                    </p>
+                  )}
+                </>
+              ) : (
+                <>
+                  <p>{t.about.offerText1}</p>
+                  <p>{t.about.offerText2}</p>
+                  <p>{t.about.offerText3}</p>
+                </>
               )}
             </div>
           </div>

@@ -4,6 +4,7 @@ import { tinaField } from "tinacms/dist/react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { OptimizedImage } from "./ui/optimized-image";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface TrainersProps {
   title?: string;
@@ -19,6 +20,7 @@ interface TrainersProps {
 function TrainerCard({ trainer, index, props }: { trainer: any; index: number; props: any }) {
   const [isVisible, setIsVisible] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const { locale, t } = useLanguage();
 
   useEffect(() => {
     const currentRef = cardRef.current;
@@ -31,8 +33,8 @@ function TrainerCard({ trainer, index, props }: { trainer: any; index: number; p
         }
       },
       {
-        threshold: 0.3, // Trigger when 30% of the card is visible
-        rootMargin: "-50px 0px -50px 0px", // Add some margin to trigger near the center
+        threshold: 0.3,
+        rootMargin: "-50px 0px -50px 0px",
       }
     );
 
@@ -54,6 +56,22 @@ function TrainerCard({ trainer, index, props }: { trainer: any; index: number; p
         .slice(0, 2)
         .join("")
     : "EK";
+
+  let displayRole = trainer.role;
+  let displayBio = trainer.bio;
+
+  if (locale !== "no") {
+    if (trainer.name?.includes("Christer")) {
+      displayRole = t.about.christerRole;
+      displayBio = t.about.christerBio;
+    } else if (trainer.name?.includes("Alexandra")) {
+      displayRole = t.about.alexandraRole;
+      displayBio = t.about.alexandraBio;
+    } else if (trainer.name?.includes("Pernille")) {
+      displayRole = t.about.pernilleRole;
+      displayBio = t.about.pernilleBio;
+    }
+  }
 
   return (
     <div 
@@ -96,14 +114,14 @@ function TrainerCard({ trainer, index, props }: { trainer: any; index: number; p
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-[1px] bg-primary" />
             <span className="text-primary font-bold tracking-[0.1em] uppercase text-sm" data-tina-field={tinaField(trainer, "role")}>
-              {trainer.role}
+              {displayRole}
             </span>
           </div>
           <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-foreground uppercase" data-tina-field={tinaField(trainer, "name")}>
             {trainer.name}
           </h3>
           <p className="text-lg text-muted-foreground leading-relaxed font-medium" data-tina-field={tinaField(trainer, "bio")}>
-            {trainer.bio}
+            {displayBio}
           </p>
         </div>
       </div>
@@ -113,6 +131,9 @@ function TrainerCard({ trainer, index, props }: { trainer: any; index: number; p
 
 export function Trainers(props: TrainersProps) {
   const { title = "Våre trenere", trainerList } = props;
+  const { locale, t } = useLanguage();
+
+  const displayTitle = locale === "no" ? title : t.about.coachesHeading;
   
   return (
     <section className="py-32 bg-background overflow-hidden">
@@ -120,7 +141,7 @@ export function Trainers(props: TrainersProps) {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
           <div className="max-w-xl">
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter text-foreground uppercase leading-[0.9]" data-tina-field={tinaField(props, "title")}>
-              {title}
+              {displayTitle}
             </h2>
           </div>
           <div className="hidden md:block w-32 h-[1px] bg-primary mb-4" />

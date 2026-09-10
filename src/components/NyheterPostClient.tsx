@@ -5,14 +5,17 @@ import { RichText } from "./RichText";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
-import { nb } from "date-fns/locale";
-import { CalendarIcon, ArrowLeft } from "lucide-react";
+import { nb, enUS, pl as plLocale } from "date-fns/locale";
+import { CalendarIcon, ArrowLeft, Languages, ExternalLink } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function NyheterPostClient(props: {
   data: any;
   query: string;
   variables: any;
 }) {
+  const { locale, t } = useLanguage();
+
   const { data } = useTina({
     query: props.query || "{ __typename }",
     variables: props.variables,
@@ -25,11 +28,17 @@ export function NyheterPostClient(props: {
     return <div className="min-h-screen flex items-center justify-center">Laster inn...</div>;
   }
 
+  const dateLocale = locale === "pl" ? plLocale : locale === "en" ? enUS : nb;
+
   const formattedDate = post.date 
-    ? format(new Date(post.date), "d. MMMM yyyy", { locale: nb })
+    ? format(new Date(post.date), "d. MMMM yyyy", { locale: dateLocale })
     : "";
 
   const isLogo = post.image && (post.image.includes("sanita") || post.image.includes("logo") || post.image.includes("sponsor"));
+
+  const translateUrl = typeof window !== "undefined"
+    ? `https://translate.google.com/translate?sl=no&tl=${locale}&u=${encodeURIComponent(window.location.href)}`
+    : `https://translate.google.com/translate?sl=no&tl=${locale}`;
 
   return (
     <article className="min-h-screen pb-24 bg-background">
@@ -42,7 +51,7 @@ export function NyheterPostClient(props: {
               className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground mb-12 transition-colors uppercase tracking-widest"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Tilbake
+              {t.news.back}
             </Link>
             
             {post.category && (
@@ -66,7 +75,25 @@ export function NyheterPostClient(props: {
             {formattedDate && (
               <div className="flex items-center mt-8 text-muted-foreground font-medium text-sm" data-tina-field={post._tina_metadata?.fields?.date}>
                 <CalendarIcon className="w-4 h-4 mr-2 opacity-70 text-primary" />
-                Dato publisert: {formattedDate}
+                {t.news.publishedDate}: {formattedDate}
+              </div>
+            )}
+
+            {locale !== "no" && (
+              <div className="mt-8 p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm">
+                <div className="flex items-center gap-2.5 text-muted-foreground">
+                  <Languages className="w-4 h-4 text-primary shrink-0" />
+                  <span>{t.news.originalNotice}</span>
+                </div>
+                <a
+                  href={translateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-bold text-primary hover:underline shrink-0"
+                >
+                  <span>{t.news.translateWithGoogle}</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
               </div>
             )}
           </div>

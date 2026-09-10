@@ -1,23 +1,36 @@
+"use client";
+
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "./ui/badge";
 import { Calendar, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
 import { OptimizedImage } from "./ui/optimized-image";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function News({ newsItems = [] }: { newsItems?: any[] }) {
+  const { t, locale } = useLanguage();
+
+  const localeMap = {
+    no: "nb-NO",
+    en: "en-US",
+    pl: "pl-PL",
+  };
+
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
           <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Siste Nytt & Aktiviteter</h2>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              {t.news.heading}
+            </h2>
             <p className="text-lg text-muted-foreground">
-              Følg med på hva som skjer i klubben. Her legger vi ut informasjon om graderinger, seminarer og andre hendelser.
+              {t.news.subheading}
             </p>
           </div>
           <Link href="/nyheter" className="group flex items-center gap-2 text-primary font-semibold hover:underline">
-            Se alle nyheter
+            {t.news.seeAll}
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
@@ -46,7 +59,7 @@ export function News({ newsItems = [] }: { newsItems?: any[] }) {
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                     <Calendar className="w-4 h-4" />
-                    {new Date(node.date).toLocaleDateString("no-NO", {
+                    {new Date(node.date).toLocaleDateString(localeMap[locale] || "nb-NO", {
                       day: "numeric",
                       month: "long",
                       year: "numeric"
@@ -59,7 +72,7 @@ export function News({ newsItems = [] }: { newsItems?: any[] }) {
                     {node.description}
                   </p>
                   <Link href={`/nyheter/${node._sys.filename}`} className="text-sm font-bold text-primary hover:underline">
-                    Les mer
+                    {t.news.readMore}
                   </Link>
                 </CardContent>
               </Card>
@@ -67,7 +80,7 @@ export function News({ newsItems = [] }: { newsItems?: any[] }) {
           })}
           {newsItems.length === 0 && (
             <div className="col-span-full py-12 text-center text-muted-foreground border-2 border-dashed rounded-xl">
-              Ingen nyheter publisert ennå.
+              {t.news.noNews}
             </div>
           )}
         </div>

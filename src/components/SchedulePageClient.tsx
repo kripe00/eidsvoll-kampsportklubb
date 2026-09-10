@@ -5,6 +5,7 @@ import { useTina } from "tinacms/dist/react";
 import { Clock, MapPin } from "lucide-react";
 import { tinaField } from "tinacms/dist/react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface Slot {
   time: string;
@@ -34,12 +35,27 @@ export function SchedulePageClient(props: {
     data: props.data,
   });
 
+  const { t, locale } = useLanguage();
   const schedule = (props.data?.schedule || data?.schedule) as ScheduleProps;
   const days = schedule?.days || [];
 
   const [activeDayIdx, setActiveDayIdx] = useState(0);
   const [viewMode, setViewMode] = useState<"day" | "week">("week");
   const currentDay = days[activeDayIdx];
+
+  const dayNameMap: Record<string, string> = {
+    "Mandag": t.schedule.days.mon,
+    "Tirsdag": t.schedule.days.tue,
+    "Onsdag": t.schedule.days.wed,
+    "Torsdag": t.schedule.days.thu,
+    "Fredag": t.schedule.days.fri,
+    "Lørdag": t.schedule.days.sat,
+    "Søndag": t.schedule.days.sun,
+  };
+
+  const getTranslatedDay = (dayName: string) => {
+    return dayNameMap[dayName] || dayName;
+  };
 
   // Helper to filter slots by room
   const getSlotsForRoom = (slots: Slot[] = [], roomKey: string) => {
@@ -91,13 +107,13 @@ export function SchedulePageClient(props: {
 
   // Helper to check if a class is for kids
   const isKidsClass = (group: string) => {
-    return group.toLowerCase().includes("barn");
+    return group.toLowerCase().includes("barn") || group.toLowerCase().includes("kids");
   };
 
   if (days.length === 0) {
     return (
       <div className="bg-background min-h-screen pt-32 text-center text-muted-foreground">
-        Ingen treningstider registrert ennå.
+        {locale === "pl" ? "Brak zarejestrowanych godzin treningów." : locale === "en" ? "No schedule registered yet." : "Ingen treningstider registrert ennå."}
       </div>
     );
   }
@@ -108,9 +124,24 @@ export function SchedulePageClient(props: {
   const uniqueStartTimes = getUniqueStartTimes(currentDay?.slots);
 
   const roomsConfig = [
-    { key: "sal1", name: "Sal 1", desc: "Flerbruksmatte for BJJ og Muay Thai", slots: sal1Slots },
-    { key: "sal2", name: "Sal 2", desc: "Matteareal kun for BJJ", slots: sal2Slots },
-    { key: "ctyoga", name: "CT/yoga sal", desc: "Rom tilrettelagt for yoga og fysisk fostring", slots: ctyogaSlots },
+    { 
+      key: "sal1", 
+      name: locale === "pl" ? "Sala 1" : locale === "en" ? "Room 1" : "Sal 1", 
+      desc: locale === "pl" ? "Mata główna do BJJ i Muay Thai" : locale === "en" ? "Main mat for BJJ and Muay Thai" : "Flerbruksmatte for BJJ og Muay Thai", 
+      slots: sal1Slots 
+    },
+    { 
+      key: "sal2", 
+      name: locale === "pl" ? "Sala 2" : locale === "en" ? "Room 2" : "Sal 2", 
+      desc: locale === "pl" ? "Strefa maty dedykowana dla BJJ" : locale === "en" ? "Mat area dedicated to BJJ" : "Matteareal kun for BJJ", 
+      slots: sal2Slots 
+    },
+    { 
+      key: "ctyoga", 
+      name: locale === "pl" ? "Sala CT / Jogi" : locale === "en" ? "Cross Training & Yoga Room" : "CT/yoga sal", 
+      desc: locale === "pl" ? "Sala przystosowana do jogi i treningu siłowego" : locale === "en" ? "Room tailored for yoga and physical conditioning" : "Rom tilrettelagt for yoga og fysisk fostring", 
+      slots: ctyogaSlots 
+    },
   ];
 
   return (
@@ -119,10 +150,10 @@ export function SchedulePageClient(props: {
       <div className="pt-32 bg-muted/20 border-b border-border/40 pb-16">
         <div className="container mx-auto px-4 lg:px-8 text-center max-w-6xl">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight text-foreground uppercase">
-            Treningstider
+            {t.schedule.title}
           </h1>
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
-            Vi trener i nyopppussede lokaler på Dal. Her ser du planen fordelt over våre 3 saler. Vi følger skoleruta, endringer vil varsles på Spond.
+            {t.schedule.subtitle}
           </p>
         </div>
       </div>
@@ -140,7 +171,7 @@ export function SchedulePageClient(props: {
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              Ukesvisning
+              {locale === "pl" ? "Widok tygodnia" : locale === "en" ? "Week view" : "Ukesvisning"}
             </button>
             <button
               onClick={() => setViewMode("day")}
@@ -151,7 +182,7 @@ export function SchedulePageClient(props: {
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              Dagsvisning (Saler)
+              {locale === "pl" ? "Widok dnia (Sale)" : locale === "en" ? "Day view (Rooms)" : "Dagsvisning (Saler)"}
             </button>
           </div>
         </div>
@@ -173,7 +204,7 @@ export function SchedulePageClient(props: {
               )}
               data-tina-field={tinaField(day as any, "day")}
             >
-              {day.day}
+              {getTranslatedDay(day.day)}
             </button>
           ))}
         </div>
@@ -188,10 +219,10 @@ export function SchedulePageClient(props: {
                   {/* Day Column (Left side) */}
                   <div className="w-full md:w-32 shrink-0 border-b md:border-b-0 md:border-r border-border/40 pb-4 md:pb-0 md:pr-6">
                     <h3 className="font-extrabold text-lg tracking-wider uppercase text-foreground text-primary">
-                      {day.day}
+                      {getTranslatedDay(day.day)}
                     </h3>
                     <span className="text-xs text-muted-foreground mt-1 block">
-                      {sortedSlots.length} {sortedSlots.length === 1 ? "time" : "timer"}
+                      {sortedSlots.length} {locale === 'pl' ? (sortedSlots.length === 1 ? 'zajęcia' : 'treningi') : locale === 'en' ? (sortedSlots.length === 1 ? 'class' : 'classes') : (sortedSlots.length === 1 ? 'time' : 'timer')}
                     </span>
                   </div>
 
@@ -206,16 +237,17 @@ export function SchedulePageClient(props: {
                             <div
                               key={sIdx}
                               className={cn(
-                                "border border-border/40 rounded-xl p-4 transition-all duration-300 shadow-sm flex flex-col justify-between h-40 w-[240px] shrink-0",
+                                "border border-border/40 rounded-xl p-3.5 transition-all duration-300 shadow-sm flex flex-col justify-between w-[220px] shrink-0",
                                 styles.card
                               )}
                               data-tina-field={tinaField(slot as any)}
                             >
                               <div>
-                                <span className="text-[10px] text-muted-foreground font-semibold block mb-1">
+                                <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-semibold mb-1">
+                                  <Clock className="w-3.5 h-3.5" />
                                   {slot.time}
                                 </span>
-                                <h4 className="font-black text-base tracking-tight text-foreground uppercase truncate">
+                                <h4 className="font-black text-sm text-foreground uppercase tracking-tight truncate">
                                   {slot.activity}
                                 </h4>
                                 <p className="text-xs text-muted-foreground truncate mt-0.5 font-medium">
@@ -238,7 +270,7 @@ export function SchedulePageClient(props: {
                                       : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                   )}
                                 >
-                                  {kids ? "Barn" : "Voksen"}
+                                  {kids ? (locale === 'pl' ? 'Dzieci' : locale === 'en' ? 'Kids' : 'Barn') : (locale === 'pl' ? 'Dorośli' : locale === 'en' ? 'Adults' : 'Voksen')}
                                 </span>
                               </div>
                             </div>
@@ -247,7 +279,7 @@ export function SchedulePageClient(props: {
                       </div>
                     ) : (
                       <div className="text-sm text-muted-foreground/45 py-4 font-medium italic">
-                        Ingen treninger satt opp denne dagen.
+                        {locale === 'pl' ? 'Brak treningów w tym dniu.' : locale === 'en' ? 'No classes scheduled for this day.' : 'Ingen treninger satt opp denne dagen.'}
                       </div>
                     )}
                   </div>
@@ -330,7 +362,7 @@ export function SchedulePageClient(props: {
                                       : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                   )}
                                 >
-                                  {kids ? "Barn" : "Voksen"}
+                                  {kids ? (locale === 'pl' ? 'Dzieci' : locale === 'en' ? 'Kids' : 'Barn') : (locale === 'pl' ? 'Dorośli' : locale === 'en' ? 'Adults' : 'Voksen')}
                                 </span>
                               </div>
 
@@ -410,7 +442,7 @@ export function SchedulePageClient(props: {
                                     : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                 )}
                               >
-                                {kids ? "Barn" : "Voksen"}
+                                {kids ? (locale === 'pl' ? 'Dzieci' : locale === 'en' ? 'Kids' : 'Barn') : (locale === 'pl' ? 'Dorośli' : locale === 'en' ? 'Adults' : 'Voksen')}
                               </span>
                             </div>
 

@@ -2,6 +2,7 @@
 
 import { Calendar, Building2, ShieldCheck, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface TimelineEvent {
   year: string;
@@ -47,17 +48,49 @@ export function Timeline({
   subtitle = "Fra Rambukk Sport AS på Råholt til Eidsvoll Kampsportklubb (EKK) på Dal",
   events = defaultEvents,
 }: TimelineProps) {
-  const displayEvents = events && events.length > 0 ? events : defaultEvents;
+  const { locale, t } = useLanguage();
+
+  const sectionTitle = locale === "no" ? title : t.about.historyTitle;
+  const sectionSubtitle = locale === "no" ? subtitle : t.about.historySubtitle;
+
+  const rawEvents = events && events.length > 0 ? events : defaultEvents;
+
+  const displayEvents: TimelineEvent[] = rawEvents.map((event, idx) => {
+    if (locale === "no") return event;
+    if (idx === 0) {
+      return {
+        ...event,
+        title: t.about.events.e1Title,
+        description: t.about.events.e1Desc,
+      };
+    }
+    if (idx === 1) {
+      return {
+        ...event,
+        title: t.about.events.e2Title,
+        description: t.about.events.e2Desc,
+      };
+    }
+    if (idx === 2) {
+      return {
+        ...event,
+        year: locale === "pl" ? "Wrzesień 2026" : "September 2026",
+        title: t.about.events.e3Title,
+        description: t.about.events.e3Desc,
+      };
+    }
+    return event;
+  });
 
   return (
     <section className="py-4">
       <div className="text-center max-w-3xl mx-auto mb-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-foreground uppercase">
-          {title}
+          {sectionTitle}
         </h2>
-        {subtitle && (
+        {sectionSubtitle && (
           <p className="mt-2 text-muted-foreground text-sm sm:text-base leading-relaxed font-medium">
-            {subtitle}
+            {sectionSubtitle}
           </p>
         )}
       </div>

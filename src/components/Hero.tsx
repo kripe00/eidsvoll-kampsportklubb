@@ -1,13 +1,16 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
 import { RichText } from "./RichText";
 import { OptimizedImage } from "./ui/optimized-image";
 import { ProveukeModal } from "./ProveukeModal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface HeroProps {
   welcomeText?: string;
   highlightedText?: string;
-  description?: any; // Changed to any to support objects/rich-text
+  description?: any;
   backgroundImage?: string;
   backgroundVideo?: string;
   parent?: any;
@@ -16,11 +19,17 @@ interface HeroProps {
 export function Hero({ 
   welcomeText = "Velkommen til", 
   highlightedText = "Eidsvoll Kampsportklubb", 
-  description = "Eidsvoll Kampsportklubb er mer enn bare et sted å trene – vi er et fellesskap. Med dype røtter i Eidsvoll har vi skapt et inkluderende og trygt miljø der folk i alle aldre, og med ulik erfaringsbakgrunn, kan oppleve ekte idrettsglede og mestring.",
+  description,
   backgroundImage = "/header.jpg",
   backgroundVideo,
   parent
 }: HeroProps) {
+  const { t, locale } = useLanguage();
+
+  const displayWelcome = locale === "no" ? welcomeText : t.hero.welcome;
+  const displayHighlighted = locale === "no" ? highlightedText : t.hero.clubName;
+  const displayDesc = locale === "no" ? (description || t.hero.description) : t.hero.description;
+
   return (
     <section className="relative w-full overflow-hidden pt-32 pb-48 md:pt-48 md:pb-64">
       {backgroundVideo ? (
@@ -38,7 +47,7 @@ export function Hero({
       ) : (
         <OptimizedImage
           src={backgroundImage}
-          alt={highlightedText || "Hero bakgrunn"}
+          alt={displayHighlighted || "Hero bakgrunn"}
           fill={true}
           priority={true}
           containerClassName="absolute inset-0 -z-20"
@@ -50,18 +59,18 @@ export function Hero({
       
       <div className="container mx-auto px-4 md:px-8 max-w-5xl text-center">
         <h1 className="text-4xl md:text-6xl lg:text-7xl tracking-tighter font-extrabold text-white mb-8 text-balance">
-          <span data-tina-field={tinaField(parent, 'welcomeText')}>{welcomeText}</span> <br className="hidden md:block" />
-          <span className="text-primary" data-tina-field={tinaField(parent, 'highlightedText')}>{highlightedText}</span>
+          <span data-tina-field={tinaField(parent, 'welcomeText')}>{displayWelcome}</span> <br className="hidden md:block" />
+          <span className="text-primary" data-tina-field={tinaField(parent, 'highlightedText')}>{displayHighlighted}</span>
         </h1>
         <div className="text-xl md:text-2xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed" data-tina-field={tinaField(parent, 'description')}>
-          <RichText content={description} />
+          {typeof displayDesc === "string" ? <p>{displayDesc}</p> : <RichText content={displayDesc} />}
         </div>
         
         <div className="flex justify-center items-center">
           <ProveukeModal 
             trigger={
               <Button size="lg" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
-                Gratis prøveperiode (2 uker)
+                {t.hero.tryFreeCta}
               </Button>
             }
           />

@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 export function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const consent = localStorage.getItem("cookieConsent");
@@ -27,38 +29,36 @@ export function CookieBanner() {
   return (
     <div
       role="dialog"
-      aria-label="Informasjonskapsler (cookies)"
+      aria-label="Cookies / Informasjonskapsler"
       className={cn(
         "fixed bottom-6 left-6 z-[100] max-w-sm w-full animate-in fade-in slide-in-from-bottom-5 duration-500",
       )}
     >
-      <div className="bg-white rounded-2xl shadow-2xl border border-slate-100 p-6 md:p-8 space-y-6">
+      <div className="bg-card rounded-2xl shadow-2xl border border-border/60 p-6 md:p-8 space-y-6">
         <div className="space-y-3">
           <div className="flex items-start justify-between">
-            <h3 className="text-xl font-black tracking-tight text-foreground uppercase italic">
-              Vi bryr oss om <span className="text-primary not-italic">ditt personvern</span>
+            <h3 className="text-lg font-black tracking-tight text-foreground uppercase">
+              Cookies & <span className="text-primary">Personvern</span>
             </h3>
           </div>
-          <p className="text-sm text-muted-foreground/80 leading-relaxed font-light">
-            Vi bruker informasjonskapsler (cookies) for å forstå hvordan nettsiden brukes, 
-            slik at vi kan forbedre brukeropplevelsen for våre medlemmer. 
-            Vi deler aldri data med tredjeparter for annonsering.
+          <p className="text-xs text-muted-foreground leading-relaxed font-light">
+            {t.cookie.text}
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
           <Button
             onClick={() => handleConsent("granted")}
-            className="flex-1 bg-primary text-white font-bold uppercase tracking-tight h-11"
+            className="flex-1 bg-primary text-white font-bold uppercase tracking-tight text-xs h-10"
           >
-            Aksepter alle
+            {t.cookie.accept}
           </Button>
           <Button
             variant="ghost"
             onClick={() => handleConsent("denied")}
-            className="flex-1 text-muted-foreground hover:text-foreground hover:bg-slate-50 font-medium text-xs tracking-tight h-11"
+            className="flex-1 text-muted-foreground hover:text-foreground font-medium text-xs tracking-tight h-10"
           >
-            Kun nødvendige
+            {t.cookie.decline}
           </Button>
         </div>
       </div>

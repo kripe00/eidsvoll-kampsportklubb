@@ -7,16 +7,33 @@ import { tinaField } from "tinacms/dist/react";
 import { Menu, X } from "lucide-react";
 import { OptimizedImage } from "./ui/optimized-image";
 import { ProveukeModal } from "./ProveukeModal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function Header({ data }: { data: any }) {
   const [isOpen, setIsOpen] = useState(false);
-  const navLinks = data?.nav || [
+  const { t, locale } = useLanguage();
+
+  const navLabels: Record<string, string> = {
+    "/nyheter": t.nav.news,
+    "/timeplan": t.nav.schedule,
+    "/medlemskap": t.nav.membership,
+    "/om-oss": t.nav.about,
+    "/kontakt": t.nav.contact,
+  };
+
+  const rawNavLinks = data?.nav || [
     { label: "Nyheter", href: "/nyheter" },
     { label: "Timeplan", href: "/timeplan" },
     { label: "Medlemskap", href: "/medlemskap" },
     { label: "Om oss", href: "/om-oss" },
     { label: "Kontakt", href: "/kontakt" },
   ];
+
+  const navLinks = rawNavLinks.map((item: any) => ({
+    ...item,
+    displayLabel: locale === "no" ? item.label : (navLabels[item.href] || item.label),
+  }));
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/85 backdrop-blur-xl border-b border-border/40">
@@ -46,13 +63,15 @@ export function Header({ data }: { data: any }) {
               className="text-sm font-semibold text-muted-foreground hover:text-foreground hover:text-primary transition-colors"
               data-tina-field={tinaField(item, 'label')}
             >
-              {item.label}
+              {item.displayLabel}
             </Link>
           ))}
         </nav>
 
-        {/* Action CTA Buttons */}
+        {/* Action CTA Buttons & Language Switcher */}
         <div className="hidden md:flex items-center gap-3 shrink-0">
+          <LanguageSwitcher />
+
           <ProveukeModal 
             trigger={
               <Button 
@@ -60,7 +79,7 @@ export function Header({ data }: { data: any }) {
                 variant="outline" 
                 className="rounded-full px-4 py-2 font-bold text-xs sm:text-sm border-primary/40 text-foreground hover:bg-primary/10 transition-all whitespace-nowrap"
               >
-                Prøv gratis
+                {t.nav.tryFree}
               </Button>
             }
           />
@@ -69,20 +88,23 @@ export function Header({ data }: { data: any }) {
               size="sm" 
               className="rounded-full px-5 py-2 font-bold text-xs sm:text-sm shadow-md shadow-primary/10 whitespace-nowrap"
             >
-              Bli medlem
+              {t.nav.join}
             </Button>
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="lg:hidden p-2 text-foreground"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? "Lukk meny" : "Åpne meny"}
-          aria-expanded={isOpen}
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile Toggle & Mobile Language Switcher */}
+        <div className="lg:hidden flex items-center gap-2">
+          <LanguageSwitcher />
+          <button 
+            className="p-2 text-foreground"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Lukk meny" : "Åpne meny"}
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -96,7 +118,7 @@ export function Header({ data }: { data: any }) {
                 className="text-lg font-bold text-foreground hover:text-primary transition-colors py-1"
                 onClick={() => setIsOpen(false)}
               >
-                {item.label}
+                {item.displayLabel}
               </Link>
             ))}
 
@@ -104,16 +126,18 @@ export function Header({ data }: { data: any }) {
               <ProveukeModal 
                 trigger={
                   <Button variant="outline" className="w-full rounded-xl font-bold py-6 text-base border-primary/40 text-foreground">
-                    Gratis prøveperiode (2 uker)
+                    {t.nav.tryFree}
                   </Button>
                 }
               />
               <Link href="/medlemskap" onClick={() => setIsOpen(false)}>
                 <Button className="w-full rounded-xl font-bold py-6 text-base shadow-lg">
-                  Bli medlem
+                  {t.nav.join}
                 </Button>
               </Link>
             </div>
+
+            <LanguageSwitcher isMobile={true} />
           </nav>
         </div>
       )}
