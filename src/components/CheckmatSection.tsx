@@ -93,10 +93,12 @@ export function CheckmatSection({
               </div>
               <div>
                 <strong className="block text-foreground font-semibold mb-0.5 text-xs sm:text-sm">
-                  {locale === "pl" ? "Bezpieczne i profesjonalne środowisko" : locale === "en" ? "Safe and Professional Environment" : "Trygt og strukturert miljø"}
+                  {locale === "uk" ? "Безпечне та професійне середовище" : locale === "pl" ? "Bezpieczne i profesjonalne środowisko" : locale === "en" ? "Safe and Professional Environment" : "Trygt og strukturert miljø"}
                 </strong>
                 <span className="text-muted-foreground text-xs leading-normal">
-                  {locale === "pl"
+                  {locale === "uk"
+                    ? "Технічне навчання з акцентом на радість від спорту, повагу та здоров’я на татамі."
+                    : locale === "pl"
                     ? "Szkolenie techniczne ukierunkowane na radość z uprawiania sportu, wzajemny szacunek i zdrowie na macie."
                     : locale === "en"
                     ? "Technical instruction emphasizing sporting enjoyment, safety, respect, and mutual support on the mats."

@@ -47,15 +47,17 @@ export function OrgSeparation({
                   </div>
                   <div>
                     <h3 className="font-extrabold text-foreground text-lg">
-                      {locale === "pl" ? "Poprzednia struktura" : locale === "en" ? "Previous Structure" : "Tidligere organisering"}
+                      {locale === "uk" ? "Попередня структура" : locale === "pl" ? "Poprzednia struktura" : locale === "en" ? "Previous Structure" : "Tidligere organisering"}
                     </h3>
                     <p className="text-xs text-muted-foreground">
-                      {locale === "pl" ? "Do września 2026" : locale === "en" ? "Until September 2026" : "Frem til september 2026"}
+                      {locale === "uk" ? "До вересня 2026" : locale === "pl" ? "Do września 2026" : locale === "en" ? "Until September 2026" : "Frem til september 2026"}
                     </p>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {locale === "pl"
+                  {locale === "uk"
+                    ? "Раніше приміщення та діяльність забезпечувалися компанією Rambukk Sport AS у Рохольті."
+                    : locale === "pl"
                     ? "Wcześniej infrastruktura i bieżąca działalność były prowadzone przez spółkę Rambukk Sport AS w Råholt."
                     : locale === "en"
                     ? "Previously, facilities and operations were managed through Rambukk Sport AS at Råholt."
@@ -73,15 +75,17 @@ export function OrgSeparation({
                   </div>
                   <div>
                     <h3 className="font-extrabold text-foreground text-lg">
-                      {locale === "pl" ? "Działalność klubu sportowego (EKK)" : locale === "en" ? "Direct Club Operations (EKK)" : "Direkte drift hos idrettslaget (EKK)"}
+                      {locale === "uk" ? "Діяльність клубу (EKK)" : locale === "pl" ? "Działalność klubu sportowego (EKK)" : locale === "en" ? "Direct Club Operations (EKK)" : "Direkte drift hos idrettslaget (EKK)"}
                     </h3>
                     <p className="text-xs text-primary font-bold">
-                      {locale === "pl" ? "Od września 2026" : locale === "en" ? "From September 2026" : "Fra september 2026"}
+                      {locale === "uk" ? "З вересня 2026" : locale === "pl" ? "Od września 2026" : locale === "en" ? "From September 2026" : "Fra september 2026"}
                     </p>
                   </div>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {locale === "pl"
+                  {locale === "uk"
+                    ? "З вересня 2026 року Eidsvoll Kampsportklubb (EKK) веде всю діяльність безпосередньо як неприбутковий спортивний клуб при NIF."
+                    : locale === "pl"
                     ? "Od września 2026 roku Eidsvoll Kampsportklubb (EKK) zarządza całością działalności jako stowarzyszenie non-profit zrzeszone w NIF."
                     : locale === "en"
                     ? "From September 2026, Eidsvoll Kampsportklubb (EKK) manages all operations directly as a non-profit sports club affiliated with NIF."

@@ -120,7 +120,7 @@ export function InstagramFeed({
               >
                 <InstagramIcon className="w-10 h-10 text-muted-foreground/20" />
                 <span className="text-[10px] text-muted-foreground/30 font-semibold tracking-wider uppercase mt-2">
-                  {locale === "pl" ? "Wkrótce" : locale === "en" ? "Coming soon" : "Kommer snart"}
+                  {locale === "uk" ? "Незабаром" : locale === "pl" ? "Wkrótce" : locale === "en" ? "Coming soon" : "Kommer snart"}
                 </span>
               </div>
             ))

@@ -5,7 +5,7 @@ import { RichText } from "./RichText";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
-import { nb, enUS, pl as plLocale } from "date-fns/locale";
+import { nb, enUS, pl as plLocale, uk as ukLocale } from "date-fns/locale";
 import { CalendarIcon, ArrowLeft, Languages, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
@@ -28,7 +28,7 @@ export function NyheterPostClient(props: {
     return <div className="min-h-screen flex items-center justify-center">Laster inn...</div>;
   }
 
-  const dateLocale = locale === "pl" ? plLocale : locale === "en" ? enUS : nb;
+  const dateLocale = locale === "uk" ? ukLocale : locale === "pl" ? plLocale : locale === "en" ? enUS : nb;
 
   const formattedDate = post.date 
     ? format(new Date(post.date), "d. MMMM yyyy", { locale: dateLocale })

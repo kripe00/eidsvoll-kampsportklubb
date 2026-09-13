@@ -37,7 +37,9 @@ export function ProveukeSection() {
               BJJ (Jiu-Jitsu)
             </h3>
             <p className="text-muted-foreground text-xs leading-relaxed mb-4">
-              {locale === "pl"
+              {locale === "uk"
+                ? "Офіційний клуб Checkmat. Gi та no-gi для дітей, молоді та дорослих."
+                : locale === "pl"
                 ? "Oficjalny klub Checkmat. Gi oraz no-gi dla dzieci, młodzieży i dorosłych."
                 : locale === "en"
                 ? "Official Checkmat team. Both gi and no-gi for kids, youth, and adults."
@@ -57,14 +59,16 @@ export function ProveukeSection() {
               Muay Thai
             </h3>
             <p className="text-muted-foreground text-xs leading-relaxed mb-4">
-              {locale === "pl"
+              {locale === "uk"
+                ? "Тайський бокс з акцентом на техніку, силу та витривалість."
+                : locale === "pl"
                 ? "Strukturalny boks tajski z naciskiem na technikę, siłę i kondycję."
                 : locale === "en"
                 ? "Structured thaiboxing focusing on technique, power, and cardio endurance."
                 : "Strukturert thaiboksing med fokus på teknikk, styrke og kondisjon."}
             </p>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">
-              {t.proveuke.card1Title}
+              {t.proveuke.card2Title}
             </span>
           </div>
 
@@ -74,17 +78,19 @@ export function ProveukeSection() {
               <Dumbbell className="w-5 h-5" />
             </div>
             <h3 className="text-lg font-black uppercase text-foreground mb-2 tracking-tight">
-              {locale === "pl" ? "Trening siłowy" : locale === "en" ? "Cross Training" : "Crosstrening"}
+              {locale === "uk" ? "Крос-тренінг" : locale === "pl" ? "Trening siłowy" : locale === "en" ? "Cross Training" : "Crosstrening"}
             </h3>
             <p className="text-muted-foreground text-xs leading-relaxed mb-4">
-              {locale === "pl"
+              {locale === "uk"
+                ? "Функціональна сила та витривалість для будь-якого рівня."
+                : locale === "pl"
                 ? "Funkcjonalna siła i wytrzymałość dostosowana do każdego poziomu."
                 : locale === "en"
                 ? "Functional strength and conditioning tailored to each individual level."
                 : "Funksjonell styrke og utholdenhet tilpasset eget nivå i eget sal."}
             </p>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">
-              {t.proveuke.card1Title}
+              {t.proveuke.card3Title}
             </span>
           </div>
 
@@ -97,14 +103,16 @@ export function ProveukeSection() {
               Yinsaya Yoga
             </h3>
             <p className="text-muted-foreground text-xs leading-relaxed mb-4">
-              {locale === "pl"
+              {locale === "uk"
+                ? "Гнучкість та відновлення для розвитку рухливості та запобігання травмам."
+                : locale === "pl"
                 ? "Mobilność i regeneracja budująca elastyczność i zapobiegająca kontuzjom."
                 : locale === "en"
                 ? "Mobility and recovery that builds flexibility and prevents injuries."
                 : "Bevegelighet og restitusjon som bygger smidighet og forebygger skader."}
             </p>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">
-              {t.proveuke.card1Title}
+              {t.proveuke.card3Title}
             </span>
           </div>
 
@@ -114,14 +122,18 @@ export function ProveukeSection() {
         <div className="bg-card border border-border/60 rounded-2xl p-8 text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="text-left">
             <h4 className="text-xl font-bold text-foreground mb-1">
-              {locale === "pl" 
+              {locale === "uk"
+                ? "Бажаєте спробувати бойові мистецтва з нами?"
+                : locale === "pl" 
                 ? "Chcesz spróbować sztuk walki z nami?" 
                 : locale === "en" 
                 ? "Want to try martial arts with us?" 
                 : "Ønsker du å prøve kampsport hos oss?"}
             </h4>
             <p className="text-muted-foreground text-xs">
-              {locale === "pl"
+              {locale === "uk"
+                ? "Запишіться на безкоштовний пробний період, щоб отримати підтвердження та розклад."
+                : locale === "pl"
                 ? "Zapisz się na bezpłatny okres próbny, aby otrzymać potwierdzenie i grafik."
                 : locale === "en"
                 ? "Sign up for a free trial to receive confirmation and schedule details."

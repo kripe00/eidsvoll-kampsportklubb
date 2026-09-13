@@ -15,6 +15,7 @@ const languages: LanguageOption[] = [
   { code: "no", label: "Norsk", flag: "🇳🇴" },
   { code: "en", label: "English", flag: "🇬🇧" },
   { code: "pl", label: "Polski", flag: "🇵🇱" },
+  { code: "uk", label: "Українська", flag: "🇺🇦" },
 ];
 
 export function LanguageSwitcher({ className = "", isMobile = false }: { className?: string; isMobile?: boolean }) {

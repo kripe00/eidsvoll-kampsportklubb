@@ -113,7 +113,7 @@ export function SchedulePageClient(props: {
   if (days.length === 0) {
     return (
       <div className="bg-background min-h-screen pt-32 text-center text-muted-foreground">
-        {locale === "pl" ? "Brak zarejestrowanych godzin treningów." : locale === "en" ? "No schedule registered yet." : "Ingen treningstider registrert ennå."}
+        {locale === "uk" ? "Розклад ще не опубліковано." : locale === "pl" ? "Brak zarejestrowanych godzin treningów." : locale === "en" ? "No schedule registered yet." : "Ingen treningstider registrert ennå."}
       </div>
     );
   }
@@ -126,20 +126,20 @@ export function SchedulePageClient(props: {
   const roomsConfig = [
     { 
       key: "sal1", 
-      name: locale === "pl" ? "Sala 1" : locale === "en" ? "Room 1" : "Sal 1", 
-      desc: locale === "pl" ? "Mata główna do BJJ i Muay Thai" : locale === "en" ? "Main mat for BJJ and Muay Thai" : "Flerbruksmatte for BJJ og Muay Thai", 
+      name: locale === "uk" ? "Зал 1" : locale === "pl" ? "Sala 1" : locale === "en" ? "Room 1" : "Sal 1", 
+      desc: locale === "uk" ? "Головний татамі для БЖЖ та Муай Тай" : locale === "pl" ? "Mata główna do BJJ i Muay Thai" : locale === "en" ? "Main mat for BJJ and Muay Thai" : "Flerbruksmatte for BJJ og Muay Thai", 
       slots: sal1Slots 
     },
     { 
       key: "sal2", 
-      name: locale === "pl" ? "Sala 2" : locale === "en" ? "Room 2" : "Sal 2", 
-      desc: locale === "pl" ? "Strefa maty dedykowana dla BJJ" : locale === "en" ? "Mat area dedicated to BJJ" : "Matteareal kun for BJJ", 
+      name: locale === "uk" ? "Зал 2" : locale === "pl" ? "Sala 2" : locale === "en" ? "Room 2" : "Sal 2", 
+      desc: locale === "uk" ? "Зона татамі для БЖЖ" : locale === "pl" ? "Strefa maty dedykowana dla BJJ" : locale === "en" ? "Mat area dedicated to BJJ" : "Matteareal kun for BJJ", 
       slots: sal2Slots 
     },
     { 
       key: "ctyoga", 
-      name: locale === "pl" ? "Sala CT / Jogi" : locale === "en" ? "Cross Training & Yoga Room" : "CT/yoga sal", 
-      desc: locale === "pl" ? "Sala przystosowana do jogi i treningu siłowego" : locale === "en" ? "Room tailored for yoga and physical conditioning" : "Rom tilrettelagt for yoga og fysisk fostring", 
+      name: locale === "uk" ? "Зал крос-тренінгу та йоги" : locale === "pl" ? "Sala CT / Jogi" : locale === "en" ? "Cross Training & Yoga Room" : "CT/yoga sal", 
+      desc: locale === "uk" ? "Зал для занять йогою та загальної фізичної підготовки" : locale === "pl" ? "Sala przystosowana do jogi i treningu siłowego" : locale === "en" ? "Room tailored for yoga and physical conditioning" : "Rom tilrettelagt for yoga og fysisk fostring", 
       slots: ctyogaSlots 
     },
   ];
@@ -171,7 +171,7 @@ export function SchedulePageClient(props: {
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              {locale === "pl" ? "Widok tygodnia" : locale === "en" ? "Week view" : "Ukesvisning"}
+              {t.schedule.weekView}
             </button>
             <button
               onClick={() => setViewMode("day")}
@@ -182,7 +182,7 @@ export function SchedulePageClient(props: {
                   : "text-muted-foreground hover:text-foreground"
               )}
             >
-              {locale === "pl" ? "Widok dnia (Sale)" : locale === "en" ? "Day view (Rooms)" : "Dagsvisning (Saler)"}
+              {t.schedule.dayRoomsView}
             </button>
           </div>
         </div>
@@ -222,7 +222,7 @@ export function SchedulePageClient(props: {
                       {getTranslatedDay(day.day)}
                     </h3>
                     <span className="text-xs text-muted-foreground mt-1 block">
-                      {sortedSlots.length} {locale === 'pl' ? (sortedSlots.length === 1 ? 'zajęcia' : 'treningi') : locale === 'en' ? (sortedSlots.length === 1 ? 'class' : 'classes') : (sortedSlots.length === 1 ? 'time' : 'timer')}
+                      {sortedSlots.length} {locale === 'uk' ? (sortedSlots.length === 1 ? 'тренування' : 'тренувань') : locale === 'pl' ? (sortedSlots.length === 1 ? 'zajęcia' : 'treningi') : locale === 'en' ? (sortedSlots.length === 1 ? 'class' : 'classes') : (sortedSlots.length === 1 ? 'time' : 'timer')}
                     </span>
                   </div>
 
@@ -270,7 +270,7 @@ export function SchedulePageClient(props: {
                                       : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                   )}
                                 >
-                                  {kids ? (locale === 'pl' ? 'Dzieci' : locale === 'en' ? 'Kids' : 'Barn') : (locale === 'pl' ? 'Dorośli' : locale === 'en' ? 'Adults' : 'Voksen')}
+                                  {kids ? t.schedule.kidsBadge : t.schedule.adultBadge}
                                 </span>
                               </div>
                             </div>
@@ -279,7 +279,7 @@ export function SchedulePageClient(props: {
                       </div>
                     ) : (
                       <div className="text-sm text-muted-foreground/45 py-4 font-medium italic">
-                        {locale === 'pl' ? 'Brak treningów w tym dniu.' : locale === 'en' ? 'No classes scheduled for this day.' : 'Ingen treninger satt opp denne dagen.'}
+                        {locale === 'uk' ? 'На цей день тренувань немає.' : locale === 'pl' ? 'Brak treningów w tym dniu.' : locale === 'en' ? 'No classes scheduled for this day.' : 'Ingen treninger satt opp denne dagen.'}
                       </div>
                     )}
                   </div>
@@ -362,7 +362,7 @@ export function SchedulePageClient(props: {
                                       : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                   )}
                                 >
-                                  {kids ? (locale === 'pl' ? 'Dzieci' : locale === 'en' ? 'Kids' : 'Barn') : (locale === 'pl' ? 'Dorośli' : locale === 'en' ? 'Adults' : 'Voksen')}
+                                  {kids ? t.schedule.kidsBadge : t.schedule.adultBadge}
                                 </span>
                               </div>
 
@@ -442,7 +442,7 @@ export function SchedulePageClient(props: {
                                     : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                 )}
                               >
-                                {kids ? (locale === 'pl' ? 'Dzieci' : locale === 'en' ? 'Kids' : 'Barn') : (locale === 'pl' ? 'Dorośli' : locale === 'en' ? 'Adults' : 'Voksen')}
+                                {kids ? t.schedule.kidsBadge : t.schedule.adultBadge}
                               </span>
                             </div>
 

@@ -231,7 +231,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                 </div>
                 <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-category" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
-                    {locale === "pl" ? "Grupa wiekowa *" : locale === "en" ? "Age group *" : "Aldersgruppe *"}
+                    {locale === "uk" ? "Вікова група *" : locale === "pl" ? "Grupa wiekowa *" : locale === "en" ? "Age group *" : "Aldersgruppe *"}
                   </label>
                   <select
                     id="modal-category"
@@ -240,13 +240,13 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                     className="w-full bg-transparent text-base font-bold outline-none text-foreground cursor-pointer"
                   >
                     <option value="Voksen / Ungdom (fra 14 år)">
-                      {locale === "pl" ? "Dorośli / Młodzież (od 14 lat)" : locale === "en" ? "Adults / Youth (14+ yrs)" : "Voksen / Ungdom (fra 14 år)"}
+                      {locale === "uk" ? "Дорослі / Підлітки (від 14 років)" : locale === "pl" ? "Dorośli / Młodzież (od 14 lat)" : locale === "en" ? "Adults / Youth (14+ yrs)" : "Voksen / Ungdom (fra 14 år)"}
                     </option>
                     <option value="Barneparti 1 (6-9 år)">
-                      {locale === "pl" ? "Dzieci 1 (6-9 lat)" : locale === "en" ? "Kids 1 (6-9 yrs)" : "Barneparti 1 (6-9 år)"}
+                      {locale === "uk" ? "Діти 1 (6-9 років)" : locale === "pl" ? "Dzieci 1 (6-9 lat)" : locale === "en" ? "Kids 1 (6-9 yrs)" : "Barneparti 1 (6-9 år)"}
                     </option>
                     <option value="Barneparti 2 (10-13 år)">
-                      {locale === "pl" ? "Dzieci 2 (10-13 lat)" : locale === "en" ? "Kids 2 (10-13 yrs)" : "Barneparti 2 (10-13 år)"}
+                      {locale === "uk" ? "Діти 2 (10-13 років)" : locale === "pl" ? "Dzieci 2 (10-13 lat)" : locale === "en" ? "Kids 2 (10-13 yrs)" : "Barneparti 2 (10-13 år)"}
                     </option>
                   </select>
                 </div>
@@ -256,7 +256,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                 <div className="flex justify-between items-center">
                   <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
-                    {locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Desired start date *" : "Ønsket Startdato *"}
+                    {locale === "uk" ? "Бажана дата початку *" : locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Desired start date *" : "Ønsket Startdato *"}
                   </label>
                   {calculatedEndDate && (
                     <span className="text-[11px] font-semibold text-primary">
@@ -277,11 +277,11 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
 
               <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                 <label htmlFor="modal-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
-                  {locale === "pl" ? "Wiadomość lub pytania (opcjonalnie)" : locale === "en" ? "Message or questions (optional)" : "Melding eller spørsmål (Valgfritt)"}
+                  {locale === "uk" ? "Повідомлення або запитання (необов’язково)" : locale === "pl" ? "Wiadomość lub pytania (opcjonalnie)" : locale === "en" ? "Message or questions (optional)" : "Melding eller spørsmål (Valgfritt)"}
                 </label>
                 <textarea
                   id="modal-message"
-                  placeholder={locale === "pl" ? "Wpisz wiadomość..." : locale === "en" ? "Write a message here..." : "Skriv inn en melding her..."}
+                  placeholder={locale === "uk" ? "Введіть повідомлення..." : locale === "pl" ? "Wpisz wiadomość..." : locale === "en" ? "Write a message here..." : "Skriv inn en melding her..."}
                   rows={2}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}

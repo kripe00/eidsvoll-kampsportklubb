@@ -224,7 +224,7 @@ export function Membership(props: MembershipProps) {
               <Link href="#faq" className="text-foreground font-bold underline underline-offset-4 hover:text-primary transition-colors">
                 {t.membership.helpFaq}
               </Link>
-              , {locale === 'no' ? 'eller' : locale === 'pl' ? 'lub' : 'or'}{" "}
+              , {locale === 'no' ? 'eller' : locale === 'pl' ? 'lub' : locale === 'uk' ? 'або' : 'or'}{" "}
               <Link href="/kontakt" className="text-foreground font-bold underline underline-offset-4 hover:text-primary transition-colors">
                 {t.membership.helpContact}
               </Link>

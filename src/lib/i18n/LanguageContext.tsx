@@ -5,11 +5,13 @@ import { Locale, Translations } from './types';
 import { no } from './locales/no';
 import { en } from './locales/en';
 import { pl } from './locales/pl';
+import { uk } from './locales/uk';
 
 const dictionaries: Record<Locale, Translations> = {
   no,
   en,
   pl,
+  uk,
 };
 
 interface LanguageContextType {
@@ -24,38 +26,58 @@ const LanguageContext = createContext<LanguageContextType>({
   t: no,
 });
 
+function detectBrowserLocale(): Locale {
+  try {
+    if (typeof window === 'undefined') return 'no';
+
+    // 1. Check URL query param e.g. ?lang=uk or ?lang=pl
+    const params = new URLSearchParams(window.location.search);
+    const langParam = params.get('lang')?.toLowerCase();
+    if (langParam === 'uk' || langParam === 'pl' || langParam === 'en' || langParam === 'no') {
+      return langParam as Locale;
+    }
+
+    // 2. Check if user previously made an explicit selection
+    const userSelected = localStorage.getItem('ekk_user_selected_locale');
+    const saved = localStorage.getItem('ekk_locale') as Locale | null;
+    if (userSelected === 'true' && saved && (saved === 'no' || saved === 'en' || saved === 'pl' || saved === 'uk')) {
+      return saved;
+    }
+
+    // 3. Automatic detection from browser/system language preferences
+    const languages = navigator.languages || [navigator.language];
+    for (const lang of languages) {
+      if (!lang) continue;
+      const l = lang.toLowerCase();
+      if (l.startsWith('uk')) return 'uk';
+      if (l.startsWith('pl')) return 'pl';
+      if (l.startsWith('en')) return 'en';
+      if (l.startsWith('no') || l.startsWith('nb') || l.startsWith('nn')) return 'no';
+    }
+  } catch {
+    // Fallback if environment restricts access
+  }
+  return 'no';
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('no');
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    const detected = detectBrowserLocale();
+    setLocaleState(detected);
     try {
-      const saved = localStorage.getItem('ekk_locale') as Locale | null;
-      if (saved && (saved === 'no' || saved === 'en' || saved === 'pl')) {
-        setLocaleState(saved);
-        document.documentElement.lang = saved;
-      } else {
-        const browserLang = navigator.language.toLowerCase();
-        if (browserLang.startsWith('pl')) {
-          setLocaleState('pl');
-          document.documentElement.lang = 'pl';
-        } else if (browserLang.startsWith('en')) {
-          setLocaleState('en');
-          document.documentElement.lang = 'en';
-        } else {
-          document.documentElement.lang = 'no';
-        }
-      }
+      document.documentElement.lang = detected;
     } catch {
-      // Fallback silently if localStorage is restricted
+      // Ignore DOM access errors
     }
-    setMounted(true);
   }, []);
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
     try {
       localStorage.setItem('ekk_locale', newLocale);
+      localStorage.setItem('ekk_user_selected_locale', 'true');
       document.documentElement.lang = newLocale;
     } catch {
       // Ignore storage errors

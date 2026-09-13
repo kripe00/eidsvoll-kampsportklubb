@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
 import { format } from "date-fns";
-import { nb, enUS, pl as plLocale } from "date-fns/locale";
+import { nb, enUS, pl as plLocale, uk as ukLocale } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
@@ -32,7 +32,7 @@ export function NyheterListClient(props: {
     return dateB - dateA;
   });
 
-  const dateLocale = locale === "pl" ? plLocale : locale === "en" ? enUS : nb;
+  const dateLocale = locale === "uk" ? ukLocale : locale === "pl" ? plLocale : locale === "en" ? enUS : nb;
 
   return (
     <div className="flex flex-col min-h-screen">

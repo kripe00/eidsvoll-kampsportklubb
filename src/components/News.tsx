@@ -7,14 +7,16 @@ import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
 import { OptimizedImage } from "./ui/optimized-image";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { Locale } from "@/lib/i18n/types";
 
 export function News({ newsItems = [] }: { newsItems?: any[] }) {
   const { t, locale } = useLanguage();
 
-  const localeMap = {
+  const localeMap: Record<Locale, string> = {
     no: "nb-NO",
     en: "en-US",
     pl: "pl-PL",
+    uk: "uk-UA",
   };
 
   return (

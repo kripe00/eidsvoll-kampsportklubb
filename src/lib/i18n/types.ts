@@ -1,4 +1,4 @@
-export type Locale = 'no' | 'en' | 'pl';
+export type Locale = 'no' | 'en' | 'pl' | 'uk';
 
 export interface FAQTranslation {
   question: string;
