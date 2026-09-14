@@ -9,18 +9,18 @@ export function ProveukeSection() {
   const { t, locale } = useLanguage();
 
   return (
-    <section id="proveuke" className="py-24 bg-muted/20 text-foreground border-y border-border/40">
+    <section id="proveuke" className="py-14 sm:py-20 md:py-24 bg-muted/20 text-foreground border-y border-border/40">
       <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary block mb-3">
             {t.proveuke.badge}
           </span>
-          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground leading-none mb-6">
+          <h2 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-foreground leading-none mb-4 sm:mb-6">
             {t.proveuke.title}
           </h2>
-          <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+          <p className="text-muted-foreground text-sm sm:text-lg leading-relaxed">
             {t.proveuke.description}
           </p>
         </div>
@@ -119,9 +119,9 @@ export function ProveukeSection() {
         </div>
 
         {/* Action Box matching site design */}
-        <div className="bg-card border border-border/60 rounded-2xl p-8 text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="bg-card border border-border/60 rounded-2xl p-5 sm:p-8 text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="text-left">
-            <h4 className="text-xl font-bold text-foreground mb-1">
+            <h4 className="text-lg sm:text-xl font-bold text-foreground mb-1">
               {locale === "uk"
                 ? "Бажаєте спробувати бойові мистецтва з нами?"
                 : locale === "pl" 
@@ -130,7 +130,7 @@ export function ProveukeSection() {
                 ? "Want to try martial arts with us?" 
                 : "Ønsker du å prøve kampsport hos oss?"}
             </h4>
-            <p className="text-muted-foreground text-xs">
+            <p className="text-muted-foreground text-xs leading-relaxed">
               {locale === "uk"
                 ? "Запишіться на безкоштовний пробний період, щоб отримати підтвердження та розклад."
                 : locale === "pl"
@@ -140,10 +140,10 @@ export function ProveukeSection() {
                 : "Meld deg på for uforpliktende prøveperiode for å motta bekreftelse og timeplaninformasjon."}
             </p>
           </div>
-          <div className="shrink-0">
+          <div className="shrink-0 w-full sm:w-auto">
             <ProveukeModal 
               trigger={
-                <Button className="font-bold px-7 py-6 text-sm rounded-lg uppercase tracking-wider">
+                <Button className="w-full sm:w-auto font-bold px-7 py-5 sm:py-6 text-sm rounded-lg uppercase tracking-wider">
                   {t.proveuke.ctaButton}
                 </Button>
               } 

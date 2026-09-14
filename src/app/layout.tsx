@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -10,6 +10,14 @@ import { AnalyticsWrapper } from "@/components/AnalyticsWrapper";
 import globalJson from "../../content/global/index.json";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#020617",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kampsporteidsvoll.no"),

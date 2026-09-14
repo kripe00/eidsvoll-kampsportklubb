@@ -190,26 +190,26 @@ export function KontaktPageClient(props: {
 
           {/* Form Column */}
           <div className="lg:col-span-8">
-            <div className="bg-muted/30 p-8 md:p-16 rounded-2xl">
-              <h2 className="text-3xl font-black uppercase tracking-tight mb-10 text-foreground">
+            <div className="bg-muted/30 p-5 sm:p-8 md:p-16 rounded-2xl">
+              <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight mb-6 sm:mb-10 text-foreground">
                 {t.contact.formTitle}
               </h2>
               
               {status === "success" ? (
-                <div className="bg-primary/10 border border-primary/20 p-8 rounded-2xl flex flex-col items-center text-center animate-in fade-in zoom-in duration-300">
+                <div className="bg-primary/10 border border-primary/20 p-6 sm:p-8 rounded-2xl flex flex-col items-center text-center animate-in fade-in zoom-in duration-300">
                   <CheckCircle2 size={48} className="text-primary mb-4" />
-                  <h3 className="text-2xl font-bold mb-2">{t.contact.successTitle}</h3>
-                  <p className="text-muted-foreground mb-8 text-lg">{t.contact.successMessage}</p>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2">{t.contact.successTitle}</h3>
+                  <p className="text-muted-foreground mb-6 sm:mb-8 text-base sm:text-lg">{t.contact.successMessage}</p>
                   <Button 
                     variant="outline" 
                     onClick={() => setStatus("idle")}
-                    className="rounded-none border-primary text-primary hover:bg-primary hover:text-white uppercase tracking-widest font-bold"
+                    className="rounded-xl border-primary text-primary hover:bg-primary hover:text-white uppercase tracking-widest font-bold px-6 py-3"
                   >
                     {t.contact.sendAnother}
                   </Button>
                 </div>
               ) : (
-                <form className="space-y-10" onSubmit={handleSubmit}>
+                <form className="space-y-6 sm:space-y-10" onSubmit={handleSubmit}>
                   {/* Anti-bot honeypot field (hidden from humans) */}
                   <div className="hidden opacity-0 pointer-events-none absolute w-0 h-0 overflow-hidden" aria-hidden="true" tabIndex={-1}>
                     <label htmlFor="contact-website">Website</label>
@@ -224,8 +224,8 @@ export function KontaktPageClient(props: {
                     />
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-10">
-                    <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                  <div className="grid md:grid-cols-2 gap-6 sm:gap-10">
+                    <div className="space-y-2 sm:space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                       <label htmlFor="contact-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
                         {t.contact.nameLabel}
                       </label>
@@ -233,14 +233,14 @@ export function KontaktPageClient(props: {
                         id="contact-name"
                         type="text" 
                         required
-                        className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
+                        className="w-full bg-transparent text-base sm:text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
                         placeholder={t.contact.namePlaceholder} 
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         disabled={status === "loading"}
                       />
                     </div>
-                    <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                    <div className="space-y-2 sm:space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                       <label htmlFor="contact-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
                         {t.contact.emailLabel}
                       </label>
@@ -248,7 +248,7 @@ export function KontaktPageClient(props: {
                         id="contact-email"
                         type="email" 
                         required
-                        className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
+                        className="w-full bg-transparent text-base sm:text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
                         placeholder={t.contact.emailPlaceholder} 
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -256,7 +256,7 @@ export function KontaktPageClient(props: {
                       />
                     </div>
                   </div>
-                  <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                  <div className="space-y-2 sm:space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                     <label htmlFor="contact-subject" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
                       {t.contact.subjectLabel}
                     </label>
@@ -264,21 +264,21 @@ export function KontaktPageClient(props: {
                       id="contact-subject"
                       type="text" 
                       required
-                      className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
+                      className="w-full bg-transparent text-base sm:text-xl font-bold outline-none placeholder:text-muted-foreground/20" 
                       placeholder={t.contact.subjectPlaceholder} 
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       disabled={status === "loading"}
                     />
                   </div>
-                  <div className="space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                  <div className="space-y-2 sm:space-y-4 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                     <label htmlFor="contact-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">
                       {t.contact.messageLabel}
                     </label>
                     <textarea 
                       id="contact-message"
                       required
-                      className="w-full bg-transparent text-xl font-bold outline-none placeholder:text-muted-foreground/20 min-h-[120px] resize-none" 
+                      className="w-full bg-transparent text-base sm:text-xl font-bold outline-none placeholder:text-muted-foreground/20 min-h-[100px] sm:min-h-[120px] resize-none" 
                       placeholder={t.contact.messagePlaceholder} 
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -294,7 +294,7 @@ export function KontaktPageClient(props: {
                   )}
 
                   <Button 
-                    className="h-20 px-12 text-xl font-black rounded-none bg-foreground text-background hover:bg-primary hover:text-white transition-all uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3" 
+                    className="w-full sm:w-auto h-14 sm:h-16 md:h-20 px-8 sm:px-12 text-base sm:text-xl font-black rounded-xl bg-foreground text-background hover:bg-primary hover:text-white transition-all uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3" 
                     type="submit"
                     disabled={status === "loading"}
                   >

@@ -37,25 +37,25 @@ export function LanguageSwitcher({ className = "", isMobile = false }: { classNa
 
   if (isMobile) {
     return (
-      <div className={`flex items-center gap-2 pt-3 border-t border-border/40 ${className}`}>
-        <span className="text-xs uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5 mr-2">
+      <div className={`flex flex-col gap-2.5 pt-3 border-t border-border/40 ${className}`}>
+        <span className="text-xs uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
           <Globe className="w-3.5 h-3.5" />
           Språk / Language:
         </span>
-        <div className="flex items-center gap-1.5">
+        <div className="grid grid-cols-4 gap-2">
           {languages.map((lang) => {
             const isSelected = lang.code === locale;
             return (
               <button
                 key={lang.code}
                 onClick={() => setLocale(lang.code)}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all flex items-center gap-1.5 ${
+                className={`py-2 px-1.5 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
                   isSelected
                     ? "bg-primary text-white shadow-sm"
                     : "bg-muted text-muted-foreground hover:text-foreground hover:bg-muted/80"
                 }`}
               >
-                <span>{lang.flag}</span>
+                <span className="text-sm">{lang.flag}</span>
                 <span>{lang.code.toUpperCase()}</span>
               </button>
             );

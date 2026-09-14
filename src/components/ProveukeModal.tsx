@@ -103,7 +103,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
   };
 
   const modalContent = (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-10 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 md:p-10 animate-in fade-in duration-200">
       
       {/* Backdrop */}
       <div 
@@ -112,32 +112,32 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
       />
 
       {/* Dialog Card matching KontaktPage Client styling */}
-      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-card text-card-foreground rounded-2xl border border-border shadow-2xl z-10 p-0">
+      <div className="relative w-full max-w-lg max-h-[92vh] overflow-y-auto bg-card text-card-foreground rounded-2xl border border-border shadow-2xl z-10 p-0">
         
         {/* Close Button */}
         <button
           onClick={() => setOpen(false)}
-          className="absolute top-6 right-6 z-20 w-9 h-9 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors border border-border/40"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-9 h-9 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors border border-border/40"
           aria-label="Lukk dialog"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Header */}
-        <div className="p-8 border-b border-border/40 bg-muted/20">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary block mb-2">
+        <div className="p-5 sm:p-8 border-b border-border/40 bg-muted/20">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary block mb-1.5 sm:mb-2">
             Eidsvoll Kampsportklubb
           </span>
-          <h2 className="text-3xl font-black uppercase tracking-tight text-foreground leading-none mb-3">
+          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground leading-tight mb-2 sm:mb-3">
             {t.proveuke.modalTitle}
           </h2>
-          <p className="text-muted-foreground text-sm leading-relaxed">
+          <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
             {t.proveuke.modalSubtitle}
           </p>
         </div>
 
         {/* Content Body */}
-        <div className="p-8">
+        <div className="p-5 sm:p-8">
           {status === "success" ? (
             <div className="text-center py-6 space-y-4">
               <div className="w-14 h-14 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto border border-primary/20">
@@ -160,18 +160,18 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
               
               {/* Disciplines badge list */}
-              <div className="bg-muted/40 border border-border/60 rounded-xl p-4">
+              <div className="bg-muted/40 border border-border/60 rounded-xl p-3.5 sm:p-4">
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">
                   Inkludert i prøveperioden (2 uker / 14 dager):
                 </span>
-                <div className="flex flex-wrap gap-2 text-xs font-bold text-foreground">
-                  <span className="bg-background px-3 py-1 rounded-md border border-border/60">BJJ (Jiu-Jitsu)</span>
-                  <span className="bg-background px-3 py-1 rounded-md border border-border/60">Muay Thai</span>
-                  <span className="bg-background px-3 py-1 rounded-md border border-border/60">Crosstrening</span>
-                  <span className="bg-background px-3 py-1 rounded-md border border-border/60">Yoga</span>
+                <div className="flex flex-wrap gap-1.5 sm:gap-2 text-xs font-bold text-foreground">
+                  <span className="bg-background px-2.5 py-1 rounded-md border border-border/60">BJJ (Jiu-Jitsu)</span>
+                  <span className="bg-background px-2.5 py-1 rounded-md border border-border/60">Muay Thai</span>
+                  <span className="bg-background px-2.5 py-1 rounded-md border border-border/60">Crosstrening</span>
+                  <span className="bg-background px-2.5 py-1 rounded-md border border-border/60">Yoga</span>
                 </div>
               </div>
 
@@ -189,8 +189,8 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+                <div className="space-y-1.5 sm:space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.nameLabel} *</label>
                   <input
                     id="modal-name"
@@ -199,10 +199,10 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                     placeholder={t.proveuke.namePlaceholder}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-transparent text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
+                    className="w-full bg-transparent text-base sm:text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
-                <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                <div className="space-y-1.5 sm:space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.emailLabel} *</label>
                   <input
                     id="modal-email"
@@ -211,13 +211,13 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                     placeholder={t.proveuke.emailPlaceholder}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-transparent text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
+                    className="w-full bg-transparent text-base sm:text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+                <div className="space-y-1.5 sm:space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-phone" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.phoneLabel} *</label>
                   <input
                     id="modal-phone"
@@ -226,7 +226,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                     placeholder={t.proveuke.phonePlaceholder}
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-transparent text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
+                    className="w-full bg-transparent text-base sm:text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
                 <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">

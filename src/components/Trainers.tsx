@@ -117,10 +117,10 @@ function TrainerCard({ trainer, index, props }: { trainer: any; index: number; p
               {displayRole}
             </span>
           </div>
-          <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-foreground uppercase" data-tina-field={tinaField(trainer, "name")}>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4 sm:mb-8 text-foreground uppercase" data-tina-field={tinaField(trainer, "name")}>
             {trainer.name}
           </h3>
-          <p className="text-lg text-muted-foreground leading-relaxed font-medium" data-tina-field={tinaField(trainer, "bio")}>
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-medium" data-tina-field={tinaField(trainer, "bio")}>
             {displayBio}
           </p>
         </div>
@@ -136,18 +136,18 @@ export function Trainers(props: TrainersProps) {
   const displayTitle = locale === "no" ? title : t.about.coachesHeading;
   
   return (
-    <section className="py-32 bg-background overflow-hidden">
+    <section className="py-16 sm:py-24 md:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 md:mb-20 gap-6 sm:gap-8">
           <div className="max-w-xl">
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tighter text-foreground uppercase leading-[0.9]" data-tina-field={tinaField(props, "title")}>
+            <h2 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter text-foreground uppercase leading-[0.9]" data-tina-field={tinaField(props, "title")}>
               {displayTitle}
             </h2>
           </div>
           <div className="hidden md:block w-32 h-[1px] bg-primary mb-4" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-16 sm:gap-y-24 lg:gap-y-32">
           {trainerList?.map((trainer, i) => (
             <TrainerCard key={i} trainer={trainer} index={i} props={props} />
           ))}

@@ -97,7 +97,7 @@ export function Timeline({
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
         {/* Central Vertical Line */}
-        <div className="absolute left-6 sm:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 transform -translate-x-1/2 hidden sm:block" />
+        <div className="absolute left-6 sm:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 transform -translate-x-1/2 block" />
 
         <div className="space-y-6 sm:space-y-8">
           {displayEvents.map((event, index) => {
@@ -131,13 +131,13 @@ export function Timeline({
                 {/* Event Card */}
                 <div
                   className={cn(
-                    "w-full sm:w-[calc(50%-2.5rem)] pl-14 sm:pl-0",
+                    "w-full sm:w-[calc(50%-2.5rem)] pl-12 sm:pl-0",
                     isEven ? "sm:pr-0" : "sm:pl-0"
                   )}
                 >
                   <div
                     className={cn(
-                      "p-6 sm:p-8 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md",
+                      "p-4 sm:p-8 rounded-2xl border transition-all duration-300 shadow-sm hover:shadow-md",
                       event.highlight
                         ? "border-primary/40 bg-primary/5 hover:border-primary/60"
                         : "border-border/60 bg-card hover:border-border"
@@ -161,7 +161,7 @@ export function Timeline({
                       </span>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-black text-foreground uppercase tracking-tight mb-2">
+                    <h3 className="text-lg sm:text-2xl font-black text-foreground uppercase tracking-tight mb-2">
                       {event.title}
                     </h3>
                     <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">

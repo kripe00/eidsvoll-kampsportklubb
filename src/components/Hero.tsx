@@ -31,7 +31,7 @@ export function Hero({
   const displayDesc = locale === "no" ? (description || t.hero.description) : t.hero.description;
 
   return (
-    <section className="relative w-full overflow-hidden pt-32 pb-48 md:pt-48 md:pb-64">
+    <section className="relative w-full overflow-hidden pt-28 pb-32 sm:pt-40 sm:pb-48 md:pt-48 md:pb-64">
       {backgroundVideo ? (
         <video
           autoPlay
@@ -57,19 +57,19 @@ export function Hero({
       )}
       <div className="absolute inset-0 bg-slate-950/75 -z-10" />
       
-      <div className="container mx-auto px-4 md:px-8 max-w-5xl text-center">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl tracking-tighter font-extrabold text-white mb-8 text-balance">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl text-center">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter font-extrabold text-white mb-6 sm:mb-8 text-balance">
           <span data-tina-field={tinaField(parent, 'welcomeText')}>{displayWelcome}</span> <br className="hidden md:block" />
           <span className="text-primary" data-tina-field={tinaField(parent, 'highlightedText')}>{displayHighlighted}</span>
         </h1>
-        <div className="text-xl md:text-2xl text-slate-200 mb-12 max-w-3xl mx-auto leading-relaxed" data-tina-field={tinaField(parent, 'description')}>
+        <div className="text-base sm:text-lg md:text-2xl text-slate-200 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed" data-tina-field={tinaField(parent, 'description')}>
           {typeof displayDesc === "string" ? <p>{displayDesc}</p> : <RichText content={displayDesc} />}
         </div>
         
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center px-2">
           <ProveukeModal 
             trigger={
-              <Button size="lg" className="h-14 px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
+              <Button size="lg" className="w-full sm:w-auto h-14 px-8 sm:px-10 text-base sm:text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
                 {t.hero.tryFreeCta}
               </Button>
             }

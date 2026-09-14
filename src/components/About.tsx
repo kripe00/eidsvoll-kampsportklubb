@@ -20,10 +20,10 @@ export function About(props: AboutProps) {
   return (
     <section id="om-oss" className="py-8 bg-background relative overflow-hidden" data-tina-field={tinaField(props, 'title')}>
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl overflow-hidden md:overflow-visible">
-        <div className="flex flex-col lg:flex-row gap-20 items-start">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-20 items-start">
           
           {/* Left Column: Heading or Image/Video */}
-          <div className="lg:w-1/2 space-y-12">
+          <div className="lg:w-1/2 space-y-6 sm:space-y-12">
             {video ? (
               <div className="relative group overflow-hidden rounded-2xl shadow-2xl transition-transform duration-500 hover:scale-[1.02]" data-tina-field={tinaField(props, 'video')}>
                 <video 
@@ -53,10 +53,10 @@ export function About(props: AboutProps) {
 
           {/* Right Column: Body Content */}
           <div className="lg:w-1/2">
-            <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight mb-10 text-foreground">
+            <h3 className="text-2xl md:text-3xl font-bold uppercase tracking-tight mb-4 sm:mb-8 text-foreground">
               {displayTitle}
             </h3>
-            <div className="text-xl text-muted-foreground/90 leading-relaxed font-light space-y-6" data-tina-field={tinaField(props, 'body')}>
+            <div className="text-base sm:text-lg md:text-xl text-muted-foreground/90 leading-relaxed font-light space-y-4 sm:space-y-6" data-tina-field={tinaField(props, 'body')}>
               {locale === "no" ? (
                 <>
                   <RichText content={body} className="prose prose-lg prose-blue max-w-none text-muted-foreground/90 font-light" />

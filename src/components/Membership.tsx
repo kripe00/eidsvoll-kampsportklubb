@@ -31,18 +31,18 @@ export function Membership(props: MembershipProps) {
       <div className="max-w-6xl mx-auto">
         
         {/* Seksjonsoverskrift og ingress */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 md:mb-20">
           <span className="text-xs md:text-sm font-bold uppercase tracking-[0.25em] text-primary block mb-3">
             {t.membership.badge}
           </span>
           <h2
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-foreground uppercase leading-[0.95] mb-6"
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-foreground uppercase leading-[0.95] mb-4 sm:mb-6"
             data-tina-field={tinaField(props, "title")}
           >
             {title}
           </h2>
           <p
-            className="text-lg md:text-2xl text-muted-foreground leading-relaxed font-normal"
+            className="text-base sm:text-lg md:text-2xl text-muted-foreground leading-relaxed font-normal"
             data-tina-field={tinaField(props, "description")}
           >
             {description}
@@ -50,10 +50,10 @@ export function Membership(props: MembershipProps) {
         </div>
 
         {/* Pedagogiske kort for Boost og MinIdrett */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-stretch mb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-stretch mb-12">
           
           {/* 1. BOOST (Venstre / Først) */}
-          <div className="bg-card border-2 border-emerald-600/30 hover:border-emerald-600/60 rounded-2xl p-8 sm:p-10 flex flex-col justify-between shadow-lg transition-all duration-300">
+          <div className="bg-card border-2 border-emerald-600/30 hover:border-emerald-600/60 rounded-2xl p-5 sm:p-8 md:p-10 flex flex-col justify-between shadow-lg transition-all duration-300">
             <div>
               {/* Steg-badge */}
               <div className="flex items-center justify-between gap-4 mb-6">
@@ -66,7 +66,7 @@ export function Membership(props: MembershipProps) {
                 </span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground mb-4">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-foreground mb-4">
                 {t.membership.step1Title}
               </h3>
 
@@ -104,7 +104,7 @@ export function Membership(props: MembershipProps) {
                 >
                   <Button
                     size="lg"
-                    className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-emerald-600/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
+                    className="w-full h-auto min-h-[3.5rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-emerald-600/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
                   >
                     <span>{t.membership.step1Btn}</span>
                     <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1.5 transition-transform shrink-0" />
@@ -115,7 +115,7 @@ export function Membership(props: MembershipProps) {
                   <Button
                     size="lg"
                     disabled
-                    className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-bold rounded-xl bg-muted border border-border text-muted-foreground/40 cursor-not-allowed flex items-center justify-center uppercase tracking-wider text-center whitespace-normal leading-tight"
+                    className="w-full h-auto min-h-[3.5rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-bold rounded-xl bg-muted border border-border text-muted-foreground/40 cursor-not-allowed flex items-center justify-center uppercase tracking-wider text-center whitespace-normal leading-tight"
                   >
                     Boost
                   </Button>
@@ -128,7 +128,7 @@ export function Membership(props: MembershipProps) {
           </div>
 
           {/* 2. MINIDRETT (Høyre / Deretter) */}
-          <div className="bg-card border-2 border-primary/30 hover:border-primary/60 rounded-2xl p-8 sm:p-10 flex flex-col justify-between shadow-lg transition-all duration-300">
+          <div className="bg-card border-2 border-primary/30 hover:border-primary/60 rounded-2xl p-5 sm:p-8 md:p-10 flex flex-col justify-between shadow-lg transition-all duration-300">
             <div>
               {/* Steg-badge */}
               <div className="flex items-center justify-between gap-4 mb-6">
@@ -141,7 +141,7 @@ export function Membership(props: MembershipProps) {
                 </span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground mb-4">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-foreground mb-4">
                 {t.membership.step2Title}
               </h3>
 

@@ -48,12 +48,12 @@ export function InstagramFeed({
   const displayTitle = locale === "no" ? title : t.instagram.title;
 
   return (
-    <section className="w-full bg-background py-24 border-t border-border/40">
+    <section className="w-full bg-background py-14 sm:py-20 md:py-24 border-t border-border/40">
       <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
         
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-foreground">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-foreground">
             {displayTitle}
           </h2>
           <Link 
@@ -69,7 +69,7 @@ export function InstagramFeed({
         </div>
 
         {/* Responsive Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12">
           {hasImages ? (
             images.map((item, idx) => {
               const linkHref = item.postUrl || profileUrl;
@@ -128,9 +128,9 @@ export function InstagramFeed({
         </div>
 
         {/* Call to Action Button */}
-        <div className="flex justify-center">
-          <Link href={profileUrl} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="group h-14 px-8 text-sm font-bold rounded-none bg-primary hover:bg-primary/90 text-white transition-all duration-300 flex items-center gap-2">
+        <div className="flex justify-center px-2">
+          <Link href={profileUrl} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+            <Button size="lg" className="w-full sm:w-auto group h-14 px-8 text-sm font-bold rounded-xl bg-primary hover:bg-primary/90 text-white transition-all duration-300 flex items-center justify-center gap-2">
               <InstagramIcon className="w-4 h-4" />
               <span>{t.instagram.goToProfile}</span>
             </Button>
