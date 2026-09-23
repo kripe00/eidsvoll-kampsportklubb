@@ -145,7 +145,7 @@ export function Header({ data }: { data: any }) {
         </div>
       )}
       {/* Scroll Progression Bar */}
-      <ScrollProgress className={isOpen ? "opacity-0 pointer-events-none" : undefined} />
+      <ScrollProgress className={isOpen ? "hidden" : undefined} />
     </header>
   );
 }

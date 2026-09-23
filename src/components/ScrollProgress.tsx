@@ -48,7 +48,6 @@ export function ScrollProgress({ className }: ScrollProgressProps) {
       if (!bar) return;
       const progress = calculateProgress();
       bar.style.transform = `scaleX(${progress})`;
-      bar.style.opacity = progress > 0 ? "1" : "0";
     };
 
     const onScrollOrResize = () => {
@@ -98,13 +97,13 @@ export function ScrollProgress({ className }: ScrollProgressProps) {
     <div
       aria-hidden="true"
       className={cn(
-        "absolute -bottom-[1px] left-0 right-0 h-[2.5px] w-full pointer-events-none select-none z-50",
+        "absolute bottom-0 left-0 right-0 h-[3.5px] w-full bg-slate-900/20 dark:bg-white/5 pointer-events-none select-none z-50",
         className
       )}
     >
       <div
         ref={barRef}
-        className="h-full w-full origin-left scale-x-0 opacity-0 bg-gradient-to-r from-primary via-blue-500 to-indigo-500 will-change-transform transition-opacity duration-200 ease-out motion-reduce:transition-none motion-reduce:shadow-none shadow-[0_0_8px_rgba(59,130,246,0.6),0_0_2px_rgba(99,102,241,0.8)]"
+        className="h-full w-full origin-left scale-x-0 bg-gradient-to-r from-blue-500 via-primary to-cyan-400 will-change-transform shadow-[0_0_10px_rgba(59,130,246,0.9),0_0_4px_rgba(34,211,238,0.9)]"
       />
     </div>
   );
