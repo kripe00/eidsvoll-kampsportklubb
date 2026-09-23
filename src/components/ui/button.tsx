@@ -1,5 +1,6 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
+import { triggerButtonSpring } from "@/lib/animations"
 
 import { cn } from "@/lib/utils"
 
@@ -40,16 +41,41 @@ const buttonVariants = cva(
   }
 )
 
+export interface ButtonProps
+  extends ButtonPrimitive.Props,
+    VariantProps<typeof buttonVariants> {
+  spring?: boolean;
+}
+
 function Button({
   className,
   variant = "default",
   size = "default",
+  spring = false,
+  onPointerDown,
+  onKeyDown,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
+  const handlePointerDown: ButtonPrimitive.Props["onPointerDown"] = (e) => {
+    if (spring && e.button === 0 && e.currentTarget) {
+      triggerButtonSpring(e.currentTarget as HTMLElement);
+    }
+    onPointerDown?.(e);
+  };
+
+  const handleKeyDown: ButtonPrimitive.Props["onKeyDown"] = (e) => {
+    if (spring && !e.repeat && (e.key === "Enter" || e.key === " ") && e.currentTarget) {
+      triggerButtonSpring(e.currentTarget as HTMLElement);
+    }
+    onKeyDown?.(e);
+  };
+
   return (
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
+      onPointerDown={handlePointerDown}
+      onKeyDown={handleKeyDown}
       {...props}
     />
   )

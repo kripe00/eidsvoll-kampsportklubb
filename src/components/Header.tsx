@@ -77,6 +77,7 @@ export function Header({ data }: { data: any }) {
               <Button 
                 size="sm" 
                 variant="outline" 
+                spring={true}
                 className="rounded-full px-4 py-2 font-bold text-xs sm:text-sm border-primary/40 text-foreground hover:bg-primary/10 transition-all whitespace-nowrap"
               >
                 {t.nav.tryFree}
@@ -86,6 +87,7 @@ export function Header({ data }: { data: any }) {
           <Link href="/medlemskap">
             <Button 
               size="sm" 
+              spring={true}
               className="rounded-full px-5 py-2 font-bold text-xs sm:text-sm shadow-md shadow-primary/10 whitespace-nowrap"
             >
               {t.nav.join}
@@ -125,13 +127,13 @@ export function Header({ data }: { data: any }) {
             <div className="flex flex-col gap-3 pt-4 border-t border-border/40">
               <ProveukeModal 
                 trigger={
-                  <Button variant="outline" className="w-full rounded-xl font-bold py-6 text-base border-primary/40 text-foreground">
+                  <Button variant="outline" spring={true} className="w-full rounded-xl font-bold py-6 text-base border-primary/40 text-foreground">
                     {t.nav.tryFree}
                   </Button>
                 }
               />
               <Link href="/medlemskap" onClick={() => setIsOpen(false)}>
-                <Button className="w-full rounded-xl font-bold py-6 text-base shadow-lg">
+                <Button spring={true} className="w-full rounded-xl font-bold py-6 text-base shadow-lg">
                   {t.nav.join}
                 </Button>
               </Link>

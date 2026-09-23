@@ -4,12 +4,56 @@ import { ProveukeModal } from "./ProveukeModal";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, Activity, Dumbbell, Sparkles } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useScrollReveal, animate, stagger, ATHLETIC_SPRING, cleanAnimationStyles, remove } from "@/lib/animations";
 
 export function ProveukeSection() {
   const { t, locale } = useLanguage();
 
+  const sectionRef = useScrollReveal<HTMLElement>({
+    threshold: 0.12,
+    rootMargin: "0px 0px -40px 0px",
+    onReveal: (container, isReducedMotion) => {
+      if (isReducedMotion) return;
+
+      const cards = container.querySelectorAll<HTMLElement>(".discipline-card");
+      const actionBox = container.querySelector<HTMLElement>(".proveuke-action-box");
+      const allTargets = [...Array.from(cards), ...(actionBox ? [actionBox] : [])];
+
+      if (cards.length > 0) {
+        animate(Array.from(cards), {
+          opacity: [0, 1],
+          translateY: [24, 0],
+          duration: 480,
+          delay: stagger(80),
+          ease: ATHLETIC_SPRING,
+          onComplete: () => {
+            cards.forEach(cleanAnimationStyles);
+          },
+        });
+      }
+
+      if (actionBox) {
+        animate(actionBox, {
+          opacity: [0, 1],
+          translateY: [18, 0],
+          duration: 460,
+          delay: 300,
+          ease: ATHLETIC_SPRING,
+          onComplete: () => {
+            cleanAnimationStyles(actionBox);
+          },
+        });
+      }
+
+      return () => {
+        remove(allTargets);
+        allTargets.forEach(cleanAnimationStyles);
+      };
+    },
+  });
+
   return (
-    <section id="proveuke" className="py-14 sm:py-20 md:py-24 bg-muted/20 text-foreground border-y border-border/40">
+    <section ref={sectionRef} id="proveuke" className="py-14 sm:py-20 md:py-24 bg-muted/20 text-foreground border-y border-border/40">
       <div className="container mx-auto px-4 lg:px-8 max-w-6xl">
         
         {/* Section Header */}
@@ -29,7 +73,7 @@ export function ProveukeSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           
           {/* Card 1: BJJ */}
-          <div className="bg-card border border-border/60 rounded-xl p-6 hover:border-primary/40 transition-all shadow-sm">
+          <div className="discipline-card bg-card border border-border/60 rounded-xl p-6 hover:border-primary/40 transition-all shadow-sm">
             <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
               <ShieldCheck className="w-5 h-5" />
             </div>
@@ -51,7 +95,7 @@ export function ProveukeSection() {
           </div>
 
           {/* Card 2: Muay Thai */}
-          <div className="bg-card border border-border/60 rounded-xl p-6 hover:border-primary/40 transition-all shadow-sm">
+          <div className="discipline-card bg-card border border-border/60 rounded-xl p-6 hover:border-primary/40 transition-all shadow-sm">
             <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
               <Activity className="w-5 h-5" />
             </div>
@@ -73,7 +117,7 @@ export function ProveukeSection() {
           </div>
 
           {/* Card 3: Crosstrening */}
-          <div className="bg-card border border-border/60 rounded-xl p-6 hover:border-primary/40 transition-all shadow-sm">
+          <div className="discipline-card bg-card border border-border/60 rounded-xl p-6 hover:border-primary/40 transition-all shadow-sm">
             <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
               <Dumbbell className="w-5 h-5" />
             </div>
@@ -95,7 +139,7 @@ export function ProveukeSection() {
           </div>
 
           {/* Card 4: Yoga */}
-          <div className="bg-card border border-border/60 rounded-xl p-6 hover:border-primary/40 transition-all shadow-sm">
+          <div className="discipline-card bg-card border border-border/60 rounded-xl p-6 hover:border-primary/40 transition-all shadow-sm">
             <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
               <Sparkles className="w-5 h-5" />
             </div>
@@ -119,7 +163,7 @@ export function ProveukeSection() {
         </div>
 
         {/* Action Box matching site design */}
-        <div className="bg-card border border-border/60 rounded-2xl p-5 sm:p-8 text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="proveuke-action-box bg-card border border-border/60 rounded-2xl p-5 sm:p-8 text-center max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 shadow-sm">
           <div className="text-left">
             <h4 className="text-lg sm:text-xl font-bold text-foreground mb-1">
               {locale === "uk"
@@ -143,7 +187,7 @@ export function ProveukeSection() {
           <div className="shrink-0 w-full sm:w-auto">
             <ProveukeModal 
               trigger={
-                <Button className="w-full sm:w-auto font-bold px-7 py-5 sm:py-6 text-sm rounded-lg uppercase tracking-wider">
+                <Button spring={true} className="w-full sm:w-auto font-bold px-7 py-5 sm:py-6 text-sm rounded-lg uppercase tracking-wider">
                   {t.proveuke.ctaButton}
                 </Button>
               } 

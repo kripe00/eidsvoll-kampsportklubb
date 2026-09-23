@@ -6,6 +6,7 @@ import Link from "next/link";
 import { tinaField } from "tinacms/dist/react";
 import { RichText } from "./RichText";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useScrollReveal, animate, stagger, ATHLETIC_SPRING, cleanAnimationStyles, remove } from "@/lib/animations";
 
 interface MembershipProps {
   title?: string;
@@ -26,8 +27,51 @@ export function Membership(props: MembershipProps) {
   const boostLinkUrl = props.boostLinkUrl || "https://portal.boostsystem.no/rambukk/member";
   const boostEnabled = props.boostEnabled !== false;
 
+  const sectionRef = useScrollReveal<HTMLElement>({
+    threshold: 0.12,
+    rootMargin: "0px 0px -40px 0px",
+    onReveal: (container, isReducedMotion) => {
+      if (isReducedMotion) return;
+
+      const cards = container.querySelectorAll<HTMLElement>(".membership-card");
+      const alertBox = container.querySelector<HTMLElement>(".membership-alert-box");
+      const allTargets = [...Array.from(cards), ...(alertBox ? [alertBox] : [])];
+
+      if (cards.length > 0) {
+        animate(Array.from(cards), {
+          opacity: [0, 1],
+          translateY: [28, 0],
+          duration: 500,
+          delay: stagger(110),
+          ease: ATHLETIC_SPRING,
+          onComplete: () => {
+            cards.forEach(cleanAnimationStyles);
+          },
+        });
+      }
+
+      if (alertBox) {
+        animate(alertBox, {
+          opacity: [0, 1],
+          translateY: [18, 0],
+          duration: 460,
+          delay: 260,
+          ease: ATHLETIC_SPRING,
+          onComplete: () => {
+            cleanAnimationStyles(alertBox);
+          },
+        });
+      }
+
+      return () => {
+        remove(allTargets);
+        allTargets.forEach(cleanAnimationStyles);
+      };
+    },
+  });
+
   return (
-    <section id="medlemskap" className="w-full">
+    <section ref={sectionRef} id="medlemskap" className="w-full">
       <div className="max-w-6xl mx-auto">
         
         {/* Seksjonsoverskrift og ingress */}
@@ -53,7 +97,7 @@ export function Membership(props: MembershipProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-stretch mb-12">
           
           {/* 1. BOOST (Venstre / Først) */}
-          <div className="bg-card border-2 border-emerald-600/30 hover:border-emerald-600/60 rounded-2xl p-5 sm:p-8 md:p-10 flex flex-col justify-between shadow-lg transition-all duration-300">
+          <div className="membership-card bg-card border-2 border-emerald-600/30 hover:border-emerald-600/60 rounded-2xl p-5 sm:p-8 md:p-10 flex flex-col justify-between shadow-lg transition-all duration-300">
             <div>
               {/* Steg-badge */}
               <div className="flex items-center justify-between gap-4 mb-6">
@@ -104,6 +148,7 @@ export function Membership(props: MembershipProps) {
                 >
                   <Button
                     size="lg"
+                    spring={true}
                     className="w-full h-auto min-h-[3.5rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-emerald-600/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
                   >
                     <span>{t.membership.step1Btn}</span>
@@ -128,7 +173,7 @@ export function Membership(props: MembershipProps) {
           </div>
 
           {/* 2. MINIDRETT (Høyre / Deretter) */}
-          <div className="bg-card border-2 border-primary/30 hover:border-primary/60 rounded-2xl p-5 sm:p-8 md:p-10 flex flex-col justify-between shadow-lg transition-all duration-300">
+          <div className="membership-card bg-card border-2 border-primary/30 hover:border-primary/60 rounded-2xl p-5 sm:p-8 md:p-10 flex flex-col justify-between shadow-lg transition-all duration-300">
             <div>
               {/* Steg-badge */}
               <div className="flex items-center justify-between gap-4 mb-6">
@@ -178,6 +223,7 @@ export function Membership(props: MembershipProps) {
               >
                 <Button
                   size="lg"
+                  spring={true}
                   className="w-full h-auto min-h-[3.75rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-primary/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
                 >
                   <span>{t.membership.step2Btn}</span>
@@ -190,7 +236,7 @@ export function Membership(props: MembershipProps) {
         </div>
 
         {/* Oppklarende informasjonsboks om skillet mellom systemene */}
-        <div className="bg-amber-500/10 border-2 border-amber-500/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-5 max-w-4xl mx-auto shadow-sm">
+        <div className="membership-alert-box bg-amber-500/10 border-2 border-amber-500/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-5 max-w-4xl mx-auto shadow-sm">
           <div className="p-3 bg-amber-500/20 text-amber-600 dark:text-amber-400 rounded-xl shrink-0">
             <AlertCircle className="w-6 h-6" />
           </div>
