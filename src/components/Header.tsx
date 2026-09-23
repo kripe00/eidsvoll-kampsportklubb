@@ -9,6 +9,7 @@ import { OptimizedImage } from "./ui/optimized-image";
 import { ProveukeModal } from "./ProveukeModal";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ScrollProgress } from "./ScrollProgress";
 
 export function Header({ data }: { data: any }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -143,6 +144,8 @@ export function Header({ data }: { data: any }) {
           </nav>
         </div>
       )}
+      {/* Scroll Progression Bar */}
+      <ScrollProgress className={isOpen ? "opacity-0 pointer-events-none" : undefined} />
     </header>
   );
 }
