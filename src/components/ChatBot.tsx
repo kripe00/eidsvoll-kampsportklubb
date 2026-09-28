@@ -95,7 +95,8 @@ Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan sta
     answer: `Til din første trening trenger du veldig lite:
 
 * **Treningstøy & drikke:** Vanlig, rent treningstøy (t-skjorte og shorts eller treningsbukse) og en vannflaske. For kampsport og yoga trener vi barbent på mattene, mens for Crosstrening tar du med rene innesko.
-* **Kampsportutstyr:** Du trenger ikke egen drakt (gi) eller boksehansker til prøveperioden – klubben har låneutstyr tilgjengelig helt gratis! 😊`,
+* **Kampsportutstyr:** Du trenger ikke egen drakt (gi) eller boksehansker til prøveperioden – klubben har låneutstyr tilgjengelig helt gratis!
+* **Oppmøte & Inngang:** Møt gjerne opp 10–15 minutter før timen starter. Husk at både inngang og gratis parkering er på **baksiden av bygget** (Trondheimsvegen 71B på Dal). 😊`,
     followUps: [
       "⏱️ Hvordan fungerer gratis prøveuke?",
       "🥋 Hva koster det å trene fast?",
@@ -112,9 +113,17 @@ Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan sta
       "treningstider",
       "hvor holder dere til",
       "timeplan",
+      "parkering",
+      "parkere",
+      "hvor kan jeg parkere",
+      "inngang",
+      "hvor er inngangen",
+      "finne fram",
+      "veibeskrivelse",
     ],
     answer: `Vi holder til i splitter nye, nyoppussede lokaler i **Trondheimsvegen 71B på Dal**! 📍
 
+* **Inngang & Parkering:** Både inngangen til klubben og gratis parkering finner du på **baksiden av bygget**.
 * **Saler:** To store kampsportsaler med faste matter (Sal 1 og Sal 2) samt en egen CT/Yoga-sal.
 * **Treningstider:**
   - Treninger mandag til fredag fra kl. 17:30 (egne partier for barn 6–9 år og 10–13 år, ungdom og voksne).

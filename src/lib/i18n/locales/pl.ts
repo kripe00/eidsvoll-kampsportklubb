@@ -408,7 +408,7 @@ export const pl: Translations = {
     badgeFootwear: 'Maty i obuwie',
     step1Title: '1. Przyjście i powitanie',
     step1Desc: 'Przyjdź około 10–15 minut przed rozpoczęciem zajęć. Trener powita Cię przy wejściu, wskaże szatnie i odpowie na wszystkie pytania.',
-    step1Highlight: 'Trondheimsvegen 71B w Dal • Bezpłatny parking tuż przed wejściem',
+    step1Highlight: 'Trondheimsvegen 71B w Dal • Parking i wejście z tyłu budynku',
     step2Title: '2. W co się ubrać?',
     step2Desc: 'Wystarczy zwykły, czysty strój sportowy: koszulka oraz spodenki lub spodnie dresowe bez suwaków i twardych guzików. Weź ze sobą bidon z wodą.',
     step2Highlight: 'Pamiętaj o wodzie – na pewno się przyda!',

@@ -174,7 +174,7 @@ export const sendContactEmail = onDocumentCreated(
         ? `Bekreftelse på 2 ukers gratis prøveperiode – Eidsvoll Kampsportklubb`
         : `Takk for din henvendelse – Eidsvoll Kampsportklubb`,
       text: isTrialWeek
-        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveperiode (2 uker / 14 dager) hos Eidsvoll Kampsportklubb.\n\nDin prøveperiode starter ${formattedStartDate} og varer til og med ${formattedEndDate} (14 dager).\n\nDu har fri tilgang til å prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nAdresse: Trondheimsvegen 71B, 2072 Dal\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
+        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveperiode (2 uker / 14 dager) hos Eidsvoll Kampsportklubb.\n\nDin prøveperiode starter ${formattedStartDate} og varer til og med ${formattedEndDate} (14 dager).\n\nDu har fri tilgang til å prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nAdresse: Trondheimsvegen 71B, 2072 Dal (Inngang og gratis parkering på baksiden av bygget)\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
         : `Hei ${name}!\n\nTakk for at du tok kontakt med oss i Eidsvoll Kampsportklubb.\n\nVi har mottatt meldingen din og vil svare deg så fort som mulig.\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
@@ -260,7 +260,7 @@ export const sendContactEmail = onDocumentCreated(
             
             <table style="width: 100%; font-size: 13px; color: #64748b; line-height: 1.5;">
               <tr>
-                <td style="padding-bottom: 4px;">📍 <strong>Adresse:</strong> Trondheimsvegen 71B, 2072 Dal</td>
+                <td style="padding-bottom: 4px;">📍 <strong>Adresse:</strong> Trondheimsvegen 71B, 2072 Dal (Inngang og parkering på baksiden)</td>
               </tr>
               <tr>
                 <td style="padding-bottom: 4px;">✉️ <strong>E-post:</strong> kontakt@kampsporteidsvoll.no</td>
@@ -434,7 +434,7 @@ export const sendTrialWeekFollowup = onSchedule(
                   
                   <table style="width: 100%; font-size: 13px; color: #64748b; line-height: 1.5;">
                     <tr>
-                      <td style="padding-bottom: 4px;">📍 <strong>Adresse:</strong> Trondheimsvegen 71B, 2072 Dal</td>
+                      <td style="padding-bottom: 4px;">📍 <strong>Adresse:</strong> Trondheimsvegen 71B, 2072 Dal (Inngang og parkering på baksiden)</td>
                     </tr>
                     <tr>
                       <td style="padding-bottom: 4px;">✉️ <strong>E-post:</strong> kontakt@kampsporteidsvoll.no</td>
@@ -518,8 +518,9 @@ Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder fo
 ### KLUBBENS FAKTA & IDENTITET:
 - Navn: Eidsvoll Kampsportklubb (EKK)
 - Røtter & Historie: Har røtter fra Rambukk Sport AS (etablert 2013 på Råholt). Eidsvoll Kampsportklubb ble stiftet i 2023 som et ideelt, demokratisk idrettslag, og samlet fra 2026 all drift, aktivitet og medlemsadministrasjon i nye lokaler på Dal.
-- Lokasjon: Trondheimsvegen 71B, 2072 Dal.
+- Lokasjon & Adresse: Trondheimsvegen 71B, 2072 Dal.
   (Lokalene har to store kampsportsaler med faste matter – Sal 1 og Sal 2 – samt en egen CT/Yoga-sal).
+- Inngang & Parkering: Både inngangen til klubben og gratis parkering er på **baksiden av bygget**. Du må ALLTID minne folk på at inngang og parkering er på baksiden når noen spør om adresse, lokasjon, veibeskrivelse, parkering, inngang eller oppmøte!
 - Tilknytning: Ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).
 - Kontakt: E-post: kontakt@kampsporteidsvoll.no | Telefon: 976 10 229 | Org.nr: 932716461.
 
@@ -550,6 +551,7 @@ Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder fo
 - Påmelding: Trykk på "Prøv gratis"-knappen på nettsiden eller fyll ut prøveuke-skjemaet.
 
 ### FØRSTE TRENING – HVA TRENGER MAN?
+- Inngang & Parkering: Husk at både inngangen og gratis parkering er på **baksiden av bygget** i Trondheimsvegen 71B på Dal. Møt gjerne opp 10–15 minutter før timen starter.
 - Utstyr: Rent, vanlig treningstøy uten glidelåser eller harde knapper (f.eks. t-skjorte og shorts eller treningsbukse).
 - Fottøy:
   * For BJJ, Muay Thai og Yoga: Ingen sko! Vi trener barbent på mattene av hygieniske hensyn og for å ta vare på mattene.

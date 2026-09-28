@@ -408,7 +408,7 @@ export const en: Translations = {
     badgeFootwear: 'Mats & footwear',
     step1Title: '1. Arrival & Welcome',
     step1Desc: 'Arrive approximately 10–15 minutes before the session starts. Our coach will welcome you at the entrance, show you the changing rooms, and answer any questions you may have.',
-    step1Highlight: 'Trondheimsvegen 71B at Dal • Free parking directly outside',
+    step1Highlight: 'Trondheimsvegen 71B at Dal • Parking and entrance at the back of the building',
     step2Title: '2. What to Wear',
     step2Desc: 'Regular, clean sportswear works perfectly! A standard t-shirt and shorts or sweatpants are all you need. Please avoid clothes with zippers, snaps, or hard buttons to protect the mats and your training partners.',
     step2Highlight: 'Remember to bring a filled water bottle – you will get thirsty!',

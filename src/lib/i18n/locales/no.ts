@@ -408,7 +408,7 @@ export const no: Translations = {
     badgeFootwear: 'Matter & sko',
     step1Title: '1. Oppmøte & Velkomst',
     step1Desc: 'Møt opp cirka 10–15 minutter før timen starter. Treneren vår tar imot deg ved inngangen, viser deg garderobene og svarer på eventuelle spørsmål du har.',
-    step1Highlight: 'Trondheimsvegen 71B på Dal • Gratis parkering rett utenfor',
+    step1Highlight: 'Trondheimsvegen 71B på Dal • Parkering og inngang på baksiden av bygget',
     step2Title: '2. Hva har man på seg?',
     step2Desc: 'Vanlig, rent treningstøy fungerer perfekt! En t-skjorte og shorts eller treningsbukse er alt du trenger. Unngå klær med glidelåser eller harde knapper av hensyn til mattene og treningspartneren din.',
     step2Highlight: 'Husk en fylt drikkeflaske – du kommer til å bli tørst!',
