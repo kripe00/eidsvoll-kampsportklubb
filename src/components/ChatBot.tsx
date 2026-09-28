@@ -22,6 +22,129 @@ interface ChatMessage {
   id: string;
   role: "user" | "assistant";
   content: string;
+  followUps?: string[];
+}
+
+interface StaticFaqItem {
+  id: string;
+  triggerPhrases: string[];
+  answer: string;
+  followUps: string[];
+}
+
+const STATIC_FAQS: StaticFaqItem[] = [
+  {
+    id: "pricing",
+    triggerPhrases: [
+      "hva koster det å trene",
+      "hva koster det",
+      "hva er prisene",
+      "priser",
+      "hva koster medlemskap",
+      "månedspris",
+      "kontingent",
+    ],
+    answer: `Hos oss trener du med full fleksibilitet! Her er våre månedlige treningsavgifter i Boost:
+
+* **Barn (6–13 år) – BJJ Kids & Thai Kids:** kr 539,- per måned (6 mnd binding). Gir fri tilgang til både BJJ og Muay Thai!
+* **Ungdom (14–19 år) – Totalmedlemskap:** kr 649,-/mnd (12 mnd binding) eller kr 749,-/mnd (6 mnd binding).
+* **Voksen (20+ år) – Totalmedlemskap:** kr 749,-/mnd (12 mnd binding), kr 849,-/mnd (6 mnd binding) eller kr 949,-/mnd (uten binding).
+* **Crosstrening / Yoga (fra 14 år):** kr 399,- per måned (6 mnd binding).
+* **Familiepris (CT/Yoga):** kr 249,- per måned for foreldre med barn som trener i klubben.
+* **Drop-in:** kr 150,- (Vipps ved oppmøte, ingen binding).
+
+Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan starte med 2 ukers helt gratis prøveperiode! 😊`,
+    followUps: [
+      "⏱️ Hvordan fungerer gratis prøveuke?",
+      "👟 Hva trenger jeg av utstyr og sko?",
+    ],
+  },
+  {
+    id: "trial",
+    triggerPhrases: [
+      "hvordan fungerer gratis prøveuke",
+      "gratis prøveuke",
+      "prøveuke",
+      "prøvetime",
+      "kan jeg prøve gratis",
+      "prøveperiode",
+      "teste en trening",
+    ],
+    answer: `Vi ønsker alle nye velkommen med en **14-dagers helt gratis og uforpliktende prøveperiode**! 🥋
+
+* **Fri tilgang:** Du kan delta på alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i to fulle uker.
+* **Ingen forpliktelser:** Du bestemmer selv om du vil melde deg inn etter at prøveperioden er over.
+* **Enkel påmelding:** Trykk på knappen under for å registrere deg, så tar vi imot deg på din første økt! 👋`,
+    followUps: [
+      "👟 Hva trenger jeg til 1. trening?",
+      "📍 Hvor og når trener dere?",
+    ],
+  },
+  {
+    id: "gear",
+    triggerPhrases: [
+      "hva trenger jeg til 1. trening",
+      "hva trenger jeg",
+      "utstyr",
+      "hva slags utstyr",
+      "må jeg ha sko",
+      "sko",
+      "klær",
+      "hva må jeg ha med",
+    ],
+    answer: `Til din første trening trenger du veldig lite:
+
+* **Klær:** Rent, vanlig treningstøy uten glidelåser eller harde knapper (f.eks. t-skjorte og shorts eller treningsbukse).
+* **Fottøy (Viktig skille!):**
+  - **BJJ, Muay Thai og Yoga:** Vi trener **barbent** på mattene av hensyn til hygiene og mattene.
+  - **Crosstrening (CT):** Du må ha med **rene innesko** – på CT er det ikke hensiktsmessig å trene barføtt! 👟
+* **Drikke:** Husk en god vannflaske!
+* **Kampsportutstyr:** Du trenger ikke egen drakt (gi) eller boksehansker til prøveperioden – klubben har låneutstyr tilgjengelig. 😊`,
+    followUps: [
+      "⏱️ Hvordan fungerer gratis prøveuke?",
+      "🥋 Hva koster det å trene fast?",
+    ],
+  },
+  {
+    id: "schedule",
+    triggerPhrases: [
+      "hvor og når trener dere",
+      "når trener dere",
+      "hvor trener dere",
+      "adresse",
+      "lokasjon",
+      "treningstider",
+      "hvor holder dere til",
+      "timeplan",
+    ],
+    answer: `Vi holder til i splitter nye, nyoppussede lokaler i **Trondheimsvegen 71B på Dal**! 📍
+
+* **Saler:** To store kampsportsaler med faste matter (Sal 1 og Sal 2) samt en egen CT/Yoga-sal.
+* **Treningstider:**
+  - Treninger mandag til fredag fra kl. 17:30 (egne partier for barn 6–9 år og 10–13 år, ungdom og voksne).
+  - Dagtrening BJJ fredager kl. 11:00.
+  - Åpen matte for alle medlemmer på søndager kl. 12:00–14:00.
+
+Trykk på knappen under for å se hele ukesoversikten! 📅`,
+    followUps: [
+      "⏱️ Hvordan fungerer gratis prøveuke?",
+      "👟 Hva trenger jeg til 1. trening?",
+    ],
+  },
+];
+
+function findStaticFaq(query: string): StaticFaqItem | null {
+  const normalized = query
+    .toLowerCase()
+    .replace(/[🥋⏱️🥊📍👟📅❓?.!,]/g, "")
+    .trim();
+
+  for (const faq of STATIC_FAQS) {
+    if (faq.triggerPhrases.some((phrase) => normalized.includes(phrase))) {
+      return faq;
+    }
+  }
+  return null;
 }
 
 const QUICK_PROMPTS = [
@@ -32,7 +155,7 @@ const QUICK_PROMPTS = [
 ];
 
 /**
- * Reusable action cards rendered dynamically based on AI response keywords.
+ * Reusable action cards rendered dynamically based on response keywords.
  */
 function MessageActionCards({ content }: { content: string }) {
   const isTrial = /prøveuke|prøveperiode|prøvetrening|prøv gratis|gratis prøve/i.test(content);
@@ -189,14 +312,29 @@ export function ChatBot() {
     setMessages(newMessages);
     setIsLoading(true);
 
+    // 1. Sjekk 0-token lokal FAQ cache først for lynraskt svar (0 tokens brukt!)
+    const staticMatch = findStaticFaq(text);
+    if (staticMatch) {
+      setTimeout(() => {
+        const assistantMessage: ChatMessage = {
+          id: `assistant-${Date.now()}`,
+          role: "assistant",
+          content: staticMatch.answer,
+          followUps: staticMatch.followUps,
+        };
+        setMessages((prev) => [...prev, assistantMessage]);
+        setIsLoading(false);
+      }, 250);
+      return;
+    }
+
+    // 2. Hvis ingen direkte FAQ-treff: Send til OpenAI gpt-4o-mini via Cloud Function
     try {
-      // Send the last 4 messages as history context (excluding welcome message)
       const historyContext = newMessages
         .filter((m) => m.id !== "welcome-1")
         .slice(-4)
         .map((m) => ({ role: m.role, content: m.content }));
 
-      // Hent eller opprett en unik sesjons-ID for brukerens nettleser
       let sessionId = "";
       try {
         sessionId = localStorage.getItem("ekk_chat_session_id") || "";
@@ -230,6 +368,10 @@ export function ChatBot() {
         id: `assistant-${Date.now()}`,
         role: "assistant",
         content: data.reply || "Beklager, jeg kunne ikke svare akkurat nå.",
+        followUps: [
+          "⏱️ Hvordan fungerer gratis prøveuke?",
+          "🥋 Hva koster det å trene?",
+        ],
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -252,7 +394,6 @@ export function ChatBot() {
 
   // Formater og render markdown med rene stiler
   const renderFormattedMessage = (content: string) => {
-    // Gjør rå nettadresser til markdown-lenker dersom de ikke allerede er det
     const withLinks = content.replace(/(?<!\]\()(https?:\/\/[^\s\)]+)/g, (match, url, offset, full) => {
       if (full.slice(offset - 1, offset) === "(" || full.slice(offset - 2, offset) === "](") return match;
       return `[${url}](${url})`;
@@ -407,8 +548,11 @@ export function ChatBot() {
 
           {/* Messages Scroll Area */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-sm">
-            {messages.map((msg) => {
+            {messages.map((msg, idx) => {
               const isUser = msg.role === "user";
+              const isLastMessage = idx === messages.length - 1;
+              const showFollowUps = !isUser && isLastMessage && !isLoading && msg.followUps && msg.followUps.length > 0;
+
               return (
                 <div
                   key={msg.id}
@@ -427,12 +571,33 @@ export function ChatBot() {
                   >
                     {isUser ? msg.content : renderFormattedMessage(msg.content)}
                     {!isUser && <MessageActionCards content={msg.content} />}
+
+                    {/* Contextual Follow-up Next Step Chips */}
+                    {showFollowUps && (
+                      <div className="mt-3 pt-2.5 border-t border-border/40 flex flex-col gap-1.5 w-full">
+                        <p className="text-[10px] uppercase font-black text-muted-foreground tracking-wider">
+                          Neste steg:
+                        </p>
+                        <div className="flex flex-col gap-1.5">
+                          {msg.followUps?.map((chip, chipIdx) => (
+                            <button
+                              key={chipIdx}
+                              onClick={() => handleSendMessage(chip)}
+                              className="text-left text-xs font-semibold px-2.5 py-2 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 hover:border-primary/40 transition-all flex items-center justify-between group"
+                            >
+                              <span>{chip}</span>
+                              <ArrowRight className="w-3 h-3 shrink-0 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
             })}
 
-            {/* Quick Prompts (Only show right after welcome if user hasn't asked anything yet) */}
+            {/* Quick Prompts (Only show right after initial welcome) */}
             {messages.length === 1 && (
               <div className="pt-2 space-y-1.5">
                 <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
@@ -444,9 +609,10 @@ export function ChatBot() {
                       key={idx}
                       disabled={isLoading}
                       onClick={() => handleSendMessage(prompt)}
-                      className="text-left text-xs font-semibold px-3 py-2 rounded-xl bg-card border border-border/60 hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all duration-150"
+                      className="text-left text-xs font-semibold px-3 py-2 rounded-xl bg-card border border-border/60 hover:border-primary/50 hover:bg-primary/5 text-foreground transition-all duration-150 flex items-center justify-between group"
                     >
-                      {prompt}
+                      <span>{prompt}</span>
+                      <ArrowRight className="w-3 h-3 shrink-0 opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                     </button>
                   ))}
                 </div>
@@ -500,7 +666,7 @@ export function ChatBot() {
               </Button>
             </div>
             <div className="flex items-center justify-between mt-2 px-1 text-[10px] text-muted-foreground/70">
-              <span>Svar genereres med AI</span>
+              <span>Svarer umiddelbart</span>
               {input.length > 400 && (
                 <span className={input.length >= 500 ? "text-red-500 font-bold" : ""}>
                   {input.length}/500 tegn

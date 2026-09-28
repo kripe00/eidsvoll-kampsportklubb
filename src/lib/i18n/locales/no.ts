@@ -93,7 +93,7 @@ export const no: Translations = {
     filterMuayThai: 'Muay Thai',
     filterKids: 'Barn & Ungdom',
     whatToBringTitle: 'Hva trenger du til første trening?',
-    whatToBringText: 'Vanlig treningstøy (t-skjorte og treningsbukse/shorts uten glidelås), drikkeflaske og godt humør! Vi trener barbeint på mattene. Har du boksehansker eller gi kan du ta det med, ellers har vi låneutstyr tilgjengelig.',
+    whatToBringText: 'Vanlig treningstøy (t-skjorte og treningsbukse/shorts uten glidelås), drikkeflaske og godt humør! Vi trener barbeint på mattene (for Crosstrening/CT må du ha med rene innesko). Har du boksehansker eller gi kan du ta det med, ellers har vi låneutstyr tilgjengelig.',
     locationNote: 'Alle treninger foregår i våre lokaler i Trondheimsvegen 71B på Dal.',
     levels: {
       all: 'Alle nivåer',
@@ -152,7 +152,7 @@ export const no: Translations = {
       },
       {
         question: 'Hva slags utstyr må jeg ha til min første trening?',
-        answer: 'Til din første trening trenger du kun vanlig, rent treningstøy (som en t-skjorte og shorts eller treningsbukse) uten glidelåser og harde knapper. Vi trener barføtt på mattene, så du trenger ikke sko. Husk å ta med en vannflaske!',
+        answer: 'Til din første trening trenger du kun vanlig, rent treningstøy (som en t-skjorte og shorts eller treningsbukse) uten glidelåser og harde knapper. For BJJ, Muay Thai og Yoga trener vi barføtt på mattene. Skal du trene Crosstrening (CT) bør du ha med rene innesko. Husk å ta med en vannflaske!',
       },
       {
         question: 'Tilbyr dere prøvetimer eller prøveperiode?',

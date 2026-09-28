@@ -552,7 +552,9 @@ Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder fo
 
 ### FØRSTE TRENING – HVA TRENGER MAN?
 - Utstyr: Rent, vanlig treningstøy uten glidelåser eller harde knapper (f.eks. t-skjorte og shorts eller treningsbukse).
-- Fottøy: Ingen sko! Vi trener barbent på mattene av hygieniske hensyn og for å ta vare på mattene.
+- Fottøy:
+  * For BJJ, Muay Thai og Yoga: Ingen sko! Vi trener barbent på mattene av hygieniske hensyn og for å ta vare på mattene.
+  * For Crosstrening (CT): Rene innesko/treningssko er nødvendig – på Crosstrening er det ikke hensiktsmessig å trene barføtt!
 - Drikkeflaske: Husk å ta med vannflaske!
 - Egen gi eller boksehansker? Ikke nødvendig for første trening/prøveperiode. Klubben har låneutstyr (som boksehansker). Egen gi/hansker kjøper du først når du skal trene fast.
 

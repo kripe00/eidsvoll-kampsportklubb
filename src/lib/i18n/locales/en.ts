@@ -93,7 +93,7 @@ export const en: Translations = {
     filterMuayThai: 'Muay Thai',
     filterKids: 'Kids & Youth',
     whatToBringTitle: 'What to bring to your first class?',
-    whatToBringText: 'Comfortable sportswear (t-shirt and shorts/sweatpants without zippers), a water bottle, and a positive attitude! We train barefoot on the mats. If you have boxing gloves or a gi, feel free to bring them; otherwise, loaner gear is available.',
+    whatToBringText: 'Comfortable sportswear (t-shirt and shorts/sweatpants without zippers), a water bottle, and a positive attitude! We train barefoot on the mats (for Crosstraining/CT, please bring clean indoor training shoes). If you have boxing gloves or a gi, feel free to bring them; otherwise, loaner gear is available.',
     locationNote: 'All classes take place at our modern facility in Trondheimsvegen 71B, Dal.',
     levels: {
       all: 'All levels',
@@ -152,7 +152,7 @@ export const en: Translations = {
       },
       {
         question: 'What gear do I need for my first class?',
-        answer: 'For your first class, all you need is clean, regular workout clothes (such as a t-shirt and athletic shorts or sweatpants) without zippers or metal buttons. We train barefoot on the mats. Don’t forget to bring a water bottle!',
+        answer: 'For your first class, all you need is clean, regular workout clothes (such as a t-shirt and athletic shorts or sweatpants) without zippers or metal buttons. For BJJ, Muay Thai, and Yoga, we train barefoot on the mats. For Crosstraining (CT), please bring clean indoor training shoes. Don’t forget to bring a water bottle!',
       },
       {
         question: 'Do you offer a free trial period?',
