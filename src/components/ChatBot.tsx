@@ -250,6 +250,7 @@ export function ChatBot() {
   const [hasUnread, setHasUnread] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   // Skånsom automatisk åpning etter 5 sekunder
@@ -272,11 +273,21 @@ export function ChatBot() {
     }
   }, []);
 
-  // Auto-scroll to bottom of chat when new messages appear
+  // Auto-scroll when messages update, but keep at top on initial welcome
   useEffect(() => {
     if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-      inputRef.current?.focus();
+      if (messages.length > 1 || isLoading) {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        // Når chatten åpnes for første gang: vis alltid velkomstmeldingen øverst
+        if (scrollContainerRef.current) {
+          scrollContainerRef.current.scrollTop = 0;
+        }
+      }
+
+      if (typeof window !== "undefined" && window.innerWidth >= 640) {
+        inputRef.current?.focus({ preventScroll: true });
+      }
     }
   }, [messages, isOpen, isLoading]);
 
@@ -529,6 +540,9 @@ export function ChatBot() {
                     },
                   ]);
                   setErrorMessage(null);
+                  if (scrollContainerRef.current) {
+                    scrollContainerRef.current.scrollTop = 0;
+                  }
                 }}
                 className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
                 title="Nullstill samtale"
@@ -547,7 +561,7 @@ export function ChatBot() {
           </div>
 
           {/* Messages Scroll Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-sm">
+          <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3.5 text-sm">
             {messages.map((msg, idx) => {
               const isUser = msg.role === "user";
               const isLastMessage = idx === messages.length - 1;
