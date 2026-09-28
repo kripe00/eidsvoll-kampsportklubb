@@ -5,6 +5,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { GlobalSponsorsBanner } from "./GlobalSponsorsBanner";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+import { ChatBot } from "./ChatBot";
 
 export function GlobalClient(props: {
   data: any;
@@ -26,6 +27,7 @@ export function GlobalClient(props: {
       <GlobalSponsorsBanner sponsors={displayData?.sponsors || []} />
       {props.children}
       <Footer data={displayData} />
+      <ChatBot />
     </LanguageProvider>
   );
 }

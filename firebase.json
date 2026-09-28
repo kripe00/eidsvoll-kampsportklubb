@@ -83,6 +83,14 @@
           }
         ]
       }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/chat",
+        "function": {
+          "functionId": "chatWithClubBot"
+        }
+      }
     ]
   },
   "firestore": {

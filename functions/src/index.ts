@@ -1,14 +1,18 @@
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
 import { onSchedule } from "firebase-functions/v2/scheduler";
+import { onRequest } from "firebase-functions/v2/https";
 import { defineSecret } from "firebase-functions/params";
 import * as admin from "firebase-admin";
 import * as nodemailer from "nodemailer";
+import OpenAI from "openai";
 
 admin.initializeApp();
 
 // Definer hemmeligheter fra GCP Secret Manager
 const smtpUser = defineSecret("SMTP_USER");
 const smtpPassword = defineSecret("SMTP_PASSWORD");
+const openaiApiKey = defineSecret("OPENAI_API_KEY");
+
 
 // Miljøvariabler
 const smtpHost = process.env.SMTP_HOST || "smtp.resend.com";
@@ -463,3 +467,228 @@ export const sendTrialWeekFollowup = onSchedule(
     }
   }
 );
+
+/**
+ * 4. AI Klubb-assistent (Chatbot) for Eidsvoll Kampsportklubb
+ * Drevet av OpenAI gpt-4o-mini med grounded system-prompt og sliding window rate-limiting.
+ */
+const ipRateLimitMap = new Map<string, number[]>();
+
+function checkRateLimit(ip: string, limit = 10, windowMs = 30 * 60 * 1000): { allowed: boolean; remaining: number } {
+  const now = Date.now();
+  const timestamps = (ipRateLimitMap.get(ip) || []).filter((ts) => now - ts < windowMs);
+
+  if (timestamps.length >= limit) {
+    ipRateLimitMap.set(ip, timestamps);
+    return { allowed: false, remaining: 0 };
+  }
+
+  timestamps.push(now);
+  ipRateLimitMap.set(ip, timestamps);
+
+  if (ipRateLimitMap.size > 1000) {
+    for (const [key, list] of ipRateLimitMap.entries()) {
+      const active = list.filter((ts) => now - ts < windowMs);
+      if (active.length === 0) {
+        ipRateLimitMap.delete(key);
+      } else {
+        ipRateLimitMap.set(key, active);
+      }
+    }
+  }
+
+  return { allowed: true, remaining: limit - timestamps.length };
+}
+
+const CLUB_SYSTEM_PROMPT = `Du er Eidsvoll Kampsportklubbs offisielle digitale assistent på nettsiden (kampsporteidsvoll.no).
+Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder for både nye nysgjerrige besøkende, foreldre og eksisterende medlemmer.
+
+### RETNINGSLINJER FOR SVAR:
+1. Svar alltid på et naturlig, hyggelig og lettfattelig norsk (dersom brukeren stiller spørsmål på engelsk, polsk eller ukrainsk, svarer du høflig på det språket).
+2. Vær kortfattet, presis og hjelpsom. Unngå lange avhandlinger – hold svaret til 1–3 korte avsnitt eller en punktliste.
+3. Hold deg STRENGT til klubbens fakta under. Ikke dikt opp priser, tider eller regler som ikke står her.
+4. Sikkerhetsgrense: Hvis brukeren spør om ting utenfor kampsport og klubbens tilbud (f.eks. oppskrifter, programmering, politikk, leksehjelp eller generelle samtaleemner), svarer du høflig:
+   "Jeg er Eidsvoll Kampsportklubbs assistent og kan bare hjelpe med spørsmål om klubben, treningene og medlemskap hos oss! 👋"
+5. Hvis noen har spørsmål du ikke vet svaret på, oppfordre dem til å sende en e-post til kontakt@kampsporteidsvoll.no eller ringe 976 10 229.
+
+### KLUBBENS FAKTA & IDENTITET:
+- Navn: Eidsvoll Kampsportklubb (EKK)
+- Røtter & Historie: Har røtter fra Rambukk Sport AS (etablert 2013 på Råholt). Eidsvoll Kampsportklubb ble stiftet i 2023 som et ideelt, demokratisk idrettslag, og samlet fra 2026 all drift, aktivitet og medlemsadministrasjon i nye lokaler på Dal.
+- Lokasjon: Trondheimsvegen 71B, 2072 Dal.
+  (Lokalene har to store kampsportsaler med faste matter – Sal 1 og Sal 2 – samt en egen CT/Yoga-sal).
+- Tilknytning: Ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).
+- Checkmat Affiliate: EKK er en stolt offisiell Checkmat-klubb, direkte tilknyttet grunnlegger Leo Vieira og Checkmats globale hovedkvarter. Alle BJJ-beltegraderinger er internasjonalt godkjente, og medlemmer kan trene på Checkmat-akademier i hele verden når de er ute og reiser.
+- Kontakt: E-post: kontakt@kampsporteidsvoll.no | Telefon: 976 10 229 | Org.nr: 932716461.
+
+### TRENERE & NØKKELPERSONER:
+- Styreleder: Kristian Sollie Pedersen
+- Nestleder & Hovedtrener BJJ: Christer Alfheim (opptatt av teknisk presisjon, idrettsglede og trygghet).
+- Barnetrenere BJJ: Alexandra Husum Strøm og Pernille Støen (spesialisert på trygghet, mestring, motorikk og treningsglede for barn).
+- Politiattestansvarlig: Helene Løken (alle trenere fremviser godkjent politiattest i henhold til NIFs regler).
+
+### DISIPLINER & TILBUD:
+1. Brasiliansk Jiu-Jitsu (BJJ):
+   - Bakkekamp med fokus på teknikk, posisjonskontroll, fellinger og submissions (låser/kvelninger).
+   - Trening med drakt (Gi) og uten drakt (No-Gi).
+   - Partier: Barnepartier (Barn 1: 6–9 år, Barn 2: 10–13 år), Nybegynner (Basic), Viderekomne (Advanced), Dagtrening, Sparring og Konkurransetrening for barn.
+2. Muay Thai (Thaiboksing):
+   - Tradisjonell stående kampsport med slag, spark, knær og albuer. Effektiv kondisjon, styrke og selvforsvar.
+   - Partier: Felles barneparti (fra ca. 8–10 år) og felles ungdom/voksen.
+3. Crosstrening:
+   - Funksjonell sirkel- og styrketrening for å bygge utholdenhet, styrke og forebygge skader. Har egne Kickstart-økter.
+4. Yoga:
+   - Yinsaya yoga og tradisjonell yoga for restitusjon, bevegelighet og mental ro.
+5. Åpen matte (Søndager kl. 12:00–14:00):
+   - Fri egentrening og sparring for alle medlemmer på tvers av partier.
+
+### GRATIS PRØVEPERIODE (14 DAGER / 2 UKER):
+- Alle nye får 14 dagers helt gratis og uforpliktende prøveperiode!
+- Prøveperioden gir fri tilgang til å prøve alle klubbens tilbud (BJJ, Muay Thai, Crosstrening og Yoga) i to uker.
+- Påmelding: Trykk på "Prøv gratis"-knappen på nettsiden eller fyll ut prøveuke-skjemaet.
+
+### FØRSTE TRENING – HVA TRENGER MAN?
+- Utstyr: Rent, vanlig treningstøy uten glidelåser eller harde knapper (f.eks. t-skjorte og shorts eller treningsbukse).
+- Fottøy: Ingen sko! Vi trener barbent på mattene av hygieniske hensyn og for å ta vare på mattene.
+- Drikkeflaske: Husk å ta med vannflaske!
+- Egen gi eller boksehansker? Ikke nødvendig for første trening/prøveperiode. Klubben har låneutstyr (som boksehansker). Egen gi/hansker kjøper du først når du skal trene fast.
+
+### TIMEPLAN (TRENINGSTIDER):
+- Mandag:
+  * 17:30 - 18:30: Crosstrening (CT/Yoga sal)
+  * 17:30 - 18:30: BJJ Barn 1 (6–9 år) (Sal 1)
+  * 17:30 - 18:30: BJJ Barn 2 (10–13 år) (Sal 2)
+  * 18:30 - 19:30: Yoga - Yinsaya (CT/Yoga sal)
+  * 18:30 - 19:45: BJJ Voksne / Ungdom (Sal 1)
+  * 18:30 - 20:00: BJJ Advanced (Sal 2)
+- Tirsdag:
+  * 17:30 - 18:30: Crosstrening (CT/Yoga sal)
+  * 17:30 - 18:30: Muay Thai Barn (Sal 1)
+  * 18:00 - 19:30: BJJ No-Gi (Sal 2)
+  * 18:30 - 19:45: Muay Thai (Sal 1)
+- Onsdag:
+  * 17:30 - 18:30: Crosstrening (CT/Yoga sal)
+  * 17:30 - 18:30: BJJ Barn 1 (6–9 år) (Sal 2)
+  * 17:30 - 18:30: BJJ Barn 2 (10–13 år) (Sal 1)
+  * 18:30 - 19:45: BJJ Basic (Sal 1)
+  * 18:30 - 20:00: BJJ Advanced (Sal 2)
+- Torsdag:
+  * 17:30 - 18:30: Crosstrening (CT/Yoga sal)
+  * 17:30 - 18:30: Muay Thai Barn (Sal 1)
+  * 18:00 - 19:30: BJJ No-Gi (Sal 2)
+  * 18:30 - 19:45: Muay Thai (Sal 1)
+- Fredag:
+  * 11:00 - 12:30: BJJ Dagtrening (Sal 1)
+  * 17:30 - 18:30: Crosstrening (CT/Yoga sal)
+  * 17:30 - 18:30: BJJ Sparring (Sal 2)
+  * 17:30 - 18:45: BJJ Barn Konkurransetrening (Sal 2)
+  * fra 18:30: Yoga (CT/Yoga sal)
+- Lørdag: Treningsfri / egentrening / dugnader
+- Søndag: 12:00 - 14:00: Åpen matte (Hele bruket)
+
+### MEDLEMSKAP & TO SYSTEMER (VIKTIG!):
+For å trene fast etter prøveperioden må utøvere registrere seg i to systemer:
+1. Steg 1: Boost (Månedlig treningsavgift)
+   - Selve treningsabonnementet for å delta på treninger. Gir fri tilgang til alle timer.
+   - Lenke: portal.boostsystem.no/rambukk/member
+2. Steg 2: MinIdrett (Årlig medlemskontingent til NIF)
+   - Årlig klubbmedlemskap i idrettslaget. Dekker utøverens skadeforsikring på matta og gir rett til å konkurrere i regi av forbundet.
+   - Lenke: www.minidrett.no/medlemskap/988726
+*Viktig presisering:* Har du kun betalt i MinIdrett, har du formelt medlemskap og forsikring, men IKKE betalt for månedstreningen. Man må registrere seg i begge systemene for å trene fast.`;
+
+export const chatWithClubBot = onRequest(
+  {
+    secrets: [openaiApiKey],
+    cors: true,
+  },
+  async (req, res) => {
+    // 1. Støtt preflight OPTIONS forespørsler
+    if (req.method === "OPTIONS") {
+      res.status(204).send("");
+      return;
+    }
+
+    if (req.method !== "POST") {
+      res.status(405).json({ error: "Kun POST-forespørsler støttes." });
+      return;
+    }
+
+    // 2. Klient-IP og Rate Limiting (Maks 10 meldinger per 30 min per IP)
+    const clientIp =
+      (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
+      req.socket.remoteAddress ||
+      "unknown-ip";
+
+    const rateCheck = checkRateLimit(clientIp, 10, 30 * 60 * 1000);
+    if (!rateCheck.allowed) {
+      res.status(429).json({
+        error: "Du har sendt for mange meldinger den siste halvtimen. Vennligst vent litt eller ta kontakt med oss på kontakt@kampsporteidsvoll.no dersom det haster!",
+      });
+      return;
+    }
+
+    // 3. Valider input
+    const { message, history } = req.body || {};
+    if (!message || typeof message !== "string" || message.trim() === "") {
+      res.status(400).json({ error: "Melding kan ikke være tom." });
+      return;
+    }
+
+    const trimmedMessage = message.trim();
+    if (trimmedMessage.length > 500) {
+      res.status(400).json({ error: "Meldingen er for lang (maks 500 tegn)." });
+      return;
+    }
+
+    // Sanitiser og begrens historikk (maks 4 siste meldinger)
+    const validRoles = new Set(["user", "assistant"]);
+    const sanitizedHistory: Array<{ role: "user" | "assistant"; content: string }> = [];
+
+    if (Array.isArray(history)) {
+      const recent = history.slice(-4);
+      for (const item of recent) {
+        if (item && validRoles.has(item.role) && typeof item.content === "string") {
+          sanitizedHistory.push({
+            role: item.role as "user" | "assistant",
+            content: item.content.slice(0, 500),
+          });
+        }
+      }
+    }
+
+    // 4. Hent API-nøkkel
+    const apiKey = openaiApiKey.value() || process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      console.error("Mangler OPENAI_API_KEY. Sjekk Secret Manager eller .env.");
+      res.status(500).json({ error: "AI-tjenesten er midlertidig utilgjengelig. Prøv igjen senere." });
+      return;
+    }
+
+    try {
+      const openai = new OpenAI({ apiKey });
+
+      const completion = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: CLUB_SYSTEM_PROMPT },
+          ...sanitizedHistory,
+          { role: "user", content: trimmedMessage },
+        ],
+        max_tokens: 400,
+        temperature: 0.3,
+      });
+
+      const reply = completion.choices[0]?.message?.content?.trim() || "Beklager, jeg kunne ikke generere et svar akkurat nå.";
+
+      res.status(200).json({
+        reply,
+        remainingRequests: rateCheck.remaining,
+      });
+    } catch (err: any) {
+      console.error("Feil ved kall til OpenAI API:", err?.message || err);
+      res.status(500).json({
+        error: "Beklager, noe gikk galt under kommunikasjonen med AI-tjenesten. Prøv igjen om litt!",
+      });
+    }
+  }
+);
+
