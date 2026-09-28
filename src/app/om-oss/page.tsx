@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Eidsvoll Kampsportklubb (EKK) / Rambukk Sport AS | Kampsport på Dal",
   description:
-    "Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Vi tilbyr BJJ (Checkmat), Muay Thai og Cross-trening.",
+    "Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Vi tilbyr BJJ, Muay Thai og Cross-trening.",
   keywords: [
     "Rambukk Sport AS",
     "Rambukk Sport",
@@ -15,8 +15,6 @@ export const metadata: Metadata = {
     "Eidsvoll Kampsportklubb",
     "EKK",
     "Dal",
-    "Checkmat",
-    "Leo Vieira",
     "BJJ",
     "Muay Thai",
   ],
@@ -71,33 +69,6 @@ const fallbackOmOssData = {
       subtitle: "Eidsvoll Kampsportklubb (EKK) og Rambukk Sport AS",
       description:
         "For å sikre full åpenhet overfor alle våre utøvere og foresatte, ønsker vi å presisere at Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Fra og med september 2026 håndteres alle medlemskap og treningsavgifter direkte av idrettslaget (EKK).",
-    },
-    {
-      _template: "checkmat",
-      title: "Offisiell Checkmat Affiliate",
-      subtitle: "Brasiliansk Jiu-Jitsu i verdensklasse under Leo Vieira",
-      description:
-        "Eidsvoll Kampsportklubb er stolt offisiell Checkmat-klubb, direkte tilknyttet Checkmats grunnlegger Leo Vieira og det globale hovedkvarteret. Hos oss kombinerer vi elite-BJJ med et kompromissløst fokus på utøvernes trygghet, helse og gode verdier.",
-      features: [
-        {
-          title: "Verdensklasse BJJ-standard",
-          description:
-            "Strukturert og teknisk BJJ-trening bygd på konseptene fra et av verdens mest fremgangsrike og vinnende kampsportakademier.",
-          icon: "Award",
-        },
-        {
-          title: "Internasjonale beltegraderinger",
-          description:
-            "Alle beltegraderinger hos Eidsvoll Kampsportklubb er offisielt registrert og godkjent under Leo Vieira og Checkmats globale hovedkvarter.",
-          icon: "ShieldCheck",
-        },
-        {
-          title: "Åpent globalt nettverk",
-          description:
-            "Som utøver i en offisiell Checkmat-klubb står dørene åpne for trening ved Checkmat-akademier verden over når du reiser.",
-          icon: "Globe",
-        },
-      ],
     },
     {
       _template: "trainers",

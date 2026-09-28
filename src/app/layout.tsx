@@ -51,8 +51,6 @@ export const metadata: Metadata = {
     "kongsvinger",
     "BJJ",
     "brasiliansk jiu-jitsu",
-    "Checkmat",
-    "Leo Vieira",
     "muay thai",
     "thaiboksing",
     "trening",

@@ -239,7 +239,7 @@ export default defineConfig({
               },
               {
                 name: "checkmat",
-                label: "Checkmat Lineage & Verdier",
+                label: "BJJ Lineage & Verdier",
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "subtitle", label: "Undertittel" },
@@ -477,7 +477,7 @@ export default defineConfig({
               },
               {
                 name: "checkmat",
-                label: "Checkmat Lineage & Verdier",
+                label: "BJJ Lineage & Verdier",
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "subtitle", label: "Undertittel" },
@@ -841,7 +841,7 @@ export default defineConfig({
               },
               {
                 name: "checkmat",
-                label: "Checkmat Lineage & Verdier",
+                label: "BJJ Lineage & Verdier",
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "subtitle", label: "Undertittel" },
@@ -1153,7 +1153,7 @@ export default defineConfig({
               },
               {
                 name: "checkmat",
-                label: "Checkmat Lineage & Verdier",
+                label: "BJJ Lineage & Verdier",
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "subtitle", label: "Undertittel" },
@@ -1388,7 +1388,7 @@ export default defineConfig({
               },
               {
                 name: "checkmat",
-                label: "Checkmat Lineage & Verdier",
+                label: "BJJ Lineage & Verdier",
                 fields: [
                   { type: "string", name: "title", label: "Overskrift" },
                   { type: "string", name: "subtitle", label: "Undertittel" },

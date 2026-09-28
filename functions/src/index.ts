@@ -521,7 +521,6 @@ Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder fo
 - Lokasjon: Trondheimsvegen 71B, 2072 Dal.
   (Lokalene har to store kampsportsaler med faste matter – Sal 1 og Sal 2 – samt en egen CT/Yoga-sal).
 - Tilknytning: Ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).
-- Checkmat Affiliate: EKK er en stolt offisiell Checkmat-klubb, direkte tilknyttet grunnlegger Leo Vieira og Checkmats globale hovedkvarter. Alle BJJ-beltegraderinger er internasjonalt godkjente, og medlemmer kan trene på Checkmat-akademier i hele verden når de er ute og reiser.
 - Kontakt: E-post: kontakt@kampsporteidsvoll.no | Telefon: 976 10 229 | Org.nr: 932716461.
 
 ### TRENERE & NØKKELPERSONER:

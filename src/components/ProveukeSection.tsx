@@ -82,12 +82,12 @@ export function ProveukeSection() {
             </h3>
             <p className="text-muted-foreground text-xs leading-relaxed mb-4">
               {locale === "uk"
-                ? "Офіційний клуб Checkmat. Gi та no-gi для дітей, молоді та дорослих."
+                ? "Gi та no-gi для дітей, молоді та дорослих."
                 : locale === "pl"
-                ? "Oficjalny klub Checkmat. Gi oraz no-gi dla dzieci, młodzieży i dorosłych."
+                ? "Gi oraz no-gi dla dzieci, młodzieży i dorosłych."
                 : locale === "en"
-                ? "Official Checkmat team. Both gi and no-gi for kids, youth, and adults."
-                : "Offisiell Checkmat-klubb. Både gi og no-gi for barn, ungdom og voksne."}
+                ? "Both gi and no-gi for kids, youth, and adults."
+                : "Både gi og no-gi for barn, ungdom og voksne."}
             </p>
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary/70">
               {t.proveuke.card1Title}
