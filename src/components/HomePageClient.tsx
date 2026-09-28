@@ -3,7 +3,6 @@
 import { useTina } from "tinacms/dist/react";
 import { Hero } from "./Hero";
 import { SportSelector } from "./SportSelector";
-import { ProveukeSection } from "./ProveukeSection";
 import { FirstTrainingGuide } from "./FirstTrainingGuide";
 import { News } from "./News";
 import { InstagramFeed } from "./InstagramFeed";
@@ -34,7 +33,6 @@ export function HomePageClient(props: {
         parent={hero}
       />
       <SportSelector id="finn-kampsport" />
-      <ProveukeSection />
       <FirstTrainingGuide id="forste-trening" />
       <News newsItems={rawEdges} />
       <div data-tina-field={tinaField(hero, 'instagramImages')}>
