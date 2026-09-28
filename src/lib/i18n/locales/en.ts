@@ -365,7 +365,7 @@ export const en: Translations = {
         scheduleInfo: 'Mix and match classes freely according to your weekly schedule.'
       },
       kidsBjj: {
-        name: 'BJJ for Kids (Checkmat Kids)',
+        name: 'BJJ for Kids',
         tagline: 'Safe grappling games, breakfalls, and body control',
         description: 'In kids BJJ, children learn how to fall safely, gain balance, and work together through fun games and controlled techniques on soft mats. No punches or kicks.',
         benefits: [

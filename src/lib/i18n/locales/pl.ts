@@ -365,7 +365,7 @@ export const pl: Translations = {
         scheduleInfo: 'Swobodnie łącz zajęcia zgodnie ze swoim grafikiem.'
       },
       kidsBjj: {
-        name: 'BJJ dla dzieci (Checkmat Kids)',
+        name: 'BJJ dla dzieci',
         tagline: 'Bezpieczna zabawa, nauka upadków i koordynacja',
         description: 'Dzieci uczą się bezpiecznego poruszania, upadania i współpracy poprzez gry i kontrolowane techniki na miękkich matach.',
         benefits: [

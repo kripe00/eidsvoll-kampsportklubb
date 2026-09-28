@@ -365,7 +365,7 @@ export const no: Translations = {
         scheduleInfo: 'Kombiner øktene akkurat som det passer inn i din ukeplan.'
       },
       kidsBjj: {
-        name: 'BJJ for Barn (Checkmat Kids)',
+        name: 'BJJ for Barn',
         tagline: 'Trygg kampsportlek, fallteknikk og kroppsbeherskelse',
         description: 'På BJJ for barn lærer barna å bevege seg trygt, falle riktig og samarbeide gjennom morsomme leker og kontrollerte teknikker på myke matter. Ingen slag eller spark.',
         benefits: [
