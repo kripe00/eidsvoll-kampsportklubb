@@ -8,6 +8,7 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { CheckCircle2, Calendar, X } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { cn } from "@/lib/utils";
 
 interface ProveukeModalProps {
   trigger?: React.ReactNode;
@@ -15,6 +16,7 @@ interface ProveukeModalProps {
   defaultCategory?: string;
   isOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
+  className?: string;
 }
 
 export function ProveukeModal({ 
@@ -22,7 +24,8 @@ export function ProveukeModal({
   defaultDiscipline = "BJJ (Brasiliansk Jiu-Jitsu)",
   defaultCategory = "Voksen / Ungdom (fra 14 år)",
   isOpen,
-  onOpenChange
+  onOpenChange,
+  className
 }: ProveukeModalProps) {
   const { t, locale } = useLanguage();
   const isControlled = typeof isOpen === "boolean";
@@ -391,7 +394,7 @@ export function ProveukeModal({
 
   return (
     <>
-      <div onClick={() => setOpen(true)} className="inline-block cursor-pointer">
+      <div onClick={() => setOpen(true)} className={cn("cursor-pointer", className || "inline-block")}>
         {trigger || (
           <Button size="sm" variant="outline" className="rounded-full px-5 py-2 font-bold border-primary/40 text-foreground hover:bg-primary/10 transition-all">
             {t.nav.tryFree}

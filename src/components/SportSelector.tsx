@@ -464,7 +464,7 @@ export function SportSelector({ id = "finn-kampsport" }: SportSelectorProps) {
         {/* STEP 3: Dynamic Recommendation Card */}
         {step === 3 && recommendationData && (
           <div className="max-w-2xl mx-auto animate-in fade-in zoom-in-95 duration-300">
-            <div className="bg-card border-2 border-primary/40 rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden">
+            <div className="bg-card border-2 border-primary/40 rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden">
               
               {/* Top glow decoration */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
@@ -534,19 +534,20 @@ export function SportSelector({ id = "finn-kampsport" }: SportSelectorProps) {
               </div>
 
               {/* CTA Action Row */}
-              <div className="flex flex-col sm:flex-row items-center gap-3">
-                <div className="w-full sm:flex-1">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full">
+                <div className="w-full sm:flex-1 min-w-0">
                   <ProveukeModal
+                    className="w-full block"
                     defaultDiscipline={recommendationData.discipline}
                     defaultCategory={recommendationData.category}
                     trigger={
                       <Button
                         size="lg"
                         spring={true}
-                        className="w-full h-13 px-6 text-sm sm:text-base font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-primary/25"
+                        className="w-full min-h-12 h-auto py-3.5 px-4 sm:px-6 text-xs sm:text-sm md:text-base font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-primary/25 whitespace-normal leading-snug text-center flex items-center justify-center gap-2"
                       >
-                        <span className="truncate">{t.veiviser.ctaButton}</span>
-                        <ArrowRight className="w-4 h-4 ml-2 shrink-0" />
+                        <span>{t.veiviser.ctaButton}</span>
+                        <ArrowRight className="w-4 h-4 shrink-0" />
                       </Button>
                     }
                   />
@@ -557,7 +558,7 @@ export function SportSelector({ id = "finn-kampsport" }: SportSelectorProps) {
                   variant="outline"
                   size="lg"
                   onClick={resetQuiz}
-                  className="w-full sm:w-auto h-13 px-5 text-xs sm:text-sm font-bold rounded-xl border-border/80 hover:bg-muted"
+                  className="w-full sm:w-auto min-h-12 h-auto py-3.5 px-4 sm:px-5 text-xs sm:text-sm font-bold rounded-xl border-border/80 hover:bg-muted shrink-0 whitespace-nowrap"
                 >
                   <RotateCcw className="w-4 h-4 mr-2" />
                   {t.veiviser.restartButton}
