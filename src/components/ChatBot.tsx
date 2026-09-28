@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { MessageSquare, X, Send, Bot, Sparkles, AlertCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import ReactMarkdown from "react-markdown";
 
 interface ChatMessage {
   id: string;
@@ -128,46 +129,37 @@ export function ChatBot() {
     }
   };
 
-  // Helper to render message text with clickable links
-  const renderMessageContent = (content: string) => {
-    // Regex for URLs and emails
-    const urlPattern = /(https?:\/\/[^\s]+)/g;
-    const emailPattern = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
-
-    const parts = content.split(urlPattern);
-
-    return parts.map((part, i) => {
-      if (part.match(urlPattern)) {
-        return (
-          <a
-            key={i}
-            href={part}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary underline font-medium hover:opacity-80 break-all"
-          >
-            {part}
-          </a>
-        );
-      }
-
-      // Check emails within non-url parts
-      const emailParts = part.split(emailPattern);
-      return emailParts.map((subPart, j) => {
-        if (subPart.match(emailPattern)) {
-          return (
-            <a
-              key={`${i}-${j}`}
-              href={`mailto:${subPart}`}
-              className="text-primary underline font-medium hover:opacity-80"
-            >
-              {subPart}
-            </a>
-          );
-        }
-        return subPart;
-      });
+  // Formater og render markdown med rene stiler
+  const renderFormattedMessage = (content: string) => {
+    // Gjør rå nettadresser til markdown-lenker dersom de ikke allerede er det
+    const withLinks = content.replace(/(?<!\]\()(https?:\/\/[^\s\)]+)/g, (match, url, offset, full) => {
+      if (full.slice(offset - 1, offset) === "(" || full.slice(offset - 2, offset) === "](") return match;
+      return `[${url}](${url})`;
     });
+
+    return (
+      <ReactMarkdown
+        components={{
+          p: ({ children }) => <p className="mb-2 last:mb-0 leading-relaxed">{children}</p>,
+          strong: ({ children }) => <strong className="font-extrabold text-foreground">{children}</strong>,
+          ul: ({ children }) => <ul className="my-2 space-y-1.5 pl-4 list-disc marker:text-primary">{children}</ul>,
+          ol: ({ children }) => <ol className="my-2 space-y-1.5 pl-4 list-decimal marker:text-primary">{children}</ol>,
+          li: ({ children }) => <li className="pl-0.5 leading-snug">{children}</li>,
+          a: ({ href, children }) => (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-bold text-primary underline underline-offset-2 hover:opacity-85 break-all"
+            >
+              {children}
+            </a>
+          ),
+        }}
+      >
+        {withLinks}
+      </ReactMarkdown>
+    );
   };
 
   return (
@@ -269,13 +261,13 @@ export function ChatBot() {
                 >
                   <div
                     className={cn(
-                      "px-3.5 py-2.5 rounded-2xl whitespace-pre-wrap text-sm shadow-sm",
+                      "px-3.5 py-2.5 rounded-2xl text-sm shadow-sm",
                       isUser
-                        ? "bg-primary text-primary-foreground rounded-br-xs"
-                        : "bg-muted/80 text-foreground border border-border/50 rounded-bl-xs"
+                        ? "bg-primary text-primary-foreground rounded-br-xs whitespace-pre-wrap font-medium"
+                        : "bg-card text-card-foreground border border-border/70 rounded-bl-xs leading-relaxed"
                     )}
                   >
-                    {renderMessageContent(msg.content)}
+                    {isUser ? msg.content : renderFormattedMessage(msg.content)}
                   </div>
                 </div>
               );
