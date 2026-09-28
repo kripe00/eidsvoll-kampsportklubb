@@ -7,12 +7,10 @@ import {
   Clock, 
   MapPin, 
   Shirt, 
-  Droplet, 
   Footprints, 
   ShieldCheck, 
   Sparkles, 
-  ArrowRight, 
-  CheckCircle2
+  ArrowRight
 } from "lucide-react";
 
 interface FirstTrainingGuideProps {
@@ -86,14 +84,9 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
               <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">
                 {t.forsteTrening.step2Title}
               </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 {t.forsteTrening.step2Desc}
               </p>
-            </div>
-
-            <div className="flex items-center gap-2 pt-3 border-t border-border/40 text-xs font-semibold text-primary">
-              <Droplet className="w-4 h-4 shrink-0" />
-              <span>{t.forsteTrening.step2Highlight}</span>
             </div>
           </div>
 
@@ -128,11 +121,6 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
                 </div>
               </div>
             </div>
-
-            <div className="flex items-center gap-2 pt-3 border-t border-border/40 text-xs font-semibold text-primary">
-              <CheckCircle2 className="w-4 h-4 shrink-0" />
-              <span>{t.forsteTrening.step3FootwearBadge}</span>
-            </div>
           </div>
 
           {/* STEP 4: Låneutstyr & Trygghet */}
@@ -151,14 +139,9 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
               <h3 className="text-xl font-black uppercase tracking-tight text-foreground mb-2">
                 {t.forsteTrening.step4Title}
               </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 {t.forsteTrening.step4Desc}
               </p>
-            </div>
-
-            <div className="flex items-center gap-2 pt-3 border-t border-border/40 text-xs font-semibold text-primary">
-              <Sparkles className="w-4 h-4 shrink-0" />
-              <span>{t.forsteTrening.step4Highlight}</span>
             </div>
           </div>
 
