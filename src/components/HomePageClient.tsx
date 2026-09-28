@@ -2,9 +2,12 @@
 
 import { useTina } from "tinacms/dist/react";
 import { Hero } from "./Hero";
+import { SportSelector } from "./SportSelector";
 import { ProveukeSection } from "./ProveukeSection";
+import { FirstTrainingGuide } from "./FirstTrainingGuide";
 import { News } from "./News";
 import { InstagramFeed } from "./InstagramFeed";
+import { MobileStickyCta } from "./MobileStickyCta";
 import { tinaField } from "tinacms/dist/react";
 
 export function HomePageClient(props: {
@@ -30,7 +33,9 @@ export function HomePageClient(props: {
         backgroundImage={hero.backgroundImage} 
         parent={hero}
       />
+      <SportSelector id="finn-kampsport" />
       <ProveukeSection />
+      <FirstTrainingGuide id="forste-trening" />
       <News newsItems={rawEdges} />
       <div data-tina-field={tinaField(hero, 'instagramImages')}>
         <InstagramFeed 
@@ -40,6 +45,7 @@ export function HomePageClient(props: {
           images={hero.instagramImages}
         />
       </div>
+      <MobileStickyCta />
     </main>
   );
 }

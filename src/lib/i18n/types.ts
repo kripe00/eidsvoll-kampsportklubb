@@ -50,6 +50,13 @@ export interface Translations {
     interestMuayThai: string;
     interestBoth: string;
     interestKids: string;
+    disciplineLabel: string;
+    disciplineBjj: string;
+    disciplineMuayThai: string;
+    disciplineCt: string;
+    disciplineYoga: string;
+    disciplineBoth: string;
+    disciplineUnsure: string;
     experienceLabel: string;
     expNone: string;
     expSome: string;
@@ -244,4 +251,103 @@ export interface Translations {
     sponsors: string;
     photoConsent: string;
   };
+  veiviser: VeiviserTranslation;
+  forsteTrening: ForsteTreningTranslation;
+  stickyCta: StickyCtaTranslation;
 }
+
+export interface RecommendationItem {
+  name: string;
+  tagline: string;
+  description: string;
+  benefits: [string, string, string];
+  scheduleInfo: string;
+}
+
+export interface VeiviserTranslation {
+  badge: string;
+  title: string;
+  subtitle: string;
+  heroShortcut: string;
+  stepIndicator: string;
+  backButton: string;
+  restartButton: string;
+  ctaButton: string;
+  allAccessNote: string;
+  benefitsTitle: string;
+  scheduleHintTitle: string;
+  recommendationBadge: string;
+  footwearBarefoot: string;
+  footwearIndoor: string;
+  step1Title: string;
+  step1Subtitle: string;
+  ageAdultTitle: string;
+  ageAdultDesc: string;
+  ageKids1Title: string;
+  ageKids1Desc: string;
+  ageKids2Title: string;
+  ageKids2Desc: string;
+  step2Title: string;
+  step2Subtitle: string;
+  goalSelfDefenseTitle: string;
+  goalSelfDefenseDesc: string;
+  goalStrikingTitle: string;
+  goalStrikingDesc: string;
+  goalFitnessTitle: string;
+  goalFitnessDesc: string;
+  goalFlexibilityTitle: string;
+  goalFlexibilityDesc: string;
+  goalComboTitle: string;
+  goalComboDesc: string;
+  goalKidsPlayTitle: string;
+  goalKidsPlayDesc: string;
+  goalKidsDisciplineTitle: string;
+  goalKidsDisciplineDesc: string;
+  goalKidsAllroundTitle: string;
+  goalKidsAllroundDesc: string;
+  recommendations: {
+    bjj: RecommendationItem;
+    muayThai: RecommendationItem;
+    crosstrening: RecommendationItem;
+    yoga: RecommendationItem;
+    combo: RecommendationItem;
+    kidsBjj: RecommendationItem;
+    kidsMuayThai: RecommendationItem;
+    kidsCombo: RecommendationItem;
+  };
+}
+
+export interface ForsteTreningTranslation {
+  badge: string;
+  title: string;
+  subtitle: string;
+  badgeArrival: string;
+  badgeClothing: string;
+  badgeFootwear: string;
+  step1Title: string;
+  step1Desc: string;
+  step1Highlight: string;
+  step2Title: string;
+  step2Desc: string;
+  step2Highlight: string;
+  step3Title: string;
+  step3Desc: string;
+  step3FootwearBadge: string;
+  step3BarefootTitle: string;
+  step3BarefootDesc: string;
+  step3ShoesTitle: string;
+  step3ShoesDesc: string;
+  step4Title: string;
+  step4Desc: string;
+  step4Highlight: string;
+  actionCardTitle: string;
+  actionCardDesc: string;
+  actionCardCta: string;
+}
+
+export interface StickyCtaTranslation {
+  text: string;
+  badge: string;
+  ariaLabel: string;
+}
+

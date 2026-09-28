@@ -9,9 +9,33 @@ import { CheckCircle2, Calendar, X } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
-export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
+interface ProveukeModalProps {
+  trigger?: React.ReactNode;
+  defaultDiscipline?: string;
+  defaultCategory?: string;
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+export function ProveukeModal({ 
+  trigger,
+  defaultDiscipline = "BJJ (Brasiliansk Jiu-Jitsu)",
+  defaultCategory = "Voksen / Ungdom (fra 14 år)",
+  isOpen,
+  onOpenChange
+}: ProveukeModalProps) {
   const { t, locale } = useLanguage();
-  const [open, setOpen] = useState(false);
+  const isControlled = typeof isOpen === "boolean";
+  const [internalOpen, setInternalOpen] = useState(false);
+  const open = isControlled ? isOpen : internalOpen;
+  const setOpen = (val: boolean) => {
+    if (isControlled && onOpenChange) {
+      onOpenChange(val);
+    } else {
+      setInternalOpen(val);
+    }
+  };
+
   const [mounted, setMounted] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -22,7 +46,8 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
     name: "",
     email: "",
     phone: "",
-    category: "Voksen / Ungdom (fra 14 år)",
+    category: defaultCategory || "Voksen / Ungdom (fra 14 år)",
+    discipline: defaultDiscipline || "BJJ (Brasiliansk Jiu-Jitsu)",
     startDate: getTodayString(),
     message: "",
     website: "", // Anti-bot honeypot
@@ -31,6 +56,18 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (defaultCategory) {
+      setFormData((prev) => ({ ...prev, category: defaultCategory }));
+    }
+  }, [defaultCategory]);
+
+  useEffect(() => {
+    if (defaultDiscipline) {
+      setFormData((prev) => ({ ...prev, discipline: defaultDiscipline }));
+    }
+  }, [defaultDiscipline]);
 
   useEffect(() => {
     if (open) {
@@ -43,21 +80,27 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
     };
   }, [open]);
 
-  // Beregn sluttdato (14 dager / 2 uker etter valgt startdato)
-  const calculateEndDate = (startDateStr: string) => {
+  // Beregn sluttdato med tidssone-nøytral UTC-aritmetikk (14 dager / 2 uker etter valgt startdato)
+  const calculateEndDate = (startDateStr: string): string => {
     if (!startDateStr) return "";
-    const start = new Date(startDateStr + "T00:00:00");
-    if (isNaN(start.getTime())) return "";
-    const end = new Date(start);
-    end.setDate(start.getDate() + 14);
-    return end.toISOString().split("T")[0];
+    const parts = startDateStr.split("-").map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) return "";
+    const [year, month, day] = parts;
+    const dateUtc = new Date(Date.UTC(year, month - 1, day));
+    if (isNaN(dateUtc.getTime())) return "";
+    dateUtc.setUTCDate(dateUtc.getUTCDate() + 14);
+    const endYear = dateUtc.getUTCFullYear();
+    const endMonth = String(dateUtc.getUTCMonth() + 1).padStart(2, "0");
+    const endDay = String(dateUtc.getUTCDate()).padStart(2, "0");
+    return `${endYear}-${endMonth}-${endDay}`;
   };
 
-  const formatDateDisplay = (dateStr: string) => {
+  const formatDateDisplay = (dateStr: string): string => {
     if (!dateStr) return "";
-    const d = new Date(dateStr + "T00:00:00");
-    if (isNaN(d.getTime())) return dateStr;
-    return d.toLocaleDateString("nb-NO", { day: "2-digit", month: "2-digit", year: "numeric" });
+    const parts = dateStr.split("-").map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) return dateStr;
+    const [year, month, day] = parts;
+    return `${String(day).padStart(2, "0")}.${String(month).padStart(2, "0")}.${year}`;
   };
 
   const calculatedEndDate = calculateEndDate(formData.startDate);
@@ -69,13 +112,15 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
 
     try {
       const endDate = calculateEndDate(formData.startDate);
+      const subjectPrefix = formData.discipline ? `${formData.discipline} - ` : "";
 
       await addDoc(collection(db, "messages"), {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        subject: `[Gratis Prøveperiode 14 Dager] ${formData.category}`,
-        message: `PÅMELDING TIL GRATIS PRØVEPERIODE (14 DAGER / 2 UKER)\n\nNavn: ${formData.name}\nE-post: ${formData.email}\nTelefon: ${formData.phone}\nKategori/Alder: ${formData.category}\nØnsket Startdato: ${formData.startDate} (${formatDateDisplay(formData.startDate)})\nSluttdato prøveperiode: ${endDate} (${formatDateDisplay(endDate)})\n\nEkstra melding/spørsmål:\n${formData.message || "Ingen melding angitt."}`,
+        subject: `[Gratis Prøveperiode 14 Dager] ${subjectPrefix}${formData.category}`,
+        message: `PÅMELDING TIL GRATIS PRØVEPERIODE (14 DAGER / 2 UKER)\n\nNavn: ${formData.name}\nE-post: ${formData.email}\nTelefon: ${formData.phone}\nKategori/Alder: ${formData.category}\nØnsket gren: ${formData.discipline || "Ikke spesifisert"}\nØnsket Startdato: ${formData.startDate} (${formatDateDisplay(formData.startDate)})\nSluttdato prøveperiode: ${endDate} (${formatDateDisplay(endDate)})\n\nEkstra melding/spørsmål:\n${formData.message || "Ingen melding angitt."}`,
+        discipline: formData.discipline,
         category: formData.category,
         startDate: formData.startDate,
         endDate: endDate,
@@ -90,7 +135,8 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
         name: "",
         email: "",
         phone: "",
-        category: "Voksen / Ungdom (fra 14 år)",
+        category: defaultCategory || "Voksen / Ungdom (fra 14 år)",
+        discipline: defaultDiscipline || "BJJ (Brasiliansk Jiu-Jitsu)",
         startDate: getTodayString(),
         message: "",
         website: "",
@@ -252,27 +298,70 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
                 </div>
               </div>
 
-              {/* Start Date Field */}
-              <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                <div className="flex justify-between items-center">
-                  <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
-                    {locale === "uk" ? "Бажана дата початку *" : locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Desired start date *" : "Ønsket Startdato *"}
+              {/* Discipline and Start Date */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
+                <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                  <label htmlFor="modal-discipline" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
+                    {t.proveuke.disciplineLabel} *
                   </label>
-                  {calculatedEndDate && (
-                    <span className="text-[11px] font-semibold text-primary">
-                      {formatDateDisplay(formData.startDate)} – {formatDateDisplay(calculatedEndDate)}
-                    </span>
-                  )}
+                  <select
+                    id="modal-discipline"
+                    value={formData.discipline}
+                    onChange={(e) => setFormData({ ...formData, discipline: e.target.value })}
+                    className="w-full bg-transparent text-base font-bold outline-none text-foreground cursor-pointer"
+                  >
+                    {Boolean(formData.discipline && ![
+                      "BJJ (Brasiliansk Jiu-Jitsu)",
+                      "Muay Thai / Thaiboksing",
+                      "Crosstrening (CT)",
+                      "Yoga (Yinsaya Yoga)",
+                      "BJJ & Muay Thai (Begge kampsporter)",
+                      "Usikker / Vil prøve alt"
+                    ].includes(formData.discipline)) && (
+                      <option value={formData.discipline}>{formData.discipline}</option>
+                    )}
+                    <option value="BJJ (Brasiliansk Jiu-Jitsu)">
+                      {t.proveuke.disciplineBjj}
+                    </option>
+                    <option value="Muay Thai / Thaiboksing">
+                      {t.proveuke.disciplineMuayThai}
+                    </option>
+                    <option value="Crosstrening (CT)">
+                      {t.proveuke.disciplineCt}
+                    </option>
+                    <option value="Yoga (Yinsaya Yoga)">
+                      {t.proveuke.disciplineYoga}
+                    </option>
+                    <option value="BJJ & Muay Thai (Begge kampsporter)">
+                      {t.proveuke.disciplineBoth}
+                    </option>
+                    <option value="Usikker / Vil prøve alt">
+                      {t.proveuke.disciplineUnsure}
+                    </option>
+                  </select>
                 </div>
-                <input
-                  id="modal-startdate"
-                  required
-                  type="date"
-                  min={getTodayString()}
-                  value={formData.startDate}
-                  onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                  className="w-full bg-transparent text-lg font-bold outline-none text-foreground cursor-pointer"
-                />
+
+                <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                  <div className="flex justify-between items-center">
+                    <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
+                      {locale === "uk" ? "Бажана дата початку *" : locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Desired start date *" : "Ønsket Startdato *"}
+                    </label>
+                    {calculatedEndDate && (
+                      <span className="text-[11px] font-semibold text-primary">
+                        {formatDateDisplay(formData.startDate)} – {formatDateDisplay(calculatedEndDate)}
+                      </span>
+                    )}
+                  </div>
+                  <input
+                    id="modal-startdate"
+                    required
+                    type="date"
+                    min={getTodayString()}
+                    value={formData.startDate}
+                    onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                    className="w-full bg-transparent text-lg font-bold outline-none text-foreground cursor-pointer"
+                  />
+                </div>
               </div>
 
               <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
@@ -291,7 +380,7 @@ export function ProveukeModal({ trigger }: { trigger?: React.ReactNode }) {
 
               {status === "error" && (
                 <p className="text-xs text-destructive bg-destructive/10 p-3 rounded-lg border border-destructive/20">
-                  {t.proveuke.errorMessage}
+                  {errorMessage || t.proveuke.errorMessage}
                 </p>
               )}
 

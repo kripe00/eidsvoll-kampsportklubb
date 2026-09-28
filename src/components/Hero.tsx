@@ -7,6 +7,7 @@ import { RichText } from "./RichText";
 import { OptimizedImage } from "./ui/optimized-image";
 import { ProveukeModal } from "./ProveukeModal";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { Compass } from "lucide-react";
 import { animate, ATHLETIC_SPRING, stagger, prefersReducedMotion, cleanAnimationStyles, remove } from "@/lib/animations";
 
 interface HeroProps {
@@ -97,7 +98,7 @@ export function Hero({
           {typeof displayDesc === "string" ? <p>{displayDesc}</p> : <RichText content={displayDesc} />}
         </div>
         
-        <div className="hero-cta flex justify-center items-center px-2">
+        <div className="hero-cta flex flex-col sm:flex-row justify-center items-center gap-4 px-2">
           <ProveukeModal 
             trigger={
               <Button size="lg" spring={true} className="w-full sm:w-auto h-14 px-8 sm:px-10 text-base sm:text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
@@ -105,6 +106,29 @@ export function Hero({
               </Button>
             }
           />
+          <a
+            href="#finn-kampsport"
+            role="button"
+            aria-label={t.veiviser.heroShortcut}
+            onClick={(e) => {
+              e.preventDefault();
+              const el = document.getElementById("finn-kampsport");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="w-full sm:w-auto"
+          >
+            <Button
+              variant="outline"
+              size="lg"
+              spring={true}
+              className="w-full sm:w-auto h-14 px-6 sm:px-8 text-base sm:text-lg font-bold border-white/25 bg-slate-900/60 text-white hover:bg-white/10 hover:text-white transition-all backdrop-blur-sm"
+            >
+              <Compass className="w-5 h-5 mr-2 text-primary" />
+              {t.veiviser.heroShortcut}
+            </Button>
+          </a>
         </div>
       </div>
     </section>

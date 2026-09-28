@@ -435,8 +435,9 @@ export function ChatBot() {
     );
   };
 
+  // Baseline: 20px (bottom-5 equivalent) + iOS safe area inset
   return (
-    <aside aria-label="Klubb-assistent" className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 select-none">
+    <aside aria-label="Klubb-assistent" className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] right-5 sm:bottom-6 sm:right-6 z-40 select-none">
       {/* Mobile Teaser Bubble */}
       {showTeaser && !isOpen && (
         <div className="sm:hidden absolute bottom-16 right-0 w-64 p-3.5 bg-background/98 backdrop-blur-xl border border-border shadow-2xl rounded-2xl animate-in fade-in slide-in-from-bottom-3 duration-300">

@@ -45,6 +45,13 @@ export const en: Translations = {
     interestMuayThai: 'Muay Thai / Kickboxing',
     interestBoth: 'Both BJJ & Muay Thai',
     interestKids: 'Kids classes (BJJ for kids)',
+    disciplineLabel: 'Which discipline would you like to try first?',
+    disciplineBjj: 'BJJ (Brazilian Jiu-Jitsu)',
+    disciplineMuayThai: 'Muay Thai / Kickboxing',
+    disciplineCt: 'Cross Training (CT)',
+    disciplineYoga: 'Yoga (Yinsaya Yoga)',
+    disciplineBoth: 'BJJ & Muay Thai (Both disciplines)',
+    disciplineUnsure: 'Not sure / Want to try all',
     experienceLabel: 'Previous martial arts experience',
     expNone: 'No experience (complete beginner)',
     expSome: 'Some experience (trained before)',
@@ -260,4 +267,168 @@ export const en: Translations = {
     sponsors: 'Our sponsors',
     photoConsent: 'Photo consent',
   },
+  veiviser: {
+    badge: 'Find Your Martial Art',
+    title: 'Which discipline is right for you?',
+    subtitle: 'Take our simple 2-step quiz and get a personalized recommendation based on your age and goals in 30 seconds.',
+    heroShortcut: 'Find your martial art',
+    stepIndicator: 'Step {current} of {total}',
+    backButton: 'Back',
+    restartButton: 'Restart quiz',
+    ctaButton: 'Sign up for free trial with this discipline',
+    allAccessNote: '💡 Remember: You get full access to all classes and disciplines during your 14-day trial period!',
+    benefitsTitle: 'Why this is a great fit for you:',
+    scheduleHintTitle: 'Class schedule:',
+    recommendationBadge: 'Recommended for you',
+    footwearBarefoot: '🥋 Barefoot on the mats',
+    footwearIndoor: '👟 Clean indoor shoes',
+    step1Title: '1. Who is training?',
+    step1Subtitle: 'Choose who will be participating to view the appropriate classes and age categories.',
+    ageAdultTitle: 'Adults & Youth (14+ yrs)',
+    ageAdultDesc: 'For those looking to train martial arts, strength, or mobility in our regular programs.',
+    ageKids1Title: 'Kids (6–9 yrs)',
+    ageKids1Desc: 'Kids Group 1: Safe and playful introduction focusing on coordination and active movement.',
+    ageKids2Title: 'Kids / Youth (10–13 yrs)',
+    ageKids2Desc: 'Kids Group 2: More technical focus, confidence, discipline, and team spirit.',
+    step2Title: '2. What is your primary training goal?',
+    step2Subtitle: 'Select what motivates you most, and we will find your ideal match.',
+    goalSelfDefenseTitle: 'Self-Defense & Ground Fighting',
+    goalSelfDefenseDesc: 'Learn effective positional control, grappling, and submissions without punches or kicks.',
+    goalStrikingTitle: 'Strikes, Kicks & High Cardio',
+    goalStrikingDesc: 'Fast-paced stand-up fighting with Muay Thai, high heart rate, and strong camaraderie.',
+    goalFitnessTitle: 'Functional Strength & Fitness',
+    goalFitnessDesc: 'Varied circuit and strength training with kettlebells, bars, and bodyweight in dedicated gym.',
+    goalFlexibilityTitle: 'Mobility & Injury Prevention',
+    goalFlexibilityDesc: 'Mindful stretching, breathwork, and recovery that strengthens joints and calms the body.',
+    goalComboTitle: 'All-round Martial Arts (Striking & Grappling)',
+    goalComboDesc: 'The complete package: Both ground fighting (BJJ) and stand-up striking (Muay Thai).',
+    goalKidsPlayTitle: 'Playful Martial Arts & Balance',
+    goalKidsPlayDesc: 'Focus on safety, breakfalls, body awareness, and fun on the mats.',
+    goalKidsDisciplineTitle: 'Focus, Coordination & Discipline',
+    goalKidsDisciplineDesc: 'Stand-up pad work with positive coaching, respect, and high energy.',
+    goalKidsAllroundTitle: 'Versatile Movement & Fun',
+    goalKidsAllroundDesc: 'Wants to try a bit of everything and enjoy active, positive time with friends.',
+    recommendations: {
+      bjj: {
+        name: 'Brazilian Jiu-Jitsu (BJJ)',
+        tagline: 'Intelligent ground grappling, leverage, and self-defense',
+        description: 'Often called "human chess," BJJ teaches you how to control opponents of any size using leverage, technique, and submissions. Training is conducted safely on the mats without strikes.',
+        benefits: [
+          'Effective self-defense built on leverage and technique',
+          'Incredible full-body strength and cardiovascular fitness',
+          'Official Checkmat team led by certified black belt coaches'
+        ],
+        scheduleInfo: 'Classes Monday through Friday (both Gi and No-Gi for beginners and advanced).'
+      },
+      muayThai: {
+        name: 'Muay Thai (Kickboxing)',
+        tagline: 'Powerful stand-up striking, peak conditioning, and confidence',
+        description: 'Known as "The Art of Eight Limbs," Muay Thai combines punches, kicks, knees, and elbows. Training focuses on pad work, technical partner drilling, and high-energy conditioning in a safe environment.',
+        benefits: [
+          'Super effective calorie burn and cardio endurance',
+          'Sharpens coordination, fast reflexes, and self-confidence',
+          'Welcoming and supportive team atmosphere on every session'
+        ],
+        scheduleInfo: 'Regular sessions for beginners and advanced several evenings each week.'
+      },
+      crosstrening: {
+        name: 'Cross Training (CT)',
+        tagline: 'Functional strength, circuit training, and raw stamina',
+        description: 'Cross training in our dedicated CT room combines functional barbell and kettlebell work, rowers, and high-intensity intervals. Every workout is scalable to your exact starting level.',
+        benefits: [
+          'Fully scalable strength and conditioning for everyone',
+          'Modern dedicated gym room with free weights and cardio equipment',
+          'Zero sparring or martial arts contact'
+        ],
+        scheduleInfo: 'Morning and evening sessions all week. Clean indoor training shoes required!'
+      },
+      yoga: {
+        name: 'Yinsaya Yoga',
+        tagline: 'Deep mobility, breathing, and restorative recovery',
+        description: 'A thoughtful blend of dynamic flow and calming yin poses. Ideal for easing tight muscles, preventing sports injuries, and finding mental presence in a busy everyday life.',
+        benefits: [
+          'Improves full-body mobility and hip/spine flexibility',
+          'Prevents overuse injuries and muscular stiffness',
+          'Fosters calm, mindful breathing and mental focus'
+        ],
+        scheduleInfo: 'Weekly restorative sessions in a peaceful atmosphere in the yoga studio.'
+      },
+      combo: {
+        name: 'BJJ & Muay Thai (Combination)',
+        tagline: 'The complete hybrid: stand-up striking and ground fighting',
+        description: 'Can’t choose between striking and grappling? You don’t have to! With our trial period, you can practice both disciplines and experience the best of both worlds.',
+        benefits: [
+          'Complete martial arts coverage from feet to the mat',
+          'Maximum variety in your weekly workout routine',
+          'Free access to all adult classes for 14 days'
+        ],
+        scheduleInfo: 'Mix and match classes freely according to your weekly schedule.'
+      },
+      kidsBjj: {
+        name: 'BJJ for Kids (Checkmat Kids)',
+        tagline: 'Safe grappling games, breakfalls, and body control',
+        description: 'In kids BJJ, children learn how to fall safely, gain balance, and work together through fun games and controlled techniques on soft mats. No punches or kicks.',
+        benefits: [
+          'Builds self-esteem, focus, and motor confidence',
+          'Teaches mutual respect and teamwork with peers',
+          'Safe environment led by experienced children’s instructors'
+        ],
+        scheduleInfo: 'Kids classes divided by age (6–9 and 10–13 years) twice a week.'
+      },
+      kidsMuayThai: {
+        name: 'Muay Thai for Kids',
+        tagline: 'Fun pad kicking, coordination, and positive energy',
+        description: 'A dynamic, high-energy class where kids learn fundamental striking techniques on target pads. Focuses on agility, discipline, balance, and having a blast.',
+        benefits: [
+          'High energy, joy, and healthy fitness habits',
+          'Develops listening skills, focus, and self-discipline',
+          '100% safe training strictly using gloves and striking pads'
+        ],
+        scheduleInfo: 'Weekly dedicated kids classes emphasizing achievement and fun.'
+      },
+      kidsCombo: {
+        name: 'All-Round Martial Arts for Kids',
+        tagline: 'Both playful mat grappling and active pad striking',
+        description: 'Let your child try both BJJ and Muay Thai during the trial period! They will discover what they enjoy most while building exceptional foundational athleticism.',
+        benefits: [
+          'Maximum achievement and joy of movement',
+          'Wonderful positive social setting with new friends',
+          '14-day free trial across all age-appropriate classes'
+        ],
+        scheduleInfo: 'Flexible participation across all relevant youth sessions.'
+      }
+    }
+  },
+  forsteTrening: {
+    badge: 'Beginner Guide',
+    title: 'Your First Class – What to Expect',
+    subtitle: 'It is completely normal to feel a bit nervous your first time! We keep the threshold as low as possible and make sure you feel welcomed from the very first second.',
+    badgeArrival: '10–15 min before',
+    badgeClothing: 'Workout clothes',
+    badgeFootwear: 'Important rule',
+    step1Title: '1. Arrival & Welcome',
+    step1Desc: 'Arrive approximately 10–15 minutes before the session starts. Our coach will welcome you at the entrance, show you the changing rooms, and answer any questions you may have.',
+    step1Highlight: 'Trondheimsvegen 71B at Dal • Free parking directly outside',
+    step2Title: '2. What to Wear',
+    step2Desc: 'Regular, clean sportswear works perfectly! A standard t-shirt and shorts or sweatpants are all you need. Please avoid clothes with zippers, snaps, or hard buttons to protect the mats and your training partners.',
+    step2Highlight: 'Remember to bring a filled water bottle – you will get thirsty!',
+    step3Title: '3. Footwear Rules (Important distinction)',
+    step3Desc: 'To ensure the highest standards of hygiene, safety, and mat longevity, we have two simple rules to keep in mind:',
+    step3FootwearBadge: 'Footwear & Mat Rules',
+    step3BarefootTitle: '🥋 BJJ, Muay Thai & Yoga: Barefoot on the mats',
+    step3BarefootDesc: 'We always train barefoot on the martial arts mats. Feel free to bring flip-flops, slides, or socks to walk in from the changing room to the mat edge.',
+    step3ShoesTitle: '👟 Cross Training (CT): Clean indoor shoes required',
+    step3ShoesDesc: 'In the Cross Training room, clean indoor training shoes are mandatory for stability and safety during weights, lifting, and intervals. Outdoor shoes are strictly prohibited.',
+    step4Title: '4. Loaner Gear & Safety',
+    step4Desc: 'You do not need to buy any equipment to try our classes! The club provides everything you need – boxing gloves, shin guards, and gis (uniforms) can be borrowed free of charge throughout your trial.',
+    step4Highlight: 'No experience necessary – our certified instructors guide you every step of the way',
+    actionCardTitle: 'Ready to join us on the mats?',
+    actionCardDesc: 'Start with our 14-day free trial – completely free of obligation with full access to all classes.',
+    actionCardCta: 'Start your free trial'
+  },
+  stickyCta: {
+    text: 'Try 14 days for free',
+    badge: 'No commitment',
+    ariaLabel: 'Sign up for 14-day free trial week'
+  }
 };

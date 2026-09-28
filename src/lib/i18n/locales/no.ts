@@ -45,6 +45,13 @@ export const no: Translations = {
     interestMuayThai: 'Muay Thai / Thaiboksing',
     interestBoth: 'Begge deler',
     interestKids: 'Barnepartier (BJJ for barn)',
+    disciplineLabel: 'Hvilken gren vil du prøve først?',
+    disciplineBjj: 'BJJ (Brasiliansk Jiu-Jitsu)',
+    disciplineMuayThai: 'Muay Thai / Thaiboksing',
+    disciplineCt: 'Crosstrening (CT)',
+    disciplineYoga: 'Yoga (Yinsaya Yoga)',
+    disciplineBoth: 'BJJ & Muay Thai (Begge kampsporter)',
+    disciplineUnsure: 'Usikker / Vil prøve alt',
     experienceLabel: 'Tidligere kampsporterfaring',
     expNone: 'Ingen erfaring (helt fersk)',
     expSome: 'Litt erfaring (trent litt før)',
@@ -260,4 +267,168 @@ export const no: Translations = {
     sponsors: 'Våre støttespillere',
     photoConsent: 'Samtykke for foto',
   },
+  veiviser: {
+    badge: 'Finn din kampsport',
+    title: 'Hvilken gren passer best for deg?',
+    subtitle: 'Ta vår enkle 2-stegs veiviser og få en personlig anbefaling tilpasset alder og treningsmål på 30 sekunder.',
+    heroShortcut: 'Finn din kampsport',
+    stepIndicator: 'Steg {current} av {total}',
+    backButton: 'Tilbake',
+    restartButton: 'Start på nytt',
+    ctaButton: 'Meld deg på prøveuke med denne grenen',
+    allAccessNote: '💡 Husk: Du har full tilgang til alle partier og grener under hele den 14 dagers prøveperioden!',
+    benefitsTitle: 'Hvorfor dette passer deg:',
+    scheduleHintTitle: 'Treningstider:',
+    recommendationBadge: 'Anbefalt for deg',
+    footwearBarefoot: '🥋 Barbent på mattene',
+    footwearIndoor: '👟 Rene innesko',
+    step1Title: '1. Hvem skal trene?',
+    step1Subtitle: 'Velg hvem som skal delta for å se riktige partier og aldersgrupper.',
+    ageAdultTitle: 'Voksen / Ungdom (fra 14 år)',
+    ageAdultDesc: 'For deg som vil trene kampsport, styrke eller bevegelighet på våre ordinære partier.',
+    ageKids1Title: 'Barn (6–9 år)',
+    ageKids1Desc: 'Barneparti 1: Trygg og leken introduksjon med fokus på koordinasjon og bevegelsesglede.',
+    ageKids2Title: 'Barn / Ungdom (10–13 år)',
+    ageKids2Desc: 'Barneparti 2: Mer teknisk fokus, mestring, disiplin og lagånd tilpasset eldre barn.',
+    step2Title: '2. Hva er ditt viktigste treningsmål?',
+    step2Subtitle: 'Velg det som motiverer deg mest, så finner vi matchen din.',
+    goalSelfDefenseTitle: 'Selvforsvar & Bakkekamp',
+    goalSelfDefenseDesc: 'Lær effektiv posisjonskontroll, grep og submissions uten slag og spark.',
+    goalStrikingTitle: 'Slag, spark & Kondisjon',
+    goalStrikingDesc: 'Fartsfylt stående kampsport med thaiboksing, høy puls og god samhold.',
+    goalFitnessTitle: 'Funksjonell styrke & Kondisjon',
+    goalFitnessDesc: 'Variert sirkel- og styrketrening med kettlebells, stenger og egenvekt i eget sal.',
+    goalFlexibilityTitle: 'Bevegelighet & Skadeforebygging',
+    goalFlexibilityDesc: 'Rolig mobilitetstrening, pust og restitusjon som styrker ledd og gir ro i kroppen.',
+    goalComboTitle: 'Allsidig kampsport (Både stående & bakkekamp)',
+    goalComboDesc: 'Full pakke: Både bakkekamp (BJJ) og stående slag/spark (Muay Thai).',
+    goalKidsPlayTitle: 'Leken kampsport & Balanse',
+    goalKidsPlayDesc: 'Fokus på trygghet, fallteknikk, motorikk og kontroll på mattene.',
+    goalKidsDisciplineTitle: 'Fokus, koordinasjon & Disiplin',
+    goalKidsDisciplineDesc: 'Stående slag- og sparkøvelser på puter med god veiledning og respekt.',
+    goalKidsAllroundTitle: 'Allsidig bevegelsesglede',
+    goalKidsAllroundDesc: 'Vil prøve litt av hvert og få en morsom, aktiv fritid sammen med venner.',
+    recommendations: {
+      bjj: {
+        name: 'Brasiliansk Jiu-Jitsu (BJJ)',
+        tagline: 'Intelligent bakkekamp, posisjonskontroll og selvforsvar',
+        description: 'BJJ er ofte kalt "fysisk sjakk". Her lærer du å kontrollere motstandere uansett størrelse ved hjelp av teknikk, balanse og submissions. Treningen foregår trygt på mattene uten slag eller spark.',
+        benefits: [
+          'Effektivt selvforsvar basert på teknikk og kløkt',
+          'Utrolig gøy helkropps styrke og kondisjon',
+          'Offisielt Checkmat-team med sertifiserte trenere'
+        ],
+        scheduleInfo: 'Partier mandag til fredag (både Gi og No-Gi for nybegynnere og viderekomne).'
+      },
+      muayThai: {
+        name: 'Muay Thai (Thaiboksing)',
+        tagline: 'Kraftfull stående kampsport, god form og høy mestring',
+        description: 'Muay Thai er kjent som "The Art of Eight Limbs". Du lærer kontrollerte slag, spark, knær og albuer i et trygt miljø med fokus på putetrening, teknisk drilling og knallgod kondisjon.',
+        benefits: [
+          'Super effektiv kondisjon og kaloriforbrenning',
+          'Styrker koordinasjon, reflekser og selvtillit',
+          'Kameratskap og god stemning på hver økt'
+        ],
+        scheduleInfo: 'Faste fellestreninger for nybegynnere og viderekomne flere kvelder i uken.'
+      },
+      crosstrening: {
+        name: 'Crosstrening (CT)',
+        tagline: 'Funksjonell styrke, sirkeltrening og rå utholdenhet',
+        description: 'Crosstrening i vår dedikerte CT-sal kombinerer funksjonell styrke, kettlebells, romaskiner og intervaller. Alle øvelser kan skaleres til ditt nivå uansett utgangspunkt.',
+        benefits: [
+          'Skalerbar styrke- og kondisjonstrening for alle',
+          'Eget moderne treningsrom med fritt utstyr',
+          'Ingen sparring eller kampsportkontakt'
+        ],
+        scheduleInfo: 'Morgen- og kveldsøkter gjennom hele uken. Husk rene innesko!'
+      },
+      yoga: {
+        name: 'Yinsaya Yoga',
+        tagline: 'Dyp mobilitet, pust og skadeforebyggende restitusjon',
+        description: 'En kombinasjon av dynamisk flyt og beroligende yin-stillinger. Perfekt for å løse opp stive muskler, forebygge skader og finne mental ro i en travel hverdag.',
+        benefits: [
+          'Forbedrer bevegelighet og hofte-/ryggmobilitet',
+          'Forebygger belastningsskader og stivhet',
+          'Gir mental ro og fokus'
+        ],
+        scheduleInfo: 'Ukentlige rolige økter i fredelige omgivelser i yoga-salen.'
+      },
+      combo: {
+        name: 'BJJ & Muay Thai (Kombinasjon)',
+        tagline: 'Den ultimate kombinasjonen av stående og bakkebasert kampsport',
+        description: 'Klarer du ikke velge? Du trenger ikke det! Med vår prøveperiode kan du trene både BJJ og Muay Thai parallelt og få en fullverdig kampsportopplevelse.',
+        benefits: [
+          'Komplett kampsporttrening fra stående til bakken',
+          'Maksimal variasjon i treningshverdagen',
+          'Fri tilgang til alle partier i 14 dager'
+        ],
+        scheduleInfo: 'Kombiner øktene akkurat som det passer inn i din ukeplan.'
+      },
+      kidsBjj: {
+        name: 'BJJ for Barn (Checkmat Kids)',
+        tagline: 'Trygg kampsportlek, fallteknikk og kroppsbeherskelse',
+        description: 'På BJJ for barn lærer barna å bevege seg trygt, falle riktig og samarbeide gjennom morsomme leker og kontrollerte teknikker på myke matter. Ingen slag eller spark.',
+        benefits: [
+          'Bygger selvtillit, disiplin og motorisk trygghet',
+          'Lærer respekt og samhold med treningsvenner',
+          'Trygge rammer med erfarne barnetrenere'
+        ],
+        scheduleInfo: 'Barnepartier inndelt etter alder (6–9 år og 10–13 år) to dager i uken.'
+      },
+      kidsMuayThai: {
+        name: 'Muay Thai for Barn',
+        tagline: 'Morsom putetrening, koordinasjon og bevegelsesglede',
+        description: 'En fartsfylt time der barna lærer grunnleggende thaibokseteknikker på slagputer i trygge former. Fokus på balanse, konsentrasjon og spilleglede.',
+        benefits: [
+          'Høy energi, glede og god kondisjon',
+          'Lærer fokus, lytteferdigheter og disiplin',
+          'Trygg trening kun på puter og hansker'
+        ],
+        scheduleInfo: 'Faste ukentlige barnepartier med fokus på mestring.'
+      },
+      kidsCombo: {
+        name: 'Allsidig Kampsport for Barn',
+        tagline: 'Både lek på mattene og fart på putene',
+        description: 'La barnet prøve både BJJ og Muay Thai under prøveperioden! Barna oppdager hva de liker best mens de utvikler en sterk og allsidig grunnmotorikk.',
+        benefits: [
+          'Maksimal mestring og bevegelsesglede',
+          'Fantastisk sosialt miljø med nye venner',
+          '14 dagers gratis prøvetid på alle barnepartier'
+        ],
+        scheduleInfo: 'Fleksibel deltakelse på alle aldersrelevante barnetimer.'
+      }
+    }
+  },
+  forsteTrening: {
+    badge: 'Nybegynnerguide',
+    title: 'Din første trening – Hva kan du forvente?',
+    subtitle: 'Det er helt normalt å være litt spent første gang! Vi gjør terskelen så lav som mulig og passer på at du føler deg velkommen fra første sekund.',
+    badgeArrival: '10–15 min før',
+    badgeClothing: 'Treningstøy',
+    badgeFootwear: 'Viktig skille',
+    step1Title: '1. Oppmøte & Velkomst',
+    step1Desc: 'Møt opp cirka 10–15 minutter før timen starter. Treneren vår tar imot deg ved inngangen, viser deg garderobene og svarer på eventuelle spørsmål du har.',
+    step1Highlight: 'Trondheimsvegen 71B på Dal • Gratis parkering rett utenfor',
+    step2Title: '2. Hva har man på seg?',
+    step2Desc: 'Vanlig, rent treningstøy fungerer perfekt! En t-skjorte og shorts eller treningsbukse er alt du trenger. Unngå klær med glidelåser eller harde knapper av hensyn til mattene og treningspartneren din.',
+    step2Highlight: 'Husk en fylt drikkeflaske – du kommer til å bli tørst!',
+    step3Title: '3. Fottøyregler (Viktig skille)',
+    step3Desc: 'For å ivareta hygiene, sikkerhet og mattevedlikehold har klubben to enkle regler du må huske på:',
+    step3FootwearBadge: 'Sko- & Matteregler',
+    step3BarefootTitle: '🥋 BJJ, Muay Thai & Yoga: Barbent på mattene',
+    step3BarefootDesc: 'Vi trener alltid barbeint på kampsportmattene. Ta gjerne med tøfler, slippers eller sokker til å gå med fra garderoben og frem til kanten av matta.',
+    step3ShoesTitle: '👟 Crosstrening (CT): Rene innesko påkrevd',
+    step3ShoesDesc: 'I Crosstrening-salen er det påbudt med rene innesko for god stabilitet og sikkerhet ved tunge løft, vekter og intervaller. Utesko er forbudt.',
+    step4Title: '4. Låneutstyr & Sikkerhet',
+    step4Desc: 'Du trenger ikke kjøpe noe utstyr for å prøve! Klubben stiller med alt du behøver – boksehansker, leggbeskyttere og drakter (gi) kan lånes helt gratis under hele prøveperioden.',
+    step4Highlight: 'Ingen forkunnskaper nødvendig – våre instruktører veileder deg hele veien',
+    actionCardTitle: 'Klar for å teste matta sammen med oss?',
+    actionCardDesc: 'Start med 14 dagers gratis prøveuke – helt uforpliktende og fri tilgang til alle partier.',
+    actionCardCta: 'Start din gratis prøveuke'
+  },
+  stickyCta: {
+    text: 'Prøv gratis i 14 dager',
+    badge: 'Uforpliktende',
+    ariaLabel: 'Meld deg på 14 dagers gratis prøveuke'
+  }
 };

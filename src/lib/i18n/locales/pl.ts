@@ -45,6 +45,13 @@ export const pl: Translations = {
     interestMuayThai: 'Muay Thai / Boks tajski',
     interestBoth: 'Obie dyscypliny (BJJ & Muay Thai)',
     interestKids: 'Grupy dziecięce (BJJ dla dzieci)',
+    disciplineLabel: 'Którą dyscyplinę chcesz wypróbować jako pierwszą?',
+    disciplineBjj: 'BJJ (Brazylijskie Jiu-Jitsu)',
+    disciplineMuayThai: 'Muay Thai / Boks tajski',
+    disciplineCt: 'Trening siłowy (Cross Training)',
+    disciplineYoga: 'Joga (Yinsaya Yoga)',
+    disciplineBoth: 'BJJ & Muay Thai (Obie dyscypliny)',
+    disciplineUnsure: 'Nie wiem / Chcę sprawdzić wszystko',
     experienceLabel: 'Dotychczasowe doświadczenie',
     expNone: 'Brak doświadczenia (całkowity początkujący)',
     expSome: 'Niewielkie doświadczenie (trenowałem/am wcześniej)',
@@ -260,4 +267,168 @@ export const pl: Translations = {
     sponsors: 'Nasi sponsorzy',
     photoConsent: 'Zgoda na wizerunek',
   },
+  veiviser: {
+    badge: 'Dopasuj sport walki',
+    title: 'Która dyscyplina jest dla Ciebie?',
+    subtitle: 'Odpowiedz na 2 proste pytania i otrzymaj spersonalizowaną rekomendację w 30 sekund.',
+    heroShortcut: 'Dopasuj sport walki',
+    stepIndicator: 'Krok {current} z {total}',
+    backButton: 'Wstecz',
+    restartButton: 'Zacznij od nowa',
+    ctaButton: 'Zapisz się na okres próbny w tej dyscyplinie',
+    allAccessNote: '💡 Pamiętaj: W trakcie 14-dniowego okresu próbnego masz pełny dostęp do wszystkich zajęć!',
+    benefitsTitle: 'Dlaczego to świetny wybór:',
+    scheduleHintTitle: 'Grafik zajęć:',
+    recommendationBadge: 'Polecane dla Ciebie',
+    footwearBarefoot: '🥋 Boso na macie',
+    footwearIndoor: '👟 Czyste buty zmienne',
+    step1Title: '1. Kto będzie trenować?',
+    step1Subtitle: 'Wybierz grupę wiekową, aby zobaczyć odpowiednie zajęcia.',
+    ageAdultTitle: 'Dorośli i młodzież (od 14 lat)',
+    ageAdultDesc: 'Dla osób chcących trenować sporty walki, siłę lub mobilność w grupach standardowych.',
+    ageKids1Title: 'Dzieci (6–9 lat)',
+    ageKids1Desc: 'Grupa dziecięca 1: Bezpieczne i zabawowe wprowadzenie skupione na koordynacji.',
+    ageKids2Title: 'Dzieci i młodzież (10–13 lat)',
+    ageKids2Desc: 'Grupa dziecięca 2: Większy nacisk na technikę, dyscyplinę i współpracę w zespole.',
+    step2Title: '2. Jaki jest Twój główny cel?',
+    step2Subtitle: 'Wybierz to, co motywuje Cię najbardziej.',
+    goalSelfDefenseTitle: 'Samoobrona i walka w parterze',
+    goalSelfDefenseDesc: 'Skuteczna kontrola pozycji, chwyty i dźwignie bez uderzeń i kopnięć.',
+    goalStrikingTitle: 'Uderzenia, kopnięcia i kondycja',
+    goalStrikingDesc: 'Boks tajski, wysokie tętno, dynamika i wspaniała atmosfera.',
+    goalFitnessTitle: 'Siła funkcjonalna i wydolność',
+    goalFitnessDesc: 'Trening obwodowy z odważnikami kettlebell, sztangami i masą ciała.',
+    goalFlexibilityTitle: 'Mobilność i regeneracja',
+    goalFlexibilityDesc: 'Spokojne rozciąganie, praca z oddechem i profilaktyka kontuzji.',
+    goalComboTitle: 'Wszechstronne sporty walki (stójka i parter)',
+    goalComboDesc: 'Pełny pakiet: zarówno walka w parterze (BJJ), jak i stójka (Muay Thai).',
+    goalKidsPlayTitle: 'Zabawa na macie i równowaga',
+    goalKidsPlayDesc: 'Nauka bezpiecznych upadków, świadomość ciała i ruch w bezpiecznych warunkach.',
+    goalKidsDisciplineTitle: 'Koncentracja, koordynacja i dyscyplina',
+    goalKidsDisciplineDesc: 'Trening uderzeń na tarczach pod okiem doświadczonych trenerów.',
+    goalKidsAllroundTitle: 'Wszechstronny rozwój ruchowy',
+    goalKidsAllroundDesc: 'Chęć spróbowania wszystkiego i aktywnego spędzania czasu z rówieśnikami.',
+    recommendations: {
+      bjj: {
+        name: 'Brazylijskie Jiu-Jitsu (BJJ)',
+        tagline: 'Inteligentna walka w parterze, kontrola i samoobrona',
+        description: 'BJJ to "ludzkie szachy". Uczysz się kontrolować przeciwnika bez względu na jego wagę, stosując technikę i dźwignie na macie bez uderzeń.',
+        benefits: [
+          'Skuteczna samoobrona oparta na technice',
+          'Fantastyczny trening siły całego ciała i kondycji',
+          'Oficjalny klub Checkmat z certyfikowanymi trenerami'
+        ],
+        scheduleInfo: 'Zajęcia od poniedziałku do piątku (Gi oraz No-Gi).'
+      },
+      muayThai: {
+        name: 'Muay Thai (Boks tajski)',
+        tagline: 'Dynamiczna walka w stójce, siła i pewność siebie',
+        description: 'Tradycyjny boks tajski z uderzeniami, kopnięciami, kolanami i łokciami. Bezpieczny trening na tarczach i rozwój kondycji.',
+        benefits: [
+          'Bardzo wysokie spalanie kalorii i budowa kondycji',
+          'Poprawa koordynacji, refleksu i pewności siebie',
+          'Świetna atmosfera i wsparcie na każdym treningu'
+        ],
+        scheduleInfo: 'Zajęcia dla początkujących i zaawansowanych kilka razy w tygodniu.'
+      },
+      crosstrening: {
+        name: 'Cross Training (Trening funkcjonalny)',
+        tagline: 'Siła funkcjonalna, obwody i wytrzymałość',
+        description: 'W naszej sali do Cross Trainingu łączymy ćwiczenia ze sztangami, kettlebell i ergometrami. Trening skalowalny do każdego poziomu.',
+        benefits: [
+          'Trening siłowo-kondycyjny dla każdego',
+          'Nowoczesna, w pełni wyposażona sala treningowa',
+          'Brak sparingów i kontaktu ze sportów walki'
+        ],
+        scheduleInfo: 'Treningi poranne i wieczorne przez cały tydzień. Czyste obuwie zmienne obowiązkowe!'
+      },
+      yoga: {
+        name: 'Joga Yinsaya',
+        tagline: 'Głęboka mobilność, oddech i regeneracja',
+        description: 'Połączenie dynamicznego flow ze spokojną jogą yin. Idealne do rozluźnienia mięśni i zapobiegania urazom.',
+        benefits: [
+          'Zwiększa elastyczność i ruchomość stawów',
+          'Chroni przed kontuzjami i przeciążeniami',
+          'Pomaga wyciszyć umysł i zredukować stres'
+        ],
+        scheduleInfo: 'Cotygodniowe sesje regeneracyjne w sali jogi.'
+      },
+      combo: {
+        name: 'BJJ & Muay Thai (Pakiet łączony)',
+        tagline: 'Kompletne połączenie stójki i parteru',
+        description: 'Nie musisz wybierać! W ramach okresu próbnego możesz trenować obie dyscypliny i wszechstronnie rozwijać umiejętności.',
+        benefits: [
+          'Pełny zakres sportów walki od stójki po parter',
+          'Maksymalna różnorodność w planie treningowym',
+          '14 dni darmowego dostępu do wszystkich zajęć'
+        ],
+        scheduleInfo: 'Swobodnie łącz zajęcia zgodnie ze swoim grafikiem.'
+      },
+      kidsBjj: {
+        name: 'BJJ dla dzieci (Checkmat Kids)',
+        tagline: 'Bezpieczna zabawa, nauka upadków i koordynacja',
+        description: 'Dzieci uczą się bezpiecznego poruszania, upadania i współpracy poprzez gry i kontrolowane techniki na miękkich matach.',
+        benefits: [
+          'Buduje pewność siebie i sprawność motoryczną',
+          'Uczy szacunku i pracy w grupie',
+          'Bezpieczne środowisko z doświadczonymi trenerami'
+        ],
+        scheduleInfo: 'Grupy dziecięce podzielone według wieku dwa razy w tygodniu.'
+      },
+      kidsMuayThai: {
+        name: 'Muay Thai dla dzieci',
+        tagline: 'Zabawa na tarczach, energia i koordynacja',
+        description: 'Dynamiczne zajęcia, na których dzieci poznają podstawy boksu tajskiego na tarczach w wesołej atmosferze.',
+        benefits: [
+          'Mnóstwo energii, radości i zdrowego ruchu',
+          'Rozwój koncentracji i dyscypliny',
+          'Bezpieczny trening wyłącznie na tarczach'
+        ],
+        scheduleInfo: 'Cotygodniowe zajęcia dla dzieci z naciskiem na rozwój.'
+      },
+      kidsCombo: {
+        name: 'Wszechstronne sporty walki dla dzieci',
+        tagline: 'Zarówno zabawa na macie, jak i ćwiczenia na tarczach',
+        description: 'Pozwól dziecku wypróbować zarówno BJJ, jak i Muay Thai podczas okresu próbnego i odkryć ulubioną aktywność.',
+        benefits: [
+          'Radość z ruchu i rozwój sprawności ogólnej',
+          'Wspaniałe relacje z rówieśnikami',
+          '14 dni bezpłatnego próbnego dostępu'
+        ],
+        scheduleInfo: 'Elastyczny udział we wszystkich odpowiednich zajęciach.'
+      }
+    }
+  },
+  forsteTrening: {
+    badge: 'Przewodnik dla początkujących',
+    title: 'Twój pierwszy trening – czego się spodziewać?',
+    subtitle: 'To zupełnie naturalne, że przed pierwszym treningiem pojawia się lekki stres. Dbamy o to, aby od pierwszej chwili poczuć się u nas swobodnie.',
+    badgeArrival: '10–15 min wcześniej',
+    badgeClothing: 'Strój sportowy',
+    badgeFootwear: 'Ważna zasada',
+    step1Title: '1. Przyjście i powitanie',
+    step1Desc: 'Przyjdź około 10–15 minut przed rozpoczęciem zajęć. Trener powita Cię przy wejściu, wskaże szatnie i odpowie na wszystkie pytania.',
+    step1Highlight: 'Trondheimsvegen 71B w Dal • Bezpłatny parking tuż przed wejściem',
+    step2Title: '2. W co się ubrać?',
+    step2Desc: 'Wystarczy zwykły, czysty strój sportowy: koszulka oraz spodenki lub spodnie dresowe bez suwaków i twardych guzików. Weź ze sobą bidon z wodą.',
+    step2Highlight: 'Pamiętaj o wodzie – na pewno się przyda!',
+    step3Title: '3. Zasady dotyczące obuwia (Ważne)',
+    step3Desc: 'Ze względów higienicznych, bezpieczeństwa i dbałości o maty obowiązują u nas dwie proste reguły:',
+    step3FootwearBadge: 'Zasady dotyczące obuwia',
+    step3BarefootTitle: '🥋 BJJ, Muay Thai i Joga: Boso na macie',
+    step3BarefootDesc: 'Na matach kampsportu trenujemy wyłącznie boso. Warto zabrać klapki na przejście z szatni pod krawędź maty.',
+    step3ShoesTitle: '👟 Cross Training (CT): Wymagane czyste buty zmienne',
+    step3ShoesDesc: 'W sali do Cross Trainingu wymagane jest czyste obuwie halowe dla bezpieczeństwa i stabilności przy ciężarach. Obuwie zewnętrzne jest surowo wzbronione.',
+    step4Title: '4. Sprzęt klubowy i bezpieczeństwo',
+    step4Desc: 'Nie musisz kupować sprzętu na start! Klub bezpłatnie wypożycza rękawice bokserskie, ochraniacze i kimona (gi) przez cały okres próbny.',
+    step4Highlight: 'Doświadczenie nie jest wymagane – instruktorzy pomogą na każdym etapie',
+    actionCardTitle: 'Chcesz sprawdzić nasze treningi?',
+    actionCardDesc: 'Rozpocznij 14-dniowy darmowy okres próbny – bez żadnych zobowiązań.',
+    actionCardCta: 'Zacznij darmowy okres próbny'
+  },
+  stickyCta: {
+    text: '14 dni za darmo',
+    badge: 'Bez zobowiązań',
+    ariaLabel: 'Zapisz się na 14-dniowy darmowy okres próbny'
+  }
 };
