@@ -158,67 +158,57 @@ export function ProveukeModal({
       />
 
       {/* Dialog Card matching KontaktPage Client styling */}
-      <div className="relative w-full max-w-lg max-h-[92vh] overflow-y-auto bg-card text-card-foreground rounded-2xl border border-border shadow-2xl z-10 p-0">
+      <div className="relative w-full max-w-lg sm:max-w-xl max-h-[96vh] overflow-y-auto bg-card text-card-foreground rounded-2xl border border-border shadow-2xl z-10 p-0">
         
         {/* Close Button */}
         <button
           onClick={() => setOpen(false)}
-          className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 w-9 h-9 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors border border-border/40"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-8 h-8 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors border border-border/40"
           aria-label="Lukk dialog"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         {/* Header */}
-        <div className="p-5 sm:p-8 border-b border-border/40 bg-muted/20">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary block mb-1.5 sm:mb-2">
+        <div className="px-5 py-3.5 sm:px-6 sm:py-4 border-b border-border/40 bg-muted/20">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary block mb-0.5">
             Eidsvoll Kampsportklubb
           </span>
-          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground leading-tight mb-2 sm:mb-3">
+          <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground leading-tight">
             {t.proveuke.modalTitle}
           </h2>
-          <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
-            {t.proveuke.modalSubtitle}
-          </p>
         </div>
 
         {/* Content Body */}
-        <div className="p-5 sm:p-8">
+        <div className="p-4 sm:p-6">
           {status === "success" ? (
-            <div className="text-center py-6 space-y-4">
-              <div className="w-14 h-14 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto border border-primary/20">
-                <CheckCircle2 className="w-8 h-8" />
+            <div className="text-center py-4 space-y-3">
+              <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto border border-primary/20">
+                <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="text-2xl font-black uppercase tracking-tight text-foreground">{t.proveuke.successTitle}</h3>
-              <p className="text-muted-foreground text-base leading-relaxed max-w-sm mx-auto">
+              <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground">{t.proveuke.successTitle}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
                 {t.proveuke.successMessage}
               </p>
-              <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+              <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
                 <Link href="/timeplan" onClick={() => setOpen(false)}>
-                  <Button className="w-full sm:w-auto font-bold gap-2 rounded-lg">
+                  <Button className="w-full sm:w-auto font-bold gap-2 rounded-lg h-10 text-xs sm:text-sm">
                     <Calendar className="w-4 h-4" />
                     {t.nav.schedule}
                   </Button>
                 </Link>
-                <Button variant="outline" onClick={() => { setStatus("idle"); setOpen(false); }} className="w-full sm:w-auto rounded-lg">
+                <Button variant="outline" onClick={() => { setStatus("idle"); setOpen(false); }} className="w-full sm:w-auto rounded-lg h-10 text-xs sm:text-sm">
                   {t.proveuke.closeButton}
                 </Button>
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
               
               {/* Disciplines badge list */}
-              <div className="bg-muted/40 border border-border/60 rounded-xl p-3.5 sm:p-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground block mb-2">
-                  Inkludert i prøveperioden (2 uker / 14 dager):
-                </span>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 text-xs font-bold text-foreground">
-                  <span className="bg-background px-2.5 py-1 rounded-md border border-border/60">BJJ (Jiu-Jitsu)</span>
-                  <span className="bg-background px-2.5 py-1 rounded-md border border-border/60">Muay Thai</span>
-                  <span className="bg-background px-2.5 py-1 rounded-md border border-border/60">Crosstrening</span>
-                  <span className="bg-background px-2.5 py-1 rounded-md border border-border/60">Yoga</span>
-                </div>
+              <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] text-muted-foreground bg-muted/30 px-3 py-1.5 rounded-lg border border-border/50">
+                <span className="font-semibold text-foreground">2 ukers gratis prøveperiode</span>
+                <span className="text-muted-foreground/80">BJJ · Muay Thai · Crosstrening · Yoga</span>
               </div>
 
               {/* Anti-bot honeypot field (hidden from humans) */}
@@ -235,8 +225,8 @@ export function ProveukeModal({
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-                <div className="space-y-1.5 sm:space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2.5 sm:gap-y-3">
+                <div className="space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-name" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.nameLabel} *</label>
                   <input
                     id="modal-name"
@@ -245,10 +235,10 @@ export function ProveukeModal({
                     placeholder={t.proveuke.namePlaceholder}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-transparent text-base sm:text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
+                    className="w-full bg-transparent text-sm sm:text-base font-semibold outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
-                <div className="space-y-1.5 sm:space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                <div className="space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-email" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.emailLabel} *</label>
                   <input
                     id="modal-email"
@@ -257,13 +247,11 @@ export function ProveukeModal({
                     placeholder={t.proveuke.emailPlaceholder}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-transparent text-base sm:text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
+                    className="w-full bg-transparent text-sm sm:text-base font-semibold outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-                <div className="space-y-1.5 sm:space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                <div className="space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-phone" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">{t.proveuke.phoneLabel} *</label>
                   <input
                     id="modal-phone"
@@ -272,10 +260,10 @@ export function ProveukeModal({
                     placeholder={t.proveuke.phonePlaceholder}
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-transparent text-base sm:text-lg font-bold outline-none placeholder:text-muted-foreground/30 text-foreground"
+                    className="w-full bg-transparent text-sm sm:text-base font-semibold outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
-                <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                <div className="space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-category" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
                     {locale === "uk" ? "Вікова група *" : locale === "pl" ? "Grupa wiekowa *" : locale === "en" ? "Age group *" : "Aldersgruppe *"}
                   </label>
@@ -283,7 +271,7 @@ export function ProveukeModal({
                     id="modal-category"
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full bg-transparent text-base font-bold outline-none text-foreground cursor-pointer"
+                    className="w-full bg-transparent text-sm sm:text-base font-semibold outline-none text-foreground cursor-pointer"
                   >
                     <option value="Voksen / Ungdom (fra 14 år)">
                       {locale === "uk" ? "Дорослі / Підлітки (від 14 років)" : locale === "pl" ? "Dorośli / Młodzież (od 14 lat)" : locale === "en" ? "Adults / Youth (14+ yrs)" : "Voksen / Ungdom (fra 14 år)"}
@@ -296,11 +284,8 @@ export function ProveukeModal({
                     </option>
                   </select>
                 </div>
-              </div>
 
-              {/* Discipline and Start Date */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8">
-                <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                <div className="space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-discipline" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
                     {t.proveuke.disciplineLabel} *
                   </label>
@@ -308,7 +293,7 @@ export function ProveukeModal({
                     id="modal-discipline"
                     value={formData.discipline}
                     onChange={(e) => setFormData({ ...formData, discipline: e.target.value })}
-                    className="w-full bg-transparent text-base font-bold outline-none text-foreground cursor-pointer"
+                    className="w-full bg-transparent text-sm sm:text-base font-semibold outline-none text-foreground cursor-pointer"
                   >
                     {Boolean(formData.discipline && ![
                       "BJJ (Brasiliansk Jiu-Jitsu)",
@@ -341,14 +326,14 @@ export function ProveukeModal({
                   </select>
                 </div>
 
-                <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
+                <div className="space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
                   <div className="flex justify-between items-center">
                     <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
-                      {locale === "uk" ? "Бажана дата початку *" : locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Desired start date *" : "Ønsket Startdato *"}
+                      {locale === "uk" ? "Startdato *" : locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Start date *" : "Ønsket Startdato *"}
                     </label>
                     {calculatedEndDate && (
-                      <span className="text-[11px] font-semibold text-primary">
-                        {formatDateDisplay(formData.startDate)} – {formatDateDisplay(calculatedEndDate)}
+                      <span className="text-[10px] font-semibold text-primary">
+                        til {formatDateDisplay(calculatedEndDate)}
                       </span>
                     )}
                   </div>
@@ -359,42 +344,44 @@ export function ProveukeModal({
                     min={getTodayString()}
                     value={formData.startDate}
                     onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                    className="w-full bg-transparent text-lg font-bold outline-none text-foreground cursor-pointer"
+                    className="w-full bg-transparent text-sm sm:text-base font-semibold outline-none text-foreground cursor-pointer"
+                  />
+                </div>
+
+                <div className="sm:col-span-2 space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
+                  <label htmlFor="modal-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
+                    {locale === "uk" ? "Melding eller spørsmål (valgfritt)" : locale === "pl" ? "Wiadomość lub pytania (opcjonalnie)" : locale === "en" ? "Message or questions (optional)" : "Melding eller spørsmål (valgfritt)"}
+                  </label>
+                  <input
+                    id="modal-message"
+                    type="text"
+                    placeholder={locale === "uk" ? "Введіть повідомлення..." : locale === "pl" ? "Wpisz wiadomość..." : locale === "en" ? "Write a message here..." : "Skriv eventuell beskjed her..."}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="w-full bg-transparent text-sm font-medium outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2 border-b border-border/60 pb-2 focus-within:border-primary transition-colors">
-                <label htmlFor="modal-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
-                  {locale === "uk" ? "Повідомлення або запитання (необов’язково)" : locale === "pl" ? "Wiadomość lub pytania (opcjonalnie)" : locale === "en" ? "Message or questions (optional)" : "Melding eller spørsmål (Valgfritt)"}
-                </label>
-                <textarea
-                  id="modal-message"
-                  placeholder={locale === "uk" ? "Введіть повідомлення..." : locale === "pl" ? "Wpisz wiadomość..." : locale === "en" ? "Write a message here..." : "Skriv inn en melding her..."}
-                  rows={2}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-transparent text-base font-medium outline-none placeholder:text-muted-foreground/30 text-foreground resize-none"
-                />
-              </div>
-
               {status === "error" && (
-                <p className="text-xs text-destructive bg-destructive/10 p-3 rounded-lg border border-destructive/20">
+                <p className="text-xs text-destructive bg-destructive/10 p-2.5 rounded-lg border border-destructive/20">
                   {errorMessage || t.proveuke.errorMessage}
                 </p>
               )}
 
-              <Button
-                type="submit"
-                disabled={status === "loading"}
-                className="w-full font-bold py-4 text-xs sm:text-sm uppercase tracking-wider rounded-lg shadow-md transition-all whitespace-normal h-auto leading-snug px-4 text-center"
-              >
-                {status === "loading" ? t.proveuke.submitting : t.proveuke.submitButton}
-              </Button>
+              <div className="pt-2">
+                <Button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="w-full font-bold h-11 text-xs sm:text-sm uppercase tracking-wider rounded-lg shadow-md transition-all whitespace-normal leading-snug px-4 text-center"
+                >
+                  {status === "loading" ? t.proveuke.submitting : t.proveuke.submitButton}
+                </Button>
 
-              <p className="text-xs text-muted-foreground text-center">
-                {t.proveuke.card3Desc}
-              </p>
+                <p className="text-[11px] text-muted-foreground text-center mt-2">
+                  {t.proveuke.card3Desc}
+                </p>
+              </div>
             </form>
           )}
         </div>
