@@ -489,11 +489,6 @@ export function SportSelector({ id = "finn-kampsport" }: SportSelectorProps) {
                   <span className="px-3 py-1 rounded-full text-xs font-bold bg-muted text-foreground border border-border/70">
                     {recommendationData.category}
                   </span>
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-primary/10 text-primary border border-primary/20">
-                    {recommendationData.footwear === "rene_innesko"
-                      ? t.veiviser.footwearIndoor
-                      : t.veiviser.footwearBarefoot}
-                  </span>
                 </div>
               </div>
 

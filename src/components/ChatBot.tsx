@@ -94,12 +94,8 @@ Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan sta
     ],
     answer: `Til din første trening trenger du veldig lite:
 
-* **Klær:** Rent, vanlig treningstøy uten glidelåser eller harde knapper (f.eks. t-skjorte og shorts eller treningsbukse).
-* **Fottøy (Viktig skille!):**
-  - **BJJ, Muay Thai og Yoga:** Vi trener **barbent** på mattene av hensyn til hygiene og mattene.
-  - **Crosstrening (CT):** Du må ha med **rene innesko** – på CT er det ikke hensiktsmessig å trene barføtt! 👟
-* **Drikke:** Husk en god vannflaske!
-* **Kampsportutstyr:** Du trenger ikke egen drakt (gi) eller boksehansker til prøveperioden – klubben har låneutstyr tilgjengelig. 😊`,
+* **Treningstøy & drikke:** Vanlig, rent treningstøy (t-skjorte og shorts eller treningsbukse) og en vannflaske. For kampsport og yoga trener vi barbent på mattene, mens for Crosstrening tar du med rene innesko.
+* **Kampsportutstyr:** Du trenger ikke egen drakt (gi) eller boksehansker til prøveperioden – klubben har låneutstyr tilgjengelig helt gratis! 😊`,
     followUps: [
       "⏱️ Hvordan fungerer gratis prøveuke?",
       "🥋 Hva koster det å trene fast?",
