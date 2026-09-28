@@ -73,6 +73,19 @@ export function ChatBot() {
         .slice(-4)
         .map((m) => ({ role: m.role, content: m.content }));
 
+      // Hent eller opprett en unik sesjons-ID for brukerens nettleser
+      let sessionId = "";
+      try {
+        sessionId = localStorage.getItem("ekk_chat_session_id") || "";
+        if (!sessionId) {
+          sessionId = "sess_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+          localStorage.setItem("ekk_chat_session_id", sessionId);
+        }
+      } catch {
+        // Fallback for private browsing mode
+        sessionId = "temp_" + Date.now();
+      }
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: {
@@ -81,6 +94,7 @@ export function ChatBot() {
         body: JSON.stringify({
           message: text,
           history: historyContext,
+          sessionId,
         }),
       });
 

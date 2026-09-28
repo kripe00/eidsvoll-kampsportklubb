@@ -585,15 +585,44 @@ Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder fo
 - Lørdag: Treningsfri / egentrening / dugnader
 - Søndag: 12:00 - 14:00: Åpen matte (Hele bruket)
 
-### MEDLEMSKAP & TO SYSTEMER (VIKTIG!):
+### MEDLEMSKAP, PRISER & DE TO SYSTEMENE:
 For å trene fast etter prøveperioden må utøvere registrere seg i to systemer:
 1. Steg 1: Boost (Månedlig treningsavgift)
-   - Selve treningsabonnementet for å delta på treninger. Gir fri tilgang til alle timer.
+   - Selve treningsabonnementet for å delta på treninger.
    - Lenke: portal.boostsystem.no/rambukk/member
+   - Signeres med BankID (for AvtaleGiro). Foresatte må signere med BankID for barn og ungdom under 18 år.
 2. Steg 2: MinIdrett (Årlig medlemskontingent til NIF)
    - Årlig klubbmedlemskap i idrettslaget. Dekker utøverens skadeforsikring på matta og gir rett til å konkurrere i regi av forbundet.
    - Lenke: www.minidrett.no/medlemskap/988726
-*Viktig presisering:* Har du kun betalt i MinIdrett, har du formelt medlemskap og forsikring, men IKKE betalt for månedstreningen. Man må registrere seg i begge systemene for å trene fast.`;
+*Viktig presisering:* Har du kun betalt i MinIdrett, har du formelt medlemskap og forsikring, men IKKE betalt for månedstreningen. Man må registrere seg i begge systemene for å trene fast.
+
+### PRISLISTE (MÅNEDLIGE TRENINGSAVGIFTER I BOOST):
+1. Barn (6–13 år) – BJJ Kids & Thai Kids:
+   - Pris: kr 539,- per måned (6 mnd binding).
+   - Inkluderer fri tilgang til BÅDE BJJ og Muay Thai for barn.
+   - Signeres av foresatte med BankID (AvtaleGiro).
+   - Merk: Dersom barnet ikke har eget mobilnummer, kontakt klubben på kontakt@kampsporteidsvoll.no (eller kontakt@rambukken.no) for manuell registrering.
+2. Totalmedlemskap Ungdom (14–19 år):
+   - Gir fri tilgang til ALLE våre gruppetimer (BJJ, Muay Thai, Crosstrening, Yoga).
+   - 12 mnd binding: kr 649,- per måned.
+   - 6 mnd binding: kr 749,- per måned.
+   - Foresatte må ha BankID tilgjengelig for signering av AvtaleGiro for ungdom under 18 år.
+3. Totalmedlemskap Voksen (20+ år):
+   - Gir fri tilgang til ALLE våre gruppetimer (BJJ, Muay Thai, Crosstrening, Yoga).
+   - 12 mnd binding: kr 749,- per måned.
+   - 6 mnd binding: kr 849,- per måned.
+   - Ingen binding (løpende): kr 949,- per måned.
+   - Signeres med BankID for AvtaleGiro.
+4. Crosstrening / Yoga (14 års aldersgrense):
+   - Pris: kr 399,- per måned (6 mnd binding).
+   - Gir tilgang til både Crosstrening og Yoga.
+   - Signeres med BankID for AvtaleGiro ved innmelding.
+5. Familiepris Crosstrening / Yoga:
+   - Pris: kr 249,- per måned (med binding).
+   - Spesialpris for foreldre som har barn som trener hos oss (minimum ett barn må være aktivt medlem).
+6. Drop-in:
+   - Pris: kr 150,- (engangsbetaling, uten binding).
+   - Full tilgang samme dato som innmelding. Betales enkelt med Vipps ved oppmøte/innmelding.`;
 
 export const chatWithClubBot = onRequest(
   {
@@ -612,13 +641,20 @@ export const chatWithClubBot = onRequest(
       return;
     }
 
-    // 2. Klient-IP og Rate Limiting (Maks 10 meldinger per 30 min per IP)
+    // 2. Klient-IP og Sesjon for presis Rate Limiting (Maks 10 meldinger per 30 min per sesjon/IP)
     const clientIp =
       (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
       req.socket.remoteAddress ||
       "unknown-ip";
 
-    const rateCheck = checkRateLimit(clientIp, 10, 30 * 60 * 1000);
+    const sessionId =
+      typeof req.body?.sessionId === "string"
+        ? req.body.sessionId.trim().slice(0, 64)
+        : null;
+
+    const rateKey = sessionId ? `${clientIp}_${sessionId}` : clientIp;
+
+    const rateCheck = checkRateLimit(rateKey, 10, 30 * 60 * 1000);
     if (!rateCheck.allowed) {
       res.status(429).json({
         error: "Du har sendt for mange meldinger den siste halvtimen. Vennligst vent litt eller ta kontakt med oss på kontakt@kampsporteidsvoll.no dersom det haster!",
