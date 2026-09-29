@@ -62,7 +62,7 @@ export const pl: Translations = {
     successMessage: 'Otrzymaliśmy Twoje zgłoszenie i nie możemy się doczekać spotkania na macie! Wyślemy Ci e-mail ze wszystkimi szczegółami dotyczącymi pierwszych zajęć.',
     closeButton: 'Zamknij okno',
     errorMessage: 'Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie lub napisz do nas bezpośrednio na post@kampsporteidsvoll.no.',
-    parentsNote: '☕ Dla rodziców: Mamy przytulną strefę z kominkiem i oknami z widokiem na salę treningową. Możesz napić się kawy, zrelaksować i obserwować trening dziecka!',
+    parentsNote: '☕ Dla rodziców: Mamy przytulną strefę z kominkiem i oknem z widokiem na salę treningową. Możesz napić się kawy, zrelaksować i obserwować trening dziecka!',
   },
   news: {
     heading: 'Aktualności',
@@ -427,7 +427,7 @@ export const pl: Translations = {
     actionCardDesc: 'Rozpocznij 14-dniowy darmowy okres próbny – bez żadnych zobowiązań.',
     actionCardCta: 'Zacznij darmowy okres próbny',
     parentsLoungeTitle: 'Dla rodziców: Przytulny salonik z kominkiem i kawą',
-    parentsLoungeDesc: 'Dysponujemy własną przyjazną strefą z kominkiem oraz dużymi oknami wychodzącymi bezpośrednio na matę treningową. Rodzice są serdecznie zaproszeni, aby usiąść, napić się dobrej kawy i w spokoju obserwować radość i postępy swoich pociech.',
+    parentsLoungeDesc: 'Dysponujemy własną przyjazną strefą z kominkiem oraz dużym oknem wychodzącym bezpośrednio na matę treningową. Rodzice są serdecznie zaproszeni, aby usiąść, napić się dobrej kawy i w spokoju obserwować radość i postępy swoich pociech.',
   },
   stickyCta: {
     text: '14 dni za darmo',
@@ -485,7 +485,7 @@ Wszystkie stałe członkostwa dają pełny dostęp do grafiku. Pamiętaj, że za
     staticSchedule: `Trenujemy w nowych, przestronnych salach przy **Trondheimsvegen 71B w Dal**! 📍
 
 * **Wejście i parking:** Wejście do klubu oraz bezpłatny parking znajdują się **z tyłu budynku**.
-* **Sale i strefa dla rodziców:** Dwie duże sale z matami (Sala 1 i Sala 2), osobna sala do CT / Jogi oraz **przytulna strefa wypoczynkowa z kominkiem, darmową kawą i dużymi oknami na salę**, gdzie rodzice mogą obserwować trening dzieci!
+* **Sale i strefa dla rodziców:** Dwie duże sale z matami (Sala 1 i Sala 2), osobna sala do CT / Jogi oraz **przytulna strefa wypoczynkowa z kominkiem, darmową kawą i dużym oknem na salę**, gdzie rodzice mogą obserwować trening dzieci!
 * **Harmonogram:**
   - Treningi od poniedziałku do piątku od 17:30 (grupy dzieci 6–9, 10–13 lat, młodzież i dorośli).
   - Trening w ciągu dnia BJJ w piątki o 11:00.
@@ -494,7 +494,7 @@ Wszystkie stałe członkostwa dają pełny dostęp do grafiku. Pamiętaj, że za
 Kliknij przycisk poniżej, aby sprawdzić pełny tygodniowy grafik! 📅`,
     staticLounge: `Tak, jak najbardziej! Mamy wspaniałą i przytulną strefę z kominkiem dla rodziców! ☕🔥
 
-* **Widok wprost na maty:** Strefa posiada duże okna z bezpośrednim widokiem na salę treningową, w której ćwiczą dzieci.
+* **Widok wprost na maty:** Strefa posiada duże okno z bezpośrednim widokiem na salę treningową, w której ćwiczą dzieci.
 * **Darmowa kawa i relaks:** Możesz usiąść, napić się darmowej kawy, zrelaksować się i obserwować radość oraz postępy swojego dziecka.
 * **Serdecznie zapraszamy:** Rodzice są zawsze mile widziani i mogą bez problemu obserwować cały trening! 😊`,
   }

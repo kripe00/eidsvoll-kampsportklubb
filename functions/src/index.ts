@@ -174,7 +174,7 @@ export const sendContactEmail = onDocumentCreated(
         ? `Bekreftelse på 2 ukers gratis prøveperiode – Eidsvoll Kampsportklubb`
         : `Takk for din henvendelse – Eidsvoll Kampsportklubb`,
       text: isTrialWeek
-        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveperiode (2 uker / 14 dager) hos Eidsvoll Kampsportklubb.\n\nDin prøveperiode starter ${formattedStartDate} og varer til og med ${formattedEndDate} (14 dager).\n\nDu har fri tilgang til å prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nAdresse: Trondheimsvegen 71B, 2072 Dal (Inngang og gratis parkering på baksiden av bygget)\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
+        ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveperiode (2 uker / 14 dager) hos Eidsvoll Kampsportklubb.\n\nDin prøveperiode starter ${formattedStartDate} og varer til og med ${formattedEndDate} (14 dager).\n\nDu har fri tilgang til å prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nVIKTIG – BLI MED I SPOND:\nVi bruker appen Spond for å informere om økter, samt kommunisere med og mellom medlemmer. Vi ønsker at du blir med der og melder deg på øktene du ønsker å prøve. Legg samtidig inn en kommentar «på prøveuke» så instruktør kan se at de har med nye og ta godt imot deg.\n\nÅpne lenken for å melde deg inn: https://spond.com/invite/WJACA\n\nAdresse: Trondheimsvegen 71B, 2072 Dal (Inngang og gratis parkering på baksiden av bygget)\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
         : `Hei ${name}!\n\nTakk for at du tok kontakt med oss i Eidsvoll Kampsportklubb.\n\nVi har mottatt meldingen din og vil svare deg så fort som mulig.\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
@@ -220,6 +220,24 @@ export const sendContactEmail = onDocumentCreated(
                   <td style="padding: 6px 0; color: #0f172a; font-weight: 600;">Fri tilgang i 14 dager til BJJ, Muay Thai, Crosstrening og Yoga</td>
                 </tr>
               </table>
+            </div>
+
+            <!-- Spond Info Box -->
+            <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 20px; margin-bottom: 24px; border-left: 4px solid #16a34a;">
+              <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #166534;">
+                📲 Viktig: Bli med i Spond for økter og påmelding
+              </p>
+              <p style="margin: 0 0 12px 0; font-size: 14px; color: #14532d; line-height: 1.6;">
+                Vi bruker appen <strong>Spond</strong> for å informere om økter, samt kommunisere med og mellom medlemmer. Vi ønsker at du blir med der og melder deg på øktene du ønsker å prøve. Legg samtidig inn en kommentar <strong>«på prøveuke»</strong> så instruktør kan se at de har med nye og ta godt imot deg.
+              </p>
+              <div style="margin: 16px 0 12px 0;">
+                <a href="https://spond.com/invite/WJACA" style="display: inline-block; background-color: #16a34a; color: #ffffff; font-weight: 700; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em;">
+                  Åpne lenken for å melde deg inn i Spond &rarr;
+                </a>
+              </div>
+              <p style="margin: 0; font-size: 12px; color: #15803d;">
+                Direktelenke: <a href="https://spond.com/invite/WJACA" style="color: #15803d; text-decoration: underline;">https://spond.com/invite/WJACA</a>
+              </p>
             </div>
 
             <div style="background-color: #eff6ff; border: 1px solid #dbeafe; border-radius: 12px; padding: 16px 20px; margin-bottom: 24px;">
@@ -514,7 +532,7 @@ Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder fo
 5. Sikkerhetsgrense: Hvis brukeren spør om ting utenfor kampsport og klubbens tilbud (f.eks. oppskrifter, programmering, politikk, leksehjelp eller generelle samtaleemner), svarer du høflig:
    "Jeg er Eidsvoll Kampsportklubbs assistent og kan bare hjelpe med spørsmål om klubben, treningene og medlemskap hos oss! 👋"
 6. Hvis noen har spørsmål du ikke vet svaret på, oppfordre dem til å sende en e-post til kontakt@kampsporteidsvoll.no eller ringe 976 10 229.
-7. Spørsmål om foreldre, tilskuere, venterom, kaffe eller peisestue: Svar ALLTID med glede og entusiasme at foreldre er hjertelig velkomne! Fortell at klubben har en koselig peisestue med store panoramavinduer med direkte innsyn til treningssalen der barna trener, og at vi byr på gratis kaffe så de kan sitte behagelig og følge med på barnets mestring og treningsglede.
+7. Spørsmål om foreldre, tilskuere, venterom, kaffe eller peisestue: Svar ALLTID med glede og entusiasme at foreldre er hjertelig velkomne! Fortell at klubben har en koselig peisestue med et stort vindu med direkte innsyn til treningssalen der barna trener, og at vi byr på gratis kaffe så de kan sitte behagelig og følge med på barnets mestring og treningsglede.
 
 ### KLUBBENS FAKTA & IDENTITET:
 - Navn: Eidsvoll Kampsportklubb (EKK)
@@ -522,7 +540,7 @@ Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder fo
 - Lokasjon & Adresse: Trondheimsvegen 71B, 2072 Dal.
   (Lokalene har to store kampsportsaler med faste matter – Sal 1 og Sal 2 – samt en egen CT/Yoga-sal).
 - Inngang & Parkering: Både inngangen til klubben og gratis parkering er på **baksiden av bygget**. Du må ALLTID minne folk på at inngang og parkering er på baksiden når noen spør om adresse, lokasjon, veibeskrivelse, parkering, inngang eller oppmøte!
-- Peisestue & Foreldretilbud: Klubben har en koselig peisestue med store vinduer direkte inn til salen der barna trener. Her kan foreldre og foresatte sitte behagelig, nyte en kopp gratis kaffe og følge med på barnas trening og mestring i trygge omgivelser. Hvis noen spør om foreldre kan se på, eller om det finnes venterom/kaffe, svarer du stolt og hyggelig om peisestuen vår!
+- Peisestue & Foreldretilbud: Klubben har en koselig peisestue med et stort vindu direkte inn til salen der barna trener. Her kan foreldre og foresatte sitte behagelig, nyte en kopp gratis kaffe og følge med på barnas trening og mestring i trygge omgivelser. Hvis noen spør om foreldre kan se på, eller om det finnes venterom/kaffe, svarer du stolt og hyggelig om peisestuen vår!
 - Tilknytning: Ideelt idrettslag tilknyttet Norges Idrettsforbund (NIF) og Norges Kampsportforbund (NKF).
 - Kontakt: E-post: kontakt@kampsporteidsvoll.no | Telefon: 976 10 229 | Org.nr: 932716461.
 
@@ -551,6 +569,7 @@ Din oppgave er å være en imøtekommende, vennlig, sporty og ryddig veileder fo
 - Alle nye får 14 dagers helt gratis og uforpliktende prøveperiode!
 - Prøveperioden gir fri tilgang til å prøve alle klubbens tilbud (BJJ, Muay Thai, Crosstrening og Yoga) i to uker.
 - Påmelding: Trykk på "Prøv gratis"-knappen på nettsiden eller fyll ut prøveuke-skjemaet.
+- Spond for prøveuke: Klubben bruker appen Spond for å informere om økter og kommunisere med medlemmer. Alle som melder seg på prøveuke skal bli med i Spond via lenken https://spond.com/invite/WJACA , melde seg på øktene de ønsker å prøve, og legge inn en kommentar «på prøveuke» slik at instruktørene ser at de har med nye og tar godt imot dem!
 
 ### FØRSTE TRENING – HVA TRENGER MAN?
 - Inngang & Parkering: Husk at både inngangen og gratis parkering er på **baksiden av bygget** i Trondheimsvegen 71B på Dal. Møt gjerne opp 10–15 minutter før timen starter.

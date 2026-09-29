@@ -427,7 +427,7 @@ export const no: Translations = {
     actionCardDesc: 'Start med 14 dagers gratis prøveuke – helt uforpliktende og fri tilgang til alle partier.',
     actionCardCta: 'Start din gratis prøveuke',
     parentsLoungeTitle: 'For foreldre: Koselig peisestue & kaffe',
-    parentsLoungeDesc: 'Vi har en egen trivelig peisestue med store vinduer inn til treningssalen. Her er foreldre og foresatte hjertelig velkomne til å sitte ned, ta seg en kopp kaffe og følge med på barnas mestring og treningsglede.',
+    parentsLoungeDesc: 'Vi har en egen trivelig peisestue med et stort vindu inn til treningssalen. Her er foreldre og foresatte hjertelig velkomne til å sitte ned, ta seg en kopp kaffe og følge med på barnas mestring og treningsglede.',
   },
   stickyCta: {
     text: 'Prøv gratis i 14 dager',
@@ -494,7 +494,7 @@ Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan sta
 Trykk på knappen under for å se hele ukesoversikten! 📅`,
     staticLounge: `Ja, absolutt! Vi har en kjempehyggelig peisestue for foreldre og foresatte! ☕🔥
 
-* **Utsikt rett inn til salen:** Peisestuen har store vinduer med direkte innsyn til treningssalen der barna trener.
+* **Utsikt rett inn til salen:** Peisestuen har et stort vindu med direkte innsyn til treningssalen der barna trener.
 * **Gratis kaffe & hygge:** Her kan du sette deg godt til rette, nyte en kopp gratis kaffe, slappe av og følge med på barnets mestring og treningsglede i trygge rammer.
 * **Alltid velkommen:** Foreldre er hjertelig velkomne til å være med inn og se på under hele økta! 😊`,
   }
