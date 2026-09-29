@@ -670,7 +670,7 @@ export const chatWithClubBot = onRequest(
     }
 
     // 3. Valider input
-    const { message, history } = req.body || {};
+    const { message, history, locale } = req.body || {};
     if (!message || typeof message !== "string" || message.trim() === "") {
       res.status(400).json({ error: "Melding kan ikke være tom." });
       return;
@@ -709,10 +709,21 @@ export const chatWithClubBot = onRequest(
     try {
       const openai = new OpenAI({ apiKey });
 
+      let languageDirective = "";
+      if (locale === "en") {
+        languageDirective = "\nIMPORTANT: The user has selected English. You MUST reply in clear, friendly, and natural English.";
+      } else if (locale === "pl") {
+        languageDirective = "\nIMPORTANT: The user has selected Polish. You MUST reply in clear, friendly, and natural Polish (Polski).";
+      } else if (locale === "uk") {
+        languageDirective = "\nIMPORTANT: The user has selected Ukrainian. You MUST reply in clear, friendly, and natural Ukrainian (Українська).";
+      } else {
+        languageDirective = "\nBrukeren har valgt norsk. Svar på naturlig, imøtekommende og godt norsk.";
+      }
+
       const completion = await openai.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
-          { role: "system", content: CLUB_SYSTEM_PROMPT },
+          { role: "system", content: CLUB_SYSTEM_PROMPT + languageDirective },
           ...sanitizedHistory,
           { role: "user", content: trimmedMessage },
         ],

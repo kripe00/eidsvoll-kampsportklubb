@@ -430,5 +430,63 @@ export const en: Translations = {
     text: 'Try 14 days for free',
     badge: 'No commitment',
     ariaLabel: 'Sign up for 14-day free trial week'
+  },
+  chat: {
+    teaserTitle: 'EKK Assistant',
+    teaserSubtitle: 'Hi! Have questions about training, prices, or our free trial? 👋',
+    teaserCta: 'Click to chat →',
+    floatingBadge: 'Ask the club assistant!',
+    floatingAria: 'Open chat with Eidsvoll Kampsportklubb',
+    headerTitle: 'EKK Assistant',
+    statusOnline: 'Replies instantly · Online',
+    resetConversation: 'Reset conversation',
+    closeChat: 'Close chat',
+    welcomeMessage: 'Hi! 👋 I am Eidsvoll Kampsportklubb\'s digital assistant. How can I help you? Feel free to ask about our schedule, membership prices, gear, or our 14-day free trial!',
+    nextSteps: 'Next steps:',
+    commonQuestions: 'Common questions:',
+    promptPricing: '🥋 How much does it cost?',
+    promptTrial: '⏱️ How does the free trial work?',
+    promptGear: '🥊 What do I need for my first class?',
+    promptSchedule: '📍 Where and when do you train?',
+    inputPlaceholder: 'Ask a question about the club...',
+    sendAria: 'Send message',
+    charLimitError: 'The message cannot exceed 500 characters.',
+    connectionError: 'Something went wrong while sending. Please try again shortly.',
+    defaultError: 'Sorry, I could not generate an answer right now.',
+    instantReply: 'Replies instantly',
+    actionTrial: '🎯 Sign up for free trial (14 days)',
+    actionBoost: '🥋 Join via Boost Member Portal',
+    actionSchedule: '📅 View schedule & class times',
+    actionEmail: '✉️ Send email to the club',
+    staticPricing: `We offer full training flexibility! Here are our monthly membership fees in Boost:
+
+* **Kids (ages 6–13) – BJJ Kids & Thai Kids:** NOK 539,- per month (6-month commitment). Includes free access to both BJJ and Muay Thai!
+* **Youth (ages 14–19) – Full Membership:** NOK 649,-/mo (12-month commitment) or NOK 749,-/mo (6-month commitment).
+* **Adult (ages 20+) – Full Membership:** NOK 749,-/mo (12-month commitment), NOK 849,-/mo (6-month commitment), or NOK 949,-/mo (no commitment).
+* **Cross Training / Yoga (from age 14):** NOK 399,- per month (6-month commitment).
+* **Family Rate (CT/Yoga):** NOK 249,- per month for parents of active youth members.
+* **Drop-in:** NOK 150,- (Vipps upon arrival, no commitment).
+
+All memberships provide full access to scheduled classes. Remember, you can always begin with a 14-day completely free trial! 😊`,
+    staticTrial: `We welcome all newcomers with a **14-day completely free and non-binding trial period**! 🥋
+
+* **Full Access:** Participate in all disciplines (BJJ, Muay Thai, Cross Training, and Yoga) for two full weeks.
+* **No Commitments:** You decide whether to join after your trial period ends.
+* **Easy Sign-up:** Click the button below to register, and we look forward to meeting you on the mats! 👋`,
+    staticGear: `You need very little for your first session:
+
+* **Workout Clothes & Water:** Standard clean sportswear (t-shirt and shorts or track pants) and a water bottle. We train barefoot on the mats for martial arts and yoga, and wear clean indoor gym shoes for Cross Training.
+* **Gear & Equipment:** You do not need your own gi or boxing gloves for your trial – the club provides loaner gear completely free of charge!
+* **Arrival & Entrance:** Please arrive 10–15 minutes early. Note that both our entrance and free parking are located at the **back of the building** (Trondheimsvegen 71B at Dal). 😊`,
+    staticSchedule: `We train in brand new facilities at **Trondheimsvegen 71B at Dal**! 📍
+
+* **Entrance & Parking:** Both the club entrance and free parking are at the **back of the building**.
+* **Rooms:** Two dedicated martial arts mat rooms (Room 1 and Room 2) plus a separate Cross Training / Yoga studio.
+* **Schedule Highlights:**
+  - Classes Monday to Friday from 17:30 (dedicated classes for kids 6–9, kids 10–13, teens, and adults).
+  - Daytime BJJ on Fridays at 11:00.
+  - Open mat for all members on Sundays from 12:00 to 14:00.
+
+Click the button below to view the full weekly timetable! 📅`,
   }
 };

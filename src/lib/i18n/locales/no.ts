@@ -430,5 +430,63 @@ export const no: Translations = {
     text: 'Prøv gratis i 14 dager',
     badge: 'Uforpliktende',
     ariaLabel: 'Meld deg på 14 dagers gratis prøveuke'
+  },
+  chat: {
+    teaserTitle: 'EKK Assistent',
+    teaserSubtitle: 'Hei! Har du spørsmål om trening, priser eller prøveuke? 👋',
+    teaserCta: 'Trykk for å chatte →',
+    floatingBadge: 'Spør klubb-assistenten!',
+    floatingAria: 'Åpne chat med Eidsvoll Kampsportklubb',
+    headerTitle: 'EKK Assistent',
+    statusOnline: 'Svarer umiddelbart · Pålogget',
+    resetConversation: 'Nullstill samtale',
+    closeChat: 'Lukk chat',
+    welcomeMessage: 'Hei! 👋 Jeg er Eidsvoll Kampsportklubbs digitale assistent. Hva kan jeg hjelpe deg med? Spør meg gjerne om timeplan, priser, utstyr eller vår 14-dagers gratis prøveperiode!',
+    nextSteps: 'Neste steg:',
+    commonQuestions: 'Vanlige spørsmål:',
+    promptPricing: '🥋 Hva koster det å trene?',
+    promptTrial: '⏱️ Hvordan fungerer gratis prøveuke?',
+    promptGear: '🥊 Hva trenger jeg til 1. trening?',
+    promptSchedule: '📍 Hvor og når trener dere?',
+    inputPlaceholder: 'Still et spørsmål om klubben...',
+    sendAria: 'Send melding',
+    charLimitError: 'Meldingen kan ikke være lenger enn 500 tegn.',
+    connectionError: 'Noe gikk galt under sending. Prøv igjen om et øyeblikk.',
+    defaultError: 'Beklager, jeg kunne ikke svare akkurat nå.',
+    instantReply: 'Svarer umiddelbart',
+    actionTrial: '🎯 Meld deg på gratis prøveuke (14 dager)',
+    actionBoost: '🥋 Bli medlem i Boost',
+    actionSchedule: '📅 Se timeplan & treningstider',
+    actionEmail: '✉️ Send e-post til klubben',
+    staticPricing: `Hos oss trener du med full fleksibilitet! Her er våre månedlige treningsavgifter i Boost:
+
+* **Barn (6–13 år) – BJJ Kids & Thai Kids:** kr 539,- per måned (6 mnd binding). Gir fri tilgang til både BJJ og Muay Thai!
+* **Ungdom (14–19 år) – Totalmedlemskap:** kr 649,-/mnd (12 mnd binding) eller kr 749,-/mnd (6 mnd binding).
+* **Voksen (20+ år) – Totalmedlemskap:** kr 749,-/mnd (12 mnd binding), kr 849,-/mnd (6 mnd binding) eller kr 949,-/mnd (uten binding).
+* **Crosstrening / Yoga (fra 14 år):** kr 399,- per måned (6 mnd binding).
+* **Familiepris (CT/Yoga):** kr 249,- per måned for foreldre med barn som trener i klubben.
+* **Drop-in:** kr 150,- (Vipps ved oppmøte, ingen binding).
+
+Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan starte med 2 ukers helt gratis prøveperiode! 😊`,
+    staticTrial: `Vi ønsker alle nye velkommen med en **14-dagers helt gratis og uforpliktende prøveperiode**! 🥋
+
+* **Fri tilgang:** Du kan delta på alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i to fulle uker.
+* **Ingen forpliktelser:** Du bestemmer selv om du vil melde deg inn etter at prøveperioden er over.
+* **Enkel påmelding:** Trykk på knappen under for å registrere deg, så tar vi imot deg på din første økt! 👋`,
+    staticGear: `Til din første trening trenger du veldig lite:
+
+* **Treningstøy & drikke:** Vanlig, rent treningstøy (t-skjorte og shorts eller treningsbukse) og en vannflaske. For kampsport og yoga trener vi barbent på mattene, mens for Crosstrening tar du med rene innesko.
+* **Kampsportutstyr:** Du trenger ikke egen drakt (gi) eller boksehansker til prøveperioden – klubben har låneutstyr tilgjengelig helt gratis!
+* **Oppmøte & Inngang:** Møt gjerne opp 10–15 minutter før timen starter. Husk at både inngang og gratis parkering er på **baksiden av bygget** (Trondheimsvegen 71B på Dal). 😊`,
+    staticSchedule: `Vi holder til i splitter nye, nyoppussede lokaler i **Trondheimsvegen 71B på Dal**! 📍
+
+* **Inngang & Parkering:** Både inngangen til klubben og gratis parkering finner du på **baksiden av bygget**.
+* **Saler:** To store kampsportsaler med faste matter (Sal 1 og Sal 2) samt en egen CT/Yoga-sal.
+* **Treningstider:**
+  - Treninger mandag til fredag fra kl. 17:30 (egne partier for barn 6–9 år og 10–13 år, ungdom og voksne).
+  - Dagtrening BJJ fredager kl. 11:00.
+  - Åpen matte for alle medlemmer på søndager kl. 12:00–14:00.
+
+Trykk på knappen under for å se hele ukesoversikten! 📅`,
   }
 };

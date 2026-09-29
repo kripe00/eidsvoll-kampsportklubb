@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import { ProveukeModal } from "./ProveukeModal";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface ChatMessage {
   id: string;
@@ -32,119 +33,132 @@ interface StaticFaqItem {
   followUps: string[];
 }
 
-const STATIC_FAQS: StaticFaqItem[] = [
-  {
-    id: "pricing",
-    triggerPhrases: [
-      "hva koster det å trene",
-      "hva koster det",
-      "hva er prisene",
-      "priser",
-      "hva koster medlemskap",
-      "månedspris",
-      "kontingent",
-    ],
-    answer: `Hos oss trener du med full fleksibilitet! Her er våre månedlige treningsavgifter i Boost:
+function getStaticFaqs(chatT: any): StaticFaqItem[] {
+  return [
+    {
+      id: "pricing",
+      triggerPhrases: [
+        "hva koster det å trene",
+        "hva koster det",
+        "hva er prisene",
+        "priser",
+        "hva koster medlemskap",
+        "månedspris",
+        "kontingent",
+        "how much does it cost",
+        "pricing",
+        "membership prices",
+        "ile kosztuje",
+        "cennik",
+        "ceny",
+        "скільки коштує",
+        "вартість",
+        "ціни",
+      ],
+      answer: chatT.staticPricing,
+      followUps: [chatT.promptTrial, chatT.promptGear],
+    },
+    {
+      id: "trial",
+      triggerPhrases: [
+        "hvordan fungerer gratis prøveuke",
+        "gratis prøveuke",
+        "prøveuke",
+        "prøvetime",
+        "kan jeg prøve gratis",
+        "prøveperiode",
+        "teste en trening",
+        "free trial",
+        "trial week",
+        "try for free",
+        "jak działa darmowy okres próbny",
+        "okres próbny",
+        "trening próbny",
+        "як працює безкоштовний пробний період",
+        "пробний період",
+        "пробне тренування",
+      ],
+      answer: chatT.staticTrial,
+      followUps: [chatT.promptGear, chatT.promptSchedule],
+    },
+    {
+      id: "gear",
+      triggerPhrases: [
+        "hva trenger jeg til 1. trening",
+        "hva trenger jeg",
+        "utstyr",
+        "hva slags utstyr",
+        "må jeg ha sko",
+        "sko",
+        "klær",
+        "hva må jeg ha med",
+        "what do i need",
+        "equipment",
+        "gear",
+        "shoes",
+        "czego potrzebuję",
+        "sprzęt",
+        "buty",
+        "що потрібно",
+        "екіпірування",
+        "спорядження",
+        "взуття",
+      ],
+      answer: chatT.staticGear,
+      followUps: [chatT.promptTrial, chatT.promptPricing],
+    },
+    {
+      id: "schedule",
+      triggerPhrases: [
+        "hvor og når trener dere",
+        "når trener dere",
+        "hvor trener dere",
+        "adresse",
+        "lokasjon",
+        "treningstider",
+        "hvor holder dere til",
+        "timeplan",
+        "parkering",
+        "parkere",
+        "hvor kan jeg parkere",
+        "inngang",
+        "hvor er inngangen",
+        "finne fram",
+        "veibeskrivelse",
+        "where and when do you train",
+        "schedule",
+        "timetable",
+        "opening hours",
+        "address",
+        "parking",
+        "entrance",
+        "gdzie i kiedy trenujecie",
+        "grafik",
+        "godziny zajęć",
+        "adres",
+        "parking",
+        "wejście",
+        "де і коли ви тренуєтесь",
+        "розклад",
+        "графік",
+        "адреса",
+        "парковка",
+        "вхід",
+      ],
+      answer: chatT.staticSchedule,
+      followUps: [chatT.promptTrial, chatT.promptGear],
+    },
+  ];
+}
 
-* **Barn (6–13 år) – BJJ Kids & Thai Kids:** kr 539,- per måned (6 mnd binding). Gir fri tilgang til både BJJ og Muay Thai!
-* **Ungdom (14–19 år) – Totalmedlemskap:** kr 649,-/mnd (12 mnd binding) eller kr 749,-/mnd (6 mnd binding).
-* **Voksen (20+ år) – Totalmedlemskap:** kr 749,-/mnd (12 mnd binding), kr 849,-/mnd (6 mnd binding) eller kr 949,-/mnd (uten binding).
-* **Crosstrening / Yoga (fra 14 år):** kr 399,- per måned (6 mnd binding).
-* **Familiepris (CT/Yoga):** kr 249,- per måned for foreldre med barn som trener i klubben.
-* **Drop-in:** kr 150,- (Vipps ved oppmøte, ingen binding).
-
-Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan starte med 2 ukers helt gratis prøveperiode! 😊`,
-    followUps: [
-      "⏱️ Hvordan fungerer gratis prøveuke?",
-      "👟 Hva trenger jeg av utstyr og sko?",
-    ],
-  },
-  {
-    id: "trial",
-    triggerPhrases: [
-      "hvordan fungerer gratis prøveuke",
-      "gratis prøveuke",
-      "prøveuke",
-      "prøvetime",
-      "kan jeg prøve gratis",
-      "prøveperiode",
-      "teste en trening",
-    ],
-    answer: `Vi ønsker alle nye velkommen med en **14-dagers helt gratis og uforpliktende prøveperiode**! 🥋
-
-* **Fri tilgang:** Du kan delta på alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i to fulle uker.
-* **Ingen forpliktelser:** Du bestemmer selv om du vil melde deg inn etter at prøveperioden er over.
-* **Enkel påmelding:** Trykk på knappen under for å registrere deg, så tar vi imot deg på din første økt! 👋`,
-    followUps: [
-      "👟 Hva trenger jeg til 1. trening?",
-      "📍 Hvor og når trener dere?",
-    ],
-  },
-  {
-    id: "gear",
-    triggerPhrases: [
-      "hva trenger jeg til 1. trening",
-      "hva trenger jeg",
-      "utstyr",
-      "hva slags utstyr",
-      "må jeg ha sko",
-      "sko",
-      "klær",
-      "hva må jeg ha med",
-    ],
-    answer: `Til din første trening trenger du veldig lite:
-
-* **Treningstøy & drikke:** Vanlig, rent treningstøy (t-skjorte og shorts eller treningsbukse) og en vannflaske. For kampsport og yoga trener vi barbent på mattene, mens for Crosstrening tar du med rene innesko.
-* **Kampsportutstyr:** Du trenger ikke egen drakt (gi) eller boksehansker til prøveperioden – klubben har låneutstyr tilgjengelig helt gratis!
-* **Oppmøte & Inngang:** Møt gjerne opp 10–15 minutter før timen starter. Husk at både inngang og gratis parkering er på **baksiden av bygget** (Trondheimsvegen 71B på Dal). 😊`,
-    followUps: [
-      "⏱️ Hvordan fungerer gratis prøveuke?",
-      "🥋 Hva koster det å trene fast?",
-    ],
-  },
-  {
-    id: "schedule",
-    triggerPhrases: [
-      "hvor og når trener dere",
-      "når trener dere",
-      "hvor trener dere",
-      "adresse",
-      "lokasjon",
-      "treningstider",
-      "hvor holder dere til",
-      "timeplan",
-      "parkering",
-      "parkere",
-      "hvor kan jeg parkere",
-      "inngang",
-      "hvor er inngangen",
-      "finne fram",
-      "veibeskrivelse",
-    ],
-    answer: `Vi holder til i splitter nye, nyoppussede lokaler i **Trondheimsvegen 71B på Dal**! 📍
-
-* **Inngang & Parkering:** Både inngangen til klubben og gratis parkering finner du på **baksiden av bygget**.
-* **Saler:** To store kampsportsaler med faste matter (Sal 1 og Sal 2) samt en egen CT/Yoga-sal.
-* **Treningstider:**
-  - Treninger mandag til fredag fra kl. 17:30 (egne partier for barn 6–9 år og 10–13 år, ungdom og voksne).
-  - Dagtrening BJJ fredager kl. 11:00.
-  - Åpen matte for alle medlemmer på søndager kl. 12:00–14:00.
-
-Trykk på knappen under for å se hele ukesoversikten! 📅`,
-    followUps: [
-      "⏱️ Hvordan fungerer gratis prøveuke?",
-      "👟 Hva trenger jeg til 1. trening?",
-    ],
-  },
-];
-
-function findStaticFaq(query: string): StaticFaqItem | null {
+function findStaticFaq(query: string, chatT: any): StaticFaqItem | null {
   const normalized = query
     .toLowerCase()
     .replace(/[🥋⏱️🥊📍👟📅❓?.!,]/g, "")
     .trim();
 
-  for (const faq of STATIC_FAQS) {
+  const faqs = getStaticFaqs(chatT);
+  for (const faq of faqs) {
     if (faq.triggerPhrases.some((phrase) => normalized.includes(phrase))) {
       return faq;
     }
@@ -152,21 +166,25 @@ function findStaticFaq(query: string): StaticFaqItem | null {
   return null;
 }
 
-const QUICK_PROMPTS = [
-  "🥋 Hva koster det å trene?",
-  "⏱️ Hvordan fungerer gratis prøveuke?",
-  "🥊 Hva trenger jeg til 1. trening?",
-  "📍 Hvor og når trener dere?",
-];
-
 /**
  * Reusable action cards rendered dynamically based on response keywords.
  */
-function MessageActionCards({ content }: { content: string }) {
-  const isTrial = /prøveuke|prøveperiode|prøvetrening|prøv gratis|gratis prøve/i.test(content);
-  const isBoost = /boost|innmelding|bli medlem|treningsavgift|kr \d+/i.test(content);
-  const isSchedule = /timeplan|treningstider|mandag|tirsdag|onsdag|torsdag|fredag|sal 1|sal 2/i.test(content);
-  const isContact = /kontakt@|976 10 229|kontakt oss/i.test(content);
+function MessageActionCards({
+  content,
+  t,
+}: {
+  content: string;
+  t: {
+    actionTrial: string;
+    actionBoost: string;
+    actionSchedule: string;
+    actionEmail: string;
+  };
+}) {
+  const isTrial = /prøveuke|prøveperiode|prøvetrening|prøv gratis|gratis prøve|trial|free trial|okres próbny|darmowy|пробн|безкоштовн/i.test(content);
+  const isBoost = /boost|innmelding|bli medlem|treningsavgift|kr \d+|membership|join|członkostw|karnet|абонемент|вступ/i.test(content);
+  const isSchedule = /timeplan|treningstider|mandag|tirsdag|onsdag|torsdag|fredag|sal 1|sal 2|schedule|timetable|grafik|rozpisk|розклад|графік/i.test(content);
+  const isContact = /kontakt@|976 10 229|kontakt oss|contact|kontakt|контакт/i.test(content);
 
   if (!isTrial && !isBoost && !isSchedule && !isContact) {
     return null;
@@ -182,7 +200,7 @@ function MessageActionCards({ content }: { content: string }) {
               spring={true}
               className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-blue-600 to-primary text-white shadow-md hover:opacity-95 transition-all text-left group"
             >
-              <span>🎯 Meld deg på gratis prøveuke (14 dager)</span>
+              <span>{t.actionTrial}</span>
               <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform" />
             </Button>
           }
@@ -201,7 +219,7 @@ function MessageActionCards({ content }: { content: string }) {
             spring={true}
             className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-md transition-all text-left group"
           >
-            <span>🥋 Bli medlem i Boost</span>
+            <span>{t.actionBoost}</span>
             <ArrowUpRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Button>
         </a>
@@ -215,7 +233,7 @@ function MessageActionCards({ content }: { content: string }) {
             spring={true}
             className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl border-primary/40 hover:bg-primary/10 text-foreground transition-all text-left group"
           >
-            <span>📅 Se timeplan & treningstider</span>
+            <span>{t.actionSchedule}</span>
             <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform" />
           </Button>
         </Link>
@@ -229,7 +247,7 @@ function MessageActionCards({ content }: { content: string }) {
             spring={true}
             className="w-full flex items-center justify-between px-3.5 py-2 text-xs font-semibold rounded-xl border-border/70 hover:bg-muted/60 text-muted-foreground hover:text-foreground transition-all text-left"
           >
-            <span>✉️ Send e-post til klubben</span>
+            <span>{t.actionEmail}</span>
             <ArrowUpRight className="w-3 h-3 shrink-0" />
           </Button>
         </a>
@@ -239,17 +257,35 @@ function MessageActionCards({ content }: { content: string }) {
 }
 
 export function ChatBot() {
+  const { locale, t } = useLanguage();
+  const chatT = t.chat;
+
   const [isOpen, setIsOpen] = useState(false);
   const [showTeaser, setShowTeaser] = useState(false);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>([
+  const [messages, setMessages] = useState<ChatMessage[]>(() => [
     {
       id: "welcome-1",
       role: "assistant",
-      content:
-        "Hei! 👋 Jeg er Eidsvoll Kampsportklubbs digitale assistent. Hva kan jeg hjelpe deg med? Spør meg gjerne om timeplan, priser, utstyr eller vår 14-dagers gratis prøveperiode!",
+      content: chatT?.welcomeMessage || "Hei! 👋 Jeg er Eidsvoll Kampsportklubbs digitale assistent. Hva kan jeg hjelpe deg med? Spør meg gjerne om timeplan, priser, utstyr eller vår 14-dagers gratis prøveperiode!",
     },
   ]);
+
+  // Oppdater velkomstmelding dersom brukeren skifter språk og samtalen ikke er påbegynt
+  useEffect(() => {
+    setMessages((prev) => {
+      if (prev.length === 1 && prev[0].id === "welcome-1") {
+        return [
+          {
+            id: "welcome-1",
+            role: "assistant",
+            content: chatT.welcomeMessage,
+          },
+        ];
+      }
+      return prev;
+    });
+  }, [locale, chatT.welcomeMessage]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [hasUnread, setHasUnread] = useState(false);
@@ -311,7 +347,7 @@ export function ChatBot() {
     if (!text || isLoading) return;
 
     if (text.length > 500) {
-      setErrorMessage("Meldingen kan ikke være lenger enn 500 tegn.");
+      setErrorMessage(chatT.charLimitError);
       return;
     }
 
@@ -329,7 +365,7 @@ export function ChatBot() {
     setIsLoading(true);
 
     // 1. Sjekk 0-token lokal FAQ cache først for lynraskt svar (0 tokens brukt!)
-    const staticMatch = findStaticFaq(text);
+    const staticMatch = findStaticFaq(text, chatT);
     if (staticMatch) {
       setTimeout(() => {
         const assistantMessage: ChatMessage = {
@@ -371,22 +407,23 @@ export function ChatBot() {
           message: text,
           history: historyContext,
           sessionId,
+          locale,
         }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data?.error || "Kunne ikke hente svar fra assistenten.");
+        throw new Error(data?.error || chatT.connectionError);
       }
 
       const assistantMessage: ChatMessage = {
         id: `assistant-${Date.now()}`,
         role: "assistant",
-        content: data.reply || "Beklager, jeg kunne ikke svare akkurat nå.",
+        content: data.reply || chatT.defaultError,
         followUps: [
-          "⏱️ Hvordan fungerer gratis prøveuke?",
-          "🥋 Hva koster det å trene?",
+          chatT.promptTrial,
+          chatT.promptPricing,
         ],
       };
 
@@ -394,7 +431,7 @@ export function ChatBot() {
     } catch (err: any) {
       console.error("Chat error:", err);
       setErrorMessage(
-        err?.message || "Noe gikk galt under sending. Prøv igjen om et øyeblikk."
+        err?.message || chatT.connectionError
       );
     } finally {
       setIsLoading(false);
@@ -442,7 +479,7 @@ export function ChatBot() {
 
   // Baseline: 20px (bottom-5 equivalent) + iOS safe area inset
   return (
-    <aside aria-label="Klubb-assistent" className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] right-5 sm:bottom-6 sm:right-6 z-40 select-none">
+    <aside aria-label={chatT.floatingAria} className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] right-5 sm:bottom-6 sm:right-6 z-40 select-none">
       {/* Mobile Teaser Bubble */}
       {showTeaser && !isOpen && (
         <div className="sm:hidden absolute bottom-16 right-0 w-64 p-3.5 bg-background/98 backdrop-blur-xl border border-border shadow-2xl rounded-2xl animate-in fade-in slide-in-from-bottom-3 duration-300">
@@ -455,14 +492,14 @@ export function ChatBot() {
               className="cursor-pointer flex-1"
             >
               <p className="text-xs font-bold text-foreground flex items-center gap-1.5 mb-1">
-                <span>EKK Assistent</span>
+                <span>{chatT.teaserTitle}</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
               </p>
               <p className="text-xs text-muted-foreground leading-snug">
-                Hei! Har du spørsmål om trening, priser eller prøveuke? 👋
+                {chatT.teaserSubtitle}
               </p>
               <span className="inline-block mt-2 text-[11px] font-bold text-primary">
-                Trykk for å chatte →
+                {chatT.teaserCta}
               </span>
             </div>
             <button
@@ -471,7 +508,7 @@ export function ChatBot() {
                 handleClose();
               }}
               className="text-muted-foreground hover:text-foreground p-1 -mr-1 -mt-1 rounded-md"
-              aria-label="Lukk"
+              aria-label={chatT.closeChat}
             >
               <X className="w-4 h-4" />
             </button>
@@ -485,7 +522,7 @@ export function ChatBot() {
           {/* Desktop Attention Badge */}
           <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/95 backdrop-blur-md border border-border shadow-lg text-xs font-semibold text-foreground pointer-events-none animate-in fade-in slide-in-from-right-4 duration-300">
             <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
-            <span>Spør klubb-assistenten!</span>
+            <span>{chatT.floatingBadge}</span>
           </div>
 
           <button
@@ -495,7 +532,7 @@ export function ChatBot() {
               setHasUnread(false);
             }}
             className="relative flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 border-2 border-primary/20 group focus:outline-none focus:ring-4 focus:ring-primary/30"
-            aria-label="Åpne chat med Eidsvoll Kampsportklubb"
+            aria-label={chatT.floatingAria}
           >
             <MessageSquare className="w-6 h-6 transition-transform group-hover:scale-110" />
             {hasUnread && (
@@ -510,7 +547,7 @@ export function ChatBot() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label="Eidsvoll Kampsportklubb Assistent"
+          aria-label={chatT.headerTitle}
           className="w-[calc(100vw-2rem)] sm:w-[395px] h-[550px] max-h-[82vh] flex flex-col bg-background/98 backdrop-blur-2xl border border-border/70 rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
         >
           {/* Header */}
@@ -522,14 +559,14 @@ export function ChatBot() {
               </div>
               <div>
                 <h3 className="text-sm font-bold text-foreground leading-tight flex items-center gap-1.5">
-                  EKK Assistent
+                  {chatT.headerTitle}
                   <span className="text-[10px] uppercase font-black px-1.5 py-0.5 rounded bg-primary/20 text-primary tracking-wider">
                     AI
                   </span>
                 </h3>
                 <p className="text-[11px] text-muted-foreground flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-                  Svarer umiddelbart · Pålogget
+                  {chatT.statusOnline}
                 </p>
               </div>
             </div>
@@ -541,8 +578,7 @@ export function ChatBot() {
                     {
                       id: "welcome-1",
                       role: "assistant",
-                      content:
-                        "Hei! 👋 Jeg er Eidsvoll Kampsportklubbs digitale assistent. Hva kan jeg hjelpe deg med? Spør meg gjerne om timeplan, priser, utstyr eller vår 14-dagers gratis prøveperiode!",
+                      content: chatT.welcomeMessage,
                     },
                   ]);
                   setErrorMessage(null);
@@ -551,15 +587,15 @@ export function ChatBot() {
                   }
                 }}
                 className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
-                title="Nullstill samtale"
-                aria-label="Nullstill samtale"
+                title={chatT.resetConversation}
+                aria-label={chatT.resetConversation}
               >
                 <RefreshCw className="w-4 h-4" />
               </button>
               <button
                 onClick={handleClose}
                 className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
-                aria-label="Lukk chat"
+                aria-label={chatT.closeChat}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -590,13 +626,13 @@ export function ChatBot() {
                     )}
                   >
                     {isUser ? msg.content : renderFormattedMessage(msg.content)}
-                    {!isUser && <MessageActionCards content={msg.content} />}
+                    {!isUser && <MessageActionCards content={msg.content} t={chatT} />}
 
                     {/* Contextual Follow-up Next Step Chips */}
                     {showFollowUps && (
                       <div className="mt-3 pt-2.5 border-t border-border/40 flex flex-col gap-1.5 w-full">
                         <p className="text-[10px] uppercase font-black text-muted-foreground tracking-wider">
-                          Neste steg:
+                          {chatT.nextSteps}
                         </p>
                         <div className="flex flex-col gap-1.5">
                           {msg.followUps?.map((chip, chipIdx) => (
@@ -621,10 +657,15 @@ export function ChatBot() {
             {messages.length === 1 && (
               <div className="pt-2 space-y-1.5">
                 <p className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider">
-                  Vanlige spørsmål:
+                  {chatT.commonQuestions}
                 </p>
                 <div className="flex flex-col gap-1.5">
-                  {QUICK_PROMPTS.map((prompt, idx) => (
+                  {[
+                    chatT.promptPricing,
+                    chatT.promptTrial,
+                    chatT.promptGear,
+                    chatT.promptSchedule,
+                  ].map((prompt, idx) => (
                     <button
                       key={idx}
                       disabled={isLoading}
@@ -672,7 +713,7 @@ export function ChatBot() {
                 onKeyDown={handleKeyDown}
                 disabled={isLoading}
                 maxLength={500}
-                placeholder="Still et spørsmål om klubben..."
+                placeholder={chatT.inputPlaceholder}
                 className="flex-1 h-11 px-3.5 pr-10 text-sm bg-muted/50 border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all disabled:opacity-50"
               />
               <Button
@@ -680,13 +721,13 @@ export function ChatBot() {
                 onClick={() => handleSendMessage()}
                 disabled={!input.trim() || isLoading}
                 className="absolute right-1.5 h-8 w-8 p-0 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-30 transition-all"
-                aria-label="Send melding"
+                aria-label={chatT.sendAria}
               >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
             <div className="flex items-center justify-between mt-2 px-1 text-[10px] text-muted-foreground/70">
-              <span>Svarer umiddelbart</span>
+              <span>{chatT.instantReply}</span>
               {input.length > 400 && (
                 <span className={input.length >= 500 ? "text-red-500 font-bold" : ""}>
                   {input.length}/500 tegn

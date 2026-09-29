@@ -430,5 +430,63 @@ export const pl: Translations = {
     text: '14 dni za darmo',
     badge: 'Bez zobowiązań',
     ariaLabel: 'Zapisz się na 14-dniowy darmowy okres próbny'
+  },
+  chat: {
+    teaserTitle: 'Asystent EKK',
+    teaserSubtitle: 'Cześć! Masz pytania dotyczące treningów, cen lub okresu próbnego? 👋',
+    teaserCta: 'Kliknij, aby porozmawiać →',
+    floatingBadge: 'Zapytaj asystenta klubu!',
+    floatingAria: 'Otwórz czat z Eidsvoll Kampsportklubb',
+    headerTitle: 'Asystent EKK',
+    statusOnline: 'Odpowiada natychmiast · Dostępny',
+    resetConversation: 'Zresetuj rozmowę',
+    closeChat: 'Zamknij czat',
+    welcomeMessage: 'Cześć! 👋 Jestem cyfrowym asystentem Eidsvoll Kampsportklubb. W czym mogę pomóc? Zapytaj mnie o grafik, ceny karnetów, sprzęt lub nasz 14-dniowy bezpłatny okres próbny!',
+    nextSteps: 'Kolejne kroki:',
+    commonQuestions: 'Często zadawane pytania:',
+    promptPricing: '🥋 Ile kosztują treningi?',
+    promptTrial: '⏱️ Jak działa darmowy okres próbny?',
+    promptGear: '🥊 Czego potrzebuję na 1. trening?',
+    promptSchedule: '📍 Gdzie i kiedy trenujecie?',
+    inputPlaceholder: 'Zadaj pytanie o klub...',
+    sendAria: 'Wyślij wiadomość',
+    charLimitError: 'Wiadomość nie może przekraczać 500 znaków.',
+    connectionError: 'Coś poszło nie tak podczas wysyłania. Spróbuj ponownie za chwilę.',
+    defaultError: 'Przepraszamy, nie udało się uzyskać odpowiedzi w tej chwili.',
+    instantReply: 'Odpowiada natychmiast',
+    actionTrial: '🎯 Zapisz się na darmowy okres próbny (14 dni)',
+    actionBoost: '🥋 Zapisz się przez portal Boost',
+    actionSchedule: '📅 Zobacz grafik i godziny zajęć',
+    actionEmail: '✉️ Wyślij e-mail do klubu',
+    staticPricing: `U nas trenujesz z pełną elastycznością! Ceny miesięcznych składek w systemie Boost:
+
+* **Dzieci (6–13 lat) – BJJ Kids & Thai Kids:** 539 kr / miesiąc (umowa na 6 mies.). Daje swobodny dostęp zarówno do BJJ, jak i Muay Thai!
+* **Młodzież (14–19 lat) – Pełny karnet:** 649 kr/mies. (umowa na 12 mies.) lub 749 kr/mies. (na 6 mies.).
+* **Dorośli (20+ lat) – Pełny karnet:** 749 kr/mies. (12 mies.), 849 kr/mies. (6 mies.) lub 949 kr/mies. (bez zobowiązań).
+* **Cross Training / Joga (od 14 lat):** 399 kr / miesiąc (umowa na 6 mies.).
+* **Karnet rodzinny (CT/Joga):** 249 kr / miesiąc dla rodziców dzieci trenujących w klubie.
+* **Wejście pojedyncze (Drop-in):** 150 kr (płatność Vipps na miejscu).
+
+Wszystkie stałe członkostwa dają pełny dostęp do grafiku. Pamiętaj, że zawsze możesz zacząć od 2 tygodni darmowego okresu próbnego! 😊`,
+    staticTrial: `Zapraszamy wszystkich nowych adeptów na **14-dniowy, całkowicie bezpłatny i niezobowiązujący okres próbny**! 🥋
+
+* **Pełny dostęp:** Możesz uczestniczyć we wszystkich zajęciach (BJJ, Muay Thai, Cross Training i Joga) przez 2 tygodnie.
+* **Brak zobowiązań:** Decyzję o zapisie podejmujesz dopiero po zakończeniu testu.
+* **Prosta rejestracja:** Kliknij poniższy przycisk, a my powitamy Cię na pierwszym treningu! 👋`,
+    staticGear: `Na pierwszy trening potrzebujesz naprawdę niewiele:
+
+* **Strój i woda:** Czysty strój sportowy (koszulka i spodenki lub dresy) oraz butelka wody. Na matach sportów walki i jogi trenujemy boso, a na Cross Training zabieramy czyste buty halowe.
+* **Sprzęt:** Nie musisz mieć własnego kimona (gi) ani rękawic bokserskich – klub bezpłatnie wypożycza sprzęt na cały okres próbny!
+* **Przyjście i wejście:** Przyjdź 10–15 minut przed zajęciami. Pamiętaj, że zarówno wejście, jak i bezpłatny parking znajdują się **z tyłu budynku** (Trondheimsvegen 71B w Dal). 😊`,
+    staticSchedule: `Trenujemy w nowych, przestronnych salach przy **Trondheimsvegen 71B w Dal**! 📍
+
+* **Wejście i parking:** Wejście do klubu oraz bezpłatny parking znajdują się **z tyłu budynku**.
+* **Sale:** Dwie duże sale z matami (Sala 1 i Sala 2) oraz osobna sala do CT / Jogi.
+* **Harmonogram:**
+  - Treningi od poniedziałku do piątku od 17:30 (grupy dzieci 6–9, 10–13 lat, młodzież i dorośli).
+  - Trening w ciągu dnia BJJ w piątki o 11:00.
+  - Otwarta mata dla wszystkich członków w niedziele w godz. 12:00–14:00.
+
+Kliknij przycisk poniżej, aby sprawdzić pełny tygodniowy grafik! 📅`,
   }
 };

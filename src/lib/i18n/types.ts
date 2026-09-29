@@ -254,6 +254,40 @@ export interface Translations {
   veiviser: VeiviserTranslation;
   forsteTrening: ForsteTreningTranslation;
   stickyCta: StickyCtaTranslation;
+  chat: ChatTranslation;
+}
+
+export interface ChatTranslation {
+  teaserTitle: string;
+  teaserSubtitle: string;
+  teaserCta: string;
+  floatingBadge: string;
+  floatingAria: string;
+  headerTitle: string;
+  statusOnline: string;
+  resetConversation: string;
+  closeChat: string;
+  welcomeMessage: string;
+  nextSteps: string;
+  commonQuestions: string;
+  promptPricing: string;
+  promptTrial: string;
+  promptGear: string;
+  promptSchedule: string;
+  inputPlaceholder: string;
+  sendAria: string;
+  charLimitError: string;
+  connectionError: string;
+  defaultError: string;
+  instantReply: string;
+  actionTrial: string;
+  actionBoost: string;
+  actionSchedule: string;
+  actionEmail: string;
+  staticPricing: string;
+  staticTrial: string;
+  staticGear: string;
+  staticSchedule: string;
 }
 
 export interface RecommendationItem {
