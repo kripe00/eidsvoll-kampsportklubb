@@ -379,9 +379,9 @@ export function ProveukeModal({
                 </div>
 
                 {formData.category.includes("Barneparti") && (
-                  <div className="sm:col-span-2 flex items-start gap-2.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 leading-relaxed">
-                    <Coffee className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                    <span>{t.proveuke.parentsNote}</span>
+                  <div className="sm:col-span-2 flex items-start gap-2.5 p-3 rounded-xl bg-primary/10 border border-primary/25 text-xs text-foreground leading-relaxed animate-in fade-in">
+                    <Coffee className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <span className="font-medium text-foreground">{t.proveuke.parentsNote}</span>
                   </div>
                 )}
               </div>

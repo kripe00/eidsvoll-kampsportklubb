@@ -164,7 +164,7 @@ export function Membership(props: MembershipProps) {
                   >
                     Boost
                   </Button>
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-600/90 text-white text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded border border-amber-500 shadow-sm whitespace-nowrap">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-800 text-slate-100 text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded border border-slate-700 shadow-sm whitespace-nowrap">
                     {t.membership.comingSoon}
                   </span>
                 </div>
@@ -236,8 +236,8 @@ export function Membership(props: MembershipProps) {
         </div>
 
         {/* Oppklarende informasjonsboks om skillet mellom systemene */}
-        <div className="membership-alert-box bg-amber-500/10 border-2 border-amber-500/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-5 max-w-4xl mx-auto shadow-sm">
-          <div className="p-3 bg-amber-500/20 text-amber-600 dark:text-amber-400 rounded-xl shrink-0">
+        <div className="membership-alert-box bg-primary/10 border border-primary/25 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-5 max-w-4xl mx-auto shadow-sm">
+          <div className="p-3 bg-primary/15 text-primary rounded-xl shrink-0">
             <AlertCircle className="w-6 h-6" />
           </div>
           <div className="space-y-2 text-left">

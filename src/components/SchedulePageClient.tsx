@@ -266,7 +266,7 @@ export function SchedulePageClient(props: {
                                   className={cn(
                                     "text-[9px] px-2 py-0.5 rounded border uppercase font-extrabold tracking-wider shrink-0",
                                     kids 
-                                      ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
+                                      ? "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800" 
                                       : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                   )}
                                 >
@@ -358,7 +358,7 @@ export function SchedulePageClient(props: {
                                   className={cn(
                                     "text-[10px] px-2 py-0.5 rounded border uppercase font-bold tracking-wider",
                                     kids 
-                                      ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
+                                      ? "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800" 
                                       : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                   )}
                                 >
@@ -438,7 +438,7 @@ export function SchedulePageClient(props: {
                                 className={cn(
                                   "text-[9px] px-2 py-0.5 rounded border uppercase font-bold tracking-wider shrink-0",
                                   kids 
-                                    ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20" 
+                                    ? "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800" 
                                     : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
                                 )}
                               >
