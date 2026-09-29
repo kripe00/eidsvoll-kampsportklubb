@@ -549,25 +549,32 @@ export function ChatBot() {
     <aside aria-label={chatT.floatingAria} className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] right-5 sm:bottom-6 sm:right-6 z-40 select-none">
       {/* Mobile Teaser Bubble */}
       {showTeaser && !isOpen && (
-        <div className="sm:hidden absolute bottom-16 right-0 w-64 p-3.5 bg-background/98 backdrop-blur-xl border border-border shadow-2xl rounded-2xl animate-in fade-in slide-in-from-bottom-3 duration-300">
-          <div className="flex items-start justify-between gap-2">
+        <div className="sm:hidden absolute bottom-16 right-0 w-72 p-3.5 bg-background/98 backdrop-blur-xl border border-border shadow-2xl rounded-2xl animate-in fade-in slide-in-from-bottom-3 duration-300">
+          <div className="flex items-start justify-between gap-2.5">
             <div
               onClick={() => {
                 setShowTeaser(false);
                 setIsOpen(true);
               }}
-              className="cursor-pointer flex-1"
+              className="cursor-pointer flex items-start gap-2.5 flex-1"
             >
-              <p className="text-xs font-bold text-foreground flex items-center gap-1.5 mb-1">
-                <span>{chatT.teaserTitle}</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
-              </p>
-              <p className="text-xs text-muted-foreground leading-snug">
-                {chatT.teaserSubtitle}
-              </p>
-              <span className="inline-block mt-2 text-[11px] font-bold text-primary">
-                {chatT.teaserCta}
-              </span>
+              <img
+                src="/images/bot-avatar.jpg"
+                alt="EKK Assistent"
+                className="w-10 h-10 rounded-full object-cover border border-primary/30 shrink-0 mt-0.5 shadow-sm"
+              />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-foreground flex items-center gap-1.5 mb-0.5">
+                  <span>{chatT.teaserTitle}</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+                </p>
+                <p className="text-xs text-muted-foreground leading-snug">
+                  {chatT.teaserSubtitle}
+                </p>
+                <span className="inline-block mt-1.5 text-[11px] font-bold text-primary">
+                  {chatT.teaserCta}
+                </span>
+              </div>
             </div>
             <button
               onClick={(e) => {
@@ -598,12 +605,16 @@ export function ChatBot() {
               setShowTeaser(false);
               setHasUnread(false);
             }}
-            className="relative flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 border-2 border-primary/20 group focus:outline-none focus:ring-4 focus:ring-primary/30"
+            className="relative flex items-center justify-center w-14 h-14 rounded-full bg-card shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 border-2 border-primary/30 group focus:outline-none focus:ring-4 focus:ring-primary/30 overflow-hidden"
             aria-label={chatT.floatingAria}
           >
-            <MessageSquare className="w-6 h-6 transition-transform group-hover:scale-110" />
+            <img 
+              src="/images/bot-avatar.jpg" 
+              alt="EKK Assistent" 
+              className="w-full h-full object-cover transition-transform group-hover:scale-105" 
+            />
             {hasUnread && (
-              <span className="absolute top-0 right-0 w-4 h-4 rounded-full bg-red-500 border-2 border-background" />
+              <span className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full bg-red-500 border-2 border-background z-10" />
             )}
           </button>
         </div>
@@ -620,9 +631,13 @@ export function ChatBot() {
           {/* Header */}
           <div className="px-4 py-3.5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border-b border-border/50 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="relative w-9 h-9 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center text-primary">
-                <Bot className="w-5 h-5" />
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-background" />
+              <div className="relative w-10 h-10 rounded-full border border-primary/30 overflow-hidden shrink-0 shadow-sm">
+                <img 
+                  src="/images/bot-avatar.jpg" 
+                  alt="EKK Assistent" 
+                  className="w-full h-full object-cover" 
+                />
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-background z-10" />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-foreground leading-tight flex items-center gap-1.5">
@@ -680,13 +695,20 @@ export function ChatBot() {
                 <div
                   key={msg.id}
                   className={cn(
-                    "flex flex-col max-w-[88%] leading-relaxed",
-                    isUser ? "ml-auto items-end" : "mr-auto items-start"
+                    "flex gap-2 max-w-[90%] leading-relaxed",
+                    isUser ? "ml-auto flex-row-reverse items-end" : "mr-auto items-start"
                   )}
                 >
+                  {!isUser && (
+                    <img 
+                      src="/images/bot-avatar.jpg" 
+                      alt="EKK Assistent" 
+                      className="w-7 h-7 rounded-full object-cover border border-primary/25 shrink-0 mt-0.5 shadow-xs" 
+                    />
+                  )}
                   <div
                     className={cn(
-                      "px-3.5 py-2.5 rounded-2xl text-sm shadow-sm w-full",
+                      "px-3.5 py-2.5 rounded-2xl text-sm shadow-sm flex-1",
                       isUser
                         ? "bg-primary text-primary-foreground rounded-br-xs whitespace-pre-wrap font-medium"
                         : "bg-card text-card-foreground border border-border/70 rounded-bl-xs leading-relaxed"
@@ -750,7 +772,12 @@ export function ChatBot() {
 
             {/* Typing Dots Animation */}
             {isLoading && (
-              <div className="mr-auto items-start max-w-[85%]">
+              <div className="mr-auto items-start flex gap-2 max-w-[85%]">
+                <img 
+                  src="/images/bot-avatar.jpg" 
+                  alt="EKK Assistent" 
+                  className="w-7 h-7 rounded-full object-cover border border-primary/25 shrink-0 mt-0.5 shadow-xs" 
+                />
                 <div className="px-4 py-3 rounded-2xl bg-muted/80 border border-border/50 rounded-bl-xs flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-primary/70 animate-bounce [animation-delay:-0.3s]" />
                   <span className="w-2 h-2 rounded-full bg-primary/70 animate-bounce [animation-delay:-0.15s]" />
