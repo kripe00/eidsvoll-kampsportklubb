@@ -275,6 +275,7 @@ export interface ChatTranslation {
   promptTrial: string;
   promptGear: string;
   promptSchedule: string;
+  promptLounge: string;
   inputPlaceholder: string;
   sendAria: string;
   charLimitError: string;
@@ -289,6 +290,7 @@ export interface ChatTranslation {
   staticTrial: string;
   staticGear: string;
   staticSchedule: string;
+  staticLounge: string;
 }
 
 export interface RecommendationItem {

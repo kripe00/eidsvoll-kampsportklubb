@@ -444,13 +444,14 @@ export const pl: Translations = {
     statusOnline: 'Odpowiada natychmiast · Dostępny',
     resetConversation: 'Zresetuj rozmowę',
     closeChat: 'Zamknij czat',
-    welcomeMessage: 'Cześć! 👋 Jestem cyfrowym asystentem Eidsvoll Kampsportklubb. W czym mogę pomóc? Zapytaj mnie o grafik, ceny karnetów, sprzęt lub nasz 14-dniowy bezpłatny okres próbny!',
+    welcomeMessage: 'Cześć! 👋 Jestem cyfrowym asystentem Eidsvoll Kampsportklubb. W czym mogę pomóc? Zapytaj mnie o grafik, ceny karnetów, strefę dla rodziców, sprzęt lub nasz 14-dniowy bezpłatny okres próbny!',
     nextSteps: 'Kolejne kroki:',
     commonQuestions: 'Często zadawane pytania:',
     promptPricing: '🥋 Ile kosztują treningi?',
     promptTrial: '⏱️ Jak działa darmowy okres próbny?',
     promptGear: '🥊 Czego potrzebuję na 1. trening?',
     promptSchedule: '📍 Gdzie i kiedy trenujecie?',
+    promptLounge: '☕ Czy rodzice mogą oglądać / macie strefę z kominkiem?',
     inputPlaceholder: 'Zadaj pytanie o klub...',
     sendAria: 'Wyślij wiadomość',
     charLimitError: 'Wiadomość nie może przekraczać 500 znaków.',
@@ -491,5 +492,10 @@ Wszystkie stałe członkostwa dają pełny dostęp do grafiku. Pamiętaj, że za
   - Otwarta mata dla wszystkich członków w niedziele w godz. 12:00–14:00.
 
 Kliknij przycisk poniżej, aby sprawdzić pełny tygodniowy grafik! 📅`,
+    staticLounge: `Tak, jak najbardziej! Mamy wspaniałą i przytulną strefę z kominkiem dla rodziców! ☕🔥
+
+* **Widok wprost na maty:** Strefa posiada duże okna z bezpośrednim widokiem na salę treningową, w której ćwiczą dzieci.
+* **Darmowa kawa i relaks:** Możesz usiąść, napić się darmowej kawy, zrelaksować się i obserwować radość oraz postępy swojego dziecka.
+* **Serdecznie zapraszamy:** Rodzice są zawsze mile widziani i mogą bez problemu obserwować cały trening! 😊`,
   }
 };

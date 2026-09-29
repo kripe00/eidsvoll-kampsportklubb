@@ -444,13 +444,14 @@ export const no: Translations = {
     statusOnline: 'Svarer umiddelbart · Pålogget',
     resetConversation: 'Nullstill samtale',
     closeChat: 'Lukk chat',
-    welcomeMessage: 'Hei! 👋 Jeg er Eidsvoll Kampsportklubbs digitale assistent. Hva kan jeg hjelpe deg med? Spør meg gjerne om timeplan, priser, utstyr eller vår 14-dagers gratis prøveperiode!',
+    welcomeMessage: 'Hei! 👋 Jeg er Eidsvoll Kampsportklubbs digitale assistent. Hva kan jeg hjelpe deg med? Spør meg gjerne om timeplan, priser, peisestuen for foreldre, utstyr eller vår 14-dagers gratis prøveperiode!',
     nextSteps: 'Neste steg:',
     commonQuestions: 'Vanlige spørsmål:',
     promptPricing: '🥋 Hva koster det å trene?',
     promptTrial: '⏱️ Hvordan fungerer gratis prøveuke?',
     promptGear: '🥊 Hva trenger jeg til 1. trening?',
     promptSchedule: '📍 Hvor og når trener dere?',
+    promptLounge: '☕ Kan foreldre se på / har dere peisestue?',
     inputPlaceholder: 'Still et spørsmål om klubben...',
     sendAria: 'Send melding',
     charLimitError: 'Meldingen kan ikke være lenger enn 500 tegn.',
@@ -491,5 +492,10 @@ Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan sta
   - Åpen matte for alle medlemmer på søndager kl. 12:00–14:00.
 
 Trykk på knappen under for å se hele ukesoversikten! 📅`,
+    staticLounge: `Ja, absolutt! Vi har en kjempehyggelig peisestue for foreldre og foresatte! ☕🔥
+
+* **Utsikt rett inn til salen:** Peisestuen har store vinduer med direkte innsyn til treningssalen der barna trener.
+* **Gratis kaffe & hygge:** Her kan du sette deg godt til rette, nyte en kopp gratis kaffe, slappe av og følge med på barnets mestring og treningsglede i trygge rammer.
+* **Alltid velkommen:** Foreldre er hjertelig velkomne til å være med inn og se på under hele økta! 😊`,
   }
 };

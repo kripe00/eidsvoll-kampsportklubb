@@ -444,13 +444,14 @@ export const en: Translations = {
     statusOnline: 'Replies instantly · Online',
     resetConversation: 'Reset conversation',
     closeChat: 'Close chat',
-    welcomeMessage: 'Hi! 👋 I am Eidsvoll Kampsportklubb\'s digital assistant. How can I help you? Feel free to ask about our schedule, membership prices, gear, or our 14-day free trial!',
+    welcomeMessage: 'Hi! 👋 I am Eidsvoll Kampsportklubb\'s digital assistant. How can I help you? Feel free to ask about our schedule, membership prices, our parent lounge, gear, or our 14-day free trial!',
     nextSteps: 'Next steps:',
     commonQuestions: 'Common questions:',
     promptPricing: '🥋 How much does it cost?',
     promptTrial: '⏱️ How does the free trial work?',
     promptGear: '🥊 What do I need for my first class?',
     promptSchedule: '📍 Where and when do you train?',
+    promptLounge: '☕ Can parents watch / do you have a lounge?',
     inputPlaceholder: 'Ask a question about the club...',
     sendAria: 'Send message',
     charLimitError: 'The message cannot exceed 500 characters.',
@@ -491,5 +492,10 @@ All memberships provide full access to scheduled classes. Remember, you can alwa
   - Open mat for all members on Sundays from 12:00 to 14:00.
 
 Click the button below to view the full weekly timetable! 📅`,
+    staticLounge: `Yes, absolutely! We have a wonderful, cozy lounge with a fireplace for parents and guardians! ☕🔥
+
+* **Direct view into the mats:** The lounge features large windows with direct sightlines into the training hall where the kids practice.
+* **Free coffee & relaxation:** You can sit comfortably, enjoy a complimentary cup of coffee, relax, and watch your child build confidence and skill.
+* **Always welcome:** Parents are warmly encouraged and welcome to stay and watch during the entire class! 😊`,
   }
 };
