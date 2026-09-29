@@ -4,19 +4,23 @@ import { ClubLinks } from "@/components/ClubLinks";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Eidsvoll Kampsportklubb (EKK) / Rambukk Sport AS | Kampsport på Dal",
+  title: "Om Oss | Eidsvoll Kampsportklubb (EKK)",
   description:
-    "Eidsvoll Kampsportklubb (EKK) viderefører kampsportaktiviteten fra Rambukk Sport AS i nye lokaler på Dal. Vi tilbyr BJJ, Muay Thai og Cross-trening.",
+    "Bli kjent med Eidsvoll Kampsportklubb (EKK) på Dal. Vi viderefører kampsportaktiviteten fra Rambukk Sport AS i lyse, moderne lokaler med høyt kvalifiserte instruktører i BJJ, Muay Thai og Crosstrening.",
+  alternates: {
+    canonical: "/om-oss",
+  },
   keywords: [
+    "Eidsvoll Kampsportklubb",
+    "EKK",
     "Rambukk Sport AS",
     "Rambukk Sport",
     "Rambukk kampsport",
     "Råholt",
-    "Eidsvoll Kampsportklubb",
-    "EKK",
     "Dal",
-    "BJJ",
-    "Muay Thai",
+    "BJJ Eidsvoll",
+    "Muay Thai Dal",
+    "kampsportklubb eidsvoll",
   ],
 };
 

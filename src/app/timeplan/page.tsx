@@ -6,8 +6,11 @@ import fs from "fs";
 import path from "path";
 
 export const metadata: Metadata = {
-  title: "Timeplan og treningstider",
-  description: "Se treningstidene for BJJ, Muay Thai, yoga og Cross Training (CT) hos Eidsvoll Kampsportklubb.",
+  title: "Timeplan og Treningstider | BJJ, Muay Thai & Crosstrening",
+  description: "Se ukentlig timeplan og treningstider for Brasiliansk Jiu-Jitsu (BJJ for voksne og barn), Muay Thai, Crosstrening og Yoga hos Eidsvoll Kampsportklubb på Dal.",
+  alternates: {
+    canonical: "/timeplan",
+  },
 };
 
 export default async function TimeplanPage() {

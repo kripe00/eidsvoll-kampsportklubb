@@ -4,8 +4,11 @@ import contactJson from "../../../content/contact/index.json";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Kontakt",
-  description: "Ta kontakt med Eidsvoll Kampsportklubb i Eidsvoll. Vi svarer på spørsmål om BJJ, Muay Thai, treningstider og medlemskap.",
+  title: "Kontakt Oss | Adresse, Kart & Parkering",
+  description: "Ta kontakt med Eidsvoll Kampsportklubb i Trondheimsvegen 71B på Dal. Gratis parkering og inngang på baksiden. Send oss en melding eller kom innom!",
+  alternates: {
+    canonical: "/kontakt",
+  },
 };
 
 export default async function KontaktPage() {

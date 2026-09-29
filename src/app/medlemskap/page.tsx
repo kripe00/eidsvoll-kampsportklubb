@@ -6,8 +6,11 @@ import path from "path";
 import matter from "gray-matter";
 
 export const metadata: Metadata = {
-  title: "Medlemskap",
-  description: "Bli medlem i Eidsvoll Kampsportklubb. Se priser, prøvetimer og meld deg på trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai.",
+  title: "Medlemskap og Priser | Prøv Gratis i 2 Uker",
+  description: "Bli medlem i Eidsvoll Kampsportklubb. Se medlemspriser for barn, ungdom og voksne, rabattordninger og meld deg på 14 dagers gratis prøveperiode i BJJ, Muay Thai og Crosstrening.",
+  alternates: {
+    canonical: "/medlemskap",
+  },
 };
 
 export default async function MedlemskapPage() {

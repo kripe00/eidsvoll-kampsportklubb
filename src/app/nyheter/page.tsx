@@ -7,7 +7,10 @@ import matter from "gray-matter";
 
 export const metadata: Metadata = {
   title: "Siste Nytt & Aktiviteter",
-  description: "Følg med på siste nytt fra Eidsvoll Kampsportklubb. Her finner du informasjon om graderinger, seminarer, leirer og andre arrangementer.",
+  description: "Følg med på siste nytt fra Eidsvoll Kampsportklubb. Her finner du informasjon om graderinger, seminarer, leirer og andre arrangementer på Dal.",
+  alternates: {
+    canonical: "/nyheter",
+  },
 };
 
 function getLocalNews() {

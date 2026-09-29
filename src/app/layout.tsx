@@ -22,54 +22,79 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://kampsporteidsvoll.no"),
   title: {
-    default: "Eidsvoll Kampsportklubb | BJJ og Muay Thai i Eidsvoll",
+    default: "Eidsvoll Kampsportklubb | BJJ, Muay Thai & Trening på Dal",
     template: "%s | Eidsvoll Kampsportklubb",
   },
   applicationName: "Eidsvoll Kampsportklubb",
   description:
-    "Eidsvoll Kampsportklubb – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for utøvere fra Eidsvoll, Råholt, Dal, Årnes/Nes, Nordkisa, Mogreina, Hurdal, Vormsund, Minnesund, Feiring og Kongsvinger. Bli med på trening!",
+    "Eidsvoll Kampsportklubb (EKK) – trening i Brasiliansk Jiu-Jitsu (BJJ), Muay Thai/Thaiboksing, Crosstrening og Yoga. Nye lokaler i Trondheimsvegen 71B på Dal med 14 dagers gratis prøveperiode!",
   keywords: [
+    "kampsport eidsvoll",
+    "kampsport råholt",
+    "kampsport dal",
+    "bjj eidsvoll",
+    "bjj råholt",
+    "thaiboksing eidsvoll",
+    "muay thai eidsvoll",
+    "trening eidsvoll",
+    "barnetrening eidsvoll",
+    "crosstrening eidsvoll",
+    "selvforsvar eidsvoll",
+    "trening for barn råholt",
+    "bjj barn eidsvoll",
+    "kampsportsenter eidsvoll",
+    "Eidsvoll Kampsportklubb",
+    "EKK",
     "Rambukk",
     "Rambukk Sport",
-    "Rambukk kampsport",
-    "kampsport",
-    "kampsportklubb",
-    "kampsportsenter",
-    "eidsvoll",
-    "råholt",
-    "dal",
-    "årnes",
-    "nes",
-    "nordkisa",
-    "nes kommune",
-    "ullensaker",
-    "mogreina",
-    "hurdal",
-    "vormsund",
-    "minnesund",
-    "feiring",
-    "kongsvinger",
-    "BJJ",
     "brasiliansk jiu-jitsu",
-    "muay thai",
     "thaiboksing",
-    "trening",
+    "crosstrening",
+    "yoga dal",
+    "ullensaker",
+    "jessheim",
+    "nes",
+    "årnes",
+    "hurdal",
+    "minnesund",
   ],
+  alternates: {
+    canonical: "./",
+  },
   openGraph: {
-    title: "Eidsvoll Kampsportklubb | BJJ og Muay Thai i Eidsvoll",
+    title: "Eidsvoll Kampsportklubb | BJJ, Muay Thai & Trening på Dal",
     description:
-      "Eidsvoll Kampsportklubb – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for utøvere fra Eidsvoll, Råholt, Dal, Årnes/Nes, Nordkisa, Mogreina, Hurdal, Vormsund, Minnesund, Feiring og Kongsvinger. Bli med på trening!",
+      "Eidsvoll Kampsportklubb (EKK) – trening i Brasiliansk Jiu-Jitsu (BJJ), Muay Thai/Thaiboksing, Crosstrening og Yoga. Nye lokaler i Trondheimsvegen 71B på Dal med gratis prøveuke for alle!",
     locale: "nb_NO",
     type: "website",
     siteName: "Eidsvoll Kampsportklubb",
+    url: "https://kampsporteidsvoll.no",
     images: [
       {
         url: "/header.jpg",
         width: 1200,
         height: 630,
-        alt: "Eidsvoll Kampsportklubb",
+        alt: "Eidsvoll Kampsportklubb – BJJ, Muay Thai og trening på Dal",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Eidsvoll Kampsportklubb | BJJ, Muay Thai & Trening på Dal",
+    description:
+      "Trening i Brasiliansk Jiu-Jitsu (BJJ), Muay Thai, Crosstrening og Yoga i Trondheimsvegen 71B på Dal. Prøv gratis i 2 uker!",
+    images: ["/header.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   verification: {
     google: [
@@ -116,32 +141,124 @@ export default async function RootLayout({
     console.error("TinaCMS Global fetch failed:", error);
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["SportsClub", "LocalBusiness"],
+        "@id": "https://kampsporteidsvoll.no/#club",
+        "name": "Eidsvoll Kampsportklubb",
+        "alternateName": ["EKK", "Eidsvoll BJJ", "Eidsvoll Kampsport", "Rambukk Sport"],
+        "url": "https://kampsporteidsvoll.no",
+        "logo": "https://kampsporteidsvoll.no/logo.png",
+        "image": "https://kampsporteidsvoll.no/header.jpg",
+        "description": "Eidsvoll Kampsportklubb tilbyr trening i Brasiliansk Jiu-Jitsu (BJJ), Muay Thai (thaiboksing), Crosstrening og Yoga for barn, ungdom og voksne i splitter nye lokaler på Dal.",
+        "sport": [
+          "Brasiliansk Jiu-Jitsu",
+          "BJJ",
+          "Muay Thai",
+          "Thaiboksing",
+          "Crosstrening",
+          "Yoga"
+        ],
+        "email": "kontakt@kampsporteidsvoll.no",
+        "telephone": "+4797610229",
+        "priceRange": "$$",
+        "currenciesAccepted": "NOK",
+        "paymentAccepted": "Avtalegiro, Vipps, Kort",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Trondheimsvegen 71B",
+          "postalCode": "2072",
+          "addressLocality": "Dal",
+          "addressRegion": "Akershus",
+          "addressCountry": "NO"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 60.2483,
+          "longitude": 11.2033
+        },
+        "hasMap": "https://maps.google.com/?q=Trondheimsvegen+71B,+2072+Dal",
+        "amenityFeature": [
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Gratis parkering på baksiden",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Inngang på baksiden av bygget",
+            "value": true
+          }
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "17:00",
+            "closes": "21:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Sunday"],
+            "opens": "12:00",
+            "closes": "14:00"
+          }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/eidsvollkampsportklubb/",
+          "https://www.facebook.com/kampsporteidsvoll"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://kampsporteidsvoll.no/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Hvordan fungerer gratis prøveperiode hos Eidsvoll Kampsportklubb?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vi tilbyr 14 dagers helt gratis og uforpliktende prøveperiode for alle nye utøvere. I prøveperioden har du fri tilgang til alle våre treninger (BJJ, Muay Thai, Crosstrening og Yoga)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Hvor ligger Eidsvoll Kampsportklubb og hvor parkerer man?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vi holder til i Trondheimsvegen 71B, 2072 Dal. Både inngangen til klubben og gratis parkering finner du på baksiden av bygget."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Hva trenger jeg av utstyr og sko til første trening?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Vanlig, rent treningstøy uten glidelåser og en vannflaske er alt du trenger. For kampsport og yoga trener vi barbent på mattene, mens for Crosstrening benyttes rene innesko. Klubben har gratis låneutstyr som boksehansker."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Har dere kampsport og treninger for barn?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ja, vi har egne tilpassede partier for barn i BJJ (Barneparti 1 for 6–9 år og Barneparti 2 for 10–13 år) samt Muay Thai for barn, med fokus på motorikk, trygghet og mestring."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
   return (
     <html lang="no" className={cn("font-sans", geist.variable)}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SportsClub",
-              "name": "Eidsvoll Kampsportklubb",
-              "alternateName": "EKK",
-              "url": "https://kampsporteidsvoll.no",
-              "logo": "https://kampsporteidsvoll.no/logo.png",
-              "image": "https://kampsporteidsvoll.no/header.jpg",
-              "description": "Eidsvoll Kampsportklubb i Eidsvoll – trening i Brasiliansk Jiu-Jitsu (BJJ) og Muay Thai/Thaiboksing for alle nivåer.",
-              "sport": ["Brasiliansk Jiu-Jitsu", "Muay Thai", "Thaiboksing", "Cross-trening"],
-              "email": "kontakt@kampsporteidsvoll.no",
-              "telephone": "+4797610229",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Dal",
-                "addressRegion": "Akershus",
-                "addressCountry": "NO"
-              },
-              "sameAs": []
-            }),
+            __html: JSON.stringify(structuredData),
           }}
         />
       </head>
