@@ -67,6 +67,7 @@ export interface Translations {
     successMessage: string;
     closeButton: string;
     errorMessage: string;
+    parentsNote: string;
   };
   news: {
     heading: string;
@@ -377,6 +378,8 @@ export interface ForsteTreningTranslation {
   actionCardTitle: string;
   actionCardDesc: string;
   actionCardCta: string;
+  parentsLoungeTitle: string;
+  parentsLoungeDesc: string;
 }
 
 export interface StickyCtaTranslation {

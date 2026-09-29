@@ -111,7 +111,17 @@ export function KontaktPageClient(props: {
                   <MapPin size={20} className="stroke-[1.5px]" />
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t.contact.visitUs}</h3>
                 </div>
-                <p className="text-2xl font-bold text-foreground leading-snug">{contact?.address}</p>
+                <a
+                  href="https://maps.google.com/?q=Trondheimsvegen+71B,+2072+Dal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl font-bold text-foreground leading-snug hover:text-primary transition-colors block"
+                >
+                  {contact?.address}
+                </a>
+                <p className="text-xs text-muted-foreground mt-2">
+                  {locale === "uk" ? "Безкоштовна парковка та вхід ззаду будівлі." : locale === "pl" ? "Bezpłatny parking i wejście z tyłu budynku." : locale === "en" ? "Free parking and entrance at the back of the building." : "Gratis parkering og inngang på baksiden av bygget."}
+                </p>
               </div>
 
               <div className="group" data-tina-field={tinaField(contact, 'phone')}>
@@ -119,7 +129,12 @@ export function KontaktPageClient(props: {
                   <Phone size={20} className="stroke-[1.5px]" />
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t.contact.callUs}</h3>
                 </div>
-                <p className="text-2xl font-bold text-foreground leading-snug">{contact?.phone}</p>
+                <a
+                  href={`tel:+47${(contact?.phone || "97610229").replace(/\D/g, "").replace(/^47/, "")}`}
+                  className="text-2xl font-bold text-foreground leading-snug hover:text-primary transition-colors block"
+                >
+                  {contact?.phone}
+                </a>
               </div>
 
               <div className="group" data-tina-field={tinaField(contact, 'email')}>
@@ -127,7 +142,12 @@ export function KontaktPageClient(props: {
                   <Mail size={20} className="stroke-[1.5px]" />
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t.contact.emailUs}</h3>
                 </div>
-                <p className="text-2xl font-bold text-foreground leading-snug break-all">{contact?.email}</p>
+                <a
+                  href={`mailto:${contact?.email || "kontakt@kampsporteidsvoll.no"}`}
+                  className="text-2xl font-bold text-foreground leading-snug break-all hover:text-primary transition-colors block"
+                >
+                  {contact?.email}
+                </a>
               </div>
 
               {(contact?.facebook || contact?.instagram) && (

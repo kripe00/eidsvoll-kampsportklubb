@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
@@ -14,6 +14,19 @@ import { ScrollProgress } from "./ScrollProgress";
 export function Header({ data }: { data: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const { t, locale } = useLanguage();
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   const navLabels: Record<string, string> = {
     "/nyheter": t.nav.news,

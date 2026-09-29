@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { CheckCircle2, Calendar, X } from "lucide-react";
+import { CheckCircle2, Calendar, X, Coffee } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -75,12 +75,19 @@ export function ProveukeModal({
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          setOpen(false);
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "unset";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     } else {
       document.body.style.overflow = "unset";
     }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
   }, [open]);
 
   // Beregn sluttdato med tidssone-nøytral UTC-aritmetikk (14 dager / 2 uker etter valgt startdato)
@@ -152,12 +159,18 @@ export function ProveukeModal({
   };
 
   const modalContent = (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 md:p-10 animate-in fade-in duration-200">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 md:p-10 animate-in fade-in duration-200"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="proveuke-modal-title"
+    >
       
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-slate-950/85 backdrop-blur-md" 
         onClick={() => setOpen(false)}
+        aria-hidden="true"
       />
 
       {/* Dialog Card matching KontaktPage Client styling */}
@@ -166,8 +179,8 @@ export function ProveukeModal({
         {/* Close Button */}
         <button
           onClick={() => setOpen(false)}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-8 h-8 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors border border-border/40"
-          aria-label="Lukk dialog"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 w-8 h-8 rounded-full bg-muted/60 hover:bg-muted text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors border border-border/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          aria-label={t.proveuke.closeButton || "Lukk dialog"}
         >
           <X className="w-4 h-4" />
         </button>
@@ -177,7 +190,7 @@ export function ProveukeModal({
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary block mb-0.5">
             Eidsvoll Kampsportklubb
           </span>
-          <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground leading-tight">
+          <h2 id="proveuke-modal-title" className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground leading-tight">
             {t.proveuke.modalTitle}
           </h2>
         </div>
@@ -364,6 +377,13 @@ export function ProveukeModal({
                     className="w-full bg-transparent text-sm font-medium outline-none placeholder:text-muted-foreground/30 text-foreground"
                   />
                 </div>
+
+                {formData.category.includes("Barneparti") && (
+                  <div className="sm:col-span-2 flex items-start gap-2.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200/90 leading-relaxed">
+                    <Coffee className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <span>{t.proveuke.parentsNote}</span>
+                  </div>
+                )}
               </div>
 
               {status === "error" && (

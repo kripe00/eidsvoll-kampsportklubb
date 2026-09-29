@@ -62,6 +62,7 @@ export const pl: Translations = {
     successMessage: 'Otrzymaliśmy Twoje zgłoszenie i nie możemy się doczekać spotkania na macie! Wyślemy Ci e-mail ze wszystkimi szczegółami dotyczącymi pierwszych zajęć.',
     closeButton: 'Zamknij okno',
     errorMessage: 'Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie lub napisz do nas bezpośrednio na post@kampsporteidsvoll.no.',
+    parentsNote: '☕ Dla rodziców: Mamy przytulną strefę z kominkiem i oknami z widokiem na salę treningową. Możesz napić się kawy, zrelaksować i obserwować trening dziecka!',
   },
   news: {
     heading: 'Aktualności',
@@ -424,7 +425,9 @@ export const pl: Translations = {
     step4Highlight: 'Doświadczenie nie jest wymagane – instruktorzy pomogą na każdym etapie',
     actionCardTitle: 'Chcesz sprawdzić nasze treningi?',
     actionCardDesc: 'Rozpocznij 14-dniowy darmowy okres próbny – bez żadnych zobowiązań.',
-    actionCardCta: 'Zacznij darmowy okres próbny'
+    actionCardCta: 'Zacznij darmowy okres próbny',
+    parentsLoungeTitle: 'Dla rodziców: Przytulny salonik z kominkiem i kawą',
+    parentsLoungeDesc: 'Dysponujemy własną przyjazną strefą z kominkiem oraz dużymi oknami wychodzącymi bezpośrednio na matę treningową. Rodzice są serdecznie zaproszeni, aby usiąść, napić się dobrej kawy i w spokoju obserwować radość i postępy swoich pociech.',
   },
   stickyCta: {
     text: '14 dni za darmo',
@@ -481,7 +484,7 @@ Wszystkie stałe członkostwa dają pełny dostęp do grafiku. Pamiętaj, że za
     staticSchedule: `Trenujemy w nowych, przestronnych salach przy **Trondheimsvegen 71B w Dal**! 📍
 
 * **Wejście i parking:** Wejście do klubu oraz bezpłatny parking znajdują się **z tyłu budynku**.
-* **Sale:** Dwie duże sale z matami (Sala 1 i Sala 2) oraz osobna sala do CT / Jogi.
+* **Sale i strefa dla rodziców:** Dwie duże sale z matami (Sala 1 i Sala 2), osobna sala do CT / Jogi oraz **przytulna strefa wypoczynkowa z kominkiem, darmową kawą i dużymi oknami na salę**, gdzie rodzice mogą obserwować trening dzieci!
 * **Harmonogram:**
   - Treningi od poniedziałku do piątku od 17:30 (grupy dzieci 6–9, 10–13 lat, młodzież i dorośli).
   - Trening w ciągu dnia BJJ w piątki o 11:00.

@@ -149,7 +149,17 @@ export function Footer({ data }: { data?: any }) {
                   data-tina-field={data ? tinaField(data, "footerAddress") : undefined}
                 >
                   <span className="text-slate-500 text-xs">{t.footer.address}</span>
-                  <span className="text-slate-300">{address}</span>
+                  <a
+                    href="https://maps.google.com/?q=Trondheimsvegen+71B,+2072+Dal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-300 hover:text-white hover:underline transition-colors font-medium"
+                  >
+                    {address}
+                  </a>
+                  <span className="text-[11px] text-slate-500 mt-0.5">
+                    {locale === "uk" ? "Безкоштовна парковка та вхід ззаду будівлі" : locale === "pl" ? "Bezpłatny parking i wejście z tyłu budynku" : locale === "en" ? "Free parking and entrance behind the building" : "Gratis parkering og inngang på baksiden"}
+                  </span>
                 </li>
               )}
             </ul>

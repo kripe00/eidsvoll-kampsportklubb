@@ -125,6 +125,11 @@ function getStaticFaqs(chatT: any): StaticFaqItem[] {
         "hvor er inngangen",
         "finne fram",
         "veibeskrivelse",
+        "peisestue",
+        "kaffe",
+        "kan foreldre se på",
+        "se på barna",
+        "venterom",
         "where and when do you train",
         "schedule",
         "timetable",
@@ -132,18 +137,27 @@ function getStaticFaqs(chatT: any): StaticFaqItem[] {
         "address",
         "parking",
         "entrance",
+        "lounge",
+        "coffee",
+        "can parents watch",
         "gdzie i kiedy trenujecie",
         "grafik",
         "godziny zajęć",
         "adres",
         "parking",
         "wejście",
+        "kawa",
+        "strefa dla rodziców",
+        "poczekalnia",
         "де і коли ви тренуєтесь",
         "розклад",
         "графік",
         "адреса",
         "парковка",
         "вхід",
+        "кава",
+        "зона відпочинку",
+        "батьки",
       ],
       answer: chatT.staticSchedule,
       followUps: [chatT.promptTrial, chatT.promptGear],
@@ -341,6 +355,19 @@ export function ChatBot() {
       // ignore
     }
   };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
 
   const handleSendMessage = async (textToSend?: string) => {
     const text = (textToSend || input).trim();

@@ -62,6 +62,7 @@ export const en: Translations = {
     successMessage: 'We have received your registration and look forward to seeing you on the mat. We will send you an email with practical info regarding your first class.',
     closeButton: 'Close window',
     errorMessage: 'Something went wrong during submission. Please try again or email us directly at post@kampsporteidsvoll.no.',
+    parentsNote: '☕ For parents: We have a cozy lounge with a fireplace and windows looking into the gym. Enjoy a warm cup of coffee while watching your kids train!',
   },
   news: {
     heading: 'News & Updates',
@@ -424,7 +425,9 @@ export const en: Translations = {
     step4Highlight: 'No experience necessary – our certified instructors guide you every step of the way',
     actionCardTitle: 'Ready to join us on the mats?',
     actionCardDesc: 'Start with our 14-day free trial – completely free of obligation with full access to all classes.',
-    actionCardCta: 'Start your free trial'
+    actionCardCta: 'Start your free trial',
+    parentsLoungeTitle: 'For parents: Cozy lounge with fireplace & coffee',
+    parentsLoungeDesc: 'We have a welcoming lounge with a fireplace and large windows viewing right into the training mat hall. Parents are warmly invited to sit down, enjoy a hot cup of coffee, and watch their children thrive on the mats.',
   },
   stickyCta: {
     text: 'Try 14 days for free',
@@ -481,7 +484,7 @@ All memberships provide full access to scheduled classes. Remember, you can alwa
     staticSchedule: `We train in brand new facilities at **Trondheimsvegen 71B at Dal**! 📍
 
 * **Entrance & Parking:** Both the club entrance and free parking are at the **back of the building**.
-* **Rooms:** Two dedicated martial arts mat rooms (Room 1 and Room 2) plus a separate Cross Training / Yoga studio.
+* **Facilities & Lounge:** Two dedicated martial arts mat rooms (Room 1 and Room 2), a separate Cross Training / Yoga studio, plus a cozy **parent lounge with a fireplace, free coffee and large windows viewing directly into the training hall** so you can relax while your kids train!
 * **Schedule Highlights:**
   - Classes Monday to Friday from 17:30 (dedicated classes for kids 6–9, kids 10–13, teens, and adults).
   - Daytime BJJ on Fridays at 11:00.

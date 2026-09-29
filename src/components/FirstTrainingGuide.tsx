@@ -10,7 +10,8 @@ import {
   Footprints, 
   ShieldCheck, 
   Sparkles, 
-  ArrowRight
+  ArrowRight,
+  Coffee
 } from "lucide-react";
 
 interface FirstTrainingGuideProps {
@@ -145,6 +146,26 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
             </div>
           </div>
 
+        </div>
+
+        {/* Dedicated Parents Lounge Feature Card */}
+        <div className="mb-12 sm:mb-16 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/25 rounded-2xl p-6 sm:p-7 shadow-sm flex flex-col sm:flex-row items-start sm:items-center gap-5">
+          <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-500 shrink-0">
+            <Coffee className="w-6 h-6" />
+          </div>
+          <div className="space-y-1 flex-1">
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-bold text-foreground">
+                {t.forsteTrening.parentsLoungeTitle}
+              </h3>
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-500 border border-amber-500/20">
+                Peisestue
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+              {t.forsteTrening.parentsLoungeDesc}
+            </p>
+          </div>
         </div>
 
         {/* Call to Action Banner */}

@@ -62,6 +62,7 @@ export const no: Translations = {
     successMessage: 'Vi har mottatt din henvendelse og gleder oss til å se deg på matta. Vi sender deg en e-post med all praktisk info om din første trening.',
     closeButton: 'Lukk vindu',
     errorMessage: 'Noe gikk galt under sending. Vennligst prøv igjen eller send oss en e-post direkte på post@kampsporteidsvoll.no.',
+    parentsNote: '☕ For foreldre: Vi har en koselig peisestue med vindu rett inn til salen. Her kan du ta deg en kopp kaffe og slappe av mens barna trener!',
   },
   news: {
     heading: 'Nyheter',
@@ -424,7 +425,9 @@ export const no: Translations = {
     step4Highlight: 'Ingen forkunnskaper nødvendig – våre instruktører veileder deg hele veien',
     actionCardTitle: 'Klar for å teste matta sammen med oss?',
     actionCardDesc: 'Start med 14 dagers gratis prøveuke – helt uforpliktende og fri tilgang til alle partier.',
-    actionCardCta: 'Start din gratis prøveuke'
+    actionCardCta: 'Start din gratis prøveuke',
+    parentsLoungeTitle: 'For foreldre: Koselig peisestue & kaffe',
+    parentsLoungeDesc: 'Vi har en egen trivelig peisestue med store vinduer inn til treningssalen. Her er foreldre og foresatte hjertelig velkomne til å sitte ned, ta seg en kopp kaffe og følge med på barnas mestring og treningsglede.',
   },
   stickyCta: {
     text: 'Prøv gratis i 14 dager',
@@ -481,7 +484,7 @@ Alle faste medlemskap gir fri tilgang til våre timer. Husk at du alltid kan sta
     staticSchedule: `Vi holder til i splitter nye, nyoppussede lokaler i **Trondheimsvegen 71B på Dal**! 📍
 
 * **Inngang & Parkering:** Både inngangen til klubben og gratis parkering finner du på **baksiden av bygget**.
-* **Saler:** To store kampsportsaler med faste matter (Sal 1 og Sal 2) samt en egen CT/Yoga-sal.
+* **Saler & Fasiliteter:** To store kampsportsaler med faste matter (Sal 1 og Sal 2), egen CT/Yoga-sal, samt en koselig **peisestue med gratis kaffe og vindu rett inn til salen** der foreldre kan slappe av og følge med på barnas trening!
 * **Treningstider:**
   - Treninger mandag til fredag fra kl. 17:30 (egne partier for barn 6–9 år og 10–13 år, ungdom og voksne).
   - Dagtrening BJJ fredager kl. 11:00.
