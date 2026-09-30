@@ -233,6 +233,8 @@ export interface Translations {
     text: string;
     accept: string;
     decline: string;
+    readMore: string;
+    manageTitle: string;
   };
   footer: {
     description: string;
@@ -251,11 +253,41 @@ export interface Translations {
     orgPlan: string;
     sponsors: string;
     photoConsent: string;
+    privacyPolicy: string;
+    cookieSettings: string;
   };
   veiviser: VeiviserTranslation;
   forsteTrening: ForsteTreningTranslation;
   stickyCta: StickyCtaTranslation;
   chat: ChatTranslation;
+  personvern: PersonvernTranslation;
+}
+
+export interface PersonvernTranslation {
+  title: string;
+  subtitle: string;
+  lastUpdated: string;
+  controllerTitle: string;
+  controllerText: string;
+  cookiesTitle: string;
+  cookiesIntro: string;
+  cookieTableCategory: string;
+  cookieTableName: string;
+  cookieTablePurpose: string;
+  cookieTableExpiry: string;
+  necessaryCategory: string;
+  analyticsCategory: string;
+  currentConsentStatus: string;
+  consentGranted: string;
+  consentDenied: string;
+  consentNotSet: string;
+  changeConsentButton: string;
+  formsTitle: string;
+  formsText: string;
+  rightsTitle: string;
+  rightsText: string;
+  contactTitle: string;
+  contactText: string;
 }
 
 export interface ChatTranslation {

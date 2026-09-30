@@ -106,6 +106,24 @@ export function Footer({ data }: { data?: any }) {
                     {t.footer.photoConsent}
                   </Link>
                 </li>
+                <li>
+                  <Link href="/personvern" className="hover:text-white transition-colors font-medium text-slate-200 hover:underline">
+                    {t.footer.privacyPolicy}
+                  </Link>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (typeof window !== "undefined") {
+                        window.dispatchEvent(new CustomEvent("openCookieBanner"));
+                      }
+                    }}
+                    className="hover:text-white transition-colors text-slate-400 hover:underline text-left text-sm cursor-pointer"
+                  >
+                    {t.footer.cookieSettings}
+                  </button>
+                </li>
               </ul>
             </nav>
           </div>
