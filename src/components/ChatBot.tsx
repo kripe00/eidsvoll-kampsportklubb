@@ -18,6 +18,48 @@ import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import { ProveukeModal } from "./ProveukeModal";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { sendGAEvent } from "@next/third-parties/google";
+
+function trackChatEvent(action: string, params?: Record<string, any>) {
+  try {
+    sendGAEvent("event", action, params || {});
+  } catch {
+    // ignore
+  }
+  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+    try {
+      (window as any).gtag("event", action, params);
+    } catch {
+      // ignore
+    }
+  }
+}
+
+async function logChatQuestion({
+  question,
+  type,
+  faqId,
+  locale,
+}: {
+  question: string;
+  type: "static_faq" | "ai";
+  faqId?: string | null;
+  locale: string;
+}) {
+  try {
+    await addDoc(collection(db, "chat_logs"), {
+      question: question.slice(0, 500),
+      type,
+      faqId: faqId || null,
+      locale: locale || "no",
+      createdAt: serverTimestamp(),
+    });
+  } catch (err) {
+    console.debug("[ChatBot] Kunne ikke logge spørsmål til Firestore:", err);
+  }
+}
 
 interface ChatMessage {
   id: string;
@@ -226,6 +268,7 @@ function findStaticFaq(query: string, chatT: any): StaticFaqItem | null {
 function MessageActionCards({
   content,
   t,
+  onCtaClick,
 }: {
   content: string;
   t: {
@@ -234,6 +277,7 @@ function MessageActionCards({
     actionSchedule: string;
     actionEmail: string;
   };
+  onCtaClick?: (target: string) => void;
 }) {
   const isTrial = /prøveuke|prøveperiode|prøvetrening|prøv gratis|gratis prøve|trial|free trial|okres próbny|darmowy|пробн|безкоштовн|peisestue|peisestua|lounge|kaffe|komink|камін/i.test(content);
   const isBoost = /boost|innmelding|bli medlem|treningsavgift|kr \d+|membership|join|członkostw|karnet|абонемент|вступ/i.test(content);
@@ -252,6 +296,7 @@ function MessageActionCards({
             <Button
               size="sm"
               spring={true}
+              onClick={() => onCtaClick?.("trial_modal")}
               className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-blue-600 to-primary text-white shadow-md hover:opacity-95 transition-all text-left group"
             >
               <span>{t.actionTrial}</span>
@@ -266,6 +311,7 @@ function MessageActionCards({
           href="https://portal.boostsystem.no/rambukk/member"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => onCtaClick?.("boost")}
           className="block w-full"
         >
           <Button
@@ -280,7 +326,7 @@ function MessageActionCards({
       )}
 
       {isSchedule && (
-        <Link href="/timeplan" className="block w-full">
+        <Link href="/timeplan" onClick={() => onCtaClick?.("schedule")} className="block w-full">
           <Button
             size="sm"
             variant="outline"
@@ -294,7 +340,7 @@ function MessageActionCards({
       )}
 
       {isContact && (
-        <a href="mailto:kontakt@kampsporteidsvoll.no" className="block w-full">
+        <a href="mailto:kontakt@kampsporteidsvoll.no" onClick={() => onCtaClick?.("email")} className="block w-full">
           <Button
             size="sm"
             variant="outline"
@@ -418,6 +464,8 @@ export function ChatBot() {
       return;
     }
 
+    const inputSource = textToSend ? "quick_chip" : "typed_input";
+
     setErrorMessage(null);
     setInput("");
 
@@ -434,6 +482,21 @@ export function ChatBot() {
     // 1. Sjekk 0-token lokal FAQ cache først for lynraskt svar (0 tokens brukt!)
     const staticMatch = findStaticFaq(text, chatT);
     if (staticMatch) {
+      trackChatEvent("chat_message_sent", {
+        message_type: "static_faq",
+        faq_id: staticMatch.id,
+        input_source: inputSource,
+        locale: locale || "no",
+        character_count: text.length,
+      });
+
+      logChatQuestion({
+        question: text,
+        type: "static_faq",
+        faqId: staticMatch.id,
+        locale: locale || "no",
+      });
+
       setTimeout(() => {
         const assistantMessage: ChatMessage = {
           id: `assistant-${Date.now()}`,
@@ -448,6 +511,21 @@ export function ChatBot() {
     }
 
     // 2. Hvis ingen direkte FAQ-treff: Send til OpenAI gpt-4o-mini via Cloud Function
+    trackChatEvent("chat_message_sent", {
+      message_type: "ai",
+      faq_id: null,
+      input_source: inputSource,
+      locale: locale || "no",
+      character_count: text.length,
+    });
+
+    logChatQuestion({
+      question: text,
+      type: "ai",
+      faqId: null,
+      locale: locale || "no",
+    });
+
     try {
       const historyContext = newMessages
         .filter((m) => m.id !== "welcome-1")
@@ -503,6 +581,13 @@ export function ChatBot() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleCtaClick = (ctaTarget: string) => {
+    trackChatEvent("chat_cta_clicked", {
+      cta_target: ctaTarget,
+      locale: locale || "no",
+    });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -715,7 +800,7 @@ export function ChatBot() {
                     )}
                   >
                     {isUser ? msg.content : renderFormattedMessage(msg.content)}
-                    {!isUser && <MessageActionCards content={msg.content} t={chatT} />}
+                    {!isUser && <MessageActionCards content={msg.content} t={chatT} onCtaClick={handleCtaClick} />}
 
                     {/* Contextual Follow-up Next Step Chips */}
                     {showFollowUps && (

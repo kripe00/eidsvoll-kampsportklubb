@@ -36,5 +36,28 @@ service cloud.firestore {
       // Prevent anyone from reading, updating, or deleting messages directly from client
       allow read, update, delete: if false;
     }
+
+    match /chat_logs/{logId} {
+      // Anonym spørsmålslogg for analyse og forbedring av chatten
+      allow create: if
+        // Obligatoriske felt og datatyper
+        request.resource.data.question is string &&
+        request.resource.data.type is string &&
+        request.resource.data.locale is string &&
+        request.resource.data.createdAt is timestamp &&
+        
+        // Strenge grenser for strenglengder og verdier
+        request.resource.data.question.size() > 0 &&
+        request.resource.data.question.size() <= 500 &&
+        (request.resource.data.type == 'static_faq' || request.resource.data.type == 'ai') &&
+        request.resource.data.locale.size() <= 10 &&
+
+        // Valgfrie felt
+        (!('faqId' in request.resource.data) || (request.resource.data.faqId is string && request.resource.data.faqId.size() <= 50)) &&
+        (!('website' in request.resource.data) || request.resource.data.website == '');
+
+      // Kun administratorer via Firebase Console har tilgang til å lese, oppdatere eller slette loggene
+      allow read, update, delete: if false;
+    }
   }
 }

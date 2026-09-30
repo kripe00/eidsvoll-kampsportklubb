@@ -703,6 +703,8 @@ export const chatWithClubBot = onRequest(
       return;
     }
 
+    console.log(`[ChatBot] Nytt AI-spørsmål (locale: ${locale || "no"}): "${trimmedMessage}"`);
+
     // Sanitiser og begrens historikk (maks 4 siste meldinger)
     const validRoles = new Set(["user", "assistant"]);
     const sanitizedHistory: Array<{ role: "user" | "assistant"; content: string }> = [];
