@@ -52,7 +52,7 @@ export function News({ newsItems = [] }: { newsItems?: any[] }) {
                       className="object-cover hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <img src="/logo.png" alt="Eidsvoll Kampsportklubb" className="w-16 h-16 object-contain opacity-20" />
+                    <OptimizedImage src="/logo.png" alt="Eidsvoll Kampsportklubb" width={64} height={64} className="w-16 h-16 object-contain opacity-20" />
                   )}
                   <Badge className="absolute top-4 left-4 bg-primary text-white border-none">
                     {node.category}
