@@ -556,9 +556,17 @@ export function ChatBot() {
         }),
       });
 
-      const data = await res.json();
+      const contentType = res.headers.get("content-type") || "";
+      let data: any = null;
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch {
+          data = null;
+        }
+      }
 
-      if (!res.ok) {
+      if (!res.ok || !data) {
         throw new Error(data?.error || chatT.connectionError);
       }
 
@@ -575,8 +583,11 @@ export function ChatBot() {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err: any) {
       console.error("Chat error:", err);
+      const isSyntaxOrNetworkError =
+        err instanceof SyntaxError ||
+        /unexpected token|failed to fetch|networkerror/i.test(err?.message || "");
       setErrorMessage(
-        err?.message || chatT.connectionError
+        isSyntaxOrNetworkError ? chatT.connectionError : (err?.message || chatT.connectionError)
       );
     } finally {
       setIsLoading(false);
