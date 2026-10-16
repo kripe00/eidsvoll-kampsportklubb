@@ -3,10 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
-  MessageSquare,
   X,
   Send,
-  Bot,
   Sparkles,
   AlertCircle,
   RefreshCw,
