@@ -240,9 +240,9 @@ export function SponsorerPageClient(props: {
             ? rawList 
             : [
                 {
-                  name: "Sanita",
-                  logo: "/images/sponsors/sanita.png",
-                  url: "https://www.sanita.no"
+                  name: "City Sushi & Thai",
+                  logo: "/images/sponsors/city-sushi-thai.webp",
+                  url: "https://www.citysushithai.no"
                 }
               ];
           return (

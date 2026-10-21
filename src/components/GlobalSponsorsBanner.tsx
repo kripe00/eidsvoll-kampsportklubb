@@ -28,7 +28,7 @@ export function GlobalSponsorsBanner({ sponsors = [] }: { sponsors?: any[] }) {
               alt={sponsor.name || "Sponsor"} 
               width={220}
               height={100}
-              className="max-h-12 md:max-h-16 max-w-[200px] md:max-w-[240px] object-contain w-auto h-auto"
+              className="max-h-12 md:max-h-16 max-w-[200px] md:max-w-[240px] object-contain w-auto h-auto rounded-md shadow-sm"
             />
           ) : (
             <span className="text-lg md:text-xl font-black tracking-tighter uppercase text-muted-foreground whitespace-nowrap">
