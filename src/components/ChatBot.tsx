@@ -247,15 +247,30 @@ function getStaticFaqs(chatT: any): StaticFaqItem[] {
   ];
 }
 
-function findStaticFaq(query: string, chatT: any): StaticFaqItem | null {
-  const normalized = query
+function findStaticFaq(query: string, chatT: any, inputSource?: string): StaticFaqItem | null {
+  const trimmed = query.trim();
+
+  // Kritiskt: Hvis brukeren har skrevet en lengre eller personlig melding (over 45 tegn),
+  // eller hvis meldingen inneholder flere setninger/ord, skal den ALDRI kapres av statisk FAQ!
+  // Den skal gå direkte til AI-en slik at brukeren får et varmt, personlig og utfyllende svar.
+  if (inputSource !== "quick_chip" && (trimmed.length > 45 || trimmed.split(/\s+/).length > 6)) {
+    return null;
+  }
+
+  const normalized = trimmed
     .toLowerCase()
     .replace(/[🥋⏱️🥊📍👟📅❓?.!,]/g, "")
     .trim();
 
   const faqs = getStaticFaqs(chatT);
   for (const faq of faqs) {
-    if (faq.triggerPhrases.some((phrase) => normalized.includes(phrase))) {
+    if (faq.triggerPhrases.some((phrase) => {
+      // For fritekst: krev eksakt match eller at spørringen starter med/er frasen
+      if (inputSource !== "quick_chip") {
+        return normalized === phrase || normalized.startsWith(phrase + " ");
+      }
+      return normalized.includes(phrase);
+    })) {
       return faq;
     }
   }
@@ -479,8 +494,8 @@ export function ChatBot() {
     setMessages(newMessages);
     setIsLoading(true);
 
-    // 1. Sjekk 0-token lokal FAQ cache først for lynraskt svar (0 tokens brukt!)
-    const staticMatch = findStaticFaq(text, chatT);
+    // 1. Sjekk 0-token lokal FAQ cache kun for korte snarveier eller klikk på chips
+    const staticMatch = findStaticFaq(text, chatT, inputSource);
     if (staticMatch) {
       trackChatEvent("chat_message_sent", {
         message_type: "static_faq",
