@@ -32,6 +32,12 @@ const escapeHtml = (unsafe?: string): string => {
     .replace(/'/g, "&#039;");
 };
 
+// Sikkerhetsfunksjon for e-post headere (forhindrer CRLF header injection og ødelagte anførselstegn)
+const sanitizeHeader = (unsafe?: string): string => {
+  if (!unsafe) return "";
+  return String(unsafe).replace(/[\r\n"]/g, " ").trim();
+};
+
 // Hjelpefunksjon for norsk datoformatering
 const formatNorwegianDate = (dateStr?: string) => {
   if (!dateStr) return "";
@@ -40,10 +46,49 @@ const formatNorwegianDate = (dateStr?: string) => {
   return d.toLocaleDateString("nb-NO", { day: "numeric", month: "long", year: "numeric" });
 };
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Robust utsending med eksponentiell backoff ved midlertidige SMTP-feil (f.eks. Resend 451 / 429 / nettverksfeil)
+async function sendMailWithRetry(
+  transporter: nodemailer.Transporter,
+  mailOptions: nodemailer.SendMailOptions,
+  label: string,
+  maxAttempts = 4
+): Promise<void> {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      await transporter.sendMail(mailOptions);
+      return;
+    } catch (err: any) {
+      lastError = err;
+      const responseCode = err?.responseCode;
+      const isPermanent =
+        typeof responseCode === "number" &&
+        responseCode >= 500 &&
+        responseCode < 600 &&
+        responseCode !== 554;
+
+      console.warn(
+        `[${label}] Forsøk ${attempt}/${maxAttempts} feilet (${err?.code || responseCode || "ukjent feil"}): ${err?.message || err}`
+      );
+
+      if (isPermanent || attempt === maxAttempts) {
+        break;
+      }
+
+      const backoffMs = 1500 * Math.pow(2, attempt - 1);
+      await sleep(backoffMs);
+    }
+  }
+  throw lastError;
+}
+
 export const sendContactEmail = onDocumentCreated(
   {
     document: "messages/{messageId}",
     secrets: [smtpUser, smtpPassword],
+    retry: true,
   },
   async (event) => {
     const snapshot = event.data;
@@ -69,6 +114,10 @@ export const sendContactEmail = onDocumentCreated(
     const safeSubject = escapeHtml(subject || "Ingen emne angitt");
     const safeMessage = escapeHtml(message || "");
     const safeCategory = escapeHtml(category || "Voksen/Ungdom");
+
+    const headerName = sanitizeHeader(name || "Ukjent avsender");
+    const headerSubject = sanitizeHeader(subject || "Ny henvendelse");
+    const headerCategory = sanitizeHeader(category || "Prøveperiode");
 
     console.log(`Mottok ny henvendelse (${event.params.messageId}) fra ${email}. Sender e-post...`);
 
@@ -96,12 +145,12 @@ export const sendContactEmail = onDocumentCreated(
 
     // 1. E-post til klubben (Administrasjonen)
     const mailOptionsAdmin = {
-      from: `"${safeName} via Nettsiden" <${senderEmail}>`,
+      from: `"${headerName} via Nettsiden" <${senderEmail}>`,
       to: emailTo,
-      replyTo: email,
+      replyTo: sanitizeHeader(email),
       subject: isTrialWeek
-        ? `[GRATIS PRØVEPERIODE 14 DAGER] ${name} (${category || "Prøveperiode"})`
-        : `[Kontaktskjema] ${subject || "Ny henvendelse"}`,
+        ? `[GRATIS PRØVEPERIODE 14 DAGER] ${headerName} (${headerCategory})`
+        : `[Kontaktskjema] ${headerSubject}`,
       text: isTrialWeek
         ? `Ny påmelding til gratis prøveperiode (14 dager / 2 uker)!\n\nNavn: ${name}\nE-post: ${email}\nTelefon: ${phone || "Ikke oppgitt"}\nKategori: ${category || "Ikke oppgitt"}\nStartdato: ${formattedStartDate}\nSluttdato prøveperiode: ${formattedEndDate}\n\nMelding:\n${message}`
         : `Du har mottatt en ny melding fra kontaktskjemaet på nettsiden.\n\nNavn: ${name}\nE-post: ${email}\nEmne: ${subject}\n\nMelding:\n${message}`,
@@ -293,15 +342,55 @@ export const sendContactEmail = onDocumentCreated(
       `,
     };
 
+    // Sjekk oppdatert dokumentstatus for idempotens ved eventuelle Cloud Functions retries
+    const latestSnap = await snapshot.ref.get();
+    const latestData = latestSnap.data() || data;
+
+    let userEmailSent = latestData.userEmailSent === true;
+    let adminEmailSent = latestData.adminEmailSent === true;
+    let sendError: unknown = null;
+
+    if (userEmailSent && adminEmailSent) {
+      console.log(`E-poster for ${event.params.messageId} er allerede sendt. Hopper over duplikat.`);
+      return;
+    }
+
+    // Send sekvensielt (med 700ms pause) i stedet for Promise.all for å unngå Resend rate-limit (2 req/s) og 451-feil
+    if (!userEmailSent) {
+      try {
+        await sendMailWithRetry(transporter, mailOptionsUser, `Bruker-bekreftelse til ${email}`);
+        userEmailSent = true;
+      } catch (error) {
+        console.error(`Feil ved sending av bekreftelses-epost til bruker (${email}):`, error);
+        sendError = error;
+      }
+      await sleep(700);
+    }
+
+    if (!adminEmailSent) {
+      try {
+        await sendMailWithRetry(transporter, mailOptionsAdmin, `Admin-varsel for ${email}`);
+        adminEmailSent = true;
+      } catch (error) {
+        console.error(`Feil ved sending av varslings-epost til admin (${emailTo}):`, error);
+        sendError = sendError || error;
+      }
+    }
+
     try {
-      await Promise.all([
-        transporter.sendMail(mailOptionsAdmin),
-        transporter.sendMail(mailOptionsUser),
-      ]);
+      await snapshot.ref.update({
+        userEmailSent,
+        adminEmailSent,
+        emailProcessedAt: admin.firestore.FieldValue.serverTimestamp(),
+      });
+    } catch (updateErr) {
+      console.warn("Kunne ikke oppdatere e-poststatus på melding-dokumentet:", updateErr);
+    }
+
+    if (userEmailSent && adminEmailSent) {
       console.log(`Begge e-poster (varsling + bekreftelse til ${email}) sendt suksessfullt.`);
-    } catch (error) {
-      console.error("Feil ved sending av e-post via Nodemailer:", error);
-      throw error;
+    } else if (sendError) {
+      throw sendError;
     }
   }
 );
@@ -338,17 +427,19 @@ export const sendTrialWeekFollowup = onSchedule(
       },
     });
 
-    const nowInOslo = new Date();
-    // Dagens dato i format YYYY-MM-DD
-    const todayStr = nowInOslo.toISOString().split("T")[0];
+    // Dagens dato i format YYYY-MM-DD (Europe/Oslo tidssone)
+    const todayStr = new Intl.DateTimeFormat("sv-SE", {
+      timeZone: "Europe/Oslo",
+    }).format(new Date());
 
     const db = admin.firestore();
 
     try {
-      // Hent prøveukepåmeldinger med en sikker øvre batchgrense (maks 250 per kjøring for å unngå memory exhaustion)
+      // Hent aktive prøveukepåmeldinger som ikke har fått oppfølging ennå
       const snapshot = await db
         .collection("messages")
         .where("isProveuke", "==", true)
+        .where("followupSent", "==", false)
         .limit(250)
         .get();
 
@@ -467,7 +558,8 @@ export const sendTrialWeekFollowup = onSchedule(
             `,
           };
 
-          await transporter.sendMail(mailOptionsFollowup);
+          await sendMailWithRetry(transporter, mailOptionsFollowup, `Oppfølging til ${email}`);
+          await sleep(700);
 
           // Marker at oppfølgingsepost er sendt
           await doc.ref.update({
@@ -665,7 +757,13 @@ For å trene fast etter prøveperioden må utøvere registrere seg i to systemer
 export const chatWithClubBot = onRequest(
   {
     secrets: [openaiApiKey],
-    cors: true,
+    cors: [
+      "https://kampsporteidsvoll.no",
+      "https://www.kampsporteidsvoll.no",
+      "https://eidsvoll-kampsportklubb.web.app",
+      "https://eidsvoll-kampsportklubb.firebaseapp.com",
+      /^http:\/\/localhost:\d+$/,
+    ],
   },
   async (req, res) => {
     // 1. Støtt preflight OPTIONS forespørsler
@@ -679,20 +777,30 @@ export const chatWithClubBot = onRequest(
       return;
     }
 
-    // 2. Klient-IP og Sesjon for presis Rate Limiting (Maks 10 meldinger per 30 min per sesjon/IP)
+    // 2. Klient-IP og Sesjon for presis Rate Limiting
+    // Alltid håndhev en hard grense per IP (maks 15 meldinger per 30 min) slik at rotering av sessionId ikke kan omgå grensen
     const clientIp =
       (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim() ||
       req.socket.remoteAddress ||
       "unknown-ip";
+
+    const ipRateCheck = checkRateLimit(`ip_${clientIp}`, 15, 30 * 60 * 1000);
+    if (!ipRateCheck.allowed) {
+      res.status(429).json({
+        error: "Du har sendt for mange meldinger den siste halvtimen. Vennligst vent litt eller ta kontakt med oss på kontakt@kampsporteidsvoll.no dersom det haster!",
+      });
+      return;
+    }
 
     const sessionId =
       typeof req.body?.sessionId === "string"
         ? req.body.sessionId.trim().slice(0, 64)
         : null;
 
-    const rateKey = sessionId ? `${clientIp}_${sessionId}` : clientIp;
+    const rateCheck = sessionId
+      ? checkRateLimit(`${clientIp}_${sessionId}`, 10, 30 * 60 * 1000)
+      : ipRateCheck;
 
-    const rateCheck = checkRateLimit(rateKey, 10, 30 * 60 * 1000);
     if (!rateCheck.allowed) {
       res.status(429).json({
         error: "Du har sendt for mange meldinger den siste halvtimen. Vennligst vent litt eller ta kontakt med oss på kontakt@kampsporteidsvoll.no dersom det haster!",

@@ -19,7 +19,7 @@ export function GlobalClient(props: {
     data: props.data,
   });
 
-  const displayData = props.data?.global || data?.global;
+  const displayData = data?.global || props.data?.global;
 
   return (
     <LanguageProvider>

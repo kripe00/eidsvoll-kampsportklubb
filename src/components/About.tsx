@@ -28,6 +28,8 @@ export function About(props: AboutProps) {
               <div className="relative group overflow-hidden rounded-2xl shadow-2xl transition-transform duration-500 hover:scale-[1.02]" data-tina-field={tinaField(props, 'video')}>
                 <video 
                   src={video} 
+                  poster={image}
+                  preload="metadata"
                   autoPlay 
                   muted 
                   loop 

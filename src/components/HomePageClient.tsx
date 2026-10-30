@@ -20,8 +20,8 @@ export function HomePageClient(props: {
     data: props.data,
   });
 
-  const hero = props.data?.hero || data?.hero;
-  const rawEdges = props.data?.newsConnection?.edges || data?.newsConnection?.edges || [];
+  const hero = data?.hero || props.data?.hero;
+  const rawEdges = data?.newsConnection?.edges || props.data?.newsConnection?.edges || [];
 
   return (
     <main>

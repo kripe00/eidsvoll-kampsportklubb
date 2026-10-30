@@ -5,6 +5,13 @@ service cloud.firestore {
     match /messages/{messageId} {
       // Allow anybody to send a contact or trial week message (create only) with strict validation
       allow create: if
+        // Strict schema key allowlist (no extraneous fields)
+        request.resource.data.keys().hasOnly([
+          'name', 'email', 'subject', 'message', 'createdAt',
+          'phone', 'category', 'discipline', 'startDate', 'endDate',
+          'isProveuke', 'followupSent', 'website'
+        ]) &&
+
         // Mandatory fields & types
         request.resource.data.name is string &&
         request.resource.data.email is string &&
@@ -25,10 +32,11 @@ service cloud.firestore {
         // Optional fields validation
         (!('phone' in request.resource.data) || (request.resource.data.phone is string && request.resource.data.phone.size() <= 40)) &&
         (!('category' in request.resource.data) || (request.resource.data.category is string && request.resource.data.category.size() <= 80)) &&
+        (!('discipline' in request.resource.data) || (request.resource.data.discipline is string && request.resource.data.discipline.size() <= 100)) &&
         (!('startDate' in request.resource.data) || (request.resource.data.startDate is string && request.resource.data.startDate.size() <= 30)) &&
         (!('endDate' in request.resource.data) || (request.resource.data.endDate is string && request.resource.data.endDate.size() <= 30)) &&
         (!('isProveuke' in request.resource.data) || request.resource.data.isProveuke is bool) &&
-        (!('followupSent' in request.resource.data) || request.resource.data.followupSent is bool) &&
+        (!('followupSent' in request.resource.data) || request.resource.data.followupSent == false) &&
 
         // Anti-bot Honeypot check: If 'website' field is sent, it must be completely empty
         (!('website' in request.resource.data) || request.resource.data.website == '');
@@ -40,6 +48,11 @@ service cloud.firestore {
     match /chat_logs/{logId} {
       // Anonym spørsmålslogg for analyse og forbedring av chatten
       allow create: if
+        // Strict schema key allowlist (no extraneous fields)
+        request.resource.data.keys().hasOnly([
+          'question', 'type', 'locale', 'createdAt', 'faqId', 'website'
+        ]) &&
+
         // Obligatoriske felt og datatyper
         request.resource.data.question is string &&
         request.resource.data.type is string &&
@@ -53,7 +66,7 @@ service cloud.firestore {
         request.resource.data.locale.size() <= 10 &&
 
         // Valgfrie felt
-        (!('faqId' in request.resource.data) || (request.resource.data.faqId is string && request.resource.data.faqId.size() <= 50)) &&
+        (!('faqId' in request.resource.data) || request.resource.data.faqId == null || (request.resource.data.faqId is string && request.resource.data.faqId.size() <= 50)) &&
         (!('website' in request.resource.data) || request.resource.data.website == '');
 
       // Kun administratorer via Firebase Console har tilgang til å lese, oppdatere eller slette loggene

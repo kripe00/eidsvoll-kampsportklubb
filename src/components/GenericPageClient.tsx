@@ -22,15 +22,15 @@ export function GenericPageClient(props: {
     data: props.data,
   });
 
-  // Get the page data from initial props or real-time updates
-  const page = props.data?.page || 
-               props.data?.omOss || 
-               props.data?.medlemskap || 
-               props.data?.sponsorer ||
-               data?.page || 
+  // Get the page data from real-time updates or initial props
+  const page = data?.page || 
                data?.omOss || 
                data?.medlemskap || 
-               data?.sponsorer;
+               data?.sponsorer ||
+               props.data?.page || 
+               props.data?.omOss || 
+               props.data?.medlemskap || 
+               props.data?.sponsorer;
                
   if (!page) {
     console.warn("GenericPageClient: No page data found in:", { data, propsData: props.data });
@@ -50,7 +50,7 @@ export function GenericPageClient(props: {
               {displayTitle}
             </h1>
             {page.description && (
-              <div className="max-w-2xl mx-auto text-lg text-slate-700 leading-relaxed" data-tina-field={tinaField(page, 'description')}>
+              <div className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed" data-tina-field={tinaField(page, 'description')}>
                 {locale !== "no" && isOmOss ? (
                   <p>{t.about.pageDescription}</p>
                 ) : (

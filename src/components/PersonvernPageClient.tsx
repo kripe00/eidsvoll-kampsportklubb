@@ -44,7 +44,7 @@ export function PersonvernPageClient() {
     },
     {
       category: p.necessaryCategory,
-      name: "locale",
+      name: "ekk_locale, ekk_user_selected_locale",
       purpose: locale === "no"
         ? "Husker ditt valgte språk på nettsiden."
         : locale === "en"
@@ -65,7 +65,7 @@ export function PersonvernPageClient() {
         : locale === "pl"
         ? "Anonimowy identyfikator do ochrony przed spamem na czacie."
         : "Анонімний ідентифікатор для захисту від спаму в чаті.",
-      expiry: "localStorage (30 min)",
+      expiry: "localStorage",
       isNecessary: true,
     },
     {

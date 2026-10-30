@@ -36,7 +36,7 @@ export function SchedulePageClient(props: {
   });
 
   const { t, locale } = useLanguage();
-  const schedule = (props.data?.schedule || data?.schedule) as ScheduleProps;
+  const schedule = (data?.schedule || props.data?.schedule) as ScheduleProps;
   const days = schedule?.days || [];
 
   const [activeDayIdx, setActiveDayIdx] = useState(0);
@@ -68,10 +68,21 @@ export function SchedulePageClient(props: {
     });
   };
 
+  // Helper to extract HH:MM for chronological sorting (e.g., "fra 18:30" -> "18:30")
+  const extractTimeForSort = (timeStr: string) => {
+    const match = timeStr.match(/(\d{1,2}):(\d{2})/);
+    if (match) {
+      return `${match[1].padStart(2, "0")}:${match[2]}`;
+    }
+    return timeStr;
+  };
+
   // Helper to get unique start times sorted chronologically
   const getUniqueStartTimes = (slots: Slot[] = []) => {
     const startTimes = slots.map((s) => s.time.split("-")[0].trim());
-    return Array.from(new Set(startTimes)).sort((a, b) => a.localeCompare(b));
+    return Array.from(new Set(startTimes)).sort((a, b) =>
+      extractTimeForSort(a).localeCompare(extractTimeForSort(b))
+    );
   };
 
   // Helper to get sport styles
@@ -213,7 +224,9 @@ export function SchedulePageClient(props: {
         {viewMode === "week" && (
           <div className="hidden lg:flex flex-col space-y-6">
             {days.map((day, idx) => {
-              const sortedSlots = [...(day.slots || [])].sort((a, b) => a.time.localeCompare(b.time));
+              const sortedSlots = [...(day.slots || [])].sort((a, b) =>
+                extractTimeForSort(a.time).localeCompare(extractTimeForSort(b.time))
+              );
               return (
                 <div key={idx} className="border border-border/30 rounded-xl bg-muted/5 p-6 flex flex-col md:flex-row gap-6 items-start">
                   {/* Day Column (Left side) */}

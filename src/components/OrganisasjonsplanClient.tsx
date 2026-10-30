@@ -55,7 +55,7 @@ export function OrganisasjonsplanClient(props: {
         {/* Main Content Area */}
         <div className="max-w-4xl">
           <div 
-            className="prose prose-xl max-w-none prose-p:text-slate-700 prose-p:leading-relaxed prose-headings:text-foreground prose-headings:uppercase prose-headings:tracking-tighter prose-strong:text-primary prose-strong:font-black prose-h2:mt-24 prose-h2:mb-12 prose-h2:pb-4 prose-h2:border-b prose-h2:border-border/40 prose-ul:my-10 prose-li:my-4"
+            className="prose prose-xl max-w-none prose-p:text-muted-foreground prose-p:leading-relaxed prose-headings:text-foreground prose-headings:uppercase prose-headings:tracking-tighter prose-strong:text-primary prose-strong:font-black prose-h2:mt-24 prose-h2:mb-12 prose-h2:pb-4 prose-h2:border-b prose-h2:border-border/40 prose-ul:my-10 prose-li:my-4"
             data-tina-field={tinaField(content, 'body')}
           >
             <RichText content={content.body} />

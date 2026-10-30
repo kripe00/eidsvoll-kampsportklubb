@@ -64,6 +64,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/personvern`,
+      lastModified: today,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/samtykke`,
+      lastModified: today,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
   ];
 
   // 2. Dynamic news routes

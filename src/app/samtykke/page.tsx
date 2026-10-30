@@ -14,7 +14,7 @@ export default function SamtykkePage() {
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-4 text-foreground uppercase leading-[0.95] md:leading-[0.85] break-words">
             Samtykke for bildedeling
           </h1>
-          <p className="max-w-2xl mx-auto text-lg text-slate-700 leading-relaxed font-light italic">
+          <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed font-light italic">
             Samtykkeskjema for fotografering og deling av bilder og film av barn i Eidsvoll Kampsportklubb.
           </p>
         </div>

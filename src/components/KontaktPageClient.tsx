@@ -23,8 +23,8 @@ export function KontaktPageClient(props: {
     data: props.data,
   });
 
-  const contact = props.data?.contact || data?.contact;
-  const page = props.data?.page || data?.page;
+  const contact = data?.contact || props.data?.contact;
+  const page = data?.page || props.data?.page;
 
   // Form state
   const [formData, setFormData] = useState({

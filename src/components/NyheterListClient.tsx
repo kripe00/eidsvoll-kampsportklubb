@@ -22,7 +22,7 @@ export function NyheterListClient(props: {
     data: props.data || {},
   });
 
-  const displayData = props.data || data;
+  const displayData = data?.newsConnection ? data : props.data;
   const edges = displayData?.newsConnection?.edges || [];
   
   // Sorter nyheter etter dato, nyeste først

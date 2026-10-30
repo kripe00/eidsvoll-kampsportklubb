@@ -14,6 +14,7 @@ function BoardMemberCard({ member }: { member: any }) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const currentRef = cardRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
@@ -24,13 +25,13 @@ function BoardMemberCard({ member }: { member: any }) {
       }
     );
 
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -92,7 +93,7 @@ export function StyretPageClient(props: {
     data: props.data,
   });
 
-  const boardData = props.data?.styret || data?.styret;
+  const boardData = data?.styret || props.data?.styret;
 
   return (
     <main className="bg-background min-h-screen pb-32">

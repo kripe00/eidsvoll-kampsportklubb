@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/firebase";
@@ -31,19 +31,20 @@ export function ProveukeModal({
   const isControlled = typeof isOpen === "boolean";
   const [internalOpen, setInternalOpen] = useState(false);
   const open = isControlled ? isOpen : internalOpen;
-  const setOpen = (val: boolean) => {
+  const setOpen = useCallback((val: boolean) => {
     if (isControlled && onOpenChange) {
       onOpenChange(val);
     } else {
       setInternalOpen(val);
     }
-  };
+  }, [isControlled, onOpenChange]);
 
   const [mounted, setMounted] = useState(false);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const getTodayString = () => new Date().toISOString().split("T")[0];
+  const getTodayString = () =>
+    new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo" }).format(new Date());
 
   const [formData, setFormData] = useState({
     name: "",
@@ -88,7 +89,7 @@ export function ProveukeModal({
     } else {
       document.body.style.overflow = "unset";
     }
-  }, [open]);
+  }, [open, setOpen]);
 
   // Beregn sluttdato med tidssone-nøytral UTC-aritmetikk (14 dager / 2 uker etter valgt startdato)
   const calculateEndDate = (startDateStr: string): string => {
@@ -154,7 +155,7 @@ export function ProveukeModal({
     } catch (err: any) {
       console.error("Feil ved påmelding til prøveperiode:", err);
       setStatus("error");
-      setErrorMessage("Det oppstod en feil under påmeldingen. Vennligst prøv igjen eller ta kontakt med oss på kontakt@kampsporteidsvoll.no.");
+      setErrorMessage(t.proveuke.errorMessage);
     }
   };
 
@@ -223,7 +224,15 @@ export function ProveukeModal({
               
               {/* Disciplines badge list */}
               <div className="flex flex-wrap items-center justify-between gap-1 text-[11px] text-muted-foreground bg-muted/30 px-3 py-1.5 rounded-lg border border-border/50">
-                <span className="font-semibold text-foreground">2 ukers gratis prøveperiode</span>
+                <span className="font-semibold text-foreground">
+                  {locale === "uk"
+                    ? "2 тижні безкоштовного пробного періоду"
+                    : locale === "pl"
+                    ? "2 tygodnie darmowego okresu próbnego"
+                    : locale === "en"
+                    ? "2-week free trial period"
+                    : "2 ukers gratis prøveperiode"}
+                </span>
                 <span className="text-muted-foreground/80">BJJ · Muay Thai · Crosstrening · Yoga</span>
               </div>
 
@@ -345,11 +354,11 @@ export function ProveukeModal({
                 <div className="space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
                   <div className="flex justify-between items-center">
                     <label htmlFor="modal-startdate" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
-                      {locale === "uk" ? "Startdato *" : locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Start date *" : "Ønsket Startdato *"}
+                      {locale === "uk" ? "Бажана дата початку *" : locale === "pl" ? "Data rozpoczęcia *" : locale === "en" ? "Start date *" : "Ønsket Startdato *"}
                     </label>
                     {calculatedEndDate && (
                       <span className="text-[10px] font-semibold text-primary">
-                        til {formatDateDisplay(calculatedEndDate)}
+                        {locale === "uk" ? "до" : locale === "pl" ? "do" : locale === "en" ? "to" : "til"} {formatDateDisplay(calculatedEndDate)}
                       </span>
                     )}
                   </div>
@@ -366,7 +375,7 @@ export function ProveukeModal({
 
                 <div className="sm:col-span-2 space-y-1 border-b border-border/60 pb-1 focus-within:border-primary transition-colors">
                   <label htmlFor="modal-message" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 block">
-                    {locale === "uk" ? "Melding eller spørsmål (valgfritt)" : locale === "pl" ? "Wiadomość lub pytania (opcjonalnie)" : locale === "en" ? "Message or questions (optional)" : "Melding eller spørsmål (valgfritt)"}
+                    {locale === "uk" ? "Повідомлення або запитання (необов'язково)" : locale === "pl" ? "Wiadomość lub pytania (opcjonalnie)" : locale === "en" ? "Message or questions (optional)" : "Melding eller spørsmål (valgfritt)"}
                   </label>
                   <input
                     id="modal-message"
@@ -414,7 +423,16 @@ export function ProveukeModal({
 
   return (
     <>
-      <div onClick={() => setOpen(true)} className={cn("cursor-pointer", className || "inline-block")}>
+      <div
+        onClick={() => setOpen(true)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen(true);
+          }
+        }}
+        className={cn("cursor-pointer", className || "inline-block")}
+      >
         {trigger || (
           <Button size="sm" variant="outline" className="rounded-full px-5 py-2 font-bold border-primary/40 text-foreground hover:bg-primary/10 transition-all">
             {t.nav.tryFree}
