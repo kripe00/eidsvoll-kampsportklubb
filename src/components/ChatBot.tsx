@@ -523,7 +523,7 @@ export function ChatBot() {
       return;
     }
 
-    // 2. Hvis ingen direkte FAQ-treff: Send til OpenAI gpt-4o-mini via Cloud Function
+    // 2. Hvis ingen direkte FAQ-treff: Send til Google Gemini via Cloud Function
     trackChatEvent("chat_message_sent", {
       message_type: "ai",
       faq_id: null,

@@ -4,14 +4,13 @@ import { onRequest } from "firebase-functions/v2/https";
 import { defineSecret } from "firebase-functions/params";
 import * as admin from "firebase-admin";
 import * as nodemailer from "nodemailer";
-import OpenAI from "openai";
 
 admin.initializeApp();
 
 // Definer hemmeligheter fra GCP Secret Manager
 const smtpUser = defineSecret("SMTP_USER");
 const smtpPassword = defineSecret("SMTP_PASSWORD");
-const openaiApiKey = defineSecret("OPENAI_API_KEY");
+const geminiApiKey = defineSecret("GEMINI_API_KEY");
 
 
 // Miljøvariabler
@@ -580,7 +579,7 @@ export const sendTrialWeekFollowup = onSchedule(
 
 /**
  * 4. AI Klubb-assistent (Chatbot) for Eidsvoll Kampsportklubb
- * Drevet av OpenAI gpt-4o-mini med grounded system-prompt og sliding window rate-limiting.
+ * Drevet av Google Gemini med grounded system-prompt og sliding window rate-limiting.
  */
 const ipRateLimitMap = new Map<string, number[]>();
 
@@ -756,7 +755,7 @@ For å trene fast etter prøveperioden må utøvere registrere seg i to systemer
 
 export const chatWithClubBot = onRequest(
   {
-    secrets: [openaiApiKey],
+    secrets: [geminiApiKey],
     cors: [
       "https://kampsporteidsvoll.no",
       "https://www.kampsporteidsvoll.no",
@@ -840,16 +839,14 @@ export const chatWithClubBot = onRequest(
     }
 
     // 4. Hent API-nøkkel
-    const apiKey = openaiApiKey.value() || process.env.OPENAI_API_KEY;
+    const apiKey = (geminiApiKey.value() || process.env.GEMINI_API_KEY || "").trim();
     if (!apiKey) {
-      console.error("Mangler OPENAI_API_KEY. Sjekk Secret Manager eller .env.");
+      console.error("Mangler GEMINI_API_KEY. Sjekk Secret Manager eller .secret.local.");
       res.status(500).json({ error: "AI-tjenesten er midlertidig utilgjengelig. Prøv igjen senere." });
       return;
     }
 
     try {
-      const openai = new OpenAI({ apiKey });
-
       let languageDirective = "";
       if (locale === "en") {
         languageDirective = "\nIMPORTANT: The user has selected English. You MUST reply in clear, friendly, and natural English.";
@@ -861,25 +858,82 @@ export const chatWithClubBot = onRequest(
         languageDirective = "\nBrukeren har valgt norsk. Svar på naturlig, imøtekommende og godt norsk.";
       }
 
-      const completion = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: CLUB_SYSTEM_PROMPT + languageDirective },
-          ...sanitizedHistory,
-          { role: "user", content: trimmedMessage },
-        ],
-        max_tokens: 800,
-        temperature: 0.5,
-      });
+      const geminiContents = [
+        ...sanitizedHistory.map((item) => ({
+          role: item.role === "assistant" ? "model" : "user",
+          parts: [{ text: item.content }],
+        })),
+        {
+          role: "user",
+          parts: [{ text: trimmedMessage }],
+        },
+      ];
 
-      const reply = completion.choices[0]?.message?.content?.trim() || "Beklager, jeg kunne ikke generere et svar akkurat nå.";
+      const modelsToTry = [
+        "gemini-3.5-flash",
+        "gemini-3.5-flash-lite",
+        "gemini-3.6-flash",
+        "gemini-flash-lite-latest",
+      ];
+
+      let reply = "";
+      let lastError: unknown = null;
+
+      for (const model of modelsToTry) {
+        try {
+          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              systemInstruction: {
+                parts: [{ text: CLUB_SYSTEM_PROMPT + languageDirective }],
+              },
+              contents: geminiContents,
+              generationConfig: {
+                temperature: 0.5,
+                maxOutputTokens: 1000,
+                thinkingConfig: {
+                  thinkingBudget: 0,
+                },
+              },
+            }),
+          });
+
+          const data: any = await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              `Gemini (${model}) HTTP ${response.status}: ${data?.error?.message || JSON.stringify(data)}`
+            );
+          }
+
+          const candidateText = data?.candidates?.[0]?.content?.parts
+            ?.map((part: any) => part?.text || "")
+            .join("")
+            .trim();
+
+          if (candidateText) {
+            reply = candidateText;
+            break;
+          }
+        } catch (modelErr: any) {
+          lastError = modelErr;
+          console.warn(`[ChatBot] Modell ${model} feilet, prøver neste fallback:`, modelErr?.message || modelErr);
+        }
+      }
+
+      if (!reply) {
+        if (lastError) throw lastError;
+        reply = "Beklager, jeg kunne ikke generere et svar akkurat nå.";
+      }
 
       res.status(200).json({
         reply,
         remainingRequests: rateCheck.remaining,
       });
     } catch (err: any) {
-      console.error("Feil ved kall til OpenAI API:", err?.message || err);
+      console.error("Feil ved kall til Gemini API:", err?.message || err);
       res.status(500).json({
         error: "Beklager, noe gikk galt under kommunikasjonen med AI-tjenesten. Prøv igjen om litt!",
       });
