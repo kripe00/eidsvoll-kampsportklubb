@@ -975,3 +975,309 @@ export const chatWithClubBot = onRequest(
   }
 );
 
+/**
+ * 5. Ukentlig oppsummeringsrapport hver søndag kl. 20:00 (Norsk tid)
+ * Sender oversikt over siste 7 dagers prøveuker, fullførte prøveperioder,
+ * kontaktskjema-henvendelser og spørsmål stilt til chatbotten til
+ * kontakt@kampsporteidsvoll.no og leder@kampsporteidsvoll.no.
+ */
+export const sendWeeklyClubSummary = onSchedule(
+  {
+    schedule: "every sunday 20:00",
+    timeZone: "Europe/Oslo",
+    secrets: [smtpUser, smtpPassword],
+  },
+  async () => {
+    console.log("Starter generering av ukentlig oppsummeringsrapport...");
+
+    const userVal = smtpUser.value();
+    const passVal = smtpPassword.value();
+
+    if (!userVal || !passVal) {
+      console.error("Mangler SMTP_USER eller SMTP_PASSWORD. Ukentlig rapport kan ikke sendes.");
+      return;
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: {
+        user: userVal,
+        pass: passVal,
+      },
+    });
+
+    const now = new Date();
+    const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+    const formatShortDateTime = (d?: Date | null) => {
+      if (!d || isNaN(d.getTime())) return "";
+      return d.toLocaleString("nb-NO", {
+        timeZone: "Europe/Oslo",
+        day: "2-digit",
+        month: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    };
+
+    const todayStr = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo" }).format(now);
+    const sevenDaysAgoStr = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo" }).format(sevenDaysAgo);
+    const periodLabel = `${formatNorwegianDate(sevenDaysAgoStr)} – ${formatNorwegianDate(todayStr)}`;
+
+    const db = admin.firestore();
+
+    try {
+      const [messagesSnap, chatLogsSnap] = await Promise.all([
+        db.collection("messages").orderBy("createdAt", "desc").limit(200).get(),
+        db.collection("chat_logs").orderBy("createdAt", "desc").limit(250).get(),
+      ]);
+
+      const newTrials: Array<any> = [];
+      const completedTrials: Array<any> = [];
+      const contactMessages: Array<any> = [];
+
+      for (const doc of messagesSnap.docs) {
+        const data = doc.data();
+        if (data.website && String(data.website).trim() !== "") continue;
+
+        const createdDate: Date | null =
+          data.createdAt && typeof data.createdAt.toDate === "function"
+            ? data.createdAt.toDate()
+            : data.createdAt
+            ? new Date(data.createdAt)
+            : null;
+
+        const isTrial = data.isProveuke === true || !!data.startDate;
+
+        if (createdDate && createdDate >= sevenDaysAgo) {
+          if (isTrial) {
+            newTrials.push({ id: doc.id, ...data, createdDate });
+          } else {
+            contactMessages.push({ id: doc.id, ...data, createdDate });
+          }
+        }
+
+        if (isTrial) {
+          let targetEnd = data.endDate;
+          if (!targetEnd && data.startDate) {
+            const base = new Date(data.startDate + "T00:00:00");
+            if (!isNaN(base.getTime())) {
+              targetEnd = new Date(base.getTime() + 14 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+            }
+          }
+          if (targetEnd && targetEnd >= sevenDaysAgoStr && targetEnd <= todayStr) {
+            completedTrials.push({ id: doc.id, ...data, targetEnd });
+          }
+        }
+      }
+
+      const recentChats: Array<any> = [];
+      for (const doc of chatLogsSnap.docs) {
+        const data = doc.data();
+        const createdDate: Date | null =
+          data.createdAt && typeof data.createdAt.toDate === "function"
+            ? data.createdAt.toDate()
+            : data.createdAt
+            ? new Date(data.createdAt)
+            : null;
+
+        if (createdDate && createdDate >= sevenDaysAgo) {
+          recentChats.push({ id: doc.id, ...data, createdDate });
+        }
+      }
+
+      const aiChatsCount = recentChats.filter((c) => c.type === "ai").length;
+      const faqChatsCount = recentChats.filter((c) => c.type === "static_faq").length;
+      const convertedChatsCount = recentChats.filter((c) => c.convertedToTrial === true).length;
+
+      const newTrialsHtml =
+        newTrials.length === 0
+          ? `<p style="margin: 0; font-size: 14px; color: #64748b; font-style: italic;">Ingen nye prøveuke-påmeldinger de siste 7 dagene.</p>`
+          : `<table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+              <thead>
+                <tr style="background-color: #f8fafc; text-align: left; color: #475569; border-bottom: 2px solid #e2e8f0;">
+                  <th style="padding: 8px;">Navn</th>
+                  <th style="padding: 8px;">Gren & Parti</th>
+                  <th style="padding: 8px;">Startdato</th>
+                  <th style="padding: 8px;">Kontakt</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${newTrials
+                  .map(
+                    (t) => `
+                  <tr style="border-bottom: 1px solid #f1f5f9;">
+                    <td style="padding: 8px; font-weight: 700; color: #0f172a;">
+                      ${escapeHtml(t.name)}
+                      ${
+                        t.usedChatbot
+                          ? `<div style="display: inline-block; margin-top: 2px; background-color: #eff6ff; color: #2563eb; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 9999px;">💬 Brukte chat</div>`
+                          : ""
+                      }
+                    </td>
+                    <td style="padding: 8px; color: #334155;">
+                      <strong>${escapeHtml(t.discipline || "Ikke oppgitt")}</strong><br/>
+                      <span style="font-size: 12px; color: #64748b;">${escapeHtml(t.category || "")}</span>
+                    </td>
+                    <td style="padding: 8px; color: #2563eb; font-weight: 600;">${escapeHtml(t.startDate || "-")}</td>
+                    <td style="padding: 8px; color: #334155;">
+                      <a href="mailto:${escapeHtml(t.email)}" style="color: #2563eb; text-decoration: none;">${escapeHtml(t.email)}</a><br/>
+                      <span style="font-size: 12px; color: #64748b;">${escapeHtml(t.phone || "")}</span>
+                    </td>
+                  </tr>`
+                  )
+                  .join("")}
+              </tbody>
+            </table>`;
+
+      const completedTrialsHtml =
+        completedTrials.length === 0
+          ? `<p style="margin: 0; font-size: 14px; color: #64748b; font-style: italic;">Ingen prøveperioder som hadde utløpsdato denne uka.</p>`
+          : `<table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+              <thead>
+                <tr style="background-color: #f8fafc; text-align: left; color: #475569; border-bottom: 2px solid #e2e8f0;">
+                  <th style="padding: 8px;">Navn</th>
+                  <th style="padding: 8px;">Gren</th>
+                  <th style="padding: 8px;">Sluttdato</th>
+                  <th style="padding: 8px;">Telefon / E-post</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${completedTrials
+                  .map(
+                    (t) => `
+                  <tr style="border-bottom: 1px solid #f1f5f9;">
+                    <td style="padding: 8px; font-weight: 700; color: #0f172a;">${escapeHtml(t.name)}</td>
+                    <td style="padding: 8px; color: #334155;">${escapeHtml(t.discipline || t.category || "-")}</td>
+                    <td style="padding: 8px; color: #059669; font-weight: 600;">${escapeHtml(t.targetEnd)}</td>
+                    <td style="padding: 8px; color: #334155;">
+                      <strong>${escapeHtml(t.phone || "-")}</strong><br/>
+                      <a href="mailto:${escapeHtml(t.email)}" style="color: #2563eb; text-decoration: none; font-size: 12px;">${escapeHtml(t.email)}</a>
+                    </td>
+                  </tr>`
+                  )
+                  .join("")}
+              </tbody>
+            </table>`;
+
+      const chatLogsHtml =
+        recentChats.length === 0
+          ? `<p style="margin: 0; font-size: 14px; color: #64748b; font-style: italic;">Ingen spørsmål stilt i chatbotten de siste 7 dagene.</p>`
+          : recentChats
+              .map((c) => {
+                const isAi = c.type === "ai";
+                const shortAnswer =
+                  typeof c.answer === "string" && c.answer.length > 260
+                    ? c.answer.slice(0, 260) + "..."
+                    : c.answer || "(Intet svar lagret)";
+                return `
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid ${
+                  isAi ? "#2563eb" : "#64748b"
+                }; border-radius: 8px; padding: 12px 14px; margin-bottom: 10px;">
+                  <div style="font-size: 11px; color: #64748b; margin-bottom: 4px;">
+                    <strong>${formatShortDateTime(c.createdDate)}</strong> ·
+                    <span style="text-transform: uppercase; font-weight: 700; color: ${
+                      isAi ? "#2563eb" : "#475569"
+                    };">${isAi ? "AI-spørsmål (Gemini)" : `Hurtigknapp (${escapeHtml(c.faqId || "FAQ")})`}</span>
+                    ${
+                      c.userName
+                        ? ` · <span style="color: #059669; font-weight: 700;">👤 ${escapeHtml(c.userName)}${
+                            c.convertedToTrial ? " (Meldte seg på prøveuke!)" : ""
+                          }</span>`
+                        : ""
+                    }
+                  </div>
+                  <p style="margin: 0 0 6px 0; font-size: 14px; font-weight: 700; color: #0f172a;">
+                    «${escapeHtml(c.question)}»
+                  </p>
+                  <p style="margin: 0; font-size: 12px; color: #475569; white-space: pre-wrap; line-height: 1.4;">
+                    <strong>Svar:</strong> ${escapeHtml(shortAnswer)}
+                  </p>
+                </div>`;
+              })
+              .join("");
+
+      const recipients = Array.from(new Set([emailTo, "leder@kampsporteidsvoll.no"]));
+
+      const mailOptions = {
+        from: `"Eidsvoll Kampsportklubb Rapport" <${senderEmail}>`,
+        to: recipients.join(", "),
+        replyTo: emailTo,
+        subject: `📊 Ukesrapport (${newTrials.length} nye prøveuker, ${recentChats.length} chat-spørsmål) – Eidsvoll Kampsportklubb`,
+        text: `Ukentlig oppsummering for Eidsvoll Kampsportklubb (${periodLabel})\n\n- Nye prøveuker siste 7 dager: ${newTrials.length}\n- Fullførte prøveperioder denne uka: ${completedTrials.length}\n- Spørsmål i chatbotten siste 7 dager: ${recentChats.length} (${aiChatsCount} AI, ${faqChatsCount} hurtigknapper)\n- Kontaktskjema-meldinger: ${contactMessages.length}\n\nSe HTML-versjonen av e-posten for fullstendige tabeller og spørsmål/svar.`,
+        html: `
+          <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 680px; margin: 0 auto; padding: 28px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
+            <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #f1f5f9;">
+              <h1 style="color: #0f172a; font-size: 22px; font-weight: 900; text-transform: uppercase; margin: 0 0 6px 0;">
+                📊 Ukentlig Oppsummering – Eidsvoll Kampsportklubb
+              </h1>
+              <p style="color: #64748b; font-size: 13px; margin: 0;">
+                Periode: <strong>${periodLabel}</strong>
+              </p>
+            </div>
+
+            <!-- KPI Cards -->
+            <table style="width: 100%; border-collapse: separate; border-spacing: 8px; margin: 20px 0;">
+              <tr>
+                <td style="width: 25%; background-color: #eff6ff; border: 1px solid #dbeafe; border-radius: 10px; padding: 12px; text-align: center;">
+                  <div style="font-size: 22px; font-weight: 900; color: #2563eb;">${newTrials.length}</div>
+                  <div style="font-size: 11px; font-weight: 700; color: #1e40af; text-transform: uppercase;">Nye prøveuker</div>
+                </td>
+                <td style="width: 25%; background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 10px; padding: 12px; text-align: center;">
+                  <div style="font-size: 22px; font-weight: 900; color: #059669;">${completedTrials.length}</div>
+                  <div style="font-size: 11px; font-weight: 700; color: #065f46; text-transform: uppercase;">Fullførte (14d)</div>
+                </td>
+                <td style="width: 25%; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; text-align: center;">
+                  <div style="font-size: 22px; font-weight: 900; color: #0f172a;">${recentChats.length}</div>
+                  <div style="font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase;">Chat-spørsmål</div>
+                </td>
+                <td style="width: 25%; background-color: #fefce8; border: 1px solid #fef08a; border-radius: 10px; padding: 12px; text-align: center;">
+                  <div style="font-size: 22px; font-weight: 900; color: #ca8a04;">${convertedChatsCount}</div>
+                  <div style="font-size: 11px; font-weight: 700; color: #854d0e; text-transform: uppercase;">Fra chat → prøve</div>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Section 1: New Trial Weeks -->
+            <div style="margin: 24px 0;">
+              <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+                🥋 Nye påmeldinger til gratis prøveperiode (${newTrials.length})
+              </h2>
+              ${newTrialsHtml}
+            </div>
+
+            <!-- Section 2: Completed Trial Weeks -->
+            <div style="margin: 24px 0;">
+              <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+                ✅ Fullførte 14-dagers prøveperioder denne uka (${completedTrials.length})
+              </h2>
+              ${completedTrialsHtml}
+            </div>
+
+            <!-- Section 3: Chatbot Logs -->
+            <div style="margin: 24px 0;">
+              <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+                💬 Spørsmål stilt til chatbotten siste 7 dager (${recentChats.length})
+              </h2>
+              ${chatLogsHtml}
+            </div>
+
+            <div style="border-top: 1px solid #f1f5f9; padding-top: 16px; margin-top: 24px; font-size: 12px; color: #94a3b8; text-align: center;">
+              Sendt automatisk hver søndag kl. 20:00 til ${escapeHtml(recipients.join(" og "))}.
+            </div>
+          </div>
+        `,
+      };
+
+      await sendMailWithRetry(transporter, mailOptions, "Ukentlig oppsummeringsrapport");
+      console.log(`Ukentlig oppsummeringsrapport sendt til ${recipients.join(", ")}.`);
+    } catch (err) {
+      console.error("Feil under kjøring av sendWeeklyClubSummary:", err);
+      throw err;
+    }
+  }
+);
+
+
