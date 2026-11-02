@@ -35,23 +35,42 @@ function trackChatEvent(action: string, params?: Record<string, any>) {
   }
 }
 
+function getOrCreateChatSessionId(): string {
+  try {
+    let sessionId = localStorage.getItem("ekk_chat_session_id") || "";
+    if (!sessionId) {
+      sessionId = "sess_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+      localStorage.setItem("ekk_chat_session_id", sessionId);
+    }
+    return sessionId;
+  } catch {
+    return "temp_" + Date.now();
+  }
+}
+
 async function logChatQuestion({
   question,
+  answer,
   type,
   faqId,
   locale,
+  sessionId,
 }: {
   question: string;
+  answer: string;
   type: "static_faq" | "ai";
   faqId?: string | null;
   locale: string;
+  sessionId?: string | null;
 }) {
   try {
     await addDoc(collection(db, "chat_logs"), {
       question: question.slice(0, 500),
+      answer: answer.slice(0, 9500),
       type,
       faqId: faqId || null,
       locale: locale || "no",
+      sessionId: sessionId || null,
       createdAt: serverTimestamp(),
     });
   } catch (err) {
@@ -492,6 +511,8 @@ export function ChatBot() {
     setMessages(newMessages);
     setIsLoading(true);
 
+    const sessionId = getOrCreateChatSessionId();
+
     // 1. Sjekk 0-token lokal FAQ cache kun for korte snarveier eller klikk på chips
     const staticMatch = findStaticFaq(text, chatT, inputSource);
     if (staticMatch) {
@@ -505,9 +526,11 @@ export function ChatBot() {
 
       logChatQuestion({
         question: text,
+        answer: staticMatch.answer,
         type: "static_faq",
         faqId: staticMatch.id,
         locale: locale || "no",
+        sessionId,
       });
 
       setTimeout(() => {
@@ -532,29 +555,11 @@ export function ChatBot() {
       character_count: text.length,
     });
 
-    logChatQuestion({
-      question: text,
-      type: "ai",
-      faqId: null,
-      locale: locale || "no",
-    });
-
     try {
       const historyContext = newMessages
         .filter((m) => m.id !== "welcome-1")
         .slice(-4)
         .map((m) => ({ role: m.role, content: m.content }));
-
-      let sessionId = "";
-      try {
-        sessionId = localStorage.getItem("ekk_chat_session_id") || "";
-        if (!sessionId) {
-          sessionId = "sess_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
-          localStorage.setItem("ekk_chat_session_id", sessionId);
-        }
-      } catch {
-        sessionId = "temp_" + Date.now();
-      }
 
       const res = await fetch("/api/chat", {
         method: "POST",
@@ -583,10 +588,21 @@ export function ChatBot() {
         throw new Error(data?.error || chatT.connectionError);
       }
 
+      const replyContent = data.reply || chatT.defaultError;
+
+      logChatQuestion({
+        question: text,
+        answer: replyContent,
+        type: "ai",
+        faqId: null,
+        locale: locale || "no",
+        sessionId,
+      });
+
       const assistantMessage: ChatMessage = {
         id: `assistant-${Date.now()}`,
         role: "assistant",
-        content: data.reply || chatT.defaultError,
+        content: replyContent,
         followUps: [
           chatT.promptTrial,
           chatT.promptPricing,
@@ -599,9 +615,20 @@ export function ChatBot() {
       const isSyntaxOrNetworkError =
         err instanceof SyntaxError ||
         /unexpected token|failed to fetch|networkerror/i.test(err?.message || "");
-      setErrorMessage(
-        isSyntaxOrNetworkError ? chatT.connectionError : (err?.message || chatT.connectionError)
-      );
+      const displayedError = isSyntaxOrNetworkError
+        ? chatT.connectionError
+        : (err?.message || chatT.connectionError);
+
+      logChatQuestion({
+        question: text,
+        answer: `[FEIL] ${displayedError}`,
+        type: "ai",
+        faqId: null,
+        locale: locale || "no",
+        sessionId,
+      });
+
+      setErrorMessage(displayedError);
     } finally {
       setIsLoading(false);
     }

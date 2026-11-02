@@ -43,8 +43,20 @@ export function KontaktPageClient(props: {
     setErrorMessage("");
 
     try {
+      let chatSessionId: string | null = null;
+      try {
+        chatSessionId = localStorage.getItem("ekk_chat_session_id") || null;
+        if (!chatSessionId) {
+          chatSessionId = "sess_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+          localStorage.setItem("ekk_chat_session_id", chatSessionId);
+        }
+      } catch {
+        chatSessionId = null;
+      }
+
       await addDoc(collection(db, "messages"), {
         ...formData,
+        chatSessionId,
         createdAt: serverTimestamp()
       });
       setStatus("success");

@@ -104,7 +104,42 @@ export const sendContactEmail = onDocumentCreated(
       return;
     }
 
-    const { name, email, phone, subject, message, isProveuke, startDate, endDate, category } = data;
+    const { name, email, phone, subject, message, isProveuke, startDate, endDate, category, chatSessionId } = data;
+    const isTrialWeek = isProveuke === true || !!startDate;
+
+    // Koble eventuelle tidligere chat-spørsmål fra samme økt (chatSessionId) til denne personen/påmeldingen
+    if (chatSessionId && typeof chatSessionId === "string" && chatSessionId.trim() !== "") {
+      try {
+        const db = admin.firestore();
+        const chatSnap = await db
+          .collection("chat_logs")
+          .where("sessionId", "==", chatSessionId.trim())
+          .limit(50)
+          .get();
+
+        if (!chatSnap.empty) {
+          const batch = db.batch();
+          for (const chatDoc of chatSnap.docs) {
+            batch.update(chatDoc.ref, {
+              userName: name || null,
+              userEmail: email || null,
+              userPhone: phone || null,
+              convertedToTrial: isTrialWeek,
+              trialMessageId: event.params.messageId,
+            });
+          }
+          await batch.commit();
+
+          await snapshot.ref.update({
+            usedChatbot: true,
+            chatQuestionsCount: chatSnap.size,
+          });
+          console.log(`Koblet ${chatSnap.size} chat-meldinger (sessionId: ${chatSessionId}) til ${email}.`);
+        }
+      } catch (linkErr) {
+        console.warn("Kunne ikke koble chat_logs til påmelding:", linkErr);
+      }
+    }
 
     // 2. Sanitiser all brukerstyrt input for å forhindre HTML-injeksjon i e-post
     const safeName = escapeHtml(name || "Ukjent avsender");
@@ -138,7 +173,6 @@ export const sendContactEmail = onDocumentCreated(
       },
     });
 
-    const isTrialWeek = isProveuke === true || !!startDate;
     const formattedStartDate = formatNorwegianDate(startDate);
     const formattedEndDate = formatNorwegianDate(endDate);
 

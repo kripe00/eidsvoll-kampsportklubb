@@ -9,7 +9,7 @@ service cloud.firestore {
         request.resource.data.keys().hasOnly([
           'name', 'email', 'subject', 'message', 'createdAt',
           'phone', 'category', 'discipline', 'startDate', 'endDate',
-          'isProveuke', 'followupSent', 'website'
+          'isProveuke', 'followupSent', 'website', 'chatSessionId'
         ]) &&
 
         // Mandatory fields & types
@@ -37,6 +37,7 @@ service cloud.firestore {
         (!('endDate' in request.resource.data) || (request.resource.data.endDate is string && request.resource.data.endDate.size() <= 30)) &&
         (!('isProveuke' in request.resource.data) || request.resource.data.isProveuke is bool) &&
         (!('followupSent' in request.resource.data) || request.resource.data.followupSent == false) &&
+        (!('chatSessionId' in request.resource.data) || request.resource.data.chatSessionId == null || (request.resource.data.chatSessionId is string && request.resource.data.chatSessionId.size() <= 100)) &&
 
         // Anti-bot Honeypot check: If 'website' field is sent, it must be completely empty
         (!('website' in request.resource.data) || request.resource.data.website == '');
@@ -50,7 +51,7 @@ service cloud.firestore {
       allow create: if
         // Strict schema key allowlist (no extraneous fields)
         request.resource.data.keys().hasOnly([
-          'question', 'type', 'locale', 'createdAt', 'faqId', 'website'
+          'question', 'type', 'locale', 'createdAt', 'faqId', 'website', 'answer', 'sessionId'
         ]) &&
 
         // Obligatoriske felt og datatyper
@@ -67,6 +68,8 @@ service cloud.firestore {
 
         // Valgfrie felt
         (!('faqId' in request.resource.data) || request.resource.data.faqId == null || (request.resource.data.faqId is string && request.resource.data.faqId.size() <= 50)) &&
+        (!('answer' in request.resource.data) || request.resource.data.answer == null || (request.resource.data.answer is string && request.resource.data.answer.size() <= 10000)) &&
+        (!('sessionId' in request.resource.data) || request.resource.data.sessionId == null || (request.resource.data.sessionId is string && request.resource.data.sessionId.size() <= 100)) &&
         (!('website' in request.resource.data) || request.resource.data.website == '');
 
       // Kun administratorer via Firebase Console har tilgang til å lese, oppdatere eller slette loggene

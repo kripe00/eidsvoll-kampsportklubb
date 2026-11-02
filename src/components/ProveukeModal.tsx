@@ -125,6 +125,17 @@ export function ProveukeModal({
       const endDate = calculateEndDate(formData.startDate);
       const subjectPrefix = formData.discipline ? `${formData.discipline} - ` : "";
 
+      let chatSessionId: string | null = null;
+      try {
+        chatSessionId = localStorage.getItem("ekk_chat_session_id") || null;
+        if (!chatSessionId) {
+          chatSessionId = "sess_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+          localStorage.setItem("ekk_chat_session_id", chatSessionId);
+        }
+      } catch {
+        chatSessionId = null;
+      }
+
       await addDoc(collection(db, "messages"), {
         name: formData.name,
         email: formData.email,
@@ -138,6 +149,7 @@ export function ProveukeModal({
         isProveuke: true,
         followupSent: false,
         website: formData.website,
+        chatSessionId,
         createdAt: serverTimestamp(),
       });
 
