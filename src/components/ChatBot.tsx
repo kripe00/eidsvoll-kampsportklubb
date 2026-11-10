@@ -426,7 +426,7 @@ export function ChatBot() {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // Skånsom automatisk åpning etter 5 sekunder
+  // Diskret visning uten påtrengende auto-åpning av hele chatvinduet
   useEffect(() => {
     const dismissed =
       typeof window !== "undefined" &&
@@ -434,13 +434,13 @@ export function ChatBot() {
 
     if (!dismissed) {
       const timer = setTimeout(() => {
+        const hasCookieConsent =
+          typeof window !== "undefined" && Boolean(localStorage.getItem("cookieConsent"));
         const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
-        if (isMobile) {
+        if (isMobile && hasCookieConsent) {
           setShowTeaser(true);
-        } else {
-          setIsOpen(true);
         }
-      }, 5000);
+      }, 8000);
 
       return () => clearTimeout(timer);
     }
@@ -730,8 +730,8 @@ export function ChatBot() {
       {!isOpen && (
         <div className="flex items-center gap-2">
           {/* Desktop Attention Badge */}
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/95 backdrop-blur-md border border-border shadow-lg text-xs font-semibold text-foreground pointer-events-none animate-in fade-in slide-in-from-right-4 duration-300">
-            <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
+          <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-background/95 backdrop-blur-md border border-border shadow-lg text-xs font-semibold text-foreground pointer-events-none">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
             <span>{chatT.floatingBadge}</span>
           </div>
 

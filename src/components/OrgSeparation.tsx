@@ -1,6 +1,5 @@
 "use client";
 
-import { Building, ShieldAlert } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 
 interface OrgSeparationProps {
@@ -22,38 +21,34 @@ export function OrgSeparation({
 
   return (
     <section className="py-4">
-      <div className="bg-muted/30 border border-primary/20 rounded-2xl p-6 sm:p-8 relative overflow-hidden shadow-sm">
-        {/* Decorative background blur element */}
-        <div className="absolute -right-12 -top-12 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-foreground uppercase tracking-tight mb-2">
+      <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-10 shadow-sm">
+        <div>
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-8 h-[1px] bg-primary" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+              {displaySubtitle}
+            </span>
+          </div>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-foreground uppercase tracking-tight mb-3">
             {displayTitle}
           </h2>
-          <p className="text-primary font-bold text-sm sm:text-base mb-3">
-            {displaySubtitle}
-          </p>
-          <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed max-w-3xl mb-6">
+          <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed max-w-3xl mb-8">
             {displayDesc}
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Historical context card */}
-            <div className="bg-background/80 backdrop-blur-sm border border-border/60 rounded-2xl p-6 flex flex-col justify-between">
+            <div className="bg-background border border-border/70 rounded-xl p-6 flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-slate-500/10 text-slate-400 flex items-center justify-center font-bold">
-                    <Building className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-extrabold text-foreground text-lg">
-                      {locale === "uk" ? "Попередня структура" : locale === "pl" ? "Poprzednia struktura" : locale === "en" ? "Previous Structure" : "Tidligere organisering"}
-                    </h3>
-                    <p className="text-xs text-muted-foreground">
-                      {locale === "uk" ? "До вересня 2026" : locale === "pl" ? "Do września 2026" : locale === "en" ? "Until September 2026" : "Frem til september 2026"}
-                    </p>
-                  </div>
+                <div className="flex items-baseline justify-between gap-3 mb-3 pb-3 border-b border-border/50">
+                  <span className="text-xs font-mono font-bold text-muted-foreground">01</span>
+                  <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
+                    {locale === "uk" ? "До вересня 2026" : locale === "pl" ? "Do września 2026" : locale === "en" ? "Until September 2026" : "Frem til september 2026"}
+                  </span>
                 </div>
+                <h3 className="font-black uppercase tracking-tight text-foreground text-lg mb-2">
+                  {locale === "uk" ? "Попередня структура" : locale === "pl" ? "Poprzednia struktura" : locale === "en" ? "Previous Structure" : "Tidligere organisering"}
+                </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {locale === "uk"
                     ? "Раніше приміщення та діяльність забезпечувалися компанією Rambukk Sport AS у Рохольті."
@@ -67,21 +62,17 @@ export function OrgSeparation({
             </div>
 
             {/* Current structure card */}
-            <div className="bg-primary/5 border border-primary/30 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+            <div className="bg-background border-2 border-primary/40 rounded-xl p-6 flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold">
-                    <ShieldAlert className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-extrabold text-foreground text-lg">
-                      {locale === "uk" ? "Діяльність клубу (EKK)" : locale === "pl" ? "Działalność klubu sportowego (EKK)" : locale === "en" ? "Direct Club Operations (EKK)" : "Direkte drift hos idrettslaget (EKK)"}
-                    </h3>
-                    <p className="text-xs text-primary font-bold">
-                      {locale === "uk" ? "З вересня 2026" : locale === "pl" ? "Od września 2026" : locale === "en" ? "From September 2026" : "Fra september 2026"}
-                    </p>
-                  </div>
+                <div className="flex items-baseline justify-between gap-3 mb-3 pb-3 border-b border-border/50">
+                  <span className="text-xs font-mono font-bold text-primary">02</span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-primary">
+                    {locale === "uk" ? "З вересня 2026" : locale === "pl" ? "Od września 2026" : locale === "en" ? "From September 2026" : "Fra september 2026"}
+                  </span>
                 </div>
+                <h3 className="font-black uppercase tracking-tight text-foreground text-lg mb-2">
+                  {locale === "uk" ? "Діяльність клубу (EKK)" : locale === "pl" ? "Działalność klubu sportowego (EKK)" : locale === "en" ? "Direct Club Operations (EKK)" : "Direkte drift hos idrettslaget (EKK)"}
+                </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {locale === "uk"
                     ? "З вересня 2026 року Eidsvoll Kampsportklubb (EKK) веде всю діяльність безпосередньо як неприбутковий спортивний клуб при NIF."

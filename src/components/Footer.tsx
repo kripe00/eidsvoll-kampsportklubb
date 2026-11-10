@@ -45,7 +45,7 @@ export function Footer({ data }: { data?: any }) {
 
           {/* Kolonne 3: Trening & Medlemskap */}
           <div>
-            <h4 className="text-white font-bold text-base mb-5 uppercase tracking-wider text-xs">
+            <h4 className="text-white font-bold mb-5 uppercase tracking-wider text-xs">
               {t.footer.trainingAndMember}
             </h4>
             <nav aria-label="Trening og medlemskap">
@@ -58,6 +58,17 @@ export function Footer({ data }: { data?: any }) {
                 <li>
                   <Link href="/timeplan" className="hover:text-white transition-colors">
                     {t.footer.schedule}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/forste-trening" className="hover:text-white transition-colors">
+                    {locale === "en"
+                      ? "Your First Training"
+                      : locale === "pl"
+                      ? "Pierwszy trening"
+                      : locale === "uk"
+                      ? "Перше тренування"
+                      : "Din første trening"}
                   </Link>
                 </li>
                 <li>
@@ -76,7 +87,7 @@ export function Footer({ data }: { data?: any }) {
 
           {/* Kolonne 4: Om klubben & Styret */}
           <div>
-            <h4 className="text-white font-bold text-base mb-5 uppercase tracking-wider text-xs">
+            <h4 className="text-white font-bold mb-5 uppercase tracking-wider text-xs">
               {t.footer.clubInfo}
             </h4>
             <nav aria-label="Klubbinformasjon">
@@ -130,7 +141,7 @@ export function Footer({ data }: { data?: any }) {
 
           {/* Kolonne 5: Kontakt & Adresse */}
           <div>
-            <h4 className="text-white font-bold text-base mb-5 uppercase tracking-wider text-xs">
+            <h4 className="text-white font-bold mb-5 uppercase tracking-wider text-xs">
               {t.footer.contact}
             </h4>
             <ul className="space-y-3 text-sm">

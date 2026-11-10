@@ -3,7 +3,6 @@
 import { useTina } from "tinacms/dist/react";
 import { Hero } from "./Hero";
 import { SportSelector } from "./SportSelector";
-import { FirstTrainingGuide } from "./FirstTrainingGuide";
 import { News } from "./News";
 import { InstagramFeed } from "./InstagramFeed";
 import { MobileStickyCta } from "./MobileStickyCta";
@@ -24,7 +23,7 @@ export function HomePageClient(props: {
   const rawEdges = data?.newsConnection?.edges || props.data?.newsConnection?.edges || [];
 
   return (
-    <main>
+    <div>
       <Hero 
         welcomeText={hero.welcomeText} 
         highlightedText={hero.highlightedText} 
@@ -33,7 +32,6 @@ export function HomePageClient(props: {
         parent={hero}
       />
       <SportSelector id="finn-kampsport" />
-      <FirstTrainingGuide id="forste-trening" />
       <News newsItems={rawEdges} />
       <div data-tina-field={tinaField(hero, 'instagramImages')}>
         <InstagramFeed 
@@ -44,6 +42,6 @@ export function HomePageClient(props: {
         />
       </div>
       <MobileStickyCta />
-    </main>
+    </div>
   );
 }

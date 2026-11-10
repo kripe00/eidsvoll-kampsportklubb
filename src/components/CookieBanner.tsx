@@ -50,7 +50,7 @@ export function CookieBanner() {
       role="dialog"
       aria-label="Cookies / Informasjonskapsler"
       className={cn(
-        "fixed bottom-6 left-6 z-[100] max-w-sm w-full animate-in fade-in slide-in-from-bottom-5 duration-500",
+        "fixed bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-auto z-[100] sm:max-w-sm sm:w-full animate-in fade-in slide-in-from-bottom-5 duration-500",
       )}
     >
       <div className="bg-card rounded-2xl shadow-2xl border border-border/60 p-6 md:p-8 space-y-5">

@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { CheckCircle2, Calendar, X, Coffee } from "lucide-react";
+import { CheckCircle2, Calendar, X } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
@@ -154,22 +154,130 @@ export function ProveukeModal({
       });
 
       setStatus("success");
-      setFormData({
+      setFormData((prev) => ({
+        ...prev,
         name: "",
         email: "",
         phone: "",
-        category: defaultCategory || "Voksen / Ungdom (fra 14 år)",
-        discipline: defaultDiscipline || "BJJ (Brasiliansk Jiu-Jitsu)",
-        startDate: getTodayString(),
         message: "",
         website: "",
-      });
+      }));
     } catch (err: any) {
       console.error("Feil ved påmelding til prøveperiode:", err);
       setStatus("error");
       setErrorMessage(t.proveuke.errorMessage);
     }
   };
+
+  const isCtSelected = formData.discipline === "Crosstrening (CT)";
+  const isMuayThaiSelected = formData.discipline === "Muay Thai / Thaiboksing";
+  const isBjjSelected = formData.discipline === "BJJ (Brasiliansk Jiu-Jitsu)";
+  const isKidsSelected = formData.category.includes("Barneparti");
+
+  const renderChecklistBox = () => (
+    <div className="rounded-xl border border-border/70 bg-muted/25 p-3 sm:p-3.5 text-left space-y-2.5">
+      <div className="flex items-center justify-between gap-2 border-b border-border/50 pb-1.5">
+        <span className="text-[10px] font-black uppercase tracking-[0.18em] text-primary">
+          {locale === "en"
+            ? "What you need for your 1st session"
+            : locale === "pl"
+            ? "Czego potrzebujesz na 1. trening"
+            : locale === "uk"
+            ? "Що потрібно на 1-ше тренування"
+            : "Hva trenger du til 1. trening?"}
+        </span>
+        <Link
+          href="/forste-trening"
+          onClick={() => setOpen(false)}
+          className="text-[10px] font-bold text-foreground hover:text-primary underline underline-offset-2 transition-colors"
+        >
+          {locale === "en"
+            ? "Full checklist →"
+            : locale === "pl"
+            ? "Pełna lista →"
+            : locale === "uk"
+            ? "Повний список →"
+            : "Se full sjekkliste →"}
+        </Link>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-xs">
+        <div className="space-y-0.5">
+          <span className="text-[10px] font-black tabular-nums tracking-wider uppercase text-primary block">
+            01 · {locale === "en" ? "Footwear" : locale === "pl" ? "Obuwie" : locale === "uk" ? "Взуття" : "Skotøy"}
+          </span>
+          <p className="font-bold text-foreground leading-snug">
+            {isCtSelected
+              ? locale === "en"
+                ? "Clean indoor shoes"
+                : locale === "pl"
+                ? "Czyste buty halowe"
+                : locale === "uk"
+                ? "Чисте змінне взуття"
+                : "Rene innesko"
+              : locale === "en"
+              ? "Barefoot on the mat"
+              : locale === "pl"
+              ? "Boso na macie"
+              : locale === "uk"
+              ? "Босоніж на татамі"
+              : "Barbent på matta"}
+          </p>
+        </div>
+        <div className="space-y-0.5">
+          <span className="text-[10px] font-black tabular-nums tracking-wider uppercase text-primary block">
+            02 · {locale === "en" ? "Clothing & Gear" : locale === "pl" ? "Strój i sprzęt" : locale === "uk" ? "Одяг та інвентар" : "Klær & Utstyr"}
+          </span>
+          <p className="font-bold text-foreground leading-snug">
+            {isMuayThaiSelected
+              ? locale === "en"
+                ? "T-shirt & shorts. Boxing gloves & shin guards loaned free."
+                : locale === "pl"
+                ? "Koszulka i spodenki. Rękawice i ochraniacze za darmo."
+                : locale === "uk"
+                ? "Футболка та шорти. Рукавички та щитки безкоштовно."
+                : "T-skjorte & shorts. Boksehansker og leggbeskyttere lånes gratis."
+              : isBjjSelected
+              ? locale === "en"
+                ? "Clothes without zippers/pockets & trimmed nails. Free loaner Gi."
+                : locale === "pl"
+                ? "Strój bez zamków/kieszeni i krótkie paznokcie. Gi za darmo."
+                : locale === "uk"
+                ? "Одяг без блискавок/кишень та короткі нігті. Gi безкоштовно."
+                : "Tøy uten glidelås/lommer + klippede negler. Låne-Gi gratis."
+              : locale === "en"
+              ? "T-shirt, shorts/tights & water bottle. Free loaner gear."
+              : locale === "pl"
+              ? "T-shirt, spodenki i butelka wody. Sprzęt za darmo."
+              : locale === "uk"
+              ? "Футболка, шорти та пляшка води. Спорядження безкоштовно."
+              : "T-skjorte, shorts/tights og vannflaske. Alt utstyr lånes gratis."}
+          </p>
+        </div>
+        <div className="space-y-0.5">
+          <span className="text-[10px] font-black tabular-nums tracking-wider uppercase text-primary block">
+            03 · {locale === "en" ? "Arrival" : locale === "pl" ? "Przyjazd" : locale === "uk" ? "Прибуття" : "Oppmøte"}
+          </span>
+          <p className="font-bold text-foreground leading-snug">
+            {isKidsSelected
+              ? locale === "en"
+                ? "10 min before. Lounge with free coffee for parents."
+                : locale === "pl"
+                ? "10 min wcześniej. Strefa z kawą dla rodziców."
+                : locale === "uk"
+                ? "За 10 хв. Лаунж із кавою для батьків."
+                : "Møt 10 min før. Egen peisestue med kaffe for foreldre."
+              : locale === "en"
+              ? "Show up 10–15 min before in Trondheimsvegen 71B (Dal)."
+              : locale === "pl"
+              ? "Przyjdź 10–15 min wcześniej (Trondheimsvegen 71B, Dal)."
+              : locale === "uk"
+              ? "Приходьте за 10–15 хв (Trondheimsvegen 71B, Dal)."
+              : "Møt 10–15 min før i Trondheimsvegen 71B på Dal. Inngang på baksiden."}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 
   const modalContent = (
     <div
@@ -211,7 +319,7 @@ export function ProveukeModal({
         {/* Content Body */}
         <div className="p-4 sm:p-6">
           {status === "success" ? (
-            <div className="text-center py-4 space-y-3">
+            <div className="text-center py-4 space-y-4">
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto border border-primary/20">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
@@ -219,6 +327,9 @@ export function ProveukeModal({
               <p className="text-muted-foreground text-sm leading-relaxed max-w-sm mx-auto">
                 {t.proveuke.successMessage}
               </p>
+
+              {renderChecklistBox()}
+
               <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
                 <Link href="/timeplan" onClick={() => setOpen(false)}>
                   <Button className="w-full sm:w-auto font-bold gap-2 rounded-lg h-10 text-xs sm:text-sm">
@@ -400,12 +511,13 @@ export function ProveukeModal({
                 </div>
 
                 {formData.category.includes("Barneparti") && (
-                  <div className="sm:col-span-2 flex items-start gap-2.5 p-3 rounded-xl bg-primary/10 border border-primary/25 text-xs text-foreground leading-relaxed animate-in fade-in">
-                    <Coffee className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                  <div className="sm:col-span-2 p-3 rounded-xl bg-primary/10 border border-primary/25 text-xs text-foreground leading-relaxed animate-in fade-in">
                     <span className="font-medium text-foreground">{t.proveuke.parentsNote}</span>
                   </div>
                 )}
               </div>
+
+              {renderChecklistBox()}
 
               {status === "error" && (
                 <p className="text-xs text-destructive bg-destructive/10 p-2.5 rounded-lg border border-destructive/20">

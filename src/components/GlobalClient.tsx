@@ -24,8 +24,8 @@ export function GlobalClient(props: {
   return (
     <LanguageProvider>
       <Header data={displayData} />
-      <GlobalSponsorsBanner sponsors={displayData?.sponsors || []} />
       {props.children}
+      <GlobalSponsorsBanner sponsors={displayData?.sponsors || []} />
       <Footer data={displayData} />
       <ChatBot />
     </LanguageProvider>

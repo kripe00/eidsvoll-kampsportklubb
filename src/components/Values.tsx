@@ -62,23 +62,22 @@ export function Values(props: ValuesProps) {
 
           {/* Column B: Integrated Values Grid */}
           <div className="lg:w-3/5">
-            <div className="grid gap-x-12 gap-y-20 sm:grid-cols-2">
+            <div className="grid gap-x-12 gap-y-16 sm:grid-cols-2">
               {items.map((item, i) => {
-                const Icon = iconMap[item.icon] || ShieldCheck;
                 return (
                   <div key={i} className="flex flex-col" data-tina-field={tinaField(item)}>
-                    <div className="flex items-baseline gap-4 mb-6">
-                      {/* Subthe thin royal blue line marker */}
-                      <div className="w-[1px] h-10 bg-primary/40 shrink-0 self-start" />
-                      <h3 className="text-2xl font-bold tracking-tight text-foreground uppercase pt-1" data-tina-field={tinaField(item, 'title')}>
+                    <div className="flex items-baseline gap-4 mb-4">
+                      <span className="text-xs font-mono font-bold text-primary shrink-0">
+                        0{i + 1}
+                      </span>
+                      <h3 className="text-2xl font-bold tracking-tight text-foreground uppercase" data-tina-field={tinaField(item, 'title')}>
                         {item.title}
                       </h3>
                     </div>
-                    <div className="pl-4">
-                      <p className="text-lg text-muted-foreground leading-relaxed font-medium" data-tina-field={tinaField(item, 'text')}>
+                    <div className="pl-7 border-l border-border">
+                      <p className="text-base sm:text-lg text-muted-foreground leading-relaxed font-normal" data-tina-field={tinaField(item, 'text')}>
                         {item.text}
                       </p>
-                      <Icon className="mt-6 w-6 h-6 text-primary stroke-[1.25px]" />
                     </div>
                   </div>
                 );

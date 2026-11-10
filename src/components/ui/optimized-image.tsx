@@ -29,7 +29,7 @@ export function OptimizedImage({
   sizes,
   ...props
 }: OptimizedImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(priority);
 
   if (!src) {
     return (

@@ -208,20 +208,19 @@ export function SponsorerPageClient(props: {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {items.map((item: any, i: number) => {
-                    const IconComponent = iconMap[item.icon] || Flame;
                     return (
                       <div 
                         key={i} 
-                        className="p-8 bg-muted/20 border border-border/40 rounded-2xl hover:border-primary/30 transition-all duration-300 flex flex-col"
+                        className="p-8 bg-card border border-border/70 rounded-2xl hover:border-foreground/30 transition-colors flex flex-col"
                         data-tina-field={tinaField(item)}
                       >
-                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6">
-                          <IconComponent className="w-6 h-6" />
-                        </div>
-                        <h3 className="text-xl font-bold tracking-tight text-foreground uppercase mb-3">
+                        <span className="text-xs font-mono font-bold text-primary mb-4 block">
+                          0{i + 1}
+                        </span>
+                        <h3 className="text-xl font-black tracking-tight text-foreground uppercase mb-3">
                           {item.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground font-light leading-relaxed flex-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed flex-1">
                           {item.text}
                         </p>
                       </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { ProveukeModal } from "./ProveukeModal";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function MobileStickyCta() {
   const { t } = useLanguage();
@@ -34,16 +34,14 @@ export function MobileStickyCta() {
         trigger={
           <button
             type="button"
-            className="w-full h-14 px-4 rounded-2xl bg-gradient-to-r from-primary via-primary to-blue-600 text-primary-foreground font-extrabold text-xs sm:text-sm shadow-xl shadow-primary/30 border border-white/15 flex items-center justify-between active:scale-[0.98] transition-transform cursor-pointer"
+            className="w-full h-14 px-4 rounded-xl bg-slate-950 text-white font-bold uppercase tracking-wider text-xs sm:text-sm shadow-xl border border-white/15 flex items-center justify-between active:scale-[0.98] transition-transform cursor-pointer"
             aria-label={t.stickyCta.ariaLabel}
           >
             <span className="flex items-center gap-2 truncate">
-              <Sparkles className="w-4 h-4 shrink-0 text-white animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
               <span className="truncate">{t.stickyCta.text}</span>
             </span>
-            <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center shrink-0 ml-1">
-              <ArrowRight className="w-4 h-4 text-white" />
-            </div>
+            <ArrowRight className="w-4 h-4 text-sky-400 shrink-0 ml-2" />
           </button>
         }
       />

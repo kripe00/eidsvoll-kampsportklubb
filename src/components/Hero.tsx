@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
 import { RichText } from "./RichText";
 import { OptimizedImage } from "./ui/optimized-image";
 import { ProveukeModal } from "./ProveukeModal";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { Compass } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { animate, ATHLETIC_SPRING, stagger, prefersReducedMotion, cleanAnimationStyles, remove } from "@/lib/animations";
 
 interface HeroProps {
@@ -63,7 +64,7 @@ export function Hero({
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden pt-28 pb-32 sm:pt-40 sm:pb-48 md:pt-48 md:pb-64">
+    <section className="relative w-full overflow-hidden pt-32 pb-28 sm:pt-44 sm:pb-36 md:pt-52 md:pb-48">
       {backgroundVideo ? (
         <video
           autoPlay
@@ -87,48 +88,48 @@ export function Hero({
           data-tina-field={tinaField(parent, 'backgroundImage')}
         />
       )}
-      <div className="absolute inset-0 bg-slate-950/75 -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/70 to-slate-950/90 -z-10" />
       
       <div ref={contentRef} className="container mx-auto px-4 sm:px-6 md:px-8 max-w-5xl text-center">
-        <h1 className="hero-headline text-3xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter font-extrabold text-white mb-6 sm:mb-8 text-balance">
-          <span data-tina-field={tinaField(parent, 'welcomeText')}>{displayWelcome}</span> <br className="hidden md:block" />
-          <span className="text-primary" data-tina-field={tinaField(parent, 'highlightedText')}>{displayHighlighted}</span>
+        <div className="inline-flex items-center gap-3 mb-5">
+          <div className="w-8 h-[1px] bg-sky-400" />
+          <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-sky-300" data-tina-field={tinaField(parent, 'welcomeText')}>
+            {displayWelcome}
+          </span>
+          <div className="w-8 h-[1px] bg-sky-400" />
+        </div>
+
+        <h1 className="hero-headline text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter font-black uppercase text-white mb-6 sm:mb-8 leading-[0.95] text-balance">
+          <span className="text-white" data-tina-field={tinaField(parent, 'highlightedText')}>
+            {displayHighlighted}
+          </span>
         </h1>
-        <div className="hero-description text-base sm:text-lg md:text-2xl text-slate-200 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed" data-tina-field={tinaField(parent, 'description')}>
+
+        <div className="hero-description text-base sm:text-lg md:text-xl text-slate-200/90 mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed font-normal" data-tina-field={tinaField(parent, 'description')}>
           {typeof displayDesc === "string" ? <p>{displayDesc}</p> : <RichText content={displayDesc} />}
         </div>
         
         <div className="hero-cta flex flex-col sm:flex-row justify-center items-center gap-4 px-2">
           <ProveukeModal 
             trigger={
-              <Button size="lg" spring={true} className="w-full sm:w-auto h-14 px-8 sm:px-10 text-base sm:text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-all">
-                {t.hero.tryFreeCta}
+              <Button size="lg" spring={true} className="w-full sm:w-auto h-14 px-8 sm:px-10 text-sm sm:text-base font-bold uppercase tracking-wider rounded-xl shadow-xl shadow-primary/25 hover:bg-primary/90 transition-all">
+                <span>{t.hero.tryFreeCta}</span>
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             }
           />
-          <a
-            href="#finn-kampsport"
-            role="button"
-            aria-label={t.veiviser.heroShortcut}
-            onClick={(e) => {
-              e.preventDefault();
-              const el = document.getElementById("finn-kampsport");
-              if (el) {
-                el.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-            className="w-full sm:w-auto"
+          <Link
+            href="/forste-trening"
+            className="w-full sm:w-auto h-14 px-6 sm:px-8 text-sm sm:text-base font-bold uppercase tracking-wider rounded-xl border border-white/25 bg-white/5 text-white hover:bg-white/15 transition-all backdrop-blur-sm inline-flex items-center justify-center"
           >
-            <Button
-              variant="outline"
-              size="lg"
-              spring={true}
-              className="w-full sm:w-auto h-14 px-6 sm:px-8 text-base sm:text-lg font-bold border-white/25 bg-slate-900/60 text-white hover:bg-white/10 hover:text-white transition-all backdrop-blur-sm"
-            >
-              <Compass className="w-5 h-5 mr-2 text-primary" />
-              {t.veiviser.heroShortcut}
-            </Button>
-          </a>
+            {locale === "en"
+              ? "Your First Training"
+              : locale === "pl"
+              ? "Twój pierwszy trening"
+              : locale === "uk"
+              ? "Ваше перше тренування"
+              : "Din første trening"}
+          </Link>
         </div>
       </div>
     </section>
