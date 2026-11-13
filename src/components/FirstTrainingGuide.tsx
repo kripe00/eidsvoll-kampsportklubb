@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ProveukeModal } from "./ProveukeModal";
 import { OptimizedImage } from "./ui/optimized-image";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { ArrowRight, Calendar, MapPin, Clock } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, Clock, Scale } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FirstTrainingGuideProps {
@@ -750,6 +750,21 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
                       <Calendar className="w-4 h-4 text-primary" />
                       {t.nav.schedule}
                     </Link>
+                    {disc.key === "bjj" && (
+                      <Link
+                        href="/konkurranse"
+                        className="inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl border border-border/80 bg-background hover:bg-muted/40 text-xs sm:text-sm font-bold text-foreground transition-colors"
+                      >
+                        <Scale className="w-4 h-4 text-primary" />
+                        {locale === "en"
+                          ? "IBJJF Rules & Competition"
+                          : locale === "pl"
+                          ? "Przepisy IBJJF i zawody"
+                          : locale === "uk"
+                          ? "Правила IBJJF та змагання"
+                          : "Konkurranse & IBJJF-regler"}
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

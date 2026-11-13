@@ -72,6 +72,17 @@ export function Footer({ data }: { data?: any }) {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/konkurranse" className="hover:text-white transition-colors">
+                    {locale === "en"
+                      ? "Competition & IBJJF Rules"
+                      : locale === "pl"
+                      ? "Zawody i przepisy IBJJF"
+                      : locale === "uk"
+                      ? "Змагання та правила IBJJF"
+                      : "Konkurranse & IBJJF-regler"}
+                  </Link>
+                </li>
+                <li>
                   <Link href="/medlemskap" className="hover:text-white transition-colors">
                     {t.footer.membership}
                   </Link>

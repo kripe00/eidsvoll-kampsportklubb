@@ -26,6 +26,14 @@ export function ClubLinks() {
       href: "/sponsorer",
       badge: "Samarbeidspartnere",
     },
+    {
+      num: "04",
+      title: "Konkurranse & IBJJF-regler",
+      description:
+        "Interaktiv veiviser for lovlige og ulovlige teknikker i BJJ (IBJJF 2027), kamptider, poengsystem og Smoothcomp.",
+      href: "/konkurranse",
+      badge: "Stevneguide",
+    },
   ];
 
   return (
@@ -43,7 +51,7 @@ export function ClubLinks() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {links.map((item) => (
             <Link
               key={item.num}
