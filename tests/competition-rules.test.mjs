@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import {
+  ALWAYS_LEGAL_FOUNDATIONS,
   IBJJF_2027_TECHNIQUES,
   NEW_2027_MATCH_RULES,
   SMOOTHCOMP_CONFIG,
@@ -11,7 +12,9 @@ import {
   evaluateKneeReaping,
   evaluateTechniquesForSelection,
   getAvailableBelts,
+  getLevelDescription,
   getMatchDuration,
+  getTechniqueUnlockLabel,
   getUniformEvaluation,
   normalizeBeltForAge,
   resolveRuleLevel,
@@ -233,5 +236,82 @@ describe("IBJJF 2027 Rule Engine & /konkurranse Route Contracts", () => {
       assert.equal(SMOOTHCOMP_CONFIG.url, "https://smoothcomp.com/en");
       assert.equal(SMOOTHCOMP_CONFIG.clubRegistrationName, null);
     });
+
+    it("Bruker belter og aldersklasser i all synlig tekst i stedet for intern IBJJF-sjargong (Nivå 1–6 / Gruppe A–F)", () => {
+      const jargonRegex = /\b(Nivå\s*[1-6]|Level\s*[1-6]|Gruppe\s*[A-F]|Group\s*[A-F])\b/i;
+
+      // 1. Unlock-etiketter på teknikkort
+      assert.equal(getTechniqueUnlockLabel(2, true), "Fra 13 år (Ungdom+)");
+      assert.equal(getTechniqueUnlockLabel(3, true), "Fra 16 år / Hvitt belte+");
+      assert.equal(getTechniqueUnlockLabel(4, true), "Fra Blått belte (Adult/Master)");
+      assert.equal(getTechniqueUnlockLabel(5, true), "Fra Brunt belte (Adult/Master)");
+      assert.equal(getTechniqueUnlockLabel(6, true), "Kun Adult Brunt & Svart No-Gi");
+      assert.equal(getTechniqueUnlockLabel(null, true), "Alltid forbudt (alle belter)");
+
+      for (const lvl of [2, 3, 4, 5, 6, null]) {
+        assert.ok(!jargonRegex.test(getTechniqueUnlockLabel(lvl, true)));
+        assert.ok(!jargonRegex.test(getTechniqueUnlockLabel(lvl, false)));
+      }
+
+      // 2. Klasse-/beltebeskrivelser for alle aldersklasser, belter og stiler
+      for (const age of ["kids_4_12", "youth_13_15", "juvenile_16_17", "adult", "master"]) {
+        const belts = getAvailableBelts(age);
+        const testBelts = belts.length ? belts : [null];
+        for (const belt of testBelts) {
+          for (const style of ["gi", "nogi"]) {
+            const evalRes = evaluateTechniquesForSelection(age, belt, style);
+            const desc = getLevelDescription(evalRes.level, age, belt, style);
+            for (const text of [desc.badgeNo, desc.badgeEn, desc.summaryNo, desc.summaryEn]) {
+              assert.ok(!jargonRegex.test(text), `Fant sjargong i getLevelDescription(${age}, ${belt}, ${style}): ${text}`);
+            }
+
+            const reap = evaluateKneeReaping(age, belt, style);
+            for (const text of [
+              reap.reapingStatusNo,
+              reap.reapingStatusEn,
+              reap.crossedLegsStandupRuleNo,
+              reap.crossedLegsStandupRuleEn,
+              reap.fiftyFiftyNoteNo,
+              reap.fiftyFiftyNoteEn,
+            ]) {
+              assert.ok(!jargonRegex.test(text), `Fant sjargong i evaluateKneeReaping: ${text}`);
+            }
+          }
+        }
+      }
+
+      // 3. Alle 26 teknikker + Always Legal Foundations
+      for (const tech of IBJJF_2027_TECHNIQUES) {
+        for (const text of [
+          tech.nameNo,
+          tech.nameEn,
+          tech.descriptionNo,
+          tech.descriptionEn,
+          tech.consequenceNo,
+          tech.consequenceEn,
+          tech.exceptionNoteNo ?? "",
+          tech.exceptionNoteEn ?? "",
+        ]) {
+          assert.ok(!jargonRegex.test(text), `Fant sjargong i teknikk #${tech.id}: ${text}`);
+        }
+      }
+
+      for (const item of ALWAYS_LEGAL_FOUNDATIONS) {
+        for (const text of [item.titleNo, item.titleEn, item.detailNo, item.detailEn]) {
+          assert.ok(!jargonRegex.test(text), `Fant sjargong i ALWAYS_LEGAL_FOUNDATIONS: ${text}`);
+        }
+      }
+
+      // 4. Ingen synlig Nivå/Gruppe-sjargong i CompetitionGuide.tsx (stripp kommentarer først)
+      const guideContent = fs
+        .readFileSync(path.join(PROJECT_ROOT, "src/components/CompetitionGuide.tsx"), "utf-8")
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/\/\/.*$/gm, "");
+      assert.ok(
+        !jargonRegex.test(guideContent),
+        "CompetitionGuide.tsx skal ikke inneholde Nivå 1–6 eller Gruppe A–F i synlig UI-tekst"
+      );
+    });
   });
 });
+

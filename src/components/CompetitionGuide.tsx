@@ -32,6 +32,7 @@ import {
   getAvailableBelts,
   getLevelDescription,
   getMatchDuration,
+  getTechniqueUnlockLabel,
   getUniformEvaluation,
   normalizeBeltForAge,
   type AgeCategory,
@@ -73,8 +74,8 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
   );
 
   const levelInfo = useMemo(
-    () => getLevelDescription(evaluation.level),
-    [evaluation.level]
+    () => getLevelDescription(evaluation.level, age, effectiveBelt, style),
+    [evaluation.level, age, effectiveBelt, style]
   );
 
   const durationInfo = useMemo(
@@ -109,13 +110,16 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
     descriptionEn: string;
     category: TechniqueCategory;
     group: string;
+    unlockedAtLevel: 2 | 3 | 4 | 5 | 6 | null;
     id: number;
   }) => {
     if (categoryFilter !== "all" && item.category !== categoryFilter) {
       return false;
     }
     if (!normalizedQuery) return true;
-    const haystack = `${item.id} gruppe ${item.group} ${item.nameNo} ${item.nameEn} ${item.descriptionNo} ${item.descriptionEn}`.toLowerCase();
+    const unlockNo = getTechniqueUnlockLabel(item.unlockedAtLevel, true);
+    const unlockEn = getTechniqueUnlockLabel(item.unlockedAtLevel, false);
+    const haystack = `${item.id} ${unlockNo} ${unlockEn} ${item.nameNo} ${item.nameEn} ${item.descriptionNo} ${item.descriptionEn}`.toLowerCase();
     return haystack.includes(normalizedQuery);
   };
 
@@ -656,14 +660,14 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
               (effectiveBelt === "blue" || effectiveBelt === "purple") && (
                 <span className="px-3 py-1.5 rounded-lg bg-amber-500/15 text-amber-800 dark:text-amber-300 text-xs font-bold shrink-0">
                   {isNo
-                    ? "Merk: Juvenile blå/lilla følger fortsatt Nivå 3 på fot- og håndleddslåser!"
-                    : "Note: Juvenile blue/purple still follow Level 3 on foot & wrist locks!"}
+                    ? "Merk: Juvenile blått/lilla belte har samme teknikkregler som hvitt belte (unntatt Jumping Guard, som er tillatt)."
+                    : "Note: Juvenile blue/purple belts share the same submission limits as white belts (except Jumping Guard, which is legal)."}
                 </span>
               )}
           </div>
 
           {/* =============================================================== */}
-          {/* SØK OG FILTER FOR DE 26 TEKNIKKENE (GRUPPE A–F)                  */}
+          {/* SØK OG FILTER FOR DE 26 TEKNIKKENE                              */}
           {/* =============================================================== */}
           <div className="bg-card border border-border/80 rounded-2xl p-5 sm:p-6 space-y-5">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -794,8 +798,8 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
                           className="rounded-xl bg-background border border-border/70 p-4 space-y-1.5"
                         >
                           <div className="flex flex-wrap items-center justify-between gap-2">
-                            <span className="text-[11px] font-mono font-bold text-muted-foreground">
-                              #{tech.id} · {isNo ? `Gruppe ${tech.group}` : `Group ${tech.group}`}
+                            <span className="text-[11px] font-bold text-muted-foreground">
+                              #{tech.id} · {getTechniqueUnlockLabel(tech.unlockedAtLevel, isNo)}
                             </span>
                             <div className="flex flex-wrap items-center gap-1.5">
                               {tech.change2027 === "newly_banned" && (
@@ -860,11 +864,11 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
                       </h3>
                     </div>
                     <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-                      {isNo ? `Opplåst t.o.m. Nivå ${evaluation.level}` : `Unlocked Level ${evaluation.level}`}
+                      {isNo ? levelInfo.badgeNo : levelInfo.badgeEn}
                     </span>
                   </div>
 
-                  {/* Teknikker fra Gruppe A–E som er låst opp på dette nivået */}
+                  {/* Teknikker som er lovlige for valgt aldersklasse og belte */}
                   {filteredLegal.length > 0 && (
                     <ul className="space-y-2.5">
                       {filteredLegal.map((tech) => (
@@ -874,8 +878,8 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
                           className="rounded-xl bg-background border border-border/70 p-4 space-y-1.5"
                         >
                           <div className="flex flex-wrap items-center justify-between gap-2">
-                            <span className="text-[11px] font-mono font-bold text-muted-foreground">
-                              #{tech.id} · {isNo ? `Gruppe ${tech.group}` : `Group ${tech.group}`}
+                            <span className="text-[11px] font-bold text-muted-foreground">
+                              #{tech.id} · {getTechniqueUnlockLabel(tech.unlockedAtLevel, isNo)}
                             </span>
                             <div className="flex items-center gap-1.5">
                               {tech.change2027 === "newly_allowed" && (
@@ -910,8 +914,8 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
                     <div className="pt-2 space-y-2">
                       <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground block">
                         {isNo
-                          ? "Grunnleggende submissions (alltid tillatt fra Nivå 1)"
-                          : "Core BJJ Submissions (Always Legal from Level 1)"}
+                          ? "Grunnleggende submissions (alltid tillatt for alle aldersklasser og belter)"
+                          : "Core BJJ Submissions (Always Legal for All Ages & Belts)"}
                       </span>
                       <ul className="space-y-2">
                         {filteredFoundations.map((f, idx) => (

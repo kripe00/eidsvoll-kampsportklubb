@@ -312,66 +312,113 @@ export function resolveRuleLevel(
   return 5;
 }
 
-export function getLevelDescription(level: RuleLevel): {
+export function getTechniqueUnlockLabel(
+  unlockedAtLevel: TechniqueRule["unlockedAtLevel"],
+  isNo: boolean
+): string {
+  switch (unlockedAtLevel) {
+    case 2:
+      return isNo ? "Fra 13 år (Ungdom+)" : "From Teen (13+)";
+    case 3:
+      return isNo ? "Fra 16 år / Hvitt belte+" : "From Juvenile (16+) / White Belt+";
+    case 4:
+      return isNo ? "Fra Blått belte (Adult/Master)" : "From Blue Belt (Adult/Master)";
+    case 5:
+      return isNo ? "Fra Brunt belte (Adult/Master)" : "From Brown Belt (Adult/Master)";
+    case 6:
+      return isNo ? "Kun Adult Brunt & Svart No-Gi" : "Adult Brown & Black No-Gi Only";
+    case null:
+      return isNo ? "Alltid forbudt (alle belter)" : "Always Illegal (All Belts)";
+  }
+}
+
+export function getLevelDescription(
+  level: RuleLevel,
+  age?: AgeCategory,
+  belt?: BeltRank | null,
+  style?: CompetitionStyle
+): {
   badgeNo: string;
   badgeEn: string;
   summaryNo: string;
   summaryEn: string;
 } {
+  const styleLabel = style === "nogi" ? "No-Gi" : "Gi";
+  const beltLabelNo = belt ? BELT_DEFINITIONS[belt].labelNo : "";
+  const beltLabelEn = belt ? BELT_DEFINITIONS[belt].labelEn : "";
+
   switch (level) {
     case 1:
       return {
-        badgeNo: "Nivå 1 · Barn 4–12 år",
-        badgeEn: "Level 1 · Kids 4–12 yrs",
+        badgeNo: `Barn (4–12 år) · Alle belter (${styleLabel})`,
+        badgeEn: `Kids (4–12 yrs) · All Belts (${styleLabel})`,
         summaryNo:
-          "Alle teknikkene i Gruppe A–F (nr. 1–26) samt Jumping Guard er ulovlige for å beskytte nakke, ledd og vekstsoner.",
+          "Kun grunnleggende arm- og skulderlåser samt rene kvelninger uten trekk i hodet er lov. Alle fot-/benlåser, håndleddslåser, nakkelåser, giljotin, omoplata og Jumping Guard er forbudt for å beskytte barnas ledd og nakke.",
         summaryEn:
-          "All techniques in Groups A–F (#1–26) and Jumping Guard are prohibited to protect joints and spine.",
+          "Only core arm/shoulder locks and clean chokes (without pulling the head) are legal. All leg locks, wristlocks, spinal locks, guillotines, omoplatas, and Jumping Guard are prohibited.",
       };
     case 2:
       return {
-        badgeNo: "Nivå 2 · Ungdom 13–15 år",
-        badgeEn: "Level 2 · Teen 13–15 yrs",
+        badgeNo: `Ungdom (13–15 år) · Alle belter (${styleLabel})`,
+        badgeEn: `Teen (13–15 yrs) · All Belts (${styleLabel})`,
         summaryNo:
-          "Gruppe A (nr. 1 – strekke bena fra hverandre / banana split) er lovlig. Gruppe B–F (nr. 2–26) og Jumping Guard er ulovlig.",
+          "Submission som strekker bena fra hverandre (f.eks. Banana Split) blir lovlig i tillegg til grunnteknikkene. Giljotin, omoplata, ezekiel, armtriangel, fot-/benlåser, håndleddslås og Jumping Guard er fortsatt forbudt.",
         summaryEn:
-          "Group A (#1 – stretching legs apart) is legal. Groups B–F (#2–26) and Jumping Guard are illegal.",
+          "Submissions stretching the legs apart (e.g., Banana Split) become legal in addition to core submissions. Guillotines, omoplatas, ezekiels, arm triangles, leg/wrist locks, and Jumping Guard remain illegal.",
       };
     case 3:
       return {
-        badgeNo: "Nivå 3 · Juvenile (16–17) & Hvitbelte",
-        badgeEn: "Level 3 · Juvenile (16–17) & White Belt",
+        badgeNo:
+          age === "juvenile_16_17" && beltLabelNo
+            ? `Juvenile (16–17 år) · ${beltLabelNo} (${styleLabel})`
+            : `Hvitt belte · Adult & Master (${styleLabel})`,
+        badgeEn:
+          age === "juvenile_16_17" && beltLabelEn
+            ? `Juvenile (16–17 yrs) · ${beltLabelEn} (${styleLabel})`
+            : `White Belt · Adult & Master (${styleLabel})`,
         summaryNo:
-          "Gruppe A–B (nr. 1–7, bl.a. giljotin, omoplata, ezekiel, armtriangel og trekk i hodet på triangel) er lovlig. Gruppe C–F (nr. 8–26, inkludert rett fotlås fra 2027) er ulovlig.",
+          "Giljotin, omoplata, ezekiel, armtriangel og trekk i hodet på triangel er lovlig. Fra 2027 er rett fotlås og håndleddslås forbudt både for Juvenile (16–17 år, alle belter) og for alle med hvitt belte.",
         summaryEn:
-          "Groups A–B (#1–7) are legal. Groups C–F (#8–26, including straight foot lock from 2027) are illegal.",
+          "Guillotines, omoplatas, ezekiel chokes, arm triangles, and pulling the head in a triangle are legal. Under 2027 rules, straight foot locks and wristlocks are illegal for all Juveniles (16–17) and all Adult/Master white belts.",
       };
     case 4:
       return {
-        badgeNo: "Nivå 4 · Blått & Lilla (Adult–Master 8)",
-        badgeEn: "Level 4 · Blue & Purple (Adult–Master 8)",
+        badgeNo: beltLabelNo
+          ? `${beltLabelNo} · Adult & Master (${styleLabel})`
+          : `Blått & Lilla belte · Adult & Master (${styleLabel})`,
+        badgeEn: beltLabelEn
+          ? `${beltLabelEn} · Adult & Master (${styleLabel})`
+          : `Blue & Purple Belt · Adult & Master (${styleLabel})`,
         summaryNo:
-          "Gruppe A–C (nr. 1–12, inkludert håndleddslås og rett fotlås med rotasjon mot foten som ikke angripes) og Jumping Guard er lovlig. Gruppe D–F (nr. 13–26) er ulovlig.",
+          "Rett fotlås (inkl. rotasjon mot foten som ikke angripes, nytt i 2027), håndleddslås, body crunch i lukket guard og Jumping Guard er lovlig. Knelås, tålås, biceps-/legglås, heel hook og knee reaping er forbudt.",
         summaryEn:
-          "Groups A–C (#1–12, including wristlocks and straight foot lock turning toward the unattacked foot) and Jumping Guard are legal. Groups D–F (#13–26) are illegal.",
+          "Straight foot lock (including turning toward the unattacked foot, new in 2027), wristlocks, closed-guard body crunches, and Jumping Guard are legal. Kneebars, toe holds, slicers, heel hooks, and knee reaping remain illegal.",
       };
     case 5:
       return {
-        badgeNo: "Nivå 5 · Brunt & Svart (Gi + Master No-Gi)",
-        badgeEn: "Level 5 · Brown & Black (Gi + Master No-Gi)",
+        badgeNo: beltLabelNo
+          ? `${beltLabelNo} · ${age === "master" ? "Master No-Gi / Gi" : "Gi"}`
+          : `Brunt & Svart belte · Gi & Master No-Gi`,
+        badgeEn: beltLabelEn
+          ? `${beltLabelEn} · ${age === "master" ? "Master No-Gi / Gi" : "Gi"}`
+          : `Brown & Black Belt · Gi & Master No-Gi`,
         summaryNo:
-          "Gruppe A–D (nr. 1–16, inkludert kneebar, ordinær toe hold, biceps slicer og calf slicer) og Jumping Guard er lovlig. Gruppe E–F (nr. 17–26, inkl. heel hook og knee reaping) er ulovlig.",
+          "Knelås (kneebar), ordinær tålås (toe hold), biceps slicer og calf slicer er lovlig i tillegg til alt for blått og lilla belte. Heel hook, knee reaping og utoverpress i tålås/fotlås er fortsatt forbudt (kun tillatt i Adult No-Gi brunt/svart).",
         summaryEn:
-          "Groups A–D (#1–16, including kneebar, standard toe hold, biceps/calf slicers) and Jumping Guard are legal. Groups E–F (#17–26) are illegal.",
+          "Kneebars, standard toe holds, biceps slicers, and calf slicers are legal alongside all blue/purple belt moves. Heel hooks, knee reaping, and outward twisting foot/toe locks remain prohibited outside Adult No-Gi brown/black.",
       };
     case 6:
       return {
-        badgeNo: "Nivå 6 · Adult Brunt & Svart No-Gi",
-        badgeEn: "Level 6 · Adult Brown & Black No-Gi",
+        badgeNo: beltLabelNo
+          ? `${beltLabelNo} · Adult (18+) No-Gi`
+          : `Brunt & Svart belte · Adult (18+) No-Gi`,
+        badgeEn: beltLabelEn
+          ? `${beltLabelEn} · Adult (18+) No-Gi`
+          : `Brown & Black Belt · Adult (18+) No-Gi`,
         summaryNo:
-          "Gruppe A–E (nr. 1–20, inkludert heel hook, knee reaping og toe hold med utoverpress) og Jumping Guard er lovlig. Kun Gruppe F (nr. 21–24 og 26) er ulovlig.",
+          "Heel hook, knee reaping og utovervridning i fot-/tålås er lovlig i tillegg til alle låser fra brunt/svart belte Gi. Kun de universelle forbudene (slam, ren nakkelås uten kvelning, saksefelling, suplex på hode/nakke og å bøye fingre bakover) gjelder.",
         summaryEn:
-          "Groups A–E (#1–20, including heel hooks, knee reaping, and outward toe hold pressure) and Jumping Guard are legal. Only Group F (#21–24 and #26) is illegal.",
+          "Heel hooks, knee reaping, and outward twisting foot/toe locks are legal alongside all brown/black belt Gi moves. Only universal bans (slams, neck cranks without chokes, scissor takedowns, head/neck suplexes, small-joint bending) apply.",
       };
   }
 }
@@ -484,9 +531,9 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Front headlock / teknisk giljotin (Frontal guillotine)",
     nameEn: "Front headlock (technical guillotine)",
     descriptionNo:
-      "Frontal giljotinkvelning rundt motstanderens hode/hals. Ulovlig for alle under 16 år (Nivå 1–2), lovlig fra 16 år / Nivå 3.",
+      "Frontal giljotinkvelning rundt motstanderens hode/hals. Ulovlig for alle under 16 år, lovlig fra 16 år (Juvenile) og hvitt belte voksen.",
     descriptionEn:
-      "Frontal / technical guillotine choke. Illegal under 16 years old, legal from Level 3 upwards.",
+      "Frontal / technical guillotine choke. Illegal under 16 years old, legal from Juvenile (16+) and Adult white belt upwards.",
   },
   {
     id: 5,
@@ -496,9 +543,9 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Omoplata",
     nameEn: "Omoplata",
     descriptionNo:
-      "Skulderlås utført ved bruk av bena rundt motstanderens overarm. Ulovlig opp til 15 år, lovlig fra 16 år / Nivå 3.",
+      "Skulderlås utført ved bruk av bena rundt motstanderens overarm. Ulovlig opp til 15 år, lovlig fra 16 år (Juvenile) og hvitt belte voksen.",
     descriptionEn:
-      "Shoulder lock entangled with the legs. Illegal up to 15 years old, legal from Level 3 upwards.",
+      "Shoulder lock entangled with the legs. Illegal up to 15 years old, legal from Juvenile (16+) and Adult white belt upwards.",
   },
   {
     id: 6,
@@ -520,12 +567,12 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Armtriangel (Arm triangle / Kata-gatame / D'Arce / Anaconda)",
     nameEn: "Arm triangle",
     descriptionNo:
-      "Kvelning der motstanderens egen arm og skulder presses inn mot halsen sammen med angriperens arm. Lovlig fra 16 år / Nivå 3.",
+      "Kvelning der motstanderens egen arm og skulder presses inn mot halsen sammen med angriperens arm. Lovlig fra 16 år (Juvenile) og hvitt belte voksen.",
     descriptionEn:
-      "Head-and-arm chokes compressing the opponent's shoulder into their neck. Legal from Level 3 upwards.",
+      "Head-and-arm chokes compressing the opponent's shoulder into their neck. Legal from Juvenile (16+) and Adult white belt upwards.",
   },
 
-  // GRUPPE C – Låses opp på Nivå 4 (Adult–Master 8 Blått & Lilla)
+  // Blått & Lilla belte (Adult–Master 8)
   {
     id: 8,
     group: "C",
@@ -534,9 +581,9 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Rett fotlås (Straight foot lock / Achilles lock)",
     nameEn: "Straight foot lock",
     descriptionNo:
-      "Rett ankel-/akilleslås. Låses i 2027 først opp på blått belte i voksen-/masterklassene (Nivå 4).",
+      "Rett ankel-/akilleslås. Låses i 2027 først opp fra blått belte i voksen-/masterklassene (Adult–Master 8).",
     descriptionEn:
-      "Straight ankle/Achilles lock. Under 2027 rules, unlocked only from Adult/Master blue belt (Level 4).",
+      "Straight ankle/Achilles lock. Under 2027 rules, unlocked only from Adult/Master blue belt.",
     change2027: "newly_banned",
     changeNoteNo:
       "NYTT FORBUD I 2027: Rett fotlås er blitt ULOVLIG for 16–17 år / Juvenile (alle belter) og for alle med hvitt belte (Adult til Master 8).",
@@ -551,9 +598,9 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Lås i lukket guard som komprimerer ribbein eller nyrer (Do-jime)",
     nameEn: "Lock that compresses the ribs or kidneys inside the closed guard",
     descriptionNo:
-      "Å strekke ut og klemme bena rundt motstanderens midje/ribbein inne i lukket guard som en ren kompresjonslås (scorpion crush).",
+      "Å strekke ut og klemme bena rundt motstanderens midje/ribbein inne i lukket guard som en ren kompresjonslås (scorpion crush). Lovlig fra blått belte voksen.",
     descriptionEn:
-      "Compressing the opponent's ribs or kidneys with the legs from inside closed guard.",
+      "Compressing the opponent's ribs or kidneys with the legs from inside closed guard. Legal from Adult/Master blue belt.",
   },
   {
     id: 10,
@@ -580,9 +627,9 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
       "Single-leg takedown or sweep where the attacker's head is positioned outside the opponent's body.",
     noPenaltyException: true,
     exceptionNoteNo:
-      "VIKTIG UNNTAK: Teknikken er ikke tillatt på Nivå 1–3, men utøveren straffes IKKE med penalty eller DQ – dommeren stopper kun kampen og starter begge stående.",
+      "VIKTIG UNNTAK: Teknikken er ikke tillatt for barn, ungdom, Juvenile eller hvitbelter, men utøveren straffes IKKE med penalty eller DQ – dommeren stopper kun kampen og starter begge stående.",
     exceptionNoteEn:
-      "IMPORTANT EXCEPTION: Prohibited at Levels 1–3, but NO penalty or DQ is given – the referee simply stops the match and restarts both athletes standing.",
+      "IMPORTANT EXCEPTION: Prohibited for kids, teens, Juveniles, and white belts, but NO penalty or DQ is given – the referee simply stops the match and restarts both athletes standing.",
   },
   {
     id: 12,
@@ -602,7 +649,7 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
       "NEWLY ALLOWED IN 2027: This turn is now legal starting at blue and purple belt (Adult to Master 8).",
   },
 
-  // GRUPPE D – Låses opp på Nivå 5 (Brunt & Svart Gi + Master No-Gi)
+  // Brunt & Svart belte (Gi + Master No-Gi)
   {
     id: 13,
     group: "D",
@@ -647,12 +694,12 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Toe hold (ordinær – uten press utover på foten)",
     nameEn: "Toe hold (standard inward pressure)",
     descriptionNo:
-      "Figur-fire-grep på fotbladet som presser foten innover. Lovlig fra brunt belte (utoverpress på foten er kun lov på Nivå 6, se nr. 20).",
+      "Figur-fire-grep på fotbladet som presser foten innover. Lovlig fra brunt belte (utoverpress på foten er kun lov for Adult brunt/svart belte i No-Gi, se nr. 20).",
     descriptionEn:
-      "Figure-four footlock applying inward pressure. Legal from brown belt (outward pressure is Level 6 only, see #20).",
+      "Figure-four footlock applying inward pressure. Legal from brown belt (outward pressure is Adult No-Gi brown/black belt only, see #20).",
   },
 
-  // GRUPPE E – Låses KUN opp på Nivå 6 (Adult Brunt & Svart No-Gi)
+  // Kun Adult Brunt & Svart No-Gi
   {
     id: 17,
     group: "E",
@@ -673,7 +720,7 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Lås som vrir kneet (Lock that twists the knee)",
     nameEn: "Lock that twists the knee",
     descriptionNo:
-      "Enhver rotasjonslås som vrir kneleddet sideveis/rotatorisk. KUN lovlig i Adult No-Gi for brunt og svart belte.",
+      "Enhver rotasjonslås som vrir kneleddet sideveis/rotatorisk. KUN lovlig i Adult (18+) No-Gi for brunt og svart belte.",
     descriptionEn:
       "Any submission that applies rotational torque twisting the knee. Legal ONLY in Adult No-Gi brown and black belt.",
   },
@@ -685,9 +732,9 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Knee reaping (Ulovlig kryssing av ben over kneet mot låst fot)",
     nameEn: "Knee reaping",
     descriptionNo:
-      "Å krysse leggen over motstanderens lår/hofte forbi midtlinjen med innoverpress på kneet mens foten er låst. KUN tillatt på Nivå 6 (Adult Brunt/Svart No-Gi).",
+      "Å krysse leggen over motstanderens lår/hofte forbi midtlinjen med innoverpress på kneet mens foten er låst. KUN tillatt for brunt og svart belte i Adult (18+) No-Gi.",
     descriptionEn:
-      "Crossing the leg across the opponent's midline above the knee while trapping the foot. Legal ONLY at Level 6 (Adult Brown/Black No-Gi).",
+      "Crossing the leg across the opponent's midline above the knee while trapping the foot. Legal ONLY for brown and black belts in Adult No-Gi.",
   },
   {
     id: 20,
@@ -697,12 +744,12 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "I toe hold: påføre press utover på foten",
     nameEn: "In the toe hold, applying pressure outward on the foot",
     descriptionNo:
-      "Toe hold-variant der presset vris utover på foten. Ulovlig i all Gi og Master – KUN lovlig på Nivå 6 (Adult Brunt/Svart No-Gi).",
+      "Toe hold-variant der presset vris utover på foten. Ulovlig i all Gi og Master – KUN lovlig for brunt og svart belte i Adult (18+) No-Gi.",
     descriptionEn:
-      "Applying outward rotational pressure on the foot in a toe hold. Legal ONLY at Level 6 (Adult Brown/Black No-Gi).",
+      "Applying outward rotational pressure on the foot in a toe hold. Legal ONLY for brown and black belts in Adult No-Gi.",
   },
 
-  // GRUPPE F – Alltid forbudt for ALLE klasser (Nivå 1 til 6)
+  // Alltid forbudt for ALLE klasser og belter
   {
     id: 21,
     group: "F",
@@ -711,9 +758,9 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Slam (Kaste/dunke motstanderen hardt i matta)",
     nameEn: "Slam",
     descriptionNo:
-      "Alltid strengt forbudt i alle klasser – inkludert å løfte og slamme noen for å komme ut av lukket guard, triangel eller armlås.",
+      "Alltid strengt forbudt i alle klasser og belter – inkludert å løfte og slamme noen for å komme ut av lukket guard, triangel eller armlås.",
     descriptionEn:
-      "Strictly forbidden in all divisions – including slamming to escape closed guard or a submission.",
+      "Strictly forbidden in all divisions and belts – including slamming to escape closed guard or a submission.",
   },
   {
     id: 22,
@@ -735,7 +782,7 @@ export const IBJJF_2027_TECHNIQUES: TechniqueRule[] = [
     nameNo: "Saksefelling (Scissor takedown / Kani Basami)",
     nameEn: "Scissor takedown (Kani Basami)",
     descriptionNo:
-      "Hoppende saksefelling mot motstanderens ben/kneledd. Alltid direkte diskvalifikasjon i alle klasser.",
+      "Hoppende saksefelling mot motstanderens ben/kneledd. Alltid direkte diskvalifikasjon i alle klasser og belter.",
     descriptionEn:
       "Jumping scissor takedown across the opponent's legs/knees. Always immediate disqualification.",
   },
@@ -789,14 +836,14 @@ export const ALWAYS_LEGAL_FOUNDATIONS: {
   {
     nameNo: "Rett armlås (Armbar / Juji-gatame)",
     nameEn: "Straight Armbar",
-    noteNo: "Tillatt i alle klasser fra 4 år (dommer passer ekstra godt på barn ved utstrekning).",
-    noteEn: "Legal across all divisions (referees closely protect youth athletes against injury).",
+    noteNo: "Tillatt i alle klasser og belter fra 4 år (dommer passer ekstra godt på barn ved utstrekning).",
+    noteEn: "Legal across all divisions and belts (referees closely protect youth athletes against injury).",
   },
   {
     nameNo: "Skulderlåser med armene (Kimura & Americana)",
     nameEn: "Shoulder locks with arms (Kimura & Americana)",
-    noteNo: "Tillatt på alle nivåer (Nivå 1–6), både i Gi og No-Gi.",
-    noteEn: "Legal at all levels (Levels 1–6) in both Gi and No-Gi.",
+    noteNo: "Tillatt for alle aldersklasser og belter (fra 4 år til svart belte), både i Gi og No-Gi.",
+    noteEn: "Legal across all ages and belts (from 4 yrs through black belt) in both Gi and No-Gi.",
   },
   {
     nameNo: "Rear Naked Choke (Mata Leão – uten nakkevridning)",
@@ -807,14 +854,14 @@ export const ALWAYS_LEGAL_FOUNDATIONS: {
   {
     nameNo: "Vanlig triangel med bena (uten å trekke i hodet for u/16)",
     nameEn: "Standard Triangle Choke (without pulling head for u/16)",
-    noteNo: "Selve ben-triangelen er lov for alle; å trekke i hodet låses opp fra 16 år (Nivå 3).",
-    noteEn: "The leg triangle itself is legal for all; pulling the head unlocks at Level 3 (16+).",
+    noteNo: "Selve ben-triangelen er lov for alle; å trekke i hodet blir tillatt fra 16 år (Juvenile) og hvitt belte voksen.",
+    noteEn: "The leg triangle itself is legal for all; pulling the head unlocks from Juvenile (16+) and Adult white belt.",
   },
   {
     nameNo: "Kragekvelninger i Gi (Cross choke, Bow & Arrow, Loop choke)",
     nameEn: "Gi Collar Chokes (Cross choke, Bow & Arrow, Loop choke)",
-    noteNo: "Tillatt i alle Gi-klasser så lenge de ikke kombineres med nakkelås.",
-    noteEn: "Legal in all Gi divisions provided they do not compress/twist the spine.",
+    noteNo: "Tillatt i alle Gi-klasser og belter så lenge de ikke kombineres med nakkelås.",
+    noteEn: "Legal in all Gi divisions and belts provided they do not compress/twist the spine.",
   },
 ];
 
@@ -1090,11 +1137,11 @@ export function evaluateKneeReaping(
   return {
     isReapingLegal,
     headlineNo: isReapingLegal
-      ? "Knee Reaping er TILLATT i denne klassen (Nivå 6)"
-      : "Knee Reaping er ULOVLIG i denne klassen (Nivå 1–5)",
+      ? "Knee Reaping er TILLATT (Adult Brunt/Svart No-Gi)"
+      : "Knee Reaping er ULOVLIG i denne klassen",
     headlineEn: isReapingLegal
-      ? "Knee Reaping is LEGAL in this division (Level 6)"
-      : "Knee Reaping is ILLEGAL in this division (Levels 1–5)",
+      ? "Knee Reaping is LEGAL (Adult Brown/Black No-Gi)"
+      : "Knee Reaping is ILLEGAL in this division",
     definitionNo,
     definitionEn,
     crossedLegsStandupTitleNo: isBrownOrBlack
@@ -1112,10 +1159,10 @@ export function evaluateKneeReaping(
     fiftyFiftyTitleNo: "50/50 Guard – Innoverrotasjon",
     fiftyFiftyTitleEn: "50/50 Guard – Turning Inside",
     fiftyFiftyRuleNo: isReapingLegal
-      ? "På Nivå 6 (Adult Brunt/Svart No-Gi) er innoverrotasjon fra 50/50 tillatt selv om motstanderen bærer vekt på foten, siden knee reaping og heel hooks er lovlige."
+      ? "For brunt og svart belte i Adult (18+) No-Gi er innoverrotasjon fra 50/50 tillatt selv om motstanderen bærer vekt på foten, siden knee reaping og heel hooks er lovlige."
       : "Roterer en utøver innover fra 50/50 guard mens motstanderen ved starten av rotasjonen tråkker i bakken med foten som er i guarden, regnes foten som låst og dette gir Severe Foul (umiddelbar DQ).",
     fiftyFiftyRuleEn: isReapingLegal
-      ? "At Level 6 (Adult Brown/Black No-Gi), turning inside from 50/50 while the opponent steps on the trapped foot is legal."
+      ? "For brown and black belts in Adult No-Gi, turning inside from 50/50 while the opponent steps on the trapped foot is legal."
       : "Turning inside from 50/50 guard while the opponent is stepping on the mat with the trapped foot at the start of the turn counts as a trapped foot and results in a Severe Foul (DQ).",
   };
 }
