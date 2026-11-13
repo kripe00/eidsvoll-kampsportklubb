@@ -232,9 +232,21 @@ describe("IBJJF 2027 Rule Engine & /konkurranse Route Contracts", () => {
       }
     });
 
-    it("Holder SMOOTHCOMP_CONFIG.clubRegistrationName åpen (null) inntil klubbens eksakte teamnavn oppgis", () => {
+    it("Holder SMOOTHCOMP_CONFIG.clubRegistrationName åpen (null) inntil klubbens eksakte teamnavn oppgis og plasserer Smoothcomp øverst", () => {
       assert.equal(SMOOTHCOMP_CONFIG.url, "https://smoothcomp.com/en");
       assert.equal(SMOOTHCOMP_CONFIG.clubRegistrationName, null);
+
+      const guideSource = fs.readFileSync(
+        path.join(PROJECT_ROOT, "src/components/CompetitionGuide.tsx"),
+        "utf-8"
+      );
+      const smoothcompPos = guideSource.indexOf('id="smoothcomp"');
+      const ibjjfPos = guideSource.indexOf('id="ibjjf-regler"');
+      assert.ok(smoothcompPos !== -1 && ibjjfPos !== -1, "Begge seksjoner må finnes");
+      assert.ok(
+        smoothcompPos < ibjjfPos,
+        "Smoothcomp-seksjonen må komme før IBJJF-regelveiviseren"
+      );
     });
 
     it("Bruker belter og aldersklasser i all synlig tekst i stedet for intern IBJJF-sjargong (Nivå 1–6 / Gruppe A–F)", () => {

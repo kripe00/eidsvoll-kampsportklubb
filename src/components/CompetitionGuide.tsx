@@ -178,8 +178,8 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
           </h1>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
             {isNo
-              ? "Velg aldersklasse, belte og Gi / No-Gi under for å se nøyaktig kamptid, hva som er lov og ulovlig i din klasse etter IBJJF 2027-regelverket, samt hvordan du melder deg på via Smoothcomp."
-              : "Select your age division, belt rank, and Gi / No-Gi below to see exact match duration, legal and illegal moves under the IBJJF 2027 ruleset, uniform rules, and Smoothcomp registration."}
+              ? "Kom i gang med stevnepåmelding via Smoothcomp øverst, eller velg aldersklasse, belte og Gi / No-Gi under for å se kamptid og hva som er lov etter IBJJF 2027-regelverket."
+              : "Start with tournament registration on Smoothcomp below, or select your age division, belt rank, and Gi / No-Gi to check match duration and IBJJF 2027 rules."}
           </p>
 
           {/* Hurtigankere */}
@@ -188,32 +188,32 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
             className="mt-7 flex flex-wrap items-center justify-center gap-2 sm:gap-3"
           >
             <a
-              href="#ibjjf-regler"
-              id="jump-ibjjf-regler"
+              href="#smoothcomp"
+              id="jump-smoothcomp"
               className="px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity"
             >
-              {isNo ? "01 · Interaktiv Regelveiviser" : "01 · Interactive Rule Finder"}
+              {isNo ? "01 · Smoothcomp & Påmelding" : "01 · Smoothcomp Guide"}
+            </a>
+            <a
+              href="#ibjjf-regler"
+              id="jump-ibjjf-regler"
+              className="px-4 py-2 rounded-lg bg-card border border-border/80 text-foreground text-xs font-bold uppercase tracking-wider hover:bg-muted/50 transition-colors"
+            >
+              {isNo ? "02 · Interaktiv Regelveiviser" : "02 · Interactive Rule Finder"}
             </a>
             <a
               href="#spesialregler"
               id="jump-spesialregler"
               className="px-4 py-2 rounded-lg bg-card border border-border/80 text-foreground text-xs font-bold uppercase tracking-wider hover:bg-muted/50 transition-colors"
             >
-              {isNo ? "02 · Knee Reaping & Kampflukt" : "02 · Knee Reaping & Fleeing"}
+              {isNo ? "03 · Knee Reaping & Kampflukt" : "03 · Knee Reaping & Fleeing"}
             </a>
             <a
               href="#poengsystem"
               id="jump-poengsystem"
               className="px-4 py-2 rounded-lg bg-card border border-border/80 text-foreground text-xs font-bold uppercase tracking-wider hover:bg-muted/50 transition-colors"
             >
-              {isNo ? "03 · Poeng & Nye 2027-regler" : "03 · Scoring & 2027 Updates"}
-            </a>
-            <a
-              href="#smoothcomp"
-              id="jump-smoothcomp"
-              className="px-4 py-2 rounded-lg bg-card border border-border/80 text-foreground text-xs font-bold uppercase tracking-wider hover:bg-muted/50 transition-colors"
-            >
-              {isNo ? "04 · Smoothcomp & Påmelding" : "04 · Smoothcomp Guide"}
+              {isNo ? "04 · Poeng & Nye 2027-regler" : "04 · Scoring & 2027 Updates"}
             </a>
           </nav>
         </div>
@@ -223,18 +223,21 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
         {/* Kort nøkkelstripe øverst */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-card border border-border/70 rounded-2xl p-5 sm:p-6 shadow-sm">
           <div className="flex items-start gap-3.5 md:border-r md:border-border/50 md:pr-4">
-            <Award className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+            <Scale className="w-5 h-5 text-primary shrink-0 mt-0.5" />
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-primary block">
-                {isNo ? "Oppdatert regelverk" : "Updated Ruleset"}
+                {isNo ? "Påmelding & kampoppsett" : "Registration & Brackets"}
               </span>
-              <p className="text-sm sm:text-base font-bold text-foreground mt-0.5">
-                {isNo ? "IBJJF Rules Book 2027" : "IBJJF Rules Book 2027"}
-              </p>
+              <a
+                href="#smoothcomp"
+                className="text-sm sm:text-base font-bold text-foreground hover:text-primary transition-colors mt-0.5 block underline decoration-primary/40 underline-offset-4"
+              >
+                {isNo ? "Foregår i Smoothcomp" : "Managed via Smoothcomp"}
+              </a>
               <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                 {isNo
-                  ? "Inkluderer alle endringer fra nyttår 2027 (rett fotlås, jumping guard DQ, No-Gi rashguard og Master 8)."
-                  : "Includes all 2027 rule updates (straight foot lock, jumping guard DQ, No-Gi rashguards, and Master 8)."}
+                  ? "Her ser du trekning (brackets), mattenummer og sanntids klokkeslett for kampene dine."
+                  : "Used for tournament sign-ups, live brackets, mat assignments, and dynamic match times."}
               </p>
             </div>
           </div>
@@ -257,34 +260,134 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
           </div>
 
           <div className="flex items-start gap-3.5">
-            <Scale className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+            <Award className="w-5 h-5 text-primary shrink-0 mt-0.5" />
             <div>
               <span className="text-[11px] font-bold uppercase tracking-widest text-primary block">
-                {isNo ? "Påmelding & kampoppsett" : "Registration & Brackets"}
+                {isNo ? "Oppdatert regelverk" : "Updated Ruleset"}
               </span>
-              <a
-                href="#smoothcomp"
-                className="text-sm sm:text-base font-bold text-foreground hover:text-primary transition-colors mt-0.5 block underline decoration-primary/40 underline-offset-4"
-              >
-                {isNo ? "Foregår i Smoothcomp" : "Managed via Smoothcomp"}
-              </a>
+              <p className="text-sm sm:text-base font-bold text-foreground mt-0.5">
+                {isNo ? "IBJJF Rules Book 2027" : "IBJJF Rules Book 2027"}
+              </p>
               <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                 {isNo
-                  ? "Her ser du trekning (brackets), mattenummer og sanntids klokkeslett for kampene dine."
-                  : "Used for tournament sign-ups, live brackets, mat assignments, and dynamic match times."}
+                  ? "Inkluderer alle endringer fra nyttår 2027 (rett fotlås, jumping guard DQ, No-Gi rashguard og Master 8)."
+                  : "Includes all 2027 rule updates (straight foot lock, jumping guard DQ, No-Gi rashguards, and Master 8)."}
               </p>
             </div>
           </div>
         </div>
 
         {/* ================================================================= */}
-        {/* SEKSJON 1: INTERAKTIV IBJJF 2027 REGELVEIVISER                     */}
+        {/* SEKSJON 1: SMOOTHCOMP – HVA DET ER & SLIK MELDER DU DEG PÅ         */}
         {/* ================================================================= */}
-        <section id="ibjjf-regler" className="scroll-mt-28 space-y-6">
+        <section id="smoothcomp" className="scroll-mt-28 space-y-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary block mb-1.5">
+                {isNo ? "01 · Stevnepåmelding" : "01 · Tournament Registration"}
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-foreground">
+                {isNo ? "Hva er Smoothcomp?" : "What Is Smoothcomp?"}
+              </h2>
+            </div>
+
+            <a
+              href={SMOOTHCOMP_CONFIG.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              id="smoothcomp-external-link"
+            >
+              <Button className="rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider gap-2 h-11 px-5">
+                {isNo ? "Åpne Smoothcomp.com" : "Open Smoothcomp.com"}
+                <ExternalLink className="w-4 h-4" />
+              </Button>
+            </a>
+          </div>
+
+          <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 space-y-6">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">
+              {isNo
+                ? "Smoothcomp er turneringsplattformen som brukes på nesten alle BJJ- og grappling-stevner i Norge og internasjonalt. Der oppretter du en gratis utøverprofil, melder deg på kommende stevner, og følger kampoppsettet (brackets), hvilken matte du skal gå på og sanntids klokkeslett rett på mobilen under stevnedagen."
+                : "Smoothcomp is the tournament platform used for almost all BJJ and grappling competitions in Norway and internationally. Athletes and parents use it to register for events, view brackets, check mat numbers, and follow dynamic match times live on competition day."}
+            </p>
+
+            {/* 4 konkrete steg */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="rounded-xl bg-background border border-border/70 p-4">
+                <span className="text-xs font-mono font-bold text-primary block mb-1">
+                  01
+                </span>
+                <h3 className="text-sm font-black uppercase text-foreground mb-1.5">
+                  {isNo ? "Opprett konto" : "Create Account"}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {isNo
+                    ? "Lag gratis konto på Smoothcomp. Foresatte lager egen voksenkonto først og legger til barnet under «Manage profiles»."
+                    : "Create a free account on Smoothcomp. Parents register their own account first, then add child profiles under 'Manage profiles'."}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-background border border-border/70 p-4">
+                <span className="text-xs font-mono font-bold text-primary block mb-1">
+                  02
+                </span>
+                <h3 className="text-sm font-black uppercase text-foreground mb-1.5">
+                  {isNo ? "Velg riktig klubb" : "Join Club / Academy"}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {SMOOTHCOMP_CONFIG.clubRegistrationName
+                    ? isNo
+                      ? `Registrer utøverprofilen under ${SMOOTHCOMP_CONFIG.clubRegistrationName}${
+                          SMOOTHCOMP_CONFIG.affiliationName
+                            ? ` (${SMOOTHCOMP_CONFIG.affiliationName})`
+                            : ""
+                        }.`
+                      : `Register your athlete profile under ${SMOOTHCOMP_CONFIG.clubRegistrationName}.`
+                    : isNo
+                    ? "Hør med treneren på matta før første påmelding slik at du kobler profilen til nøyaktig riktig klubb/team (oppdatert registreringsinfo kommer her snart)."
+                    : "Confirm the exact club/academy entry with your coach before registering for your first event."}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-background border border-border/70 p-4">
+                <span className="text-xs font-mono font-bold text-primary block mb-1">
+                  03
+                </span>
+                <h3 className="text-sm font-black uppercase text-foreground mb-1.5">
+                  {isNo ? "Velg vekt med utstyr" : "Pick Weight Class"}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {isNo
+                    ? "Husk at innveiing i IBJJF skjer MED Gi og belte på (eller rashguard/shorts i No-Gi) rett før første kamp – velg en vektklasse du har god margin til!"
+                    : "Remember that IBJJF weigh-ins happen wearing your full Gi and belt (or No-Gi kit) right before your first match."}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-background border border-border/70 p-4">
+                <span className="text-xs font-mono font-bold text-primary block mb-1">
+                  04
+                </span>
+                <h3 className="text-sm font-black uppercase text-foreground mb-1.5">
+                  {isNo ? "Følg matta live" : "Follow Live Schedule"}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {isNo
+                    ? "Kamptidspunktene i Smoothcomp oppdateres fortløpende når kamper slutter tidlig. Møt opp i hallen minst 60 min før oppsatt tid."
+                    : "Match times on Smoothcomp shift dynamically as earlier matches finish by submission. Arrive at least 60 minutes before your scheduled match."}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================================================================= */}
+        {/* SEKSJON 2: INTERAKTIV IBJJF 2027 REGELVEIVISER                     */}
+        {/* ================================================================= */}
+        <section id="ibjjf-regler" className="scroll-mt-28 space-y-6 border-t border-border/50 pt-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-3">
             <div>
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary block mb-1.5">
-                {isNo ? "01 · Interaktiv Regelveiviser" : "01 · Interactive Rule Finder"}
+                {isNo ? "02 · Interaktiv Regelveiviser" : "02 · Interactive Rule Finder"}
               </span>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-foreground">
                 {isNo ? "Sjekk reglene for din klasse" : "Check the Rules for Your Division"}
@@ -941,12 +1044,12 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
         </section>
 
         {/* ================================================================= */}
-        {/* SEKSJON 2: KNEE REAPING, 50/50 & KAMPFLUKT (DEL 5)                 */}
+        {/* SEKSJON 3: KNEE REAPING, 50/50 & KAMPFLUKT (DEL 5)                 */}
         {/* ================================================================= */}
         <section id="spesialregler" className="scroll-mt-28 space-y-6 border-t border-border/50 pt-12">
           <div>
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary block mb-1.5">
-              {isNo ? "02 · Spesialregler på matta" : "02 · Key Special Rules"}
+              {isNo ? "03 · Spesialregler på matta" : "03 · Key Special Rules"}
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-foreground">
               {isNo
@@ -1037,12 +1140,12 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
         </section>
 
         {/* ================================================================= */}
-        {/* SEKSJON 3: POENGSYSTEM & NYE 2027-KAMPREGLER (DEL 4)               */}
+        {/* SEKSJON 4: POENGSYSTEM & NYE 2027-KAMPREGLER (DEL 4)               */}
         {/* ================================================================= */}
         <section id="poengsystem" className="scroll-mt-28 space-y-8 border-t border-border/50 pt-12">
           <div>
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary block mb-1.5">
-              {isNo ? "03 · Poeng, Fordeler & 2027-endringer" : "03 · Scoring & 2027 Rule Updates"}
+              {isNo ? "04 · Poeng, Fordeler & 2027-endringer" : "04 · Scoring & 2027 Rule Updates"}
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-foreground">
               {isNo
@@ -1138,109 +1241,6 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
                   </p>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ================================================================= */}
-        {/* SEKSJON 4: SMOOTHCOMP – HVA DET ER & SLIK MELDER DU DEG PÅ         */}
-        {/* ================================================================= */}
-        <section id="smoothcomp" className="scroll-mt-28 space-y-6 border-t border-border/50 pt-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary block mb-1.5">
-                {isNo ? "04 · Stevnepåmelding" : "04 · Tournament Registration"}
-              </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-foreground">
-                {isNo ? "Hva er Smoothcomp?" : "What Is Smoothcomp?"}
-              </h2>
-            </div>
-
-            <a
-              href={SMOOTHCOMP_CONFIG.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              id="smoothcomp-external-link"
-            >
-              <Button className="rounded-xl font-bold text-xs sm:text-sm uppercase tracking-wider gap-2 h-11 px-5">
-                {isNo ? "Åpne Smoothcomp.com" : "Open Smoothcomp.com"}
-                <ExternalLink className="w-4 h-4" />
-              </Button>
-            </a>
-          </div>
-
-          <div className="bg-card border border-border/80 rounded-2xl p-6 sm:p-8 space-y-6">
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl">
-              {isNo
-                ? "Smoothcomp er turneringsplattformen som brukes på nesten alle BJJ- og grappling-stevner i Norge og internasjonalt. Der oppretter du en gratis utøverprofil, melder deg på kommende stevner, og følger kampoppsettet (brackets), hvilken matte du skal gå på og sanntids klokkeslett rett på mobilen under stevnedagen."
-                : "Smoothcomp is the tournament platform used for almost all BJJ and grappling competitions in Norway and internationally. Athletes and parents use it to register for events, view brackets, check mat numbers, and follow dynamic match times live on competition day."}
-            </p>
-
-            {/* 4 konkrete steg */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="rounded-xl bg-background border border-border/70 p-4">
-                <span className="text-xs font-mono font-bold text-primary block mb-1">
-                  01
-                </span>
-                <h3 className="text-sm font-black uppercase text-foreground mb-1.5">
-                  {isNo ? "Opprett konto" : "Create Account"}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {isNo
-                    ? "Lag gratis konto på Smoothcomp. Foresatte lager egen voksenkonto først og legger til barnet under «Manage profiles»."
-                    : "Create a free account on Smoothcomp. Parents register their own account first, then add child profiles under 'Manage profiles'."}
-                </p>
-              </div>
-
-              <div className="rounded-xl bg-background border border-border/70 p-4">
-                <span className="text-xs font-mono font-bold text-primary block mb-1">
-                  02
-                </span>
-                <h3 className="text-sm font-black uppercase text-foreground mb-1.5">
-                  {isNo ? "Velg riktig klubb" : "Join Club / Academy"}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {SMOOTHCOMP_CONFIG.clubRegistrationName
-                    ? isNo
-                      ? `Registrer utøverprofilen under ${SMOOTHCOMP_CONFIG.clubRegistrationName}${
-                          SMOOTHCOMP_CONFIG.affiliationName
-                            ? ` (${SMOOTHCOMP_CONFIG.affiliationName})`
-                            : ""
-                        }.`
-                      : `Register your athlete profile under ${SMOOTHCOMP_CONFIG.clubRegistrationName}.`
-                    : isNo
-                    ? "Hør med treneren på matta før første påmelding slik at du kobler profilen til nøyaktig riktig klubb/team (oppdatert registreringsinfo kommer her snart)."
-                    : "Confirm the exact club/academy entry with your coach before registering for your first event."}
-                </p>
-              </div>
-
-              <div className="rounded-xl bg-background border border-border/70 p-4">
-                <span className="text-xs font-mono font-bold text-primary block mb-1">
-                  03
-                </span>
-                <h3 className="text-sm font-black uppercase text-foreground mb-1.5">
-                  {isNo ? "Velg vekt med utstyr" : "Pick Weight Class"}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {isNo
-                    ? "Husk at innveiing i IBJJF skjer MED Gi og belte på (eller rashguard/shorts i No-Gi) rett før første kamp – velg en vektklasse du har god margin til!"
-                    : "Remember that IBJJF weigh-ins happen wearing your full Gi and belt (or No-Gi kit) right before your first match."}
-                </p>
-              </div>
-
-              <div className="rounded-xl bg-background border border-border/70 p-4">
-                <span className="text-xs font-mono font-bold text-primary block mb-1">
-                  04
-                </span>
-                <h3 className="text-sm font-black uppercase text-foreground mb-1.5">
-                  {isNo ? "Følg matta live" : "Follow Live Schedule"}
-                </h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {isNo
-                    ? "Kamptidspunktene i Smoothcomp oppdateres fortløpende når kamper slutter tidlig. Møt opp i hallen minst 60 min før oppsatt tid."
-                    : "Match times on Smoothcomp shift dynamically as earlier matches finish by submission. Arrive at least 60 minutes before your scheduled match."}
-                </p>
-              </div>
             </div>
           </div>
         </section>
