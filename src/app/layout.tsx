@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     "minnesund",
   ],
   alternates: {
-    canonical: "./",
+    canonical: "/",
   },
   openGraph: {
     title: "Eidsvoll Kampsportklubb | BJJ, Muay Thai & Trening på Dal",
@@ -206,9 +206,21 @@ export default async function RootLayout({
             "closes": "14:00"
           }
         ],
+        "memberOf": [
+          {
+            "@type": "SportsOrganization",
+            "name": "Norges idrettsforbund",
+            "alternateName": "NIF"
+          },
+          {
+            "@type": "SportsOrganization",
+            "name": "Norges Kampsportforbund",
+            "alternateName": "NKF"
+          }
+        ],
         "sameAs": [
-          "https://www.instagram.com/eidsvollkampsportklubb/",
-          "https://www.facebook.com/kampsporteidsvoll"
+          "https://www.instagram.com/rambukk_/",
+          "https://www.facebook.com/profile.php?id=61590354330955"
         ]
       },
       {
@@ -244,7 +256,7 @@ export default async function RootLayout({
             "name": "Har dere kampsport og treninger for barn?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Ja, vi har egne tilpassede partier for barn i BJJ (Barneparti 1 for 6–9 år og Barneparti 2 for 10–13 år) samt Muay Thai for barn, med fokus på motorikk, trygghet og mestring."
+              "text": "Ja, vi har egne tilpassede partier for barn i BJJ (Barneparti 1 for 6–9 år og Barneparti 2 for 10–13 år) samt Muay Thai for barn fra 6 år. All barnetrening følger NIFs og NKFs barneidrettsbestemmelser, med fokus på motorikk, trygghet og mestring uten hodekontakt, og med instruktører som har godkjent politiattest."
             }
           }
         ]

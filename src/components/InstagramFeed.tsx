@@ -39,8 +39,8 @@ interface InstagramFeedProps {
 
 export function InstagramFeed({
   title = "Følg oss på Instagram",
-  username = "@rambukk_",
-  profileUrl = "https://www.instagram.com/rambukk_/",
+  username = "@eidsvollkampsportklubb",
+  profileUrl = "https://www.instagram.com/eidsvollkampsportklubb/",
   images = [],
 }: InstagramFeedProps) {
   const { t, locale } = useLanguage();

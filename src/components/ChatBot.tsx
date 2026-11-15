@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   X,
   Send,
-  Sparkles,
   AlertCircle,
   RefreshCw,
   ArrowRight,
@@ -19,32 +18,14 @@ import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { sendGAEvent } from "@next/third-parties/google";
+import { getOrCreateChatSessionId } from "@/lib/session";
+import { useEscapeKey } from "@/lib/hooks";
 
 function trackChatEvent(action: string, params?: Record<string, any>) {
   try {
     sendGAEvent("event", action, params || {});
   } catch {
     // ignore
-  }
-  if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
-    try {
-      (window as any).gtag("event", action, params);
-    } catch {
-      // ignore
-    }
-  }
-}
-
-function getOrCreateChatSessionId(): string {
-  try {
-    let sessionId = localStorage.getItem("ekk_chat_session_id") || "";
-    if (!sessionId) {
-      sessionId = "sess_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
-      localStorage.setItem("ekk_chat_session_id", sessionId);
-    }
-    return sessionId;
-  } catch {
-    return "temp_" + Date.now();
   }
 }
 
@@ -474,18 +455,7 @@ export function ChatBot() {
     }
   };
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        handleClose();
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen]);
+  useEscapeKey(isOpen, handleClose);
 
   const handleSendMessage = async (textToSend?: string) => {
     const text = (textToSend || input).trim();

@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useEscapeKey } from "@/lib/hooks";
 
 export function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,16 +33,8 @@ export function CookieBanner() {
     window.dispatchEvent(new CustomEvent("cookieConsentUpdated", { detail: status }));
   };
 
-  useEffect(() => {
-    if (!isVisible) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsVisible(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isVisible]);
+  const closeBanner = useCallback(() => setIsVisible(false), []);
+  useEscapeKey(isVisible, closeBanner);
 
   if (!isVisible) return null;
 

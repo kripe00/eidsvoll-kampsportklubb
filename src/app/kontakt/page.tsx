@@ -34,7 +34,7 @@ export default async function KontaktPage() {
 
   return (
     <KontaktPageClient 
-      data={pageRes.data?.contact ? pageRes.data : { contact: contactJson }} 
+      data={pageRes.data} 
       query={pageRes.query} 
       variables={pageRes.variables} 
     />

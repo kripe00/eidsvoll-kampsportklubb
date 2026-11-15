@@ -42,9 +42,6 @@ export function BlockRenderer({ blocks }: { blocks: any[] }) {
           if (template === "orgSeparation" || template.endsWith("BlocksOrgSeparation")) {
             return <OrgSeparation key={i} {...block} />;
           }
-          if (template === "checkmat" || template.endsWith("BlocksCheckmat")) {
-            return null;
-          }
           
           console.warn("No component for template:", template);
           return null;

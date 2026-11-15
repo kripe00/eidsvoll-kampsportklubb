@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/ui/page-header";
 
 export const metadata: Metadata = {
   title: "Samtykke for bildedeling av barn",
@@ -9,16 +10,11 @@ export default function SamtykkePage() {
   return (
     <main className="bg-background min-h-screen pb-32">
       {/* Editorial Header */}
-      <div className="pt-32 bg-muted/30 border-b border-border/40 pb-16">
-        <div className="container mx-auto px-4 lg:px-8 text-center max-w-4xl font-black uppercase tracking-tighter">
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-4 text-foreground uppercase leading-[0.95] md:leading-[0.85] break-words">
-            Samtykke for bildedeling
-          </h1>
-          <p className="max-w-2xl mx-auto text-lg text-muted-foreground leading-relaxed font-light italic">
-            Samtykkeskjema for fotografering og deling av bilder og film av barn i Eidsvoll Kampsportklubb.
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="Samtykke for bildedeling"
+        description="Samtykkeskjema for fotografering og deling av bilder og film av barn i Eidsvoll Kampsportklubb."
+        descriptionClassName="font-light italic"
+      />
 
       {/* Responsive Wrapper for Google Form Iframe */}
       <div className="container mx-auto px-4 lg:px-8 py-16 flex justify-center">

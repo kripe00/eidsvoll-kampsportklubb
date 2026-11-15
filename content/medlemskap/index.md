@@ -22,6 +22,6 @@ blocks:
       - question: Tilbyr dere prøvetimer eller prøveperiode?
         answer: "Ja, vi tilbyr alle en gratis og uforpliktende prøveperiode på 2 uker (14 dager)! Det betyr at du kan delta på våre treninger i 14 dager for å finne ut hvilken kampsport og hvilket parti som passer best for deg før du bestemmer deg."
       - question: Hvor gamle må barna være for å trene hos dere?
-        answer: "Vi tilbyr Brasiliansk Jiu-Jitsu (BJJ) for barn fra fylte 6 år. Vi har egne partier tilpasset ulike aldersgrupper for å sikre optimal læring, mestring og idrettsglede."
+        answer: "Vi tilbyr både Brasiliansk Jiu-Jitsu (aldersdelte partier 6–9 år og 10–13 år) og Muay Thai for barn fra fylte 6 år. All barne- og ungdomsidrett følger NIFs og Norges Kampsportforbunds barneidrettsbestemmelser – med fokus på trygg lek, motorikk og mestring på matter og puter (ingen hodekontakt i Muay Thai for barn), ledet av instruktører med godkjent politiattest."
     _template: faq
 ---

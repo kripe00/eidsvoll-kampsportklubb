@@ -25,5 +25,6 @@ export function AnalyticsWrapper() {
     return null;
   }
 
-  return <GoogleAnalytics gaId="G-15WBHB4C6F" />;
+  const gaId = process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-15WBHB4C6F";
+  return <GoogleAnalytics gaId={gaId} />;
 }

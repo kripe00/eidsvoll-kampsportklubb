@@ -1,13 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTina } from "tinacms/dist/react";
 import { RichText } from "./RichText";
 import Image from "next/image";
 import Link from "next/link";
-import { format } from "date-fns";
-import { nb, enUS, pl as plLocale, uk as ukLocale } from "date-fns/locale";
 import { CalendarIcon, ArrowLeft, Languages, ExternalLink } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { formatNewsDate } from "@/lib/date";
 
 export function NyheterPostClient(props: {
   data: any;
@@ -15,6 +15,11 @@ export function NyheterPostClient(props: {
   variables: any;
 }) {
   const { locale, t } = useLanguage();
+  const [pageUrl, setPageUrl] = useState("");
+
+  useEffect(() => {
+    setPageUrl(window.location.href);
+  }, []);
 
   const { data } = useTina({
     query: props.query || "{ __typename }",
@@ -28,16 +33,12 @@ export function NyheterPostClient(props: {
     return <div className="min-h-screen flex items-center justify-center">Laster inn...</div>;
   }
 
-  const dateLocale = locale === "uk" ? ukLocale : locale === "pl" ? plLocale : locale === "en" ? enUS : nb;
-
-  const formattedDate = post.date 
-    ? format(new Date(post.date), "d. MMMM yyyy", { locale: dateLocale })
-    : "";
+  const formattedDate = post.date ? formatNewsDate(post.date, locale) : "";
 
   const isLogo = post.image && (post.image.includes("sanita") || post.image.includes("logo") || post.image.includes("sponsor"));
 
-  const translateUrl = typeof window !== "undefined"
-    ? `https://translate.google.com/translate?sl=no&tl=${locale}&u=${encodeURIComponent(window.location.href)}`
+  const translateUrl = pageUrl
+    ? `https://translate.google.com/translate?sl=no&tl=${locale}&u=${encodeURIComponent(pageUrl)}`
     : `https://translate.google.com/translate?sl=no&tl=${locale}`;
 
   return (

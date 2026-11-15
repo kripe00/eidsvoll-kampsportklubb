@@ -168,7 +168,7 @@ export const en: Translations = {
       },
       {
         question: 'What is the minimum age for kids to train?',
-        answer: 'We offer Brazilian Jiu-Jitsu (BJJ) for children from age 6 and up. We offer dedicated age groups to ensure optimal skill development, discipline, and fun.',
+        answer: 'We offer both Brazilian Jiu-Jitsu (age groups 6–9 and 10–13) and Kids Muay Thai from age 6. All children and youth training strictly follows NIF and the Norwegian Martial Arts Federation child sports regulations — focusing on safe play, motor skills, and pad/mat mastery (no head contact), led by coaches with verified police clearance.',
       },
     ],
   },

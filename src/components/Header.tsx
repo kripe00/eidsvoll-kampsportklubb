@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { tinaField } from "tinacms/dist/react";
@@ -10,23 +10,14 @@ import { ProveukeModal } from "./ProveukeModal";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ScrollProgress } from "./ScrollProgress";
+import { useEscapeKey } from "@/lib/hooks";
 
 export function Header({ data }: { data: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const { t, locale } = useLanguage();
+  const closeMenu = useCallback(() => setIsOpen(false), []);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen]);
+  useEscapeKey(isOpen, closeMenu);
 
   const navLabels: Record<string, string> = {
     "/nyheter": t.nav.news,
@@ -74,7 +65,7 @@ export function Header({ data }: { data: any }) {
             <Link 
               key={i} 
               href={item.href} 
-              className="text-sm font-semibold text-muted-foreground hover:text-foreground hover:text-primary transition-colors"
+              className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors"
               data-tina-field={tinaField(item, 'label')}
             >
               {item.displayLabel}
@@ -90,9 +81,8 @@ export function Header({ data }: { data: any }) {
             trigger={
               <Button 
                 size="sm" 
-                variant="outline" 
                 spring={true}
-                className="rounded-full px-4 py-2 font-bold text-xs sm:text-sm border-primary/40 text-foreground hover:bg-primary/10 transition-all whitespace-nowrap"
+                className="rounded-full px-5 py-2 font-bold text-xs sm:text-sm shadow-md shadow-primary/10 whitespace-nowrap"
               >
                 {t.nav.tryFree}
               </Button>
@@ -101,8 +91,9 @@ export function Header({ data }: { data: any }) {
           <Link href="/medlemskap">
             <Button 
               size="sm" 
+              variant="outline" 
               spring={true}
-              className="rounded-full px-5 py-2 font-bold text-xs sm:text-sm shadow-md shadow-primary/10 whitespace-nowrap"
+              className="rounded-full px-4 py-2 font-bold text-xs sm:text-sm border-primary/40 text-foreground hover:bg-primary/10 transition-all whitespace-nowrap"
             >
               {t.nav.join}
             </Button>
@@ -141,13 +132,13 @@ export function Header({ data }: { data: any }) {
             <div className="flex flex-col gap-3 pt-4 border-t border-border/40">
               <ProveukeModal 
                 trigger={
-                  <Button variant="outline" spring={true} className="w-full rounded-xl font-bold py-6 text-base border-primary/40 text-foreground">
+                  <Button spring={true} className="w-full rounded-xl font-bold py-6 text-base shadow-lg">
                     {t.nav.tryFree}
                   </Button>
                 }
               />
               <Link href="/medlemskap" onClick={() => setIsOpen(false)}>
-                <Button spring={true} className="w-full rounded-xl font-bold py-6 text-base shadow-lg">
+                <Button variant="outline" spring={true} className="w-full rounded-xl font-bold py-6 text-base border-primary/40 text-foreground">
                   {t.nav.join}
                 </Button>
               </Link>

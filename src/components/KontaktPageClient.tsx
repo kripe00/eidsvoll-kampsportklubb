@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { RichText } from "./RichText";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { OptimizedImage } from "./ui/optimized-image";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { getOrCreateChatSessionId } from "@/lib/session";
 
 export function KontaktPageClient(props: {
   data: any;
@@ -24,7 +24,6 @@ export function KontaktPageClient(props: {
   });
 
   const contact = data?.contact || props.data?.contact;
-  const page = data?.page || props.data?.page;
 
   // Form state
   const [formData, setFormData] = useState({
@@ -43,16 +42,7 @@ export function KontaktPageClient(props: {
     setErrorMessage("");
 
     try {
-      let chatSessionId: string | null = null;
-      try {
-        chatSessionId = localStorage.getItem("ekk_chat_session_id") || null;
-        if (!chatSessionId) {
-          chatSessionId = "sess_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
-          localStorage.setItem("ekk_chat_session_id", chatSessionId);
-        }
-      } catch {
-        chatSessionId = null;
-      }
+      const chatSessionId = getOrCreateChatSessionId();
 
       await addDoc(collection(db, "messages"), {
         ...formData,
@@ -68,28 +58,17 @@ export function KontaktPageClient(props: {
     }
   };
 
-  const pageTitle = locale === "no" ? (page?.title || t.contact.title) : t.contact.title;
-
   return (
     <main className="bg-background min-h-screen pb-32">
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
         
         {/* Editorial Header Area */}
         <div className="pt-32 pb-20">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-black tracking-tighter text-foreground uppercase leading-[0.85] mb-8 break-words" data-tina-field={tinaField(page, 'title')}>
-            {pageTitle}
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-black tracking-tighter text-foreground uppercase leading-[0.85] mb-8 break-words">
+            {t.contact.title}
           </h1>
-          <div className="max-w-3xl text-xl md:text-2xl text-muted-foreground/80 leading-relaxed font-light italic" data-tina-field={tinaField(page, 'description')}>
-            {locale === "no" ? (
-              <>
-                <RichText content={page?.description} />
-                {!page?.description && (
-                  <p>{t.contact.subtitle}</p>
-                )}
-              </>
-            ) : (
-              <p>{t.contact.subtitle}</p>
-            )}
+          <div className="max-w-3xl text-xl md:text-2xl text-muted-foreground/80 leading-relaxed font-light italic">
+            <p>{t.contact.subtitle}</p>
           </div>
         </div>
 
@@ -131,8 +110,14 @@ export function KontaktPageClient(props: {
                 >
                   {contact?.address}
                 </a>
-                <p className="text-xs text-muted-foreground mt-2">
-                  {locale === "uk" ? "Безкоштовна парковка та вхід ззаду будівлі." : locale === "pl" ? "Bezpłatny parking i wejście z tyłu budynku." : locale === "en" ? "Free parking and entrance at the back of the building." : "Gratis parkering og inngang på baksiden av bygget."}
+                <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+                  {locale === "uk"
+                    ? "Безкоштовна парковка та вхід ззаду будівлі. Легкий доїзд поїздом до станції Dal stasjon (кілька хвилин пішки) та автобусом уздовж Trondheimsvegen з Рохольта й Ейдсволла."
+                    : locale === "pl"
+                    ? "Bezpłatny parking i wejście z tyłu budynku. Łatwy dojazd pociągiem do stacji Dal stasjon (krótki spacer) oraz autobusem wzdłuż Trondheimsvegen z Råholt i Eidsvoll."
+                    : locale === "en"
+                    ? "Free parking and entrance at the back of the building. Easy access by train to Dal station (short walk) and bus along Trondheimsvegen from Råholt and Eidsvoll."
+                    : "Gratis parkering og inngang på baksiden av bygget. Enkel adkomst med tog til Dal stasjon (kort gangavstand) samt buss langs Trondheimsvegen fra Råholt og Eidsvoll."}
                 </p>
               </div>
 

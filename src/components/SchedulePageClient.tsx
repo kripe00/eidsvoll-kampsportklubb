@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { useTina } from "tinacms/dist/react";
-import { Clock, MapPin } from "lucide-react";
-import { tinaField } from "tinacms/dist/react";
+import { useState, useSyncExternalStore } from "react";
+import Link from "next/link";
+import { useTina, tinaField } from "tinacms/dist/react";
+import { Clock, MapPin, Calendar, ArrowRight, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { Button } from "@/components/ui/button";
+import { ProveukeModal } from "./ProveukeModal";
+import type { Locale } from "@/lib/i18n/types";
 
 interface Slot {
   time: string;
@@ -24,6 +27,118 @@ interface ScheduleProps {
   days?: Day[];
 }
 
+type CategoryFilter = "all" | "bjj" | "muaythai" | "ctyoga" | "kids";
+
+const CLARIFICATIONS: Record<string, Record<Locale, string>> = {
+  "bjj|voksne / ungdom": {
+    no: "Gi (drakt) · Nybegynner & alle nivåer (14+ år)",
+    en: "Gi (uniform) · Beginner & all levels (14+ yrs)",
+    pl: "Gi (kimono) · Początkujący i wszystkie poziomy (14+)",
+    uk: "Gi (кімоно) · Початківці та всі рівні (14+)",
+  },
+  "bjj|bjj basic": {
+    no: "Gi (drakt) · Grunnkurs / nybegynner (14+ år)",
+    en: "Gi (uniform) · Fundamentals / beginners (14+ yrs)",
+    pl: "Gi (kimono) · Podstawy / początkujący (14+)",
+    uk: "Gi (кімоно) · Основи / початківці (14+)",
+  },
+  "bjj|bjj advanced": {
+    no: "Gi (drakt) · Viderekomne",
+    en: "Gi (uniform) · Advanced",
+    pl: "Gi (kimono) · Zaawansowani",
+    uk: "Gi (кімоно) · Просунуті",
+  },
+  "bjj|bjj no-gi": {
+    no: "No-Gi (uten drakt) · Ungdom & voksne (14+ år)",
+    en: "No-Gi (without uniform) · Youth & adults (14+ yrs)",
+    pl: "No-Gi (bez kimona) · Młodzież i dorośli (14+)",
+    uk: "No-Gi (без кімоно) · Молодь і дорослі (14+)",
+  },
+  "bjj|dagtrening bjj": {
+    no: "Alle nivåer (14+ år)",
+    en: "All levels (14+ yrs)",
+    pl: "Wszystkie poziomy (14+)",
+    uk: "Усі рівні (14+)",
+  },
+  "bjj|sparring bjj": {
+    no: "Fri rulling · Ungdom & voksne",
+    en: "Live rolling · Youth & adults",
+    pl: "Sparingi · Młodzież i dorośli",
+    uk: "Спаринги · Молодь і дорослі",
+  },
+  "bjj|barneparti 1 (6-9 år)": {
+    no: "Trygg barnekampsport uten slag og spark",
+    en: "Safe kids grappling — no punches or kicks",
+    pl: "Bezpieczne zajęcia dla dzieci bez uderzeń",
+    uk: "Безпечні заняття для дітей без ударів",
+  },
+  "bjj|barneparti 2 (10-13 år)": {
+    no: "Trygg barnekampsport · Teknikk & mestring",
+    en: "Safe kids grappling · Technique & mastery",
+    pl: "Bezpieczne BJJ dla dzieci · Technika i rozwój",
+    uk: "Безпечне БЖЖ для дітей · Техніка та розвиток",
+  },
+  "bjj|barn (felles)": {
+    no: "Barn (6–13 år) · Fellesøkt",
+    en: "Kids (6–13 yrs) · Combined session",
+    pl: "Dzieci (6–13 lat) · Trening wspólny",
+    uk: "Діти (6–13 років) · Спільне заняття",
+  },
+  "muay thai|barn (felles)": {
+    no: "6–13 år · Kun puter, ingen hodekontakt",
+    en: "6–13 yrs · Pads only, zero head contact",
+    pl: "6–13 lat · Tylko tarcze, zero uderzeń na głowę",
+    uk: "6–13 років · Лише лапи, без ударів у голову",
+  },
+  "muay thai|muay thai": {
+    no: "Ungdom & voksne (14+ år) · Alle nivåer",
+    en: "Youth & adults (14+ yrs) · All levels",
+    pl: "Młodzież i dorośli (14+) · Wszystkie poziomy",
+    uk: "Молодь і дорослі (14+) · Усі рівні",
+  },
+  "crosstrening|crosstrening - kickstart": {
+    no: "Lavterskel styrke & puls · Rene innesko",
+    en: "Accessible strength & cardio · Clean indoor shoes",
+    pl: "Siła i kondycja na start · Czyste buty halowe",
+    uk: "Сила та кардіо для старту · Чисте взуття для залу",
+  },
+  "crosstrening|crosstrening": {
+    no: "Styrke & intervall (14+ år) · Rene innesko",
+    en: "Strength & intervals (14+ yrs) · Clean indoor shoes",
+    pl: "Siła i interwały (14+) · Czyste buty halowe",
+    uk: "Сила та інтервали (14+) · Чисте взуття для залу",
+  },
+  "åpen matte|hele bruket": {
+    no: "Fri rulling og egentrening for medlemmer i alle saler",
+    en: "Open rolling & self-directed training for members across all rooms",
+    pl: "Otwarta mata i trening własny dla członków klubu",
+    uk: "Відкрите татамі та вільне тренування для членів клубу",
+  },
+};
+
+function getSlotClarification(slot: Slot, locale: Locale): string | null {
+  const key = `${slot.activity.trim().toLowerCase()}|${slot.group.trim().toLowerCase()}`;
+  return CLARIFICATIONS[key]?.[locale] ?? null;
+}
+
+function isKidsSlot(group: string): boolean {
+  const lower = group.toLowerCase();
+  return lower.includes("barn") || lower.includes("kids");
+}
+
+const emptySubscribe = () => () => {};
+const getServerDayIdx = () => 0;
+
+function matchesCategory(slot: Slot, category: CategoryFilter): boolean {
+  if (category === "all") return true;
+  if (category === "kids") return isKidsSlot(slot.group);
+  const act = slot.activity.toLowerCase();
+  if (category === "bjj") return act.includes("bjj") || act.includes("åpen matte");
+  if (category === "muaythai") return act.includes("thai") || act.includes("muay");
+  if (category === "ctyoga") return act.includes("cross") || act.includes("yoga");
+  return true;
+}
+
 export function SchedulePageClient(props: {
   data: any;
   query: string;
@@ -39,8 +154,23 @@ export function SchedulePageClient(props: {
   const schedule = (data?.schedule || props.data?.schedule) as ScheduleProps;
   const days = schedule?.days || [];
 
-  const [activeDayIdx, setActiveDayIdx] = useState(0);
+  const [userSelectedDayIdx, setUserSelectedDayIdx] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<"day" | "week">("week");
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
+
+  // Resolve today's weekday on the client without hydration mismatch or setState-in-effect
+  const autoDayIdx = useSyncExternalStore(
+    emptySubscribe,
+    () => {
+      const norwegianWeekdayIdx = (new Date().getDay() + 6) % 7; // 0 = Mandag ... 6 = Søndag
+      return days[norwegianWeekdayIdx]?.slots?.length ? norwegianWeekdayIdx : 0;
+    },
+    getServerDayIdx
+  );
+
+  const activeDayIdx = userSelectedDayIdx ?? autoDayIdx;
+  const setActiveDayIdx = setUserSelectedDayIdx;
+
   const currentDay = days[activeDayIdx];
 
   const dayNameMap: Record<string, string> = {
@@ -57,7 +187,6 @@ export function SchedulePageClient(props: {
     return dayNameMap[dayName] || dayName;
   };
 
-  // Helper to filter slots by room
   const getSlotsForRoom = (slots: Slot[] = [], roomKey: string) => {
     return slots.filter((slot) => {
       const room = slot.room || "";
@@ -68,7 +197,6 @@ export function SchedulePageClient(props: {
     });
   };
 
-  // Helper to extract HH:MM for chronological sorting (e.g., "fra 18:30" -> "18:30")
   const extractTimeForSort = (timeStr: string) => {
     const match = timeStr.match(/(\d{1,2}):(\d{2})/);
     if (match) {
@@ -77,7 +205,6 @@ export function SchedulePageClient(props: {
     return timeStr;
   };
 
-  // Helper to get unique start times sorted chronologically
   const getUniqueStartTimes = (slots: Slot[] = []) => {
     const startTimes = slots.map((s) => s.time.split("-")[0].trim());
     return Array.from(new Set(startTimes)).sort((a, b) =>
@@ -85,40 +212,58 @@ export function SchedulePageClient(props: {
     );
   };
 
-  // Helper to get sport styles
-  const getActivityStyles = (activity: string) => {
+  const getActivityCardClass = (activity: string) => {
     const act = activity.toLowerCase();
     if (act.includes("bjj") || act.includes("jiu")) {
-      return {
-        card: "border-l-4 border-indigo-500 bg-indigo-500/5 hover:bg-indigo-500/10 hover:border-indigo-400",
-        badge: "bg-indigo-500/20 text-indigo-300 border-indigo-500/30",
-        text: "text-indigo-200",
-      };
+      return "border-l-4 border-indigo-500 bg-indigo-500/5 hover:bg-indigo-500/10 hover:border-indigo-400";
     }
     if (act.includes("thai") || act.includes("muay") || act.includes("boks")) {
-      return {
-        card: "border-l-4 border-rose-500 bg-rose-500/5 hover:bg-rose-500/10 hover:border-rose-400",
-        badge: "bg-rose-500/20 text-rose-300 border-rose-500/30",
-        text: "text-rose-200",
-      };
+      return "border-l-4 border-rose-500 bg-rose-500/5 hover:bg-rose-500/10 hover:border-rose-400";
     }
     if (act.includes("yoga") || act.includes("cross") || act.includes("ct")) {
-      return {
-        card: "border-l-4 border-emerald-500 bg-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-400",
-        badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
-        text: "text-emerald-200",
-      };
+      return "border-l-4 border-emerald-500 bg-emerald-500/5 hover:bg-emerald-500/10 hover:border-emerald-400";
     }
-    return {
-      card: "border-l-4 border-slate-500 bg-slate-500/5 hover:bg-slate-500/10 hover:border-slate-400",
-      badge: "bg-slate-500/20 text-slate-300 border-slate-500/30",
-      text: "text-slate-200",
-    };
+    return "border-l-4 border-slate-500 bg-slate-500/5 hover:bg-slate-500/10 hover:border-slate-400";
   };
 
-  // Helper to check if a class is for kids
-  const isKidsClass = (group: string) => {
-    return group.toLowerCase().includes("barn") || group.toLowerCase().includes("kids");
+  const renderGroupBadge = (group: string, sizeClass = "text-[9px] font-bold") => {
+    const kids = isKidsSlot(group);
+    return (
+      <span
+        className={cn(
+          "px-2 py-0.5 rounded border uppercase tracking-wider shrink-0",
+          sizeClass,
+          kids
+            ? "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800"
+            : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+        )}
+      >
+        {kids ? t.schedule.kidsBadge : t.schedule.adultBadge}
+      </span>
+    );
+  };
+
+  const renderSlotDetails = (slot: Slot, titleClass: string) => {
+    const clarification = getSlotClarification(slot, locale);
+    return (
+      <>
+        <h4 className={titleClass}>{slot.activity}</h4>
+        <p className="text-xs text-muted-foreground font-medium mt-0.5">
+          {slot.group}
+        </p>
+        {clarification && (
+          <p className="text-[11px] text-foreground/80 font-medium mt-1 leading-snug">
+            {clarification}
+          </p>
+        )}
+        {slot.trainer && (
+          <p className="mt-1.5 inline-flex items-start gap-1 text-[11px] font-semibold text-primary leading-snug">
+            <Info className="w-3 h-3 shrink-0 mt-0.5" />
+            <span>{slot.trainer}</span>
+          </p>
+        )}
+      </>
+    );
   };
 
   if (days.length === 0) {
@@ -129,10 +274,40 @@ export function SchedulePageClient(props: {
     );
   }
 
-  const sal1Slots = getSlotsForRoom(currentDay?.slots, "sal1");
-  const sal2Slots = getSlotsForRoom(currentDay?.slots, "sal2");
-  const ctyogaSlots = getSlotsForRoom(currentDay?.slots, "ctyoga");
-  const uniqueStartTimes = getUniqueStartTimes(currentDay?.slots);
+  const filteredCurrentDaySlots = (currentDay?.slots || []).filter((slot) =>
+    matchesCategory(slot, activeCategory)
+  );
+  const sal1Slots = getSlotsForRoom(filteredCurrentDaySlots, "sal1");
+  const sal2Slots = getSlotsForRoom(filteredCurrentDaySlots, "sal2");
+  const ctyogaSlots = getSlotsForRoom(filteredCurrentDaySlots, "ctyoga");
+  const uniqueStartTimes = getUniqueStartTimes(filteredCurrentDaySlots);
+
+  const filterOptions: { key: CategoryFilter; label: string }[] = [
+    { key: "all", label: t.schedule.filterAll },
+    { key: "bjj", label: t.schedule.filterBjj },
+    { key: "muaythai", label: t.schedule.filterMuayThai },
+    {
+      key: "ctyoga",
+      label:
+        locale === "en"
+          ? "Cross Training & Yoga"
+          : locale === "pl"
+          ? "Crosstrening & Joga"
+          : locale === "uk"
+          ? "Крос-тренінг & Йога"
+          : "Crosstrening & Yoga",
+    },
+    { key: "kids", label: t.schedule.filterKids },
+  ];
+
+  const resetFilterLabel =
+    locale === "en"
+      ? "Show all classes"
+      : locale === "pl"
+      ? "Pokaż wszystkie zajęcia"
+      : locale === "uk"
+      ? "Показати всі заняття"
+      : "Vis alle partier";
 
   const roomsConfig = [
     { 
@@ -155,6 +330,33 @@ export function SchedulePageClient(props: {
     },
   ];
 
+  const ctaCopy = {
+    no: {
+      title: "Fant du en time som passer?",
+      subtitle: "Møt opp 10–15 minutter før start i Trondheimsvegen 71B på Dal. Gratis parkering og inngang på baksiden av bygget – og gratis låneutstyr hele prøveperioden.",
+      trialBtn: "Prøv gratis i 14 dager",
+      guideLink: "Hva trenger du til 1. trening?",
+    },
+    en: {
+      title: "Found a class that fits your week?",
+      subtitle: "Show up 10–15 minutes before start at Trondheimsvegen 71B, Dal. Free parking and entrance behind the building — and free loaner gear all trial.",
+      trialBtn: "Try 14 days for free",
+      guideLink: "What to bring to 1st class?",
+    },
+    pl: {
+      title: "Znalazłeś grupę dla siebie?",
+      subtitle: "Przyjdź 10–15 minut przed treningiem do Trondheimsvegen 71B w Dal. Darmowy parking i wejście z tyłu budynku — sprzęt pożyczysz bezpłatnie.",
+      trialBtn: "Wypróbuj 14 dni za darmo",
+      guideLink: "Co zabrać na 1. trening?",
+    },
+    uk: {
+      title: "Знайшли заняття, яке вам підходить?",
+      subtitle: "Приходьте за 10–15 хвилин до початку за адресою Trondheimsvegen 71B, Dal. Безкоштовна парковка і вхід ззаду будівлі — спорядження видається безкоштовно.",
+      trialBtn: "Спробувати 14 днів безкоштовно",
+      guideLink: "Що взяти на 1-ше тренування?",
+    },
+  }[locale];
+
   return (
     <div className="bg-background min-h-screen pb-24">
       {/* Header */}
@@ -169,46 +371,74 @@ export function SchedulePageClient(props: {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 max-w-6xl mt-12">
-        {/* Toggle View Mode (Only visible on PC) */}
-        <div className="hidden lg:flex justify-end mb-8">
-          <div className="inline-flex rounded-lg border border-border/40 p-1 bg-muted/20">
-            <button
-              onClick={() => setViewMode("week")}
-              className={cn(
-                "px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-all duration-300",
-                viewMode === "week"
-                  ? "bg-primary text-white shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {t.schedule.weekView}
-            </button>
-            <button
-              onClick={() => setViewMode("day")}
-              className={cn(
-                "px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-all duration-300",
-                viewMode === "day"
-                  ? "bg-primary text-white shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {t.schedule.dayRoomsView}
-            </button>
+      <div className="container mx-auto px-4 lg:px-8 max-w-6xl mt-10">
+        {/* Filter Pills & View Mode Toggle */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+          <div className="flex flex-wrap items-center gap-2" role="group" aria-label={t.schedule.filterAll}>
+            {filterOptions.map((option) => {
+              const isSelected = activeCategory === option.key;
+              return (
+                <button
+                  key={option.key}
+                  type="button"
+                  onClick={() => setActiveCategory(option.key)}
+                  aria-pressed={isSelected}
+                  className={cn(
+                    "px-3.5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border",
+                    isSelected
+                      ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                      : "bg-muted/25 text-muted-foreground border-border/60 hover:text-foreground hover:border-border"
+                  )}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Toggle View Mode (Only visible on PC) */}
+          <div className="hidden lg:flex justify-end shrink-0">
+            <div className="inline-flex rounded-lg border border-border/40 p-1 bg-muted/20">
+              <button
+                type="button"
+                onClick={() => setViewMode("week")}
+                className={cn(
+                  "px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-all duration-300",
+                  viewMode === "week"
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {t.schedule.weekView}
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode("day")}
+                className={cn(
+                  "px-4 py-1.5 text-xs font-bold uppercase tracking-wider rounded-md transition-all duration-300",
+                  viewMode === "day"
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {t.schedule.dayRoomsView}
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Day Selection Tabs (Hidden on PC if viewMode is "week") */}
         <div className={cn(
-          "flex justify-start lg:justify-center gap-2 border-b border-border/40 pb-4 mb-12 overflow-x-auto whitespace-nowrap scrollbar-none",
+          "flex justify-start lg:justify-center gap-2 border-b border-border/40 pb-4 mb-10 overflow-x-auto whitespace-nowrap scrollbar-none",
           viewMode === "week" && "lg:hidden"
         )}>
           {days.map((day, idx) => (
             <button
               key={idx}
+              type="button"
               onClick={() => setActiveDayIdx(idx)}
               className={cn(
-                "px-6 py-2.5 text-sm md:text-base font-bold uppercase tracking-wider transition-all duration-300 border-b-2",
+                "px-5 sm:px-6 py-2.5 text-sm md:text-base font-bold uppercase tracking-wider transition-all duration-300 border-b-2 shrink-0",
                 activeDayIdx === idx
                   ? "border-primary text-primary bg-primary/5"
                   : "border-transparent text-muted-foreground hover:text-foreground"
@@ -224,14 +454,16 @@ export function SchedulePageClient(props: {
         {viewMode === "week" && (
           <div className="hidden lg:flex flex-col space-y-6">
             {days.map((day, idx) => {
-              const sortedSlots = [...(day.slots || [])].sort((a, b) =>
-                extractTimeForSort(a.time).localeCompare(extractTimeForSort(b.time))
-              );
+              const sortedSlots = [...(day.slots || [])]
+                .filter((slot) => matchesCategory(slot, activeCategory))
+                .sort((a, b) =>
+                  extractTimeForSort(a.time).localeCompare(extractTimeForSort(b.time))
+                );
               return (
                 <div key={idx} className="border border-border/30 rounded-xl bg-muted/5 p-6 flex flex-col md:flex-row gap-6 items-start">
                   {/* Day Column (Left side) */}
                   <div className="w-full md:w-32 shrink-0 border-b md:border-b-0 md:border-r border-border/40 pb-4 md:pb-0 md:pr-6">
-                    <h3 className="font-extrabold text-lg tracking-wider uppercase text-foreground text-primary">
+                    <h3 className="font-extrabold text-lg tracking-wider uppercase text-primary">
                       {getTranslatedDay(day.day)}
                     </h3>
                     <span className="text-xs text-muted-foreground mt-1 block">
@@ -243,56 +475,49 @@ export function SchedulePageClient(props: {
                   <div className="flex-grow w-full">
                     {sortedSlots.length > 0 ? (
                       <div className="flex flex-wrap gap-4">
-                        {sortedSlots.map((slot, sIdx) => {
-                          const styles = getActivityStyles(slot.activity);
-                          const kids = isKidsClass(slot.group);
-                          return (
-                            <div
-                              key={sIdx}
-                              className={cn(
-                                "border border-border/40 rounded-xl p-3.5 transition-all duration-300 shadow-sm flex flex-col justify-between w-[220px] shrink-0",
-                                styles.card
-                              )}
-                              data-tina-field={tinaField(slot as any)}
-                            >
-                              <div>
-                                <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-semibold mb-1">
-                                  <Clock className="w-3.5 h-3.5" />
-                                  {slot.time}
-                                </span>
-                                <h4 className="font-black text-sm text-foreground uppercase tracking-tight truncate">
-                                  {slot.activity}
-                                </h4>
-                                <p className="text-xs text-muted-foreground truncate mt-0.5 font-medium">
-                                  {slot.group}
-                                </p>
-                              </div>
-
-                              <div className="mt-2 pt-2 border-t border-border/30 flex items-center justify-between gap-1">
-                                {/* Room Tag */}
-                                <span className="text-[10px] bg-muted px-2 py-0.5 rounded text-muted-foreground font-semibold truncate max-w-[110px]">
-                                  {slot.room}
-                                </span>
-                                
-                                {/* Group Badge */}
-                                <span
-                                  className={cn(
-                                    "text-[9px] px-2 py-0.5 rounded border uppercase font-extrabold tracking-wider shrink-0",
-                                    kids 
-                                      ? "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800" 
-                                      : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
-                                  )}
-                                >
-                                  {kids ? t.schedule.kidsBadge : t.schedule.adultBadge}
-                                </span>
-                              </div>
+                        {sortedSlots.map((slot, sIdx) => (
+                          <div
+                            key={sIdx}
+                            className={cn(
+                              "border border-border/40 rounded-xl p-3.5 transition-all duration-300 shadow-sm flex flex-col justify-between w-[240px] shrink-0",
+                              getActivityCardClass(slot.activity)
+                            )}
+                            data-tina-field={tinaField(slot as any)}
+                          >
+                            <div>
+                              <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-semibold mb-1">
+                                <Clock className="w-3.5 h-3.5" />
+                                {slot.time}
+                              </span>
+                              {renderSlotDetails(slot, "font-black text-sm text-foreground uppercase tracking-tight")}
                             </div>
-                          );
-                        })}
+
+                            <div className="mt-3 pt-2 border-t border-border/30 flex items-center justify-between gap-1">
+                              <span className="text-[10px] bg-muted px-2 py-0.5 rounded text-muted-foreground font-semibold truncate max-w-[120px]">
+                                {slot.room}
+                              </span>
+                              {renderGroupBadge(slot.group, "text-[9px] font-extrabold")}
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     ) : (
-                      <div className="text-sm text-muted-foreground/45 py-4 font-medium italic">
-                        {locale === 'uk' ? 'На цей день тренувань немає.' : locale === 'pl' ? 'Brak treningów w tym dniu.' : locale === 'en' ? 'No classes scheduled for this day.' : 'Ingen treninger satt opp denne dagen.'}
+                      <div className="text-sm text-muted-foreground/60 py-4 font-medium italic">
+                        {activeCategory !== "all"
+                          ? locale === "en"
+                            ? "No matching classes for this filter."
+                            : locale === "pl"
+                            ? "Brak pasujących zajęć dla wybranego filtra."
+                            : locale === "uk"
+                            ? "Немає занять за вибраним фільтром."
+                            : "Ingen treninger matcher valgt filter denne dagen."
+                          : locale === "uk"
+                          ? "На цей день тренувань немає."
+                          : locale === "pl"
+                          ? "Brak treningów w tym dniu."
+                          : locale === "en"
+                          ? "No classes scheduled for this day."
+                          : "Ingen treninger satt opp denne dagen."}
                       </div>
                     )}
                   </div>
@@ -323,153 +548,197 @@ export function SchedulePageClient(props: {
 
               {/* Fallback if no classes */}
               {uniqueStartTimes.length === 0 && (
-                <div className="border border-dashed border-border/30 rounded-xl p-8 text-center text-muted-foreground/40 py-16">
-                  Ingen faste treninger satt opp denne dagen.
+                <div className="border border-dashed border-border/40 rounded-xl p-8 text-center text-muted-foreground py-16 space-y-3">
+                  <p>
+                    {activeCategory !== "all"
+                      ? locale === "en"
+                        ? "No classes match the selected filter on this day."
+                        : locale === "pl"
+                        ? "Brak zajęć pasujących do wybranego filtra w tym dniu."
+                        : locale === "uk"
+                        ? "У цей день немає занять за вибраним фільтром."
+                        : "Ingen treninger matcher valgt filter denne dagen."
+                      : locale === "en"
+                      ? "No fixed classes scheduled on this day."
+                      : "Ingen faste treninger satt opp denne dagen."}
+                  </p>
+                  {activeCategory !== "all" && (
+                    <button
+                      type="button"
+                      onClick={() => setActiveCategory("all")}
+                      className="text-xs font-bold uppercase tracking-wider text-primary underline underline-offset-4"
+                    >
+                      {resetFilterLabel}
+                    </button>
+                  )}
                 </div>
               )}
 
               {/* Rows sorted by Start Time */}
-              {uniqueStartTimes.map((startTime) => {
-                return (
-                  <div key={startTime} className="grid grid-cols-3 gap-6 lg:gap-8 items-stretch">
-                    {roomsConfig.map((room) => {
-                      // Find slot for this room starting at this time
-                      const slot = currentDay?.slots?.find((s) => {
-                        const sRoom = s.room || "";
-                        const sStart = s.time.split("-")[0].trim();
-                        
-                        // Check room match
-                        let roomMatch = false;
-                        if (room.key === "sal1") roomMatch = sRoom === "Sal 1" || sRoom === "Hele bruket";
-                        if (room.key === "sal2") roomMatch = sRoom === "Sal 2" || sRoom === "Hele bruket";
-                        if (room.key === "ctyoga") roomMatch = sRoom === "CT/yoga sal" || sRoom === "Hele bruket";
-                        
-                        return roomMatch && sStart === startTime;
-                      });
+              {uniqueStartTimes.map((startTime) => (
+                <div key={startTime} className="grid grid-cols-3 gap-6 lg:gap-8 items-stretch">
+                  {roomsConfig.map((room) => {
+                    const matchingSlots = room.slots.filter(
+                      (s) => s.time.split("-")[0].trim() === startTime
+                    );
 
-                      if (slot) {
-                        const styles = getActivityStyles(slot.activity);
-                        const kids = isKidsClass(slot.group);
-                        return (
-                          <div
-                            key={room.key}
-                            className={cn(
-                              "border border-border/40 rounded-xl p-5 transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[160px]",
-                              styles.card
-                            )}
-                            data-tina-field={tinaField(slot as any)}
-                          >
-                            <div>
-                              <div className="flex items-center justify-between mb-2">
-                                <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-semibold">
-                                  <Clock className="w-3.5 h-3.5" />
-                                  {slot.time}
-                                </span>
-                                
-                                {/* Group Badge */}
-                                <span
-                                  className={cn(
-                                    "text-[10px] px-2 py-0.5 rounded border uppercase font-bold tracking-wider",
-                                    kids 
-                                      ? "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800" 
-                                      : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
-                                  )}
-                                >
-                                  {kids ? t.schedule.kidsBadge : t.schedule.adultBadge}
-                                </span>
-                              </div>
-
-                              <h4 className="font-black text-xl tracking-tight text-foreground uppercase">
-                                {slot.activity}
-                              </h4>
-                              <p className="text-xs text-muted-foreground/80 mt-1 font-medium">
-                                {slot.group}
-                              </p>
-                            </div>
-
-
-                          </div>
-                        );
-                      }
-
-                      // Empty Slot Placeholder (Transparent spacer to keep alignment without border "holes")
+                    if (matchingSlots.length > 0) {
                       return (
-                        <div 
-                          key={room.key} 
-                          className="min-h-[160px] hidden lg:block"
-                        />
+                        <div key={room.key} className="flex flex-col gap-3">
+                          {matchingSlots.map((slot, mIdx) => (
+                            <div
+                              key={mIdx}
+                              className={cn(
+                                "border border-border/40 rounded-xl p-5 transition-all duration-300 shadow-sm flex flex-col justify-between min-h-[160px] flex-1",
+                                getActivityCardClass(slot.activity)
+                              )}
+                              data-tina-field={tinaField(slot as any)}
+                            >
+                              <div>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-semibold">
+                                    <Clock className="w-3.5 h-3.5" />
+                                    {slot.time}
+                                  </span>
+                                  {renderGroupBadge(slot.group, "text-[10px] font-bold")}
+                                </div>
+                                {renderSlotDetails(slot, "font-black text-xl tracking-tight text-foreground uppercase")}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
                       );
-                    })}
-                  </div>
-                );
-              })}
+                    }
+
+                    return (
+                      <div
+                        key={room.key}
+                        className="min-h-[160px] hidden lg:block"
+                      />
+                    );
+                  })}
+                </div>
+              ))}
             </div>
 
             {/* MOBILE & TABLET VIEW (Stacked timeline) */}
-            <div className="lg:hidden space-y-12">
-              {roomsConfig.map((room) => {
-                if (room.slots.length === 0) return null;
-                return (
-                  <div key={room.key} className="space-y-4">
-                    {/* Room Subheader */}
-                    <div className="flex items-center gap-2 border-b border-border/30 pb-2">
-                      <MapPin className="w-4 h-4 text-primary" />
-                      <h3 className="font-extrabold text-base uppercase tracking-wider text-foreground">
-                        {room.name}
-                      </h3>
-                    </div>
+            <div className="lg:hidden space-y-10">
+              {filteredCurrentDaySlots.length === 0 ? (
+                <div className="border border-dashed border-border/40 rounded-xl p-8 text-center text-muted-foreground space-y-3">
+                  <p className="text-sm">
+                    {activeCategory !== "all"
+                      ? locale === "en"
+                        ? "No classes match this filter on the selected day."
+                        : locale === "pl"
+                        ? "Brak zajęć dla wybranego filtra w tym dniu."
+                        : locale === "uk"
+                        ? "Немає занять за цим фільтром у вибраний день."
+                        : "Ingen treninger matcher filteret denne dagen."
+                      : locale === "uk"
+                      ? "На цей день тренувань немає."
+                      : locale === "pl"
+                      ? "Brak treningów w tym dniu."
+                      : locale === "en"
+                      ? "No classes scheduled for this day."
+                      : "Ingen faste treninger satt opp denne dagen."}
+                  </p>
+                  {activeCategory !== "all" && (
+                    <button
+                      type="button"
+                      onClick={() => setActiveCategory("all")}
+                      className="text-xs font-bold uppercase tracking-wider text-primary underline underline-offset-4"
+                    >
+                      {resetFilterLabel}
+                    </button>
+                  )}
+                </div>
+              ) : (
+                roomsConfig.map((room) => {
+                  if (room.slots.length === 0) return null;
+                  const sortedRoomSlots = [...room.slots].sort((a, b) =>
+                    extractTimeForSort(a.time).localeCompare(extractTimeForSort(b.time))
+                  );
+                  return (
+                    <div key={room.key} className="space-y-4">
+                      {/* Room Subheader */}
+                      <div className="flex items-center gap-2 border-b border-border/30 pb-2">
+                        <MapPin className="w-4 h-4 text-primary" />
+                        <h3 className="font-extrabold text-base uppercase tracking-wider text-foreground">
+                          {room.name}
+                        </h3>
+                      </div>
 
-                    {/* Timeline List */}
-                    <div className="space-y-3">
-                      {room.slots.map((slot, idx) => {
-                        const styles = getActivityStyles(slot.activity);
-                        const kids = isKidsClass(slot.group);
-                        return (
+                      {/* Timeline List */}
+                      <div className="space-y-3">
+                        {sortedRoomSlots.map((slot, idx) => (
                           <div
                             key={idx}
                             className={cn(
                               "border border-border/40 rounded-xl p-4 transition-all duration-300 shadow-sm flex flex-col justify-between gap-4",
-                              styles.card
+                              getActivityCardClass(slot.activity)
                             )}
                             data-tina-field={tinaField(slot as any)}
                           >
-                            <div className="flex justify-between items-start">
+                            <div className="flex justify-between items-start gap-2">
                               <div>
                                 <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-semibold mb-1">
                                   <Clock className="w-3.5 h-3.5" />
                                   {slot.time}
                                 </span>
-                                <h4 className="font-black text-lg text-foreground uppercase tracking-tight">
-                                  {slot.activity}
-                                </h4>
-                                <p className="text-xs text-muted-foreground font-medium mt-0.5">
-                                  {slot.group}
-                                </p>
+                                {renderSlotDetails(slot, "font-black text-lg text-foreground uppercase tracking-tight")}
                               </div>
 
-                              <span
-                                className={cn(
-                                  "text-[9px] px-2 py-0.5 rounded border uppercase font-bold tracking-wider shrink-0",
-                                  kids 
-                                    ? "bg-blue-100 text-blue-900 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800" 
-                                    : "bg-slate-100 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
-                                )}
-                              >
-                                {kids ? t.schedule.kidsBadge : t.schedule.adultBadge}
-                              </span>
+                              {renderGroupBadge(slot.group, "text-[9px] font-bold")}
                             </div>
-
-
                           </div>
-                        );
-                      })}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </div>
         )}
+
+        {/* Bottom Conversion Card */}
+        <div className="mt-16 rounded-2xl bg-slate-950 text-white border border-slate-800 p-6 sm:p-8 md:p-10 shadow-xl">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-2xl">
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-sky-300">
+                <MapPin className="w-4 h-4 shrink-0" />
+                <span>Trondheimsvegen 71B, 2072 Dal</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight text-white">
+                {ctaCopy.title}
+              </h2>
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                {ctaCopy.subtitle}
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <ProveukeModal
+                trigger={
+                  <Button
+                    size="lg"
+                    spring={true}
+                    className="w-full sm:w-auto h-12 px-6 rounded-xl font-bold text-sm uppercase tracking-wider shadow-lg shadow-primary/25 gap-2"
+                  >
+                    <Calendar className="w-4 h-4 shrink-0" />
+                    <span>{ctaCopy.trialBtn}</span>
+                  </Button>
+                }
+              />
+              <Link
+                href="/forste-trening"
+                className="inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl border border-slate-700 bg-slate-900/80 hover:bg-slate-800 text-xs sm:text-sm font-bold text-slate-100 transition-colors whitespace-nowrap"
+              >
+                <span>{ctaCopy.guideLink}</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

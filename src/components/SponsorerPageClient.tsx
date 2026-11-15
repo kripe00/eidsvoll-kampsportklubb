@@ -1,13 +1,10 @@
 "use client";
 
 import { useTina, tinaField } from "tinacms/dist/react";
-import { Heart, Eye, Award, Shield, Users, Zap, HeartHandshake, ShieldCheck, Flame, Info, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { OptimizedImage } from "./ui/optimized-image";
-
-const iconMap: Record<string, any> = {
-  Heart, Eye, Award, Shield, Users, Zap, HeartHandshake, ShieldCheck, Flame, Info, CheckCircle2
-};
+import { RichText } from "./RichText";
 
 export function SponsorerPageClient(props: {
   data: any;
@@ -48,10 +45,10 @@ export function SponsorerPageClient(props: {
                     </h1>
                     
                     <div 
-                      className="prose prose-lg text-muted-foreground font-light leading-relaxed whitespace-pre-line"
+                      className="prose prose-lg text-muted-foreground font-light leading-relaxed"
                       data-tina-field={tinaField(block, "body")}
                     >
-                      {block?.body || "Ta kontakt for å høre mer om sponsormuligheter."}
+                      <RichText content={block?.body || "Ta kontakt for å høre mer om sponsormuligheter."} />
                     </div>
 
                     <div className="pt-4 flex flex-col sm:flex-row gap-4">

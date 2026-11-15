@@ -1,40 +1,17 @@
 "use client";
 
 import { useTina, tinaField } from "tinacms/dist/react";
-import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { RichText } from "./RichText";
 import { BlockRenderer } from "./blocks/BlockRenderer";
 import Link from "next/link";
+import { Mail, Phone, ShieldCheck, Calendar, FileText, ArrowRight } from "lucide-react";
 import { OptimizedImage } from "./ui/optimized-image";
+import { useInView } from "@/lib/hooks";
 
 
 function BoardMemberCard({ member }: { member: any }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const currentRef = cardRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      {
-        threshold: 0.3,
-        rootMargin: "-50px 0px -50px 0px"
-      }
-    );
-
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
+  const { ref: cardRef, inView: isVisible } = useInView<HTMLDivElement>();
 
   return (
     <div 
@@ -157,17 +134,126 @@ export function StyretPageClient(props: {
           ))}
         </div>
 
-        {/* Organization Plan CTA */}
-        <div className="mt-40 pt-20 border-t border-border/40 flex flex-col items-center text-center">
-          <p className="text-muted-foreground mb-8 max-w-xl mx-auto font-light text-lg">
-            For en dypere innsikt i hvordan klubben vår er strukturert, ansvarsfordeling og våre styringsorganer, kan du lese vår fullstendige organisasjonsplan.
-          </p>
-          <Link 
-            href="/styret/organisasjonsplan"
-            className="inline-flex items-center gap-4 text-sm font-black tracking-[0.3em] uppercase text-primary border-b-2 border-primary pb-2 hover:gap-8 transition-all duration-500"
-          >
-            Se klubbens organisasjonsplan
-          </Link>
+        {/* Åpenhet, Kontakt & Styringsdokumenter */}
+        <div className="mt-28 pt-20 border-t border-border/40 space-y-12">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-[1px] bg-primary" />
+              <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-primary">
+                Åpenhet, kontakt &amp; styring
+              </h2>
+            </div>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
+              Eidsvoll Kampsportklubb (org.nr. 932 716 461) er et demokratisk, medlemsstyrt idrettslag tilsluttet Norges idrettsforbund (NIF) og Norges Kampsportforbund (NKF).
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* 1. Kontakt styret & utvalg */}
+            <div className="rounded-2xl bg-card border border-border/70 p-6 sm:p-8 flex flex-col justify-between gap-5 shadow-sm">
+              <div className="space-y-4">
+                <div className="inline-flex p-2.5 rounded-xl bg-primary/10 text-primary">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-black uppercase tracking-tight text-foreground">
+                  Kontakt styret og tillitsvalgte
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Har du innspill til driften, saker til styrebehandling, eller spørsmål til politiattestansvarlig (Helene Løken) eller kontrollutvalget? Ta direkte kontakt med oss.
+                </p>
+                <div className="space-y-2.5 pt-2 text-sm">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <span className="font-bold text-foreground">Styreleder (Kristian Sollie Pedersen):</span>
+                    <a
+                      href="mailto:leder@kampsporteidsvoll.no"
+                      className="text-primary font-semibold hover:underline underline-offset-4"
+                    >
+                      leder@kampsporteidsvoll.no
+                    </a>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <span className="font-bold text-foreground">Klubb og medlemshenvendelser:</span>
+                    <a
+                      href="mailto:kontakt@kampsporteidsvoll.no"
+                      className="text-primary font-semibold hover:underline underline-offset-4"
+                    >
+                      kontakt@kampsporteidsvoll.no
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Phone className="w-4 h-4 text-primary shrink-0" />
+                    <a href="tel:+4797610229" className="font-semibold text-foreground hover:text-primary transition-colors">
+                      976 10 229
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Årsmøte og medlemsdemokrati */}
+            <div className="rounded-2xl bg-card border border-border/70 p-6 sm:p-8 flex flex-col justify-between gap-5 shadow-sm">
+              <div className="space-y-4">
+                <div className="inline-flex p-2.5 rounded-xl bg-primary/10 text-primary">
+                  <Calendar className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-black uppercase tracking-tight text-foreground">
+                  Årsmøte og medlemsdemokrati
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Årsmøtet er klubbens øverste myndighet og avholdes årlig innen utgangen av mars, med innkalling senest én måned før. Her vedtas budsjett, regnskap, kontingent og valg av nytt styre, kontrollutvalg og valgkomité.
+                </p>
+                <p className="text-xs sm:text-sm text-foreground/90 font-medium bg-muted/40 border border-border/60 rounded-xl p-3.5 leading-relaxed">
+                  Alle medlemmer har møte- og forslagsrett. Stemmerett på årsmøtet gjelder fra kalenderåret man fyller 15 år, forutsatt minst én måneds medlemskap og betalt årskontingent i MinIdrett.
+                </p>
+              </div>
+            </div>
+
+            {/* 3. Politiattest og Trygg Idrett */}
+            <div className="rounded-2xl bg-card border border-border/70 p-6 sm:p-8 flex flex-col justify-between gap-5 shadow-sm">
+              <div className="space-y-4">
+                <div className="inline-flex p-2.5 rounded-xl bg-primary/10 text-primary">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-black uppercase tracking-tight text-foreground">
+                  Politiattest og trygg idrett
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  I tråd med NIFs bestemmelser må samtlige trenere, instruktører og tillitsvalgte med ansvar for mindreårige eller personer med utviklingshemming fremvise gyldig politiattest før oppstart.
+                </p>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  All barne- og ungdomsaktivitet følger NIFs barneidrettsbestemmelser og retningslinjer for trygge, rusfrie og inkluderende idrettsmiljøer.
+                </p>
+              </div>
+            </div>
+
+            {/* 4. Organisasjonsplan, lovnorm og vedtekter */}
+            <div className="rounded-2xl bg-card border border-border/70 p-6 sm:p-8 flex flex-col justify-between gap-5 shadow-sm">
+              <div className="space-y-4">
+                <div className="inline-flex p-2.5 rounded-xl bg-primary/10 text-primary">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <h3 className="text-xl font-black uppercase tracking-tight text-foreground">
+                  Organisasjonsplan og vedtekter
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Klubbens vedtekter (lov) bygger på <strong>NIFs lovnorm for idrettslag</strong>. Ansvarsfordelingen mellom årsmøtet, styret, kontrollutvalget og valgkomiteen er beskrevet i vår organisasjonsplan. Gjeldende vedtekter og siste årsmøteprotokoll kan fås tilsendt ved henvendelse til{" "}
+                  <a href="mailto:leder@kampsporteidsvoll.no" className="text-primary font-semibold hover:underline underline-offset-4">
+                    leder@kampsporteidsvoll.no
+                  </a>
+                  .
+                </p>
+              </div>
+              <div className="pt-2">
+                <Link
+                  href="/styret/organisasjonsplan"
+                  className="inline-flex items-center gap-3 text-xs sm:text-sm font-black tracking-[0.2em] uppercase text-primary border-b-2 border-primary pb-1.5 hover:gap-5 transition-all duration-300"
+                >
+                  <span>Se klubbens organisasjonsplan</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>

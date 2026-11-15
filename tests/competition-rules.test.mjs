@@ -279,12 +279,16 @@ describe("IBJJF 2027 Rule Engine & /konkurranse Route Contracts", () => {
 
             const reap = evaluateKneeReaping(age, belt, style);
             for (const text of [
-              reap.reapingStatusNo,
-              reap.reapingStatusEn,
+              reap.headlineNo,
+              reap.headlineEn,
+              reap.definitionNo,
+              reap.definitionEn,
               reap.crossedLegsStandupRuleNo,
               reap.crossedLegsStandupRuleEn,
-              reap.fiftyFiftyNoteNo,
-              reap.fiftyFiftyNoteEn,
+              reap.fiftyFiftyTitleNo,
+              reap.fiftyFiftyTitleEn,
+              reap.fiftyFiftyRuleNo,
+              reap.fiftyFiftyRuleEn,
             ]) {
               assert.ok(!jargonRegex.test(text), `Fant sjargong i evaluateKneeReaping: ${text}`);
             }
@@ -299,8 +303,8 @@ describe("IBJJF 2027 Rule Engine & /konkurranse Route Contracts", () => {
           tech.nameEn,
           tech.descriptionNo,
           tech.descriptionEn,
-          tech.consequenceNo,
-          tech.consequenceEn,
+          tech.changeNoteNo ?? "",
+          tech.changeNoteEn ?? "",
           tech.exceptionNoteNo ?? "",
           tech.exceptionNoteEn ?? "",
         ]) {
@@ -309,7 +313,7 @@ describe("IBJJF 2027 Rule Engine & /konkurranse Route Contracts", () => {
       }
 
       for (const item of ALWAYS_LEGAL_FOUNDATIONS) {
-        for (const text of [item.titleNo, item.titleEn, item.detailNo, item.detailEn]) {
+        for (const text of [item.nameNo, item.nameEn, item.noteNo, item.noteEn]) {
           assert.ok(!jargonRegex.test(text), `Fant sjargong i ALWAYS_LEGAL_FOUNDATIONS: ${text}`);
         }
       }

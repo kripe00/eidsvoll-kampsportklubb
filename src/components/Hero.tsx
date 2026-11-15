@@ -106,7 +106,7 @@ export function Hero({
         </h1>
 
         <div className="hero-description text-base sm:text-lg md:text-xl text-slate-200/90 mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed font-normal" data-tina-field={tinaField(parent, 'description')}>
-          {typeof displayDesc === "string" ? <p>{displayDesc}</p> : <RichText content={displayDesc} />}
+          <RichText content={displayDesc} />
         </div>
         
         <div className="hero-cta flex flex-col sm:flex-row justify-center items-center gap-4 px-2">

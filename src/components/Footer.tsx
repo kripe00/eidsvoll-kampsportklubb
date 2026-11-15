@@ -181,6 +181,15 @@ export function Footer({ data }: { data?: any }) {
                 >
                   <span className="text-slate-500 text-xs">{t.footer.orgNr}</span>
                   <span className="text-slate-300">{orgNumber}</span>
+                  <span className="text-[11px] text-slate-400 mt-0.5 leading-snug">
+                    {locale === "en"
+                      ? "Grasrotandelen (Norsk Tipping): org.nr. 932 716 461"
+                      : locale === "pl"
+                      ? "Grasrotandelen (Norsk Tipping): nr org. 932 716 461"
+                      : locale === "uk"
+                      ? "Grasrotandelen (Norsk Tipping): org.nr. 932 716 461"
+                      : "Grasrotandelen (Norsk Tipping): søk opp org.nr. 932 716 461"}
+                  </span>
                 </li>
               )}
               {address && (

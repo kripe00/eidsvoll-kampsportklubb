@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
+import { getLocalNewsSlugs } from "@/lib/news";
 
 export const dynamic = "force-static";
 
@@ -94,24 +95,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   let newsRoutes: MetadataRoute.Sitemap = [];
   try {
     const newsDirectory = path.join(process.cwd(), "content/news");
-    if (fs.existsSync(newsDirectory)) {
-      const filenames = fs.readdirSync(newsDirectory);
-      newsRoutes = filenames
-        .filter((file) => file.endsWith(".md"))
-        .map((file) => {
-          const filePath = path.join(newsDirectory, file);
-          const stats = fs.statSync(filePath);
-          const lastModified = stats.mtime.toISOString().split("T")[0];
-          const filename = file.replace(".md", "");
-          
-          return {
-            url: `${baseUrl}/nyheter/${encodeURIComponent(filename)}`,
-            lastModified: lastModified,
-            changeFrequency: "monthly",
-            priority: 0.6,
-          };
-        });
-    }
+    newsRoutes = getLocalNewsSlugs().map((filename) => {
+      const filePath = path.join(newsDirectory, `${filename}.md`);
+      const stats = fs.statSync(filePath);
+      const lastModified = stats.mtime.toISOString().split("T")[0];
+
+      return {
+        url: `${baseUrl}/nyheter/${encodeURIComponent(filename)}`,
+        lastModified,
+        changeFrequency: "monthly",
+        priority: 0.6,
+      };
+    });
   } catch (error) {
     console.error("Error reading news directory for sitemap:", error);
   }

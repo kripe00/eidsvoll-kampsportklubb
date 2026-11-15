@@ -252,6 +252,10 @@ export const BELT_DEFINITIONS: Record<
   },
 };
 
+export function isUnder15Age(age: AgeCategory): boolean {
+  return age === "kids_4_12" || age === "youth_13_15";
+}
+
 /**
  * Returnerer gyldige beltevalg for en gitt aldersklasse:
  * - Barn (4–12) og Ungdom (13–15): Ingen beltevalg nødvendig (reglene er like for alle barnebelter)
@@ -259,7 +263,7 @@ export const BELT_DEFINITIONS: Record<
  * - Adult og Master: Alle 5 belter
  */
 export function getAvailableBelts(age: AgeCategory): BeltRank[] {
-  if (age === "kids_4_12" || age === "youth_13_15") {
+  if (isUnder15Age(age)) {
     return [];
   }
   if (age === "juvenile_16_17") {
@@ -397,10 +401,10 @@ export function getLevelDescription(
     case 5:
       return {
         badgeNo: beltLabelNo
-          ? `${beltLabelNo} · ${age === "master" ? "Master No-Gi / Gi" : "Gi"}`
+          ? `${beltLabelNo} · ${age === "master" ? `Master (${styleLabel})` : styleLabel}`
           : `Brunt & Svart belte · Gi & Master No-Gi`,
         badgeEn: beltLabelEn
-          ? `${beltLabelEn} · ${age === "master" ? "Master No-Gi / Gi" : "Gi"}`
+          ? `${beltLabelEn} · ${age === "master" ? `Master (${styleLabel})` : styleLabel}`
           : `Brown & Black Belt · Gi & Master No-Gi`,
         summaryNo:
           "Knelås (kneebar), ordinær tålås (toe hold), biceps slicer og calf slicer er lovlig i tillegg til alt for blått og lilla belte. Heel hook, knee reaping og utoverpress i tålås/fotlås er fortsatt forbudt (kun tillatt i Adult No-Gi brunt/svart).",

@@ -28,7 +28,7 @@ For å sikre transparens og forsvarlig drift, opererer følgende utvalg uavhengi
 
 ## 4. Administrative og sportslige nøkkelroller
 
-For den daglige aktiviteten støtter klubben seg på dedikerte roller som sikrer kontinuitet i trening og medlingshåndtering.
+For den daglige aktiviteten støtter klubben seg på dedikerte roller som sikrer kontinuitet i trening og medlemshåndtering.
 Disse rollene ivaretar den daglige, administrative og sportslige driften på vegne av styret.
 
 **Politiattestansvarlig:** Sørger for at alle trenere, instruktører og ressurspersoner med ansvarsforhold for mindreårige eller personer med utviklingshemming fremviser gyldig politiattest. Dette er et absolutt og lovpålagt krav for å opprettholde et trygt idrettsmiljø for alle medlemmer.

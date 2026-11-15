@@ -9,6 +9,8 @@ import { CheckCircle2, Calendar, X } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { cn } from "@/lib/utils";
+import { getOrCreateChatSessionId } from "@/lib/session";
+import { useEscapeKey } from "@/lib/hooks";
 
 interface ProveukeModalProps {
   trigger?: React.ReactNode;
@@ -73,23 +75,19 @@ export function ProveukeModal({
     }
   }, [defaultDiscipline]);
 
+  const closeModal = useCallback(() => setOpen(false), [setOpen]);
+  useEscapeKey(open, closeModal);
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-          setOpen(false);
-        }
-      };
-      window.addEventListener("keydown", handleKeyDown);
       return () => {
         document.body.style.overflow = "unset";
-        window.removeEventListener("keydown", handleKeyDown);
       };
     } else {
       document.body.style.overflow = "unset";
     }
-  }, [open, setOpen]);
+  }, [open]);
 
   // Beregn sluttdato med tidssone-nøytral UTC-aritmetikk (14 dager / 2 uker etter valgt startdato)
   const calculateEndDate = (startDateStr: string): string => {
@@ -125,16 +123,7 @@ export function ProveukeModal({
       const endDate = calculateEndDate(formData.startDate);
       const subjectPrefix = formData.discipline ? `${formData.discipline} - ` : "";
 
-      let chatSessionId: string | null = null;
-      try {
-        chatSessionId = localStorage.getItem("ekk_chat_session_id") || null;
-        if (!chatSessionId) {
-          chatSessionId = "sess_" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
-          localStorage.setItem("ekk_chat_session_id", chatSessionId);
-        }
-      } catch {
-        chatSessionId = null;
-      }
+      const chatSessionId = getOrCreateChatSessionId();
 
       await addDoc(collection(db, "messages"), {
         name: formData.name,

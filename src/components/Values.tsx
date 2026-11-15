@@ -1,20 +1,9 @@
 import { tinaField } from "tinacms/dist/react";
-import { Shield, Users, Zap, HeartHandshake, ShieldCheck, Info } from "lucide-react";
 import { OptimizedImage } from "./ui/optimized-image";
-
-const iconMap: Record<string, any> = {
-  Users,
-  HeartHandshake,
-  ShieldCheck,
-  Shield,
-  Zap,
-  Info,
-};
 
 interface ValuesProps {
   title?: string;
   description?: string;
-  variant?: "asymmetric" | "navy";
   items?: {
     title: string;
     text: string;

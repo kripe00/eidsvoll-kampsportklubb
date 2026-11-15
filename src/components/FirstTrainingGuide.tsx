@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ProveukeModal } from "./ProveukeModal";
 import { OptimizedImage } from "./ui/optimized-image";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
-import { ArrowRight, Calendar, MapPin, Clock, Scale } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, Clock, Scale, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FirstTrainingGuideProps {
@@ -43,9 +43,29 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
           : "Sal 1 & Sal 2 (Matter)",
       image: "/images/club/group-class.jpg",
       accentBorder: "border-l-4 border-l-indigo-500",
-      badgeClass: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
+      badgeClass: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border-indigo-500/30",
       modalDiscipline: "BJJ (Brasiliansk Jiu-Jitsu)",
       modalCategory: "Voksen / Ungdom (fra 14 år)",
+      safetyNote:
+        locale === "en"
+          ? {
+              badge: "Beginner reassurance",
+              text: "You do not need to be in shape before starting! BJJ has zero punches or kicks, and beginners start with calm technique drills — sparring (rolling) is always controlled and completely optional.",
+            }
+          : locale === "pl"
+          ? {
+              badge: "Bezpieczny start dla początkujących",
+              text: "Nie musisz być w świetnej formie przed startem! W BJJ nie ma żadnych uderzeń ani kopnięć, a początkujący zaczynają od spokojnej nauki techniki — sparingi są zawsze kontrolowane i dobrowolne.",
+            }
+          : locale === "uk"
+          ? {
+              badge: "Спокійний старт для новачків",
+              text: "Вам не потрібно бути у чудовій фізичній формі до початку занять! У БЖЖ немає ударів руками чи ногами, новачки починають із базової техніки — спаринги завжди контрольовані та добровільні.",
+            }
+          : {
+              badge: "Trygghet for helt ferske",
+              text: "Du trenger ikke å være i god form før du begynner! BJJ er helt uten slag og spark, og som nybegynner starter du med rolig teknikk – sparring (rulling) er alltid kontrollert og frivillig.",
+            },
       items: [
         {
           step: "01",
@@ -153,7 +173,7 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
           : "Sal 1 (Hovedmatte)",
       image: "/images/club/sparring-action.jpg",
       accentBorder: "border-l-4 border-l-rose-500",
-      badgeClass: "bg-rose-500/15 text-rose-300 border-rose-500/30",
+      badgeClass: "bg-rose-500/10 text-rose-700 dark:text-rose-300 border-rose-500/30",
       modalDiscipline: "Muay Thai / Thaiboksing",
       modalCategory: "Voksen / Ungdom (fra 14 år)",
       items: [
@@ -270,7 +290,7 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
           : "Egen CT- og yogasal",
       image: "/PXL_20260211_163724399.jpg",
       accentBorder: "border-l-4 border-l-emerald-500",
-      badgeClass: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
+      badgeClass: "bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border-emerald-500/30",
       modalDiscipline: "Crosstrening (CT)",
       modalCategory: "Voksen / Ungdom (fra 14 år)",
       items: [
@@ -387,9 +407,29 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
           : "Sal 1 & Sal 2 + Peisestue for foreldre",
       image: "/images/club/happy-kids.jpg",
       accentBorder: "border-l-4 border-l-primary",
-      badgeClass: "bg-primary/15 text-primary border-primary/30",
+      badgeClass: "bg-primary/10 text-blue-800 dark:text-primary border-primary/30",
       modalDiscipline: "BJJ (Brasiliansk Jiu-Jitsu)",
       modalCategory: "Barneparti 1 (6-9 år)",
+      safetyNote:
+        locale === "en"
+          ? {
+              badge: "NIF Child Sports Regulations & Police Clearance",
+              text: "All kids training in both BJJ and Muay Thai follows NIF and Norwegian Martial Arts Federation child sports rules: Kids Muay Thai trains technique, balance, and coordination exclusively on pads — never head contact or full contact. All coaches hold verified police clearance (politiattest).",
+            }
+          : locale === "pl"
+          ? {
+              badge: "Przepisy NIF dla dzieci i zaświadczenie (politiattest)",
+              text: "Zajęcia BJJ i Muay Thai dla dzieci odbywają się zgodnie z wytycznymi NIF i Związku Sztuk Walki: w Muay Thai dzieci ćwiczą wyłącznie technikę, równowagę i koordynację na tarczach — bez uderzeń na głowę i bez pełnego kontaktu. Wszyscy trenerzy posiadają zaświadczenie o niekaralności.",
+            }
+          : locale === "uk"
+          ? {
+              badge: "Правила дитячого спорту NIF і довідка про несудимість",
+              text: "Усі дитячі тренування з БЖЖ та Муай Тай відповідають правилам NIF і Федерації бойових мистецтв: на Муай Тай для дітей відпрацьовують лише техніку, баланс і координацію на лапах — жодних ударів у голову чи повного контакту. Усі тренери мають перевірену довідку (politiattest).",
+            }
+          : {
+              badge: "NIFs barneidrettsbestemmelser & politiattest",
+              text: "All barnetrening i både BJJ og Muay Thai følger NIFs og Norges Kampsportforbunds barneidrettsbestemmelser: I Muay Thai for barn trenes det kun teknikk, balanse og koordinasjon på puter – aldri slag eller spark mot hodet eller fullkontakt. Samtlige trenere har godkjent politiattest.",
+            },
       items: [
         {
           step: "01",
@@ -573,12 +613,12 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
               </a>
               <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">
                 {locale === "en"
-                  ? "Entrance and free parking are on the back of the building."
+                  ? "Entrance and free parking are on the back of the building. Short walking distance from Dal station and bus along Trondheimsvegen."
                   : locale === "pl"
-                  ? "Wejście oraz darmowy parking znajdują się z tyłu budynku."
+                  ? "Wejście oraz darmowy parking znajdują się z tyłu budynku. Blisko stacji kolejowej Dal stasjon i przystanku autobusowego przy Trondheimsvegen."
                   : locale === "uk"
-                  ? "Вхід та безкоштовна парковка знаходяться ззаду будівлі."
-                  : "Inngang og gratis parkering på baksiden av bygget."}
+                  ? "Вхід та безкоштовна парковка ззаду будівлі. Кілька хвилин пішки від станції Dal stasjon та автобуса вздовж Trondheimsvegen."
+                  : "Inngang og gratis parkering på baksiden av bygget. Kort gangavstand fra Dal stasjon og buss langs Trondheimsvegen (fra Råholt/Eidsvoll)."}
               </p>
             </div>
           </div>
@@ -792,6 +832,18 @@ export function FirstTrainingGuide({ id = "forste-trening" }: FirstTrainingGuide
                   </div>
                 ))}
               </div>
+
+              {"safetyNote" in disc && disc.safetyNote && (
+                <div className="border-t border-border/60 bg-primary/5 px-5 sm:px-6 md:px-7 py-4 flex items-start gap-3">
+                  <ShieldCheck className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <div className="text-xs sm:text-sm leading-relaxed">
+                    <span className="font-bold text-foreground block sm:inline sm:mr-2">
+                      {disc.safetyNote.badge}:
+                    </span>
+                    <span className="text-muted-foreground">{disc.safetyNote.text}</span>
+                  </div>
+                </div>
+              )}
             </article>
           ))}
         </div>

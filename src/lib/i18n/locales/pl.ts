@@ -160,7 +160,7 @@ export const pl: Translations = {
       },
       {
         question: 'Jaki sprzęt jest mi potrzebny na pierwszy trening?',
-        answer: 'Na pierwszy trening wystarczy zwykły, czysty strój sportowy (np. koszulka i spodenki lub dres bez zamków i metalowych elementów). Na macie trenujemy boso, więc nie potrzebujesz obuwia sportowego. Nie zapomnij zabrać butelki z wodą!',
+        answer: 'Na pierwszy trening wystarczy zwykły, czysty strój sportowy (np. koszulka i spodenki lub dres bez zamków i metalowych elementów). Na zajęciach BJJ, Muay Thai i Jogi trenujemy boso na macie, a na Crosstrening (CT) zabierz czyste buty halowe. Nie zapomnij zabrać butelki z wodą!',
       },
       {
         question: 'Czy oferujecie darmowy okres próbny?',
@@ -168,7 +168,7 @@ export const pl: Translations = {
       },
       {
         question: 'Od jakiego wieku dzieci mogą trenować w klubie?',
-        answer: 'Prowadzimy zajęcia Brazylijskiego Jiu-Jitsu (BJJ) dla dzieci od 6. roku życia. Grupy są podzielone według wieku, aby zapewnić najlepszy rozwój ruchowy, dyscyplinę oraz świetną zabawę.',
+        answer: 'Prowadzimy zajęcia zarówno z Brazylijskiego Jiu-Jitsu (grupy 6–9 i 10–13 lat), jak i Muay Thai dla dzieci od 6. roku życia. Wszystkie treningi dziecięce odbywają się zgodnie z przepisami NIF i Norweskiego Związku Sztuk Walki — bezpieczna zabawa, praca na tarczach i bez kontaktu z głową, pod opieką trenerów z zaświadczeniem o niekaralności (politiattest).',
       },
     ],
   },

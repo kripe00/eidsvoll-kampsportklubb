@@ -1,10 +1,11 @@
 "use client";
 
 import { tinaField } from "tinacms/dist/react";
-import { useEffect, useRef, useState } from "react";
+import { ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { OptimizedImage } from "./ui/optimized-image";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useInView } from "@/lib/hooks";
 
 interface TrainersProps {
   title?: string;
@@ -18,36 +19,8 @@ interface TrainersProps {
 }
 
 function TrainerCard({ trainer, index, props }: { trainer: any; index: number; props: any }) {
-  const [isVisible, setIsVisible] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const { ref: cardRef, inView: isVisible } = useInView<HTMLDivElement>();
   const { locale, t } = useLanguage();
-
-  useEffect(() => {
-    const currentRef = cardRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      },
-      {
-        threshold: 0.3,
-        rootMargin: "-50px 0px -50px 0px",
-      }
-    );
-
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, []);
 
   const initials = trainer.name
     ? trainer.name
@@ -135,14 +108,27 @@ export function Trainers(props: TrainersProps) {
 
   const displayTitle = locale === "no" ? title : t.about.coachesHeading;
   
+  const policeClearanceNote =
+    locale === "en"
+      ? "All coaches and youth instructors hold verified police clearance (politiattest) per NIF regulations and follow Norges Kampsportforbund safety guidelines."
+      : locale === "pl"
+      ? "Wszyscy trenerzy i instruktorzy grup dziecięcych posiadają ważne zaświadczenie o niekaralności (politiattest) zgodnie z wymogami NIF i NKF."
+      : locale === "uk"
+      ? "Усі тренери та дитячі інструктори мають чинну довідку про несудимість (politiattest) відповідно до вимог NIF та NKF."
+      : "Alle trenere og barneinstruktører har fremvist gyldig politiattest iht. NIFs krav og følger Norges Kampsportforbunds retningslinjer for trygg trening.";
+  
   return (
     <section className="py-16 sm:py-24 md:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 md:mb-20 gap-6 sm:gap-8">
-          <div className="max-w-xl">
+          <div className="max-w-2xl">
             <h2 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter text-foreground uppercase leading-[0.9]" data-tina-field={tinaField(props, "title")}>
               {displayTitle}
             </h2>
+            <p className="mt-4 inline-flex items-start gap-2.5 rounded-xl bg-primary/10 border border-primary/20 px-4 py-3 text-xs sm:text-sm font-semibold text-foreground leading-relaxed">
+              <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+              <span>{policeClearanceNote}</span>
+            </p>
           </div>
           <div className="hidden md:block w-32 h-[1px] bg-primary mb-4" />
         </div>

@@ -62,38 +62,21 @@ export function ScrollProgress({ className }: ScrollProgressProps) {
     // Calculate immediately on mount or route update
     updateBar();
 
-    // Re-verify after navigation scroll reset / layout settlement
-    const settleTimeout1 = setTimeout(updateBar, 100);
-    const settleTimeout2 = setTimeout(updateBar, 300);
-
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
-    document.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize, { passive: true });
-    window.addEventListener("load", onScrollOrResize, { passive: true });
 
     let resizeObserver: ResizeObserver | null = null;
     if (typeof ResizeObserver !== "undefined") {
-      resizeObserver = new ResizeObserver(() => {
-        onScrollOrResize();
-      });
-      if (document.documentElement) {
-        resizeObserver.observe(document.documentElement);
-      }
-      if (document.body) {
-        resizeObserver.observe(document.body);
-      }
+      resizeObserver = new ResizeObserver(onScrollOrResize);
+      resizeObserver.observe(document.documentElement);
     }
 
     return () => {
-      clearTimeout(settleTimeout1);
-      clearTimeout(settleTimeout2);
       if (rafId !== null) {
         window.cancelAnimationFrame(rafId);
       }
       window.removeEventListener("scroll", onScrollOrResize);
-      document.removeEventListener("scroll", onScrollOrResize);
       window.removeEventListener("resize", onScrollOrResize);
-      window.removeEventListener("load", onScrollOrResize);
       resizeObserver?.disconnect();
     };
   }, [pathname]);

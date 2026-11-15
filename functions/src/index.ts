@@ -47,6 +47,46 @@ const formatNorwegianDate = (dateStr?: string) => {
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+const formatOsloDateStr = (date: Date): string =>
+  new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo" }).format(date);
+
+const toJsDate = (val: any): Date | null => {
+  if (!val) return null;
+  const d = typeof val.toDate === "function" ? val.toDate() : new Date(val);
+  return isNaN(d.getTime()) ? null : d;
+};
+
+const computeTrialEndDateStr = (data: {
+  endDate?: string;
+  startDate?: string;
+  createdAt?: any;
+}, useCreatedAtFallback = false): string | undefined => {
+  if (data.endDate) return data.endDate;
+  let baseDate: Date | null = null;
+  if (data.startDate) {
+    baseDate = toJsDate(data.startDate + "T00:00:00");
+  } else if (useCreatedAtFallback && data.createdAt) {
+    baseDate = toJsDate(data.createdAt);
+  }
+  if (!baseDate) return undefined;
+  return new Date(baseDate.getTime() + 14 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+};
+
+function createSmtpTransporter(contextLabel: string): nodemailer.Transporter | null {
+  const userVal = smtpUser.value();
+  const passVal = smtpPassword.value();
+  if (!userVal || !passVal) {
+    console.error(`Mangler SMTP_USER eller SMTP_PASSWORD. ${contextLabel} kan ikke sendes.`);
+    return null;
+  }
+  return nodemailer.createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpSecure,
+    auth: { user: userVal, pass: passVal },
+  });
+}
+
 // Robust utsending med eksponentiell backoff ved midlertidige SMTP-feil (f.eks. Resend 451 / 429 / nettverksfeil)
 async function sendMailWithRetry(
   transporter: nodemailer.Transporter,
@@ -155,23 +195,8 @@ export const sendContactEmail = onDocumentCreated(
 
     console.log(`Mottok ny henvendelse (${event.params.messageId}) fra ${email}. Sender e-post...`);
 
-    const userVal = smtpUser.value();
-    const passVal = smtpPassword.value();
-
-    if (!userVal || !passVal) {
-      console.error("Mangler SMTP_USER eller SMTP_PASSWORD. E-post kan ikke sendes.");
-      return;
-    }
-
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpSecure,
-      auth: {
-        user: userVal,
-        pass: passVal,
-      },
-    });
+    const transporter = createSmtpTransporter("E-post");
+    if (!transporter) return;
 
     const formattedStartDate = formatNorwegianDate(startDate);
     const formattedEndDate = formatNorwegianDate(endDate);
@@ -442,28 +467,11 @@ export const sendTrialWeekFollowup = onSchedule(
   async () => {
     console.log("Kjører daglig sjekk for fullførte prøveperioder (inkludert legacy)...");
 
-    const userVal = smtpUser.value();
-    const passVal = smtpPassword.value();
-
-    if (!userVal || !passVal) {
-      console.error("Mangler SMTP_USER eller SMTP_PASSWORD. Oppfølgingse-post kan ikke sendes.");
-      return;
-    }
-
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpSecure,
-      auth: {
-        user: userVal,
-        pass: passVal,
-      },
-    });
+    const transporter = createSmtpTransporter("Oppfølgingse-post");
+    if (!transporter) return;
 
     // Dagens dato i format YYYY-MM-DD (Europe/Oslo tidssone)
-    const todayStr = new Intl.DateTimeFormat("sv-SE", {
-      timeZone: "Europe/Oslo",
-    }).format(new Date());
+    const todayStr = formatOsloDateStr(new Date());
 
     const db = admin.firestore();
 
@@ -491,28 +499,11 @@ export const sendTrialWeekFollowup = onSchedule(
           continue;
         }
 
-        const { name, email, endDate, startDate, createdAt } = data;
+        const { name, email } = data;
 
         if (!email) continue;
 
-        let targetEndDateStr = endDate;
-
-        // For legacy-påmeldinger som mangler explicit endDate:
-        if (!targetEndDateStr) {
-          let baseDate: Date | null = null;
-
-          if (startDate) {
-            baseDate = new Date(startDate + "T00:00:00");
-          } else if (createdAt) {
-            baseDate = typeof createdAt.toDate === "function" ? createdAt.toDate() : new Date(createdAt);
-          }
-
-          if (baseDate && !isNaN(baseDate.getTime())) {
-            // Beregn 14 dager frem fra registrering/startdato
-            const calculatedEnd = new Date(baseDate.getTime() + 14 * 24 * 60 * 60 * 1000);
-            targetEndDateStr = calculatedEnd.toISOString().split("T")[0];
-          }
-        }
+        const targetEndDateStr = computeTrialEndDateStr(data, true);
 
         // Dersom sluttdatoen er beregnet/angitt og nådd (dvs. targetEndDateStr <= todayStr)
         if (targetEndDateStr && targetEndDateStr <= todayStr) {
@@ -1006,23 +997,8 @@ export const sendWeeklyClubSummary = onSchedule(
   async () => {
     console.log("Starter generering av ukentlig oppsummeringsrapport...");
 
-    const userVal = smtpUser.value();
-    const passVal = smtpPassword.value();
-
-    if (!userVal || !passVal) {
-      console.error("Mangler SMTP_USER eller SMTP_PASSWORD. Ukentlig rapport kan ikke sendes.");
-      return;
-    }
-
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpSecure,
-      auth: {
-        user: userVal,
-        pass: passVal,
-      },
-    });
+    const transporter = createSmtpTransporter("Ukentlig rapport");
+    if (!transporter) return;
 
     const now = new Date();
     const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -1038,8 +1014,8 @@ export const sendWeeklyClubSummary = onSchedule(
       });
     };
 
-    const todayStr = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo" }).format(now);
-    const sevenDaysAgoStr = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Oslo" }).format(sevenDaysAgo);
+    const todayStr = formatOsloDateStr(now);
+    const sevenDaysAgoStr = formatOsloDateStr(sevenDaysAgo);
     const periodLabel = `${formatNorwegianDate(sevenDaysAgoStr)} – ${formatNorwegianDate(todayStr)}`;
 
     const db = admin.firestore();
@@ -1058,12 +1034,7 @@ export const sendWeeklyClubSummary = onSchedule(
         const data = doc.data();
         if (data.website && String(data.website).trim() !== "") continue;
 
-        const createdDate: Date | null =
-          data.createdAt && typeof data.createdAt.toDate === "function"
-            ? data.createdAt.toDate()
-            : data.createdAt
-            ? new Date(data.createdAt)
-            : null;
+        const createdDate = toJsDate(data.createdAt);
 
         const isTrial = data.isProveuke === true || !!data.startDate;
 
@@ -1076,13 +1047,7 @@ export const sendWeeklyClubSummary = onSchedule(
         }
 
         if (isTrial) {
-          let targetEnd = data.endDate;
-          if (!targetEnd && data.startDate) {
-            const base = new Date(data.startDate + "T00:00:00");
-            if (!isNaN(base.getTime())) {
-              targetEnd = new Date(base.getTime() + 14 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
-            }
-          }
+          const targetEnd = computeTrialEndDateStr(data, false);
           if (targetEnd && targetEnd >= sevenDaysAgoStr && targetEnd <= todayStr) {
             completedTrials.push({ id: doc.id, ...data, targetEnd });
           }
@@ -1092,12 +1057,7 @@ export const sendWeeklyClubSummary = onSchedule(
       const recentChats: Array<any> = [];
       for (const doc of chatLogsSnap.docs) {
         const data = doc.data();
-        const createdDate: Date | null =
-          data.createdAt && typeof data.createdAt.toDate === "function"
-            ? data.createdAt.toDate()
-            : data.createdAt
-            ? new Date(data.createdAt)
-            : null;
+        const createdDate = toJsDate(data.createdAt);
 
         if (createdDate && createdDate >= sevenDaysAgo) {
           recentChats.push({ id: doc.id, ...data, createdDate });

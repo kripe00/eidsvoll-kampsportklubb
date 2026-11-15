@@ -38,6 +38,7 @@ import {
   type AgeCategory,
   type BeltRank,
   type CompetitionStyle,
+  type EvaluatedTechnique,
   type MasterTier,
   type TechniqueCategory,
 } from "@/lib/ibjjf-rules";
@@ -47,6 +48,102 @@ interface CompetitionGuideProps {
 }
 
 type TechniqueListFilter = "all" | "illegal" | "legal";
+
+function matchesTechniqueFilter(
+  item: EvaluatedTechnique,
+  categoryFilter: TechniqueCategory | "all",
+  normalizedQuery: string
+): boolean {
+  if (categoryFilter !== "all" && item.category !== categoryFilter) {
+    return false;
+  }
+  if (!normalizedQuery) return true;
+  const unlockNo = getTechniqueUnlockLabel(item.unlockedAtLevel, true);
+  const unlockEn = getTechniqueUnlockLabel(item.unlockedAtLevel, false);
+  const haystack = `${item.id} ${unlockNo} ${unlockEn} ${item.nameNo} ${item.nameEn} ${item.descriptionNo} ${item.descriptionEn}`.toLowerCase();
+  return haystack.includes(normalizedQuery);
+}
+
+function TechniqueCard({
+  tech,
+  variant,
+  isNo,
+}: {
+  tech: EvaluatedTechnique;
+  variant: "illegal" | "legal";
+  isNo: boolean;
+}) {
+  const isIllegal = variant === "illegal";
+  const changeNote = isNo ? tech.changeNoteNo : tech.changeNoteEn;
+  const exceptionNote = isNo ? tech.exceptionNoteNo : tech.exceptionNoteEn;
+
+  return (
+    <li
+      id={`${variant}-tech-${tech.id}`}
+      className="rounded-xl bg-background border border-border/70 p-4 space-y-1.5"
+    >
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="text-[11px] font-bold text-muted-foreground">
+          #{tech.id} · {getTechniqueUnlockLabel(tech.unlockedAtLevel, isNo)}
+        </span>
+        <div className="flex flex-wrap items-center gap-1.5">
+          {isIllegal && tech.change2027 === "newly_banned" && (
+            <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-red-500/15 text-red-700 dark:text-red-300">
+              {isNo ? "NYTT FORBUD 2027" : "NEW 2027 BAN"}
+            </span>
+          )}
+          {!isIllegal && tech.change2027 === "newly_allowed" && (
+            <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">
+              {isNo ? "NYTT TILLATT 2027" : "NEWLY LEGAL 2027"}
+            </span>
+          )}
+          {isIllegal ? (
+            tech.noPenaltyException ? (
+              <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-500/15 text-amber-800 dark:text-amber-300">
+                {isNo ? "INGEN STRAFF · KUN STOPP" : "NO PENALTY · RESTART"}
+              </span>
+            ) : (
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-500/10 text-red-700 dark:text-red-300">
+                DQ
+              </span>
+            )
+          ) : (
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+              {isNo ? "TILLATT" : "LEGAL"}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <p className="text-sm font-bold text-foreground leading-snug">
+        {isNo ? tech.nameNo : tech.nameEn}
+      </p>
+      <p className="text-xs text-muted-foreground leading-relaxed">
+        {isNo ? tech.descriptionNo : tech.descriptionEn}
+      </p>
+
+      {changeNote &&
+        ((isIllegal && tech.change2027 === "newly_banned") ||
+          (!isIllegal && tech.change2027 === "newly_allowed")) && (
+          <p
+            className={cn(
+              "text-xs font-semibold pt-1",
+              isIllegal
+                ? "text-red-700 dark:text-red-300"
+                : "text-emerald-700 dark:text-emerald-300"
+            )}
+          >
+            {changeNote}
+          </p>
+        )}
+      {isIllegal && tech.noPenaltyException && exceptionNote && (
+        <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 pt-1">
+          {exceptionNote}
+        </p>
+      )}
+    </li>
+  );
+}
 
 export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) {
   const { locale } = useLanguage();
@@ -103,35 +200,19 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
 
   const normalizedQuery = searchQuery.trim().toLowerCase();
 
-  const matchesFilter = (item: {
-    nameNo: string;
-    nameEn: string;
-    descriptionNo: string;
-    descriptionEn: string;
-    category: TechniqueCategory;
-    group: string;
-    unlockedAtLevel: 2 | 3 | 4 | 5 | 6 | null;
-    id: number;
-  }) => {
-    if (categoryFilter !== "all" && item.category !== categoryFilter) {
-      return false;
-    }
-    if (!normalizedQuery) return true;
-    const unlockNo = getTechniqueUnlockLabel(item.unlockedAtLevel, true);
-    const unlockEn = getTechniqueUnlockLabel(item.unlockedAtLevel, false);
-    const haystack = `${item.id} ${unlockNo} ${unlockEn} ${item.nameNo} ${item.nameEn} ${item.descriptionNo} ${item.descriptionEn}`.toLowerCase();
-    return haystack.includes(normalizedQuery);
-  };
-
   const filteredLegal = useMemo(
-    () => evaluation.legal.filter(matchesFilter),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    () =>
+      evaluation.legal.filter((item) =>
+        matchesTechniqueFilter(item, categoryFilter, normalizedQuery)
+      ),
     [evaluation.legal, categoryFilter, normalizedQuery]
   );
 
   const filteredIllegal = useMemo(
-    () => evaluation.illegal.filter(matchesFilter),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    () =>
+      evaluation.illegal.filter((item) =>
+        matchesTechniqueFilter(item, categoryFilter, normalizedQuery)
+      ),
     [evaluation.illegal, categoryFilter, normalizedQuery]
   );
 
@@ -895,61 +976,21 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
                   ) : (
                     <ul className="space-y-2.5">
                       {filteredIllegal.map((tech) => (
-                        <li
-                          key={tech.id}
-                          id={`illegal-tech-${tech.id}`}
-                          className="rounded-xl bg-background border border-border/70 p-4 space-y-1.5"
-                        >
-                          <div className="flex flex-wrap items-center justify-between gap-2">
-                            <span className="text-[11px] font-bold text-muted-foreground">
-                              #{tech.id} · {getTechniqueUnlockLabel(tech.unlockedAtLevel, isNo)}
-                            </span>
-                            <div className="flex flex-wrap items-center gap-1.5">
-                              {tech.change2027 === "newly_banned" && (
-                                <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-red-500/15 text-red-700 dark:text-red-300">
-                                  {isNo ? "NYTT FORBUD 2027" : "NEW 2027 BAN"}
-                                </span>
-                              )}
-                              {tech.noPenaltyException ? (
-                                <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-amber-500/15 text-amber-800 dark:text-amber-300">
-                                  {isNo ? "INGEN STRAFF · KUN STOPP" : "NO PENALTY · RESTART"}
-                                </span>
-                              ) : (
-                                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-red-500/10 text-red-700 dark:text-red-300">
-                                  DQ
-                                </span>
-                              )}
-                            </div>
-                          </div>
-
-                          <p className="text-sm font-bold text-foreground leading-snug">
-                            {isNo ? tech.nameNo : tech.nameEn}
-                          </p>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
-                            {isNo ? tech.descriptionNo : tech.descriptionEn}
-                          </p>
-
-                          {tech.changeNoteNo && tech.change2027 === "newly_banned" && (
-                            <p className="text-xs font-semibold text-red-700 dark:text-red-300 pt-1">
-                              {isNo ? tech.changeNoteNo : tech.changeNoteEn}
-                            </p>
-                          )}
-                          {tech.noPenaltyException && (
-                            <p className="text-xs font-semibold text-amber-800 dark:text-amber-300 pt-1">
-                              {isNo ? tech.exceptionNoteNo : tech.exceptionNoteEn}
-                            </p>
-                          )}
-                        </li>
+                        <TechniqueCard key={tech.id} tech={tech} variant="illegal" isNo={isNo} />
                       ))}
                     </ul>
                   )}
 
                   {style === "nogi" && evaluation.notApplicableInStyle.length > 0 && (
-                    <p className="text-xs text-muted-foreground pt-2">
-                      {isNo
-                        ? "Merk: Teknikk #25 (gripe i motstanderens belte og kaste med hodet først mot single leg) bortfaller naturlig i No-Gi fordi utøverne ikke bruker belte."
-                        : "Note: Technique #25 (belt-grab head spike vs. outside single leg) naturally does not apply in No-Gi as no belt is worn."}
-                    </p>
+                    <div className="text-xs text-muted-foreground pt-2 space-y-1">
+                      {evaluation.notApplicableInStyle.map((tech) => (
+                        <p key={tech.id}>
+                          {isNo
+                            ? `Merk: Teknikk #${tech.id} (${tech.nameNo}) gjelder ikke i No-Gi.`
+                            : `Note: Technique #${tech.id} (${tech.nameEn}) does not apply in No-Gi.`}
+                        </p>
+                      ))}
+                    </div>
                   )}
                 </div>
               )}
@@ -975,39 +1016,7 @@ export function CompetitionGuide({ id = "konkurranse" }: CompetitionGuideProps) 
                   {filteredLegal.length > 0 && (
                     <ul className="space-y-2.5">
                       {filteredLegal.map((tech) => (
-                        <li
-                          key={tech.id}
-                          id={`legal-tech-${tech.id}`}
-                          className="rounded-xl bg-background border border-border/70 p-4 space-y-1.5"
-                        >
-                          <div className="flex flex-wrap items-center justify-between gap-2">
-                            <span className="text-[11px] font-bold text-muted-foreground">
-                              #{tech.id} · {getTechniqueUnlockLabel(tech.unlockedAtLevel, isNo)}
-                            </span>
-                            <div className="flex items-center gap-1.5">
-                              {tech.change2027 === "newly_allowed" && (
-                                <span className="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-emerald-500/15 text-emerald-700 dark:text-emerald-300">
-                                  {isNo ? "NYTT TILLATT 2027" : "NEWLY LEGAL 2027"}
-                                </span>
-                              )}
-                              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
-                                {isNo ? "TILLATT" : "LEGAL"}
-                              </span>
-                            </div>
-                          </div>
-
-                          <p className="text-sm font-bold text-foreground leading-snug">
-                            {isNo ? tech.nameNo : tech.nameEn}
-                          </p>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
-                            {isNo ? tech.descriptionNo : tech.descriptionEn}
-                          </p>
-                          {tech.changeNoteNo && tech.change2027 === "newly_allowed" && (
-                            <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-300 pt-1">
-                              {isNo ? tech.changeNoteNo : tech.changeNoteEn}
-                            </p>
-                          )}
-                        </li>
+                        <TechniqueCard key={tech.id} tech={tech} variant="legal" isNo={isNo} />
                       ))}
                     </ul>
                   )}

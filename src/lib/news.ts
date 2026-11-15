@@ -2,17 +2,28 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-export function getLocalNews() {
+export function getLocalNewsSlugs(): string[] {
   try {
     const newsDir = path.join(process.cwd(), "content/news");
     if (!fs.existsSync(newsDir)) return [];
+    return fs
+      .readdirSync(newsDir)
+      .filter((f) => f.endsWith(".md"))
+      .map((f) => f.replace(/\.md$/, ""));
+  } catch (err) {
+    console.error("Feil ved lesing av nyhets-slugs:", err);
+    return [];
+  }
+}
 
-    const files = fs.readdirSync(newsDir).filter((f) => f.endsWith(".md"));
-    const news = files.map((file) => {
-      const filePath = path.join(newsDir, file);
+export function getLocalNews() {
+  try {
+    const newsDir = path.join(process.cwd(), "content/news");
+    const slugs = getLocalNewsSlugs();
+    const news = slugs.map((filename) => {
+      const filePath = path.join(newsDir, `${filename}.md`);
       const content = fs.readFileSync(filePath, "utf8");
       const { data } = matter(content);
-      const filename = file.replace(/\.md$/, "");
       return {
         node: {
           _sys: { filename },

@@ -4,10 +4,9 @@ import { useTina } from "tinacms/dist/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardTitle, CardHeader } from "@/components/ui/card";
-import { format } from "date-fns";
-import { nb, enUS, pl as plLocale, uk as ukLocale } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { formatNewsDate } from "@/lib/date";
 
 export function NyheterListClient(props: {
   data: any;
@@ -23,16 +22,7 @@ export function NyheterListClient(props: {
   });
 
   const displayData = data?.newsConnection ? data : props.data;
-  const edges = displayData?.newsConnection?.edges || [];
-  
-  // Sorter nyheter etter dato, nyeste først
-  const sortedEdges = [...edges].sort((a, b) => {
-    const dateA = new Date(a?.node?.date || 0).getTime();
-    const dateB = new Date(b?.node?.date || 0).getTime();
-    return dateB - dateA;
-  });
-
-  const dateLocale = locale === "uk" ? ukLocale : locale === "pl" ? plLocale : locale === "en" ? enUS : nb;
+  const sortedEdges = displayData?.newsConnection?.edges || [];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -63,9 +53,7 @@ export function NyheterListClient(props: {
                 const post = edge?.node;
                 if (!post) return null;
                 
-                const formattedDate = post.date 
-                  ? format(new Date(post.date), "d. MMMM yyyy", { locale: dateLocale })
-                  : "";
+                const formattedDate = post.date ? formatNewsDate(post.date, locale) : "";
 
                 return (
                   <Link href={`/nyheter/${post._sys.filename}`} key={post.id || post._sys?.filename} className="group">

@@ -6,7 +6,7 @@ import fs from "fs";
 import path from "path";
 
 export const metadata: Metadata = {
-  title: "Timeplan og Treningstider | BJJ, Muay Thai & Crosstrening",
+  title: "Timeplan – BJJ, Muay Thai, Crosstrening & Barn på Dal",
   description: "Se ukentlig timeplan og treningstider for Brasiliansk Jiu-Jitsu (BJJ for voksne og barn), Muay Thai, Crosstrening og Yoga hos Eidsvoll Kampsportklubb på Dal.",
   alternates: {
     canonical: "/timeplan",
