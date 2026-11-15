@@ -247,12 +247,6 @@ export function PersonvernPageClient() {
               <span>kontakt@kampsporteidsvoll.no</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
-            <a
-              href="tel:+4797610229"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-muted border border-border text-foreground font-bold text-xs uppercase tracking-wider hover:bg-muted/80 transition-colors"
-            >
-              <span>+47 976 10 229</span>
-            </a>
           </div>
         </div>
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTina, tinaField } from "tinacms/dist/react";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { OptimizedImage } from "./ui/optimized-image";
@@ -119,19 +119,6 @@ export function KontaktPageClient(props: {
                     ? "Free parking and entrance at the back of the building. Easy access by train to Dal station (short walk) and bus along Trondheimsvegen from Råholt and Eidsvoll."
                     : "Gratis parkering og inngang på baksiden av bygget. Enkel adkomst med tog til Dal stasjon (kort gangavstand) samt buss langs Trondheimsvegen fra Råholt og Eidsvoll."}
                 </p>
-              </div>
-
-              <div className="group" data-tina-field={tinaField(contact, 'phone')}>
-                <div className="flex items-center gap-3 mb-3 text-primary/40 group-hover:text-primary transition-colors">
-                  <Phone size={20} className="stroke-[1.5px]" />
-                  <h3 className="text-xs font-bold uppercase tracking-[0.2em]">{t.contact.callUs}</h3>
-                </div>
-                <a
-                  href={`tel:+47${(contact?.phone || "97610229").replace(/\D/g, "").replace(/^47/, "")}`}
-                  className="text-2xl font-bold text-foreground leading-snug hover:text-primary transition-colors block"
-                >
-                  {contact?.phone}
-                </a>
               </div>
 
               <div className="group" data-tina-field={tinaField(contact, 'email')}>

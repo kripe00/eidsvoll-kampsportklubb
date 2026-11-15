@@ -162,7 +162,6 @@ export default async function RootLayout({
           "Yoga"
         ],
         "email": "kontakt@kampsporteidsvoll.no",
-        "telephone": "+4797610229",
         "priceRange": "$$",
         "currenciesAccepted": "NOK",
         "paymentAccepted": "Avtalegiro, Vipps, Kort",

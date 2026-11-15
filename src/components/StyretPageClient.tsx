@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { RichText } from "./RichText";
 import { BlockRenderer } from "./blocks/BlockRenderer";
 import Link from "next/link";
-import { Mail, Phone, ShieldCheck, Calendar, FileText, ArrowRight } from "lucide-react";
+import { Mail, ShieldCheck, Calendar, FileText, ArrowRight } from "lucide-react";
 import { OptimizedImage } from "./ui/optimized-image";
 import { useInView } from "@/lib/hooks";
 
@@ -178,12 +178,6 @@ export function StyretPageClient(props: {
                       className="text-primary font-semibold hover:underline underline-offset-4"
                     >
                       kontakt@kampsporteidsvoll.no
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Phone className="w-4 h-4 text-primary shrink-0" />
-                    <a href="tel:+4797610229" className="font-semibold text-foreground hover:text-primary transition-colors">
-                      976 10 229
                     </a>
                   </div>
                 </div>

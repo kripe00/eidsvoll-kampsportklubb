@@ -295,7 +295,7 @@ function MessageActionCards({
   const isTrial = /prøveuke|prøveperiode|prøvetrening|prøv gratis|gratis prøve|trial|free trial|okres próbny|darmowy|пробн|безкоштовн|peisestue|peisestua|lounge|kaffe|komink|камін/i.test(content);
   const isBoost = /boost|innmelding|bli medlem|treningsavgift|kr \d+|membership|join|członkostw|karnet|абонемент|вступ/i.test(content);
   const isSchedule = /timeplan|treningstider|mandag|tirsdag|onsdag|torsdag|fredag|sal 1|sal 2|schedule|timetable|grafik|rozpisk|розклад|графік/i.test(content);
-  const isContact = /kontakt@|976 10 229|kontakt oss|contact|kontakt|контакт/i.test(content);
+  const isContact = /kontakt@|kontakt oss|contact|kontakt|контакт/i.test(content);
 
   if (!isTrial && !isBoost && !isSchedule && !isContact) {
     return null;

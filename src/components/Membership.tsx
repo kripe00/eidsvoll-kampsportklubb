@@ -41,8 +41,6 @@ export function Membership(props: MembershipProps) {
         "Alle faste medlemskap inkluderer fri tilgang til treningene i valgt kategori. I tillegg kommer den årlige medlemskontingenten til idrettslaget i MinIdrett.",
       annualFeeLabel: "Årskontingent til idrettslaget:",
       annualFeeValue: "Årsmøtevedtatt sats (se beløp i MinIdrett)",
-      boostNote:
-        "Merk: Portallenken viser det tekniske kodenavnet «rambukk» fra tidligere drift, men avtalen og betalingen opprettes direkte med Eidsvoll Kampsportklubb.",
       inclusionTitle: "Økonomi skal ikke stå i veien",
       inclusionDesc:
         "Som ideelt idrettslag tilsluttet NIF ønsker vi at alle barn og unge i lokalmiljøet skal ha mulighet til å delta, uavhengig av familieøkonomi. Ta gjerne konfidensiell kontakt med styreleder for en ubyråkratisk prat om tilrettelegging eller aktuelle støtteordninger.",
@@ -115,8 +113,6 @@ export function Membership(props: MembershipProps) {
         "All regular memberships include unlimited training in your chosen tier, in addition to the annual club membership fee in MinIdrett.",
       annualFeeLabel: "Annual sports club fee:",
       annualFeeValue: "Annual-meeting rate (see exact amount in MinIdrett)",
-      boostNote:
-        "Note: The portal URL shows the technical code name “rambukk” from earlier operations, but your membership and payments go directly to Eidsvoll Kampsportklubb.",
       inclusionTitle: "Finances should never be a barrier",
       inclusionDesc:
         "As a non-profit NIF sports club, we want children and youth in Eidsvoll to participate regardless of family finances. Reach out confidentially to our board chair for support options.",
@@ -189,8 +185,6 @@ export function Membership(props: MembershipProps) {
         "Wszystkie stałe karnety dają nielimitowany dostęp w wybranej kategorii. Dodatkowo opłaca się roczną składkę klubową w MinIdrett.",
       annualFeeLabel: "Roczna składka klubowa:",
       annualFeeValue: "Stawka uchwalona na walnym zgromadzeniu (kwota widoczna w MinIdrett)",
-      boostNote:
-        "Uwaga: adres portalu zawiera techniczną nazwę „rambukk” z wcześniejszego systemu, jednak umowa i płatności trafiają bezpośrednio do Eidsvoll Kampsportklubb.",
       inclusionTitle: "Finanse nie mogą być przeszkodą",
       inclusionDesc:
         "Jako klub sportowy należący do NIF chcemy, aby dzieci i młodzież mogły trenować niezależnie od sytuacji finansowej rodziny. Napisz poufnie do prezesa w sprawie wsparcia.",
@@ -263,8 +257,6 @@ export function Membership(props: MembershipProps) {
         "Усі регулярні абонементи дають вільний доступ до занять обраної категорії. Додатково сплачується щорічний членський внесок клубу в MinIdrett.",
       annualFeeLabel: "Щорічний внесок до клубу:",
       annualFeeValue: "Ставка, затверджена зборами (сума вказана в MinIdrett)",
-      boostNote:
-        "Примітка: у посиланні порталу відображається технічна назва «rambukk» від попередньої системи, але договір та оплата йдуть безпосередньо до Eidsvoll Kampsportklubb.",
       inclusionTitle: "Фінанси не повинні бути перешкодою",
       inclusionDesc:
         "Як неприбутковий клуб NIF, ми прагнемо, щоб діти та молодь могли займатися незалежно від бюджету сім'ї. Напишіть конфіденційно голові правління щодо підтримки.",
@@ -531,27 +523,22 @@ export function Membership(props: MembershipProps) {
             {/* Boost Knapp (Plassert under teksten) */}
             <div className="pt-4 border-t border-border/40">
               {boostEnabled && boostLinkUrl ? (
-                <>
-                  <Link
-                    href={boostLinkUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-tina-field={tinaField(props, "boostLinkUrl")}
-                    className="block w-full"
+                <Link
+                  href={boostLinkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-tina-field={tinaField(props, "boostLinkUrl")}
+                  className="block w-full"
+                >
+                  <Button
+                    size="lg"
+                    spring={true}
+                    className="w-full h-auto min-h-[3.5rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-emerald-600/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
                   >
-                    <Button
-                      size="lg"
-                      spring={true}
-                      className="w-full h-auto min-h-[3.5rem] sm:min-h-[4.5rem] py-3.5 px-4 sm:px-6 text-sm sm:text-base md:text-lg font-black rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-emerald-600/25 transition-all duration-300 flex items-center justify-between uppercase tracking-wider group text-left whitespace-normal leading-tight gap-2"
-                    >
-                      <span>{t.membership.step1Btn}</span>
-                      <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1.5 transition-transform shrink-0" />
-                    </Button>
-                  </Link>
-                  <p className="text-xs text-muted-foreground mt-3 leading-relaxed">
-                    {localizedCopy.boostNote}
-                  </p>
-                </>
+                    <span>{t.membership.step1Btn}</span>
+                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1.5 transition-transform shrink-0" />
+                  </Button>
+                </Link>
               ) : (
                 <div className="relative group/disabled select-none" data-tina-field={tinaField(props, "boostEnabled")}>
                   <Button

@@ -204,13 +204,11 @@ export interface Translations {
     title: string;
     subtitle: string;
     addressLabel: string;
-    phoneLabel: string;
     orgNrLabel: string;
     howToFindUs: string;
     openingHours: string;
     infoBadge: string;
     visitUs: string;
-    callUs: string;
     emailUs: string;
     followUs: string;
     formTitle: string;

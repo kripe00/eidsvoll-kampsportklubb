@@ -12,7 +12,6 @@ export function Footer({ data }: { data?: any }) {
       ? (data?.footerDescription || t.footer.description)
       : t.footer.description;
   const email = data?.footerEmail || "kontakt@kampsporteidsvoll.no";
-  const phone = data?.footerPhone || "976 10 229";
   const orgNumber = data?.footerOrgNumber || "932716461";
   const address = data?.footerAddress || "Trondheimsvegen 71B, 2072 Dal";
 
@@ -163,15 +162,6 @@ export function Footer({ data }: { data?: any }) {
                 <span className="text-slate-500 text-xs">E-post / Email:</span>
                 <a href={`mailto:${email}`} className="hover:text-white transition-colors font-medium">
                   {email}
-                </a>
-              </li>
-              <li
-                className="flex flex-col"
-                data-tina-field={data ? tinaField(data, "footerPhone") : undefined}
-              >
-                <span className="text-slate-500 text-xs">Tlf / Phone:</span>
-                <a href={`tel:+47${phone.replace(/\s/g, "")}`} className="hover:text-white transition-colors font-medium">
-                  {phone}
                 </a>
               </li>
               {orgNumber && (
