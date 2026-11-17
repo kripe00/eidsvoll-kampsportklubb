@@ -973,6 +973,8 @@ export const chatWithClubBot = onRequest(
         );
       };
 
+      let isAccountLevelBlock = false;
+
       for (const model of modelsToTry) {
         try {
           const candidateText = await tryGenerateWithModel(model);
@@ -984,12 +986,17 @@ export const chatWithClubBot = onRequest(
           lastError = modelErr;
           const errStr = String(modelErr?.message || modelErr);
           errorReasons.push(errStr.slice(0, 180));
-          console.warn(`[ChatBot] Modell ${model} feilet, prøver neste fallback:`, errStr);
+          console.warn(`[ChatBot] Modell ${model} feilet:`, errStr);
+
+          if (/billing account|API_KEY_INVALID|API key not valid/i.test(errStr)) {
+            isAccountLevelBlock = true;
+            break;
+          }
         }
       }
 
-      // Hvis alle forhåndsdefinerte modeller feilet, spør ListModels dynamisk om hvilke modeller API-nøkkelen faktisk støtter
-      if (!reply) {
+      // Hvis forhåndsdefinerte modeller feilet (og det ikke skyldes sperret konto/nøkkel), spør ListModels dynamisk
+      if (!reply && !isAccountLevelBlock) {
         try {
           const listRes = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`
@@ -1049,7 +1056,6 @@ export const chatWithClubBot = onRequest(
       console.error("Feil ved kall til Gemini API:", diag);
       res.status(500).json({
         error: "Beklager, noe gikk galt under kommunikasjonen med AI-tjenesten. Prøv igjen om litt!",
-        debugReason: diag,
       });
     }
   }
