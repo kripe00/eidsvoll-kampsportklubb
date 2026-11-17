@@ -489,6 +489,8 @@ export const no: Translations = {
     actionTrial: '🎯 Meld deg på gratis prøveuke (14 dager)',
     actionBoost: '🥋 Bli medlem i Boost',
     actionSchedule: '📅 Se timeplan & treningstider',
+    actionFirstTraining: '🎒 Guide til din første trening',
+    actionCompetition: '🏆 Se konkurranseguide & IBJJF-regler',
     actionEmail: '✉️ Send e-post til klubben',
     staticPricing: `Hos oss trener du med full fleksibilitet! Her er våre månedlige treningsavgifter i Boost:
 

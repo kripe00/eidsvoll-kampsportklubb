@@ -489,6 +489,8 @@ export const en: Translations = {
     actionTrial: '🎯 Sign up for free trial (14 days)',
     actionBoost: '🥋 Join via Boost Member Portal',
     actionSchedule: '📅 View schedule & class times',
+    actionFirstTraining: '🎒 First class & equipment guide',
+    actionCompetition: '🏆 Competition & IBJJF rules guide',
     actionEmail: '✉️ Send email to the club',
     staticPricing: `We offer full training flexibility! Here are our monthly membership fees in Boost:
 

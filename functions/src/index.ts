@@ -683,7 +683,7 @@ Din oppgave er å være en imøtekommende, varm, sporty, inspirerende og kunnska
    - Partier: Barnepartier (Barn 1: 6–9 år, Barn 2: 10–13 år), Nybegynner (Basic), Viderekomne (Advanced), Dagtrening, Sparring og Konkurransetrening for barn.
 2. Muay Thai (Thaiboksing):
    - Tradisjonell stående kampsport med slag, spark, knær og albuer. Effektiv kondisjon, styrke og selvforsvar.
-   - Partier: Felles barneparti (fra ca. 8–10 år) og felles ungdom/voksen.
+   - Partier: Felles barneparti (6–13 år, trygg lek, motorikk og teknikk på puter/sekk uten hodekontakt etter NIFs barneidrettsbestemmelser) og felles ungdom/voksen.
 3. Crosstrening:
    - Funksjonell sirkel- og styrketrening for å bygge utholdenhet, styrke og forebygge skader. Har egne Kickstart-økter.
 4. Yoga:
@@ -707,11 +707,23 @@ Din oppgave er å være en imøtekommende, varm, sporty, inspirerende og kunnska
   * **Muay Thai (Thaiboksing):** Vanlig t-skjorte og shorts med god bevegelsesfrihet for spark. **Boksehansker og leggbeskyttere lånes gratis** i klubben i hele prøveperioden. Nybegynnertreningen fokuserer på teknikk på puter/sekk og kontrollerte partnerøvelser – ingen tvungen sparring, og du trenger ikke tannbeskytter første uka.
 - Drikkeflaske: Husk alltid å ta med vannflaske!
 
+### KONKURRANSE, STEVNER, SMOOTHCOMP & IBJJF-REGLER (Side: kampsporteidsvoll.no/konkurranse):
+- Klubbens komplette konkurranseguide og interaktive regelveiviser ligger på **kampsporteidsvoll.no/konkurranse**.
+- **Smoothcomp (stevnepåmelding):** Smoothcomp (smoothcomp.com) er plattformen som brukes til påmelding, trekning (brackets), mattenummer og sanntids klokkeslett på BJJ- og grappling-stevner. Foresatte oppretter egen voksenkonto først og legger til barnet under «Manage profiles».
+  * *Viktig ved valg av klubb i Smoothcomp:* Hvis noen spør hva man skal registrere seg som (klubb/akademi/team) i Smoothcomp, skal du **aldri** oppgi et spesifikt navn i chatten – be dem høre direkte med treneren på matta før første påmelding.
+- **IBJJF 2027-regler (kort oppsummert):**
+  * **Aldersklasse:** Regnes ut fra kalenderåret (stevneår minus fødselsår), uavhengig av når på året man har bursdag.
+  * **Kampvarighet:** Barn (4–12 år): 4 min | Ungdom (13–15 år): 4 min | Juvenile (16–17 år): 5 min | Adult Hvitbelte: 5 min, Blåbelte: 6 min, Lillabelte: 7 min, Brunt belte: 8 min, Svart belte: 10 min | Master: 5 min (Master 7/8: 4 min).
+  * **Poengsystem:** 4 poeng for Mount og Back Control | 3 poeng for Guard Pass | 2 poeng for Takedown, Sweep og Knee on Belly.
+  * **Innveiing:** Skjer rett før første kamp **med** Gi og belte på (eller rashguard/shorts i No-Gi). Møt opp i hallen minst 60 minutter før oppsatt kamptid. Barn skal aldri slanke seg eller kutte vekt før stevne.
+  * Henvis gjerne til **kampsporteidsvoll.no/konkurranse** der man kan velge alder, belte og Gi/No-Gi for å se nøyaktig hvilke teknikker som er lovlige og ulovlige.
+
 ### NEGATIV PROMPT (STRENGE FORBUD – DETTE SKAL DU ALDRI GJØRE):
-1. **ALDRI oppgi feil eller utdatert adresse:** Nevn ALDRI gamle adresser som «Sundgata 29», «Sundet» eller «Råholt» som klubbens treningssted. Vår eneste adresse er **Trondheimsvegen 71B, 2072 Dal** (med inngang og gratis parkering på baksiden av bygget).
-2. **ALDRI finn på (hallusiner) treningstider, priser, rabatter eller tilbud:**
+1. **ALDRI oppgi feil eller utdatert adresse eller e-post:** Nevn ALDRI gamle adresser som «Sundgata 29», «Sundet» eller «Råholt» som klubbens treningssted, og nevn ALDRI gamle e-poster som «rambukken.no». Vår eneste adresse er **Trondheimsvegen 71B, 2072 Dal** (med inngang og gratis parkering på baksiden av bygget), og vår eneste e-post er **kontakt@kampsporteidsvoll.no**.
+2. **ALDRI finn på (hallusiner) treningstider, priser, rabatter, tilbud eller lagtilknytning:**
    - Oppgi aldri klokkeslett, dager eller priser som ikke står eksplisitt i denne instruksen.
    - Nevn aldri kampsporter vi ikke tilbyr (f.eks. Karate, Taekwondo, Judo, Krav Maga eller egne MMA-partier) som om vi har partier i dem.
+   - Koble ALDRI Eidsvoll Kampsportklubb til «Frontline» eller andre eksterne kampsportkjeder/affiliations, og oppgi aldri hva man skal melde seg på konkurranse som i Smoothcomp (henvis til trener på matta).
 3. **ALDRI si at nybegynnere må kjøpe utstyr før de starter:** Si aldri at man må kjøpe egen Gi, boksehansker, leggbeskyttere eller tannbeskytter for å være med på prøveperioden (14 dager). Alt nødvendig kampsportutstyr lånes gratis i klubben.
 4. **ALDRI bland reglene for skotøy:** Si aldri at man kan bruke innesko på kampsportmattene (BJJ/Muay Thai/Yoga er alltid barbent), og si aldri at man trener barbent på Crosstrening (CT krever rene innesko).
 5. **ALDRI gi medisinske råd eller lovnader:** Hvis noen spør om spesifikke skader, smerter eller sykdommer, skal du aldri stille diagnose eller gi medisinske råd – henvis vennlig til lege/fysioterapeut og nevn at trenerne våre gjerne tilpasser øvelser på matta.
@@ -771,7 +783,7 @@ For å trene fast etter prøveperioden må utøvere registrere seg i to systemer
    - Pris: kr 539,- per måned (6 mnd binding).
    - Inkluderer fri tilgang til BÅDE BJJ og Muay Thai for barn.
    - Signeres av foresatte med BankID (AvtaleGiro).
-   - Merk: Dersom barnet ikke har eget mobilnummer, kontakt klubben på kontakt@kampsporteidsvoll.no (eller kontakt@rambukken.no) for manuell registrering.
+   - Merk: Dersom barnet ikke har eget mobilnummer, kontakt klubben på kontakt@kampsporteidsvoll.no for manuell registrering.
 2. Totalmedlemskap Ungdom (14–19 år):
    - Gir fri tilgang til ALLE våre gruppetimer (BJJ, Muay Thai, Crosstrening, Yoga).
    - 12 mnd binding: kr 649,- per måned.
@@ -863,12 +875,12 @@ export const chatWithClubBot = onRequest(
 
     console.log(`[ChatBot] Nytt AI-spørsmål (locale: ${locale || "no"}): "${trimmedMessage}"`);
 
-    // Sanitiser og begrens historikk (maks 4 siste meldinger)
+    // Sanitiser og begrens historikk (maks 8 siste meldinger)
     const validRoles = new Set(["user", "assistant"]);
     const sanitizedHistory: Array<{ role: "user" | "assistant"; content: string }> = [];
 
     if (Array.isArray(history)) {
-      const recent = history.slice(-4);
+      const recent = history.slice(-8);
       for (const item of recent) {
         if (
           item &&
@@ -878,7 +890,7 @@ export const chatWithClubBot = onRequest(
         ) {
           sanitizedHistory.push({
             role: item.role as "user" | "assistant",
-            content: item.content.trim().slice(0, 500),
+            content: item.content.trim().slice(0, 1000),
           });
         }
       }
@@ -903,6 +915,18 @@ export const chatWithClubBot = onRequest(
     }
 
     try {
+      const nowOslo = new Intl.DateTimeFormat("nb-NO", {
+        timeZone: "Europe/Oslo",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date());
+
+      const timeContext = `\n\n### NÅVÆRENDE TIDSPUNKT (NORSK TID):\nAkkurat nå er det **${nowOslo}**. Bruk dette dersom brukeren spør om det er trening i dag, i morgen eller denne uken.`;
+
       let languageDirective = "";
       if (locale === "en") {
         languageDirective = "\nIMPORTANT: The user has selected English. You MUST reply in clear, friendly, and natural English.";
@@ -957,7 +981,7 @@ export const chatWithClubBot = onRequest(
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             systemInstruction: {
-              parts: [{ text: CLUB_SYSTEM_PROMPT + languageDirective }],
+              parts: [{ text: CLUB_SYSTEM_PROMPT + timeContext + languageDirective }],
             },
             contents: geminiContents,
             generationConfig,

@@ -275,6 +275,76 @@ function findStaticFaq(query: string, chatT: any, inputSource?: string): StaticF
   return null;
 }
 
+const CHAT_STORAGE_KEY = "ekk_chat_messages_v1";
+
+function pickContextualFollowUps(
+  question: string,
+  reply: string,
+  existingMessages: ChatMessage[],
+  chatT: any,
+  preferredFollowUps?: string[]
+): string[] {
+  const combined = `${question} ${reply}`.toLowerCase();
+
+  const askedSet = new Set(
+    existingMessages
+      .filter((m) => m.role === "user")
+      .map((m) => m.content.trim().toLowerCase())
+  );
+  askedSet.add(question.trim().toLowerCase());
+
+  const candidates: string[] = [];
+  if (preferredFollowUps && preferredFollowUps.length > 0) {
+    candidates.push(...preferredFollowUps);
+  }
+
+  // Velg naturlige neste steg ut fra hva samtalen handlet om
+  if (/pris|kost|medlemskap|boost|minidrett|price|cost|ile koszt|скільки коштує/i.test(combined)) {
+    candidates.push(chatT.promptTrial, chatT.promptGear, chatT.promptSchedule);
+  } else if (/prøve|trial|okres próbny|пробн/i.test(combined)) {
+    candidates.push(chatT.promptGear, chatT.promptSchedule, chatT.promptPricing);
+  } else if (/utstyr|sko|klær|første trening|1\. trening|gear|equipment|sprzęt|спорядження/i.test(combined)) {
+    candidates.push(chatT.promptTrial, chatT.promptSchedule, chatT.promptPricing);
+  } else if (/timeplan|når|mandag|tirsdag|onsdag|torsdag|fredag|schedule|grafik|розклад/i.test(combined)) {
+    candidates.push(chatT.promptTrial, chatT.promptGear, chatT.promptPricing);
+  } else if (/barn|foreldre|peisestue|kaffe|kids|parents|rodzic|батьк/i.test(combined)) {
+    candidates.push(chatT.promptLounge, chatT.promptTrial, chatT.promptSchedule);
+  } else {
+    candidates.push(
+      chatT.promptTrial,
+      chatT.promptPricing,
+      chatT.promptGear,
+      chatT.promptSchedule,
+      chatT.promptLounge
+    );
+  }
+
+  // Fyll på med øvrige standardforslag dersom brukeren allerede har klikket på de første
+  for (const fallback of [
+    chatT.promptTrial,
+    chatT.promptPricing,
+    chatT.promptGear,
+    chatT.promptSchedule,
+    chatT.promptLounge,
+  ]) {
+    if (fallback && !candidates.includes(fallback)) {
+      candidates.push(fallback);
+    }
+  }
+
+  const uniqueUnasked: string[] = [];
+  for (const item of candidates) {
+    if (!item) continue;
+    const norm = item.trim().toLowerCase();
+    if (!askedSet.has(norm) && !uniqueUnasked.includes(item)) {
+      uniqueUnasked.push(item);
+    }
+    if (uniqueUnasked.length >= 2) break;
+  }
+
+  return uniqueUnasked;
+}
+
 /**
  * Reusable action cards rendered dynamically based on response keywords.
  */
@@ -282,22 +352,28 @@ function MessageActionCards({
   content,
   t,
   onCtaClick,
+  onInternalNavigate,
 }: {
   content: string;
   t: {
     actionTrial: string;
     actionBoost: string;
     actionSchedule: string;
+    actionFirstTraining: string;
+    actionCompetition: string;
     actionEmail: string;
   };
   onCtaClick?: (target: string) => void;
+  onInternalNavigate?: () => void;
 }) {
   const isTrial = /prøveuke|prøveperiode|prøvetrening|prøv gratis|gratis prøve|trial|free trial|okres próbny|darmowy|пробн|безкоштовн|peisestue|peisestua|lounge|kaffe|komink|камін/i.test(content);
   const isBoost = /boost|innmelding|bli medlem|treningsavgift|kr \d+|membership|join|członkostw|karnet|абонемент|вступ/i.test(content);
   const isSchedule = /timeplan|treningstider|mandag|tirsdag|onsdag|torsdag|fredag|sal 1|sal 2|schedule|timetable|grafik|rozpisk|розклад|графік/i.test(content);
+  const isFirstTraining = /forste-trening|første trening|låneutstyr|boksehansker|rashguard|barbent|barefoot|loaner gear|pierwszy trening|перш(е|ого) тренуванн/i.test(content);
+  const isCompetition = /konkurranse|smoothcomp|ibjjf|stevne|tournament|competition|zawod|змаган/i.test(content);
   const isContact = /kontakt@|kontakt oss|contact|kontakt|контакт/i.test(content);
 
-  if (!isTrial && !isBoost && !isSchedule && !isContact) {
+  if (!isTrial && !isBoost && !isSchedule && !isFirstTraining && !isCompetition && !isContact) {
     return null;
   }
 
@@ -339,7 +415,14 @@ function MessageActionCards({
       )}
 
       {isSchedule && (
-        <Link href="/timeplan" onClick={() => onCtaClick?.("schedule")} className="block w-full">
+        <Link
+          href="/timeplan"
+          onClick={() => {
+            onCtaClick?.("schedule");
+            onInternalNavigate?.();
+          }}
+          className="block w-full"
+        >
           <Button
             size="sm"
             variant="outline"
@@ -347,6 +430,48 @@ function MessageActionCards({
             className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl border-primary/40 hover:bg-primary/10 text-foreground transition-all text-left group"
           >
             <span>{t.actionSchedule}</span>
+            <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+          </Button>
+        </Link>
+      )}
+
+      {isFirstTraining && (
+        <Link
+          href="/forste-trening"
+          onClick={() => {
+            onCtaClick?.("first_training");
+            onInternalNavigate?.();
+          }}
+          className="block w-full"
+        >
+          <Button
+            size="sm"
+            variant="outline"
+            spring={true}
+            className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl border-primary/40 hover:bg-primary/10 text-foreground transition-all text-left group"
+          >
+            <span>{t.actionFirstTraining}</span>
+            <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+          </Button>
+        </Link>
+      )}
+
+      {isCompetition && (
+        <Link
+          href="/konkurranse"
+          onClick={() => {
+            onCtaClick?.("competition");
+            onInternalNavigate?.();
+          }}
+          className="block w-full"
+        >
+          <Button
+            size="sm"
+            variant="outline"
+            spring={true}
+            className="w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold rounded-xl border-primary/40 hover:bg-primary/10 text-foreground transition-all text-left group"
+          >
+            <span>{t.actionCompetition}</span>
             <ArrowRight className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform" />
           </Button>
         </Link>
@@ -383,6 +508,32 @@ export function ChatBot() {
       content: chatT?.welcomeMessage || "Hei! 👋 Jeg er Eidsvoll Kampsportklubbs digitale assistent. Hva kan jeg hjelpe deg med? Spør meg gjerne om timeplan, priser, utstyr eller vår 14-dagers gratis prøveperiode!",
     },
   ]);
+
+  // Last inn eventuell lagret samtale fra sessionStorage ved oppstart
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(CHAT_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 1) {
+          setMessages(parsed);
+        }
+      }
+    } catch {
+      // ignore storage errors
+    }
+  }, []);
+
+  // Lagre samtalen i sessionStorage slik at den huskes ved sidebytte
+  useEffect(() => {
+    try {
+      if (messages.length > 1) {
+        sessionStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages.slice(-20)));
+      }
+    } catch {
+      // ignore storage errors
+    }
+  }, [messages]);
 
   // Oppdater velkomstmelding dersom brukeren skifter språk og samtalen ikke er påbegynt
   useEffect(() => {
@@ -455,6 +606,12 @@ export function ChatBot() {
     }
   };
 
+  const handleInternalNavigate = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 640) {
+      setIsOpen(false);
+    }
+  };
+
   useEscapeKey(isOpen, handleClose);
 
   const handleSendMessage = async (textToSend?: string) => {
@@ -503,12 +660,20 @@ export function ChatBot() {
         sessionId,
       });
 
+      const contextualFollowUps = pickContextualFollowUps(
+        text,
+        staticMatch.answer,
+        newMessages,
+        chatT,
+        staticMatch.followUps
+      );
+
       setTimeout(() => {
         const assistantMessage: ChatMessage = {
           id: `assistant-${Date.now()}`,
           role: "assistant",
           content: staticMatch.answer,
-          followUps: staticMatch.followUps,
+          followUps: contextualFollowUps,
         };
         setMessages((prev) => [...prev, assistantMessage]);
         setIsLoading(false);
@@ -528,7 +693,7 @@ export function ChatBot() {
     try {
       const historyContext = newMessages
         .filter((m) => m.id !== "welcome-1")
-        .slice(-4)
+        .slice(-8)
         .map((m) => ({ role: m.role, content: m.content }));
 
       const res = await fetch("/api/chat", {
@@ -573,10 +738,7 @@ export function ChatBot() {
         id: `assistant-${Date.now()}`,
         role: "assistant",
         content: replyContent,
-        followUps: [
-          chatT.promptTrial,
-          chatT.promptPricing,
-        ],
+        followUps: pickContextualFollowUps(text, replyContent, newMessages, chatT),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
@@ -622,7 +784,9 @@ export function ChatBot() {
   const renderFormattedMessage = (content: string) => {
     const withLinks = content.replace(/(?<!\]\()(https?:\/\/[^\s\)]+)/g, (match, url, offset, full) => {
       if (full.slice(offset - 1, offset) === "(" || full.slice(offset - 2, offset) === "](") return match;
-      return `[${url}](${url})`;
+      const cleanUrl = url.replace(/[.,!?;:]+$/, "");
+      const trailing = url.slice(cleanUrl.length);
+      return `[${cleanUrl}](${cleanUrl})${trailing}`;
     });
 
     return (
@@ -762,6 +926,11 @@ export function ChatBot() {
             <div className="flex items-center gap-1">
               <button
                 onClick={() => {
+                  try {
+                    sessionStorage.removeItem(CHAT_STORAGE_KEY);
+                  } catch {
+                    // ignore storage errors
+                  }
                   setMessages([
                     {
                       id: "welcome-1",
@@ -821,7 +990,14 @@ export function ChatBot() {
                     )}
                   >
                     {isUser ? msg.content : renderFormattedMessage(msg.content)}
-                    {!isUser && <MessageActionCards content={msg.content} t={chatT} onCtaClick={handleCtaClick} />}
+                    {!isUser && (
+                      <MessageActionCards
+                        content={msg.content}
+                        t={chatT}
+                        onCtaClick={handleCtaClick}
+                        onInternalNavigate={handleInternalNavigate}
+                      />
+                    )}
 
                     {/* Contextual Follow-up Next Step Chips */}
                     {showFollowUps && (

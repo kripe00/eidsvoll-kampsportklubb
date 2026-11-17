@@ -315,6 +315,8 @@ export interface ChatTranslation {
   actionTrial: string;
   actionBoost: string;
   actionSchedule: string;
+  actionFirstTraining: string;
+  actionCompetition: string;
   actionEmail: string;
   staticPricing: string;
   staticTrial: string;

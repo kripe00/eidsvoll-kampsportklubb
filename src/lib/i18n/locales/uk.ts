@@ -489,6 +489,8 @@ export const uk: Translations = {
     actionTrial: '🎯 Записатися на пробний період (14 днів)',
     actionBoost: '🥋 Приєднатися через портал Boost',
     actionSchedule: '📅 Переглянути розклад тренувань',
+    actionFirstTraining: '🎒 Гід перед першим тренуванням',
+    actionCompetition: '🏆 Змагання та правила IBJJF',
     actionEmail: '✉️ Надіслати e-mail клубу',
     staticPricing: `У нас ви тренуєтеся з повною гнучкістю! Щомісячна вартість тренувань у системі Boost:
 

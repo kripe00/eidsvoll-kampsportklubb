@@ -489,6 +489,8 @@ export const pl: Translations = {
     actionTrial: '🎯 Zapisz się na darmowy okres próbny (14 dni)',
     actionBoost: '🥋 Zapisz się przez portal Boost',
     actionSchedule: '📅 Zobacz grafik i godziny zajęć',
+    actionFirstTraining: '🎒 Poradnik przed pierwszym treningiem',
+    actionCompetition: '🏆 Przewodnik po zawodach i przepisach IBJJF',
     actionEmail: '✉️ Wyślij e-mail do klubu',
     staticPricing: `U nas trenujesz z pełną elastycznością! Ceny miesięcznych składek w systemie Boost:
 
