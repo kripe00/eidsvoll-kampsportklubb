@@ -944,7 +944,7 @@ export const chatWithClubBot = onRequest(
         const cleanModel = modelId.replace(/^models\//, "");
         const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
         const generationConfig: Record<string, unknown> = {
-          maxOutputTokens: 1500,
+          maxOutputTokens: 4096,
         };
         if (/^gemini-(4-|3\.)/i.test(cleanModel)) {
           generationConfig.thinkingConfig = {
