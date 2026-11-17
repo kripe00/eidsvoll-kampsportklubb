@@ -870,13 +870,28 @@ export const chatWithClubBot = onRequest(
     if (Array.isArray(history)) {
       const recent = history.slice(-4);
       for (const item of recent) {
-        if (item && validRoles.has(item.role) && typeof item.content === "string") {
+        if (
+          item &&
+          validRoles.has(item.role) &&
+          typeof item.content === "string" &&
+          item.content.trim() !== ""
+        ) {
           sanitizedHistory.push({
             role: item.role as "user" | "assistant",
-            content: item.content.slice(0, 500),
+            content: item.content.trim().slice(0, 500),
           });
         }
       }
+    }
+
+    // Hvis klienten allerede har inkludert den nyeste brukermeldingen på slutten av history,
+    // fjern den fra sanitizedHistory slik at vi ikke sender to identiske user-meldinger på rad.
+    if (
+      sanitizedHistory.length > 0 &&
+      sanitizedHistory[sanitizedHistory.length - 1].role === "user" &&
+      sanitizedHistory[sanitizedHistory.length - 1].content === trimmedMessage
+    ) {
+      sanitizedHistory.pop();
     }
 
     // 4. Hent API-nøkkel
@@ -911,10 +926,11 @@ export const chatWithClubBot = onRequest(
       ];
 
       const modelsToTry = [
-        "gemini-3.5-flash",
         "gemini-3.5-flash-lite",
         "gemini-3.6-flash",
+        "gemini-3.8-flash",
         "gemini-flash-lite-latest",
+        "gemini-flash-latest",
       ];
 
       let reply = "";
@@ -932,11 +948,7 @@ export const chatWithClubBot = onRequest(
               },
               contents: geminiContents,
               generationConfig: {
-                temperature: 0.5,
-                maxOutputTokens: 1000,
-                thinkingConfig: {
-                  thinkingBudget: 0,
-                },
+                maxOutputTokens: 1500,
               },
             }),
           });
@@ -950,6 +962,7 @@ export const chatWithClubBot = onRequest(
           }
 
           const candidateText = data?.candidates?.[0]?.content?.parts
+            ?.filter((part: any) => !part?.thought)
             ?.map((part: any) => part?.text || "")
             .join("")
             .trim();
