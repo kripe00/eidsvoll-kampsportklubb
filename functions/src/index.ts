@@ -931,53 +931,109 @@ export const chatWithClubBot = onRequest(
         "gemini-3.8-flash",
         "gemini-flash-lite-latest",
         "gemini-flash-latest",
+        "gemini-2.5-flash-lite",
+        "gemini-2.5-flash",
       ];
 
       let reply = "";
       let lastError: unknown = null;
+      const errorReasons: string[] = [];
 
-      for (const model of modelsToTry) {
-        try {
-          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              systemInstruction: {
-                parts: [{ text: CLUB_SYSTEM_PROMPT + languageDirective }],
-              },
-              contents: geminiContents,
-              generationConfig: {
-                maxOutputTokens: 1500,
-              },
-            }),
-          });
+      const tryGenerateWithModel = async (modelId: string): Promise<string> => {
+        const cleanModel = modelId.replace(/^models\//, "");
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: {
+              parts: [{ text: CLUB_SYSTEM_PROMPT + languageDirective }],
+            },
+            contents: geminiContents,
+            generationConfig: {
+              maxOutputTokens: 1500,
+            },
+          }),
+        });
 
-          const data: any = await response.json();
+        const data: any = await response.json();
 
-          if (!response.ok) {
-            throw new Error(
-              `Gemini (${model}) HTTP ${response.status}: ${data?.error?.message || JSON.stringify(data)}`
-            );
-          }
+        if (!response.ok) {
+          const status = data?.error?.status || response.status;
+          const msg = data?.error?.message || JSON.stringify(data);
+          throw new Error(`Gemini (${cleanModel}) HTTP ${response.status} [${status}]: ${msg}`);
+        }
 
-          const candidateText = data?.candidates?.[0]?.content?.parts
+        return (
+          data?.candidates?.[0]?.content?.parts
             ?.filter((part: any) => !part?.thought)
             ?.map((part: any) => part?.text || "")
             .join("")
-            .trim();
+            .trim() || ""
+        );
+      };
 
+      for (const model of modelsToTry) {
+        try {
+          const candidateText = await tryGenerateWithModel(model);
           if (candidateText) {
             reply = candidateText;
             break;
           }
         } catch (modelErr: any) {
           lastError = modelErr;
-          console.warn(`[ChatBot] Modell ${model} feilet, prøver neste fallback:`, modelErr?.message || modelErr);
+          const errStr = String(modelErr?.message || modelErr);
+          errorReasons.push(errStr.slice(0, 180));
+          console.warn(`[ChatBot] Modell ${model} feilet, prøver neste fallback:`, errStr);
+        }
+      }
+
+      // Hvis alle forhåndsdefinerte modeller feilet, spør ListModels dynamisk om hvilke modeller API-nøkkelen faktisk støtter
+      if (!reply) {
+        try {
+          const listRes = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`
+          );
+          const listData: any = await listRes.json();
+          if (!listRes.ok) {
+            errorReasons.push(
+              `ListModels HTTP ${listRes.status} [${listData?.error?.status || ""}]: ${listData?.error?.message || ""}`.slice(0, 180)
+            );
+          } else if (Array.isArray(listData?.models)) {
+            const availableFlashModels = listData.models
+              .filter(
+                (m: any) =>
+                  Array.isArray(m?.supportedGenerationMethods) &&
+                  m.supportedGenerationMethods.includes("generateContent") &&
+                  typeof m?.name === "string" &&
+                  /gemini/i.test(m.name) &&
+                  !/tts|image|embedding|vision|audio|live|veo|imagen|robotics|computer-use/i.test(m.name)
+              )
+              .map((m: any) => String(m.name).replace(/^models\//, ""));
+
+            for (const dynamicModel of availableFlashModels.slice(0, 4)) {
+              if (modelsToTry.includes(dynamicModel)) continue;
+              try {
+                const candidateText = await tryGenerateWithModel(dynamicModel);
+                if (candidateText) {
+                  reply = candidateText;
+                  break;
+                }
+              } catch (dynErr: any) {
+                lastError = dynErr;
+                errorReasons.push(String(dynErr?.message || dynErr).slice(0, 180));
+              }
+            }
+          }
+        } catch (listErr: any) {
+          errorReasons.push(`ListModels exception: ${String(listErr?.message || listErr).slice(0, 120)}`);
         }
       }
 
       if (!reply) {
+        if (errorReasons.length > 0) {
+          throw new Error(errorReasons.join(" | "));
+        }
         if (lastError) throw lastError;
         reply = "Beklager, jeg kunne ikke generere et svar akkurat nå.";
       }
@@ -987,9 +1043,13 @@ export const chatWithClubBot = onRequest(
         remainingRequests: rateCheck.remaining,
       });
     } catch (err: any) {
-      console.error("Feil ved kall til Gemini API:", err?.message || err);
+      const diag = String(err?.message || err || "")
+        .replace(/AIza[0-9A-Za-z\-_]+/g, "[REDACTED_KEY]")
+        .slice(0, 500);
+      console.error("Feil ved kall til Gemini API:", diag);
       res.status(500).json({
         error: "Beklager, noe gikk galt under kommunikasjonen med AI-tjenesten. Prøv igjen om litt!",
+        debugReason: diag,
       });
     }
   }
