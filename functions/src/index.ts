@@ -926,6 +926,7 @@ export const chatWithClubBot = onRequest(
       ];
 
       const modelsToTry = [
+        "gemini-4-hydrogen",
         "gemini-3.5-flash-lite",
         "gemini-3.6-flash",
         "gemini-3.8-flash",
@@ -942,6 +943,15 @@ export const chatWithClubBot = onRequest(
       const tryGenerateWithModel = async (modelId: string): Promise<string> => {
         const cleanModel = modelId.replace(/^models\//, "");
         const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const generationConfig: Record<string, unknown> = {
+          maxOutputTokens: 1500,
+        };
+        if (/^gemini-(4-|3\.)/i.test(cleanModel)) {
+          generationConfig.thinkingConfig = {
+            thinkingLevel: "LOW",
+          };
+        }
+
         const response = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -950,9 +960,7 @@ export const chatWithClubBot = onRequest(
               parts: [{ text: CLUB_SYSTEM_PROMPT + languageDirective }],
             },
             contents: geminiContents,
-            generationConfig: {
-              maxOutputTokens: 1500,
-            },
+            generationConfig,
           }),
         });
 
