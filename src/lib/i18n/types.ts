@@ -296,6 +296,10 @@ export interface ChatTranslation {
   floatingAria: string;
   headerTitle: string;
   statusOnline: string;
+  statusChecking: string;
+  statusThinking: string;
+  statusDegraded: string;
+  statusOffline: string;
   resetConversation: string;
   closeChat: string;
   welcomeMessage: string;

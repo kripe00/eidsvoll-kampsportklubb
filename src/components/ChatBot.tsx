@@ -553,13 +553,83 @@ export function ChatBot() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [hasUnread, setHasUnread] = useState(false);
+  const [botStatus, setBotStatus] = useState<"checking" | "online" | "degraded" | "offline">("checking");
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const lastHealthCheckRef = useRef<number>(0);
 
-  // Diskret visning uten påtrengende auto-åpning av hele chatvinduet
+  const checkBotHealth = async (force = false) => {
+    if (typeof window !== "undefined" && !navigator.onLine) {
+      setBotStatus("offline");
+      return;
+    }
+
+    const now = Date.now();
+    if (!force && lastHealthCheckRef.current > 0 && now - lastHealthCheckRef.current < 120_000) {
+      return;
+    }
+    lastHealthCheckRef.current = now;
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 6000);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "GET",
+        cache: "no-store",
+        signal: controller.signal,
+      });
+      clearTimeout(timeout);
+      if (res.ok) {
+        const data = await res.json().catch(() => null);
+        if (data?.ok) {
+          setBotStatus("online");
+          return;
+        }
+      }
+      setBotStatus("degraded");
+    } catch {
+      clearTimeout(timeout);
+      if (typeof window !== "undefined" && !navigator.onLine) {
+        setBotStatus("offline");
+      } else {
+        setBotStatus("degraded");
+      }
+    }
+  };
+
+  // Sjekk faktisk AI-status ved oppstart og lytt på nettverksendringer
   useEffect(() => {
+    checkBotHealth(true);
+
+    const handleOnline = () => {
+      setBotStatus("checking");
+      checkBotHealth(true);
+    };
+    const handleOffline = () => {
+      setBotStatus("offline");
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  // Re-sjekk helse når chatten åpnes (tving ny sjekk dersom den sto som degraded/offline)
+  useEffect(() => {
+    if (isOpen) {
+      checkBotHealth(botStatus !== "online");
+    }
+  }, [isOpen]);
+
+  // Diskret visning uten påtrengende auto-åpning av hele chatvinduet (kun hvis AI faktisk er online)
+  useEffect(() => {
+    if (botStatus !== "online") return;
+
     const dismissed =
       typeof window !== "undefined" &&
       sessionStorage.getItem("ekk_chat_dismissed") === "true";
@@ -576,7 +646,7 @@ export function ChatBot() {
 
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [botStatus]);
 
   // Auto-scroll when messages update, but keep at top on initial welcome
   useEffect(() => {
@@ -690,6 +760,8 @@ export function ChatBot() {
       character_count: text.length,
     });
 
+    let responseStatus = 0;
+
     try {
       const historyContext = newMessages
         .filter((m) => m.id !== "welcome-1")
@@ -709,6 +781,8 @@ export function ChatBot() {
         }),
       });
 
+      responseStatus = res.status;
+
       const contentType = res.headers.get("content-type") || "";
       let data: any = null;
       if (contentType.includes("application/json")) {
@@ -722,6 +796,9 @@ export function ChatBot() {
       if (!res.ok || !data) {
         throw new Error(data?.error || chatT.connectionError);
       }
+
+      setBotStatus("online");
+      lastHealthCheckRef.current = Date.now();
 
       const replyContent = data.reply || chatT.defaultError;
 
@@ -744,6 +821,12 @@ export function ChatBot() {
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err: any) {
       console.error("Chat error:", err);
+      if (typeof window !== "undefined" && !navigator.onLine) {
+        setBotStatus("offline");
+      } else if (responseStatus !== 429) {
+        setBotStatus("degraded");
+      }
+
       const isSyntaxOrNetworkError =
         err instanceof SyntaxError ||
         /unexpected token|failed to fetch|networkerror/i.test(err?.message || "");
@@ -814,6 +897,30 @@ export function ChatBot() {
     );
   };
 
+  const effectiveStatus = isLoading ? "thinking" : botStatus;
+
+  const statusDotClass =
+    effectiveStatus === "online"
+      ? "bg-emerald-500"
+      : effectiveStatus === "thinking"
+      ? "bg-primary animate-pulse"
+      : effectiveStatus === "checking"
+      ? "bg-amber-400 animate-pulse"
+      : effectiveStatus === "degraded"
+      ? "bg-amber-500"
+      : "bg-red-500";
+
+  const statusLabel =
+    effectiveStatus === "online"
+      ? chatT.statusOnline
+      : effectiveStatus === "thinking"
+      ? chatT.statusThinking
+      : effectiveStatus === "checking"
+      ? chatT.statusChecking
+      : effectiveStatus === "degraded"
+      ? chatT.statusDegraded
+      : chatT.statusOffline;
+
   // Baseline: 20px (bottom-5 equivalent) + iOS safe area inset
   return (
     <aside aria-label={chatT.floatingAria} className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] right-5 sm:bottom-6 sm:right-6 z-40 select-none">
@@ -836,7 +943,7 @@ export function ChatBot() {
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-bold text-foreground flex items-center gap-1.5 mb-0.5">
                   <span>{chatT.teaserTitle}</span>
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" />
+                  <span className={cn("w-2 h-2 rounded-full inline-block", statusDotClass)} />
                 </p>
                 <p className="text-xs text-muted-foreground leading-snug">
                   {chatT.teaserSubtitle}
@@ -865,7 +972,7 @@ export function ChatBot() {
         <div className="flex items-center gap-2">
           {/* Desktop Attention Badge */}
           <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-background/95 backdrop-blur-md border border-border shadow-lg text-xs font-semibold text-foreground pointer-events-none">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+            <span className={cn("w-2 h-2 rounded-full shrink-0", statusDotClass)} title={statusLabel} />
             <span>{chatT.floatingBadge}</span>
           </div>
 
@@ -875,13 +982,20 @@ export function ChatBot() {
               setShowTeaser(false);
               setHasUnread(false);
             }}
-            className="relative flex items-center justify-center w-14 h-14 rounded-full bg-card shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 border-2 border-primary/30 group focus:outline-none focus:ring-4 focus:ring-primary/30 overflow-hidden"
+            className="relative flex items-center justify-center w-14 h-14 rounded-full bg-card shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 border-2 border-primary/30 group focus:outline-none focus:ring-4 focus:ring-primary/30"
             aria-label={chatT.floatingAria}
           >
             <img 
               src="/images/bot-avatar.jpg" 
               alt="EKK Assistent" 
-              className="w-full h-full object-cover transition-transform group-hover:scale-105" 
+              className="w-full h-full rounded-full object-cover transition-transform group-hover:scale-105" 
+            />
+            <span
+              className={cn(
+                "absolute bottom-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-background z-10",
+                statusDotClass
+              )}
+              title={statusLabel}
             />
             {hasUnread && (
               <span className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full bg-red-500 border-2 border-background z-10" />
@@ -901,13 +1015,13 @@ export function ChatBot() {
           {/* Header */}
           <div className="px-4 py-3.5 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border-b border-border/50 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10 rounded-full border border-primary/30 overflow-hidden shrink-0 shadow-sm">
+              <div className="relative w-10 h-10 rounded-full border border-primary/30 shrink-0 shadow-sm">
                 <img 
                   src="/images/bot-avatar.jpg" 
                   alt="EKK Assistent" 
-                  className="w-full h-full object-cover" 
+                  className="w-full h-full rounded-full object-cover" 
                 />
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-background z-10" />
+                <span className={cn("absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border-2 border-background z-10", statusDotClass)} />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-foreground leading-tight flex items-center gap-1.5">
@@ -916,9 +1030,9 @@ export function ChatBot() {
                     AI
                   </span>
                 </h3>
-                <p className="text-[11px] text-muted-foreground flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-                  {chatT.statusOnline}
+                <p className="text-[11px] text-muted-foreground flex items-center gap-1.5">
+                  <span className={cn("w-1.5 h-1.5 rounded-full inline-block shrink-0", statusDotClass)} />
+                  <span>{statusLabel}</span>
                 </p>
               </div>
             </div>
@@ -1104,7 +1218,7 @@ export function ChatBot() {
               </Button>
             </div>
             <div className="flex items-center justify-between mt-2 px-1 text-[10px] text-muted-foreground/70">
-              <span>{chatT.instantReply}</span>
+              <span>{effectiveStatus === "online" ? chatT.instantReply : statusLabel}</span>
               {input.length > 400 && (
                 <span className={input.length >= 500 ? "text-red-500 font-bold" : ""}>
                   {input.length}/500 tegn

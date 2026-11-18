@@ -806,6 +806,10 @@ For å trene fast etter prøveperioden må utøvere registrere seg i to systemer
    - Pris: kr 150,- (engangsbetaling, uten binding).
    - Full tilgang samme dato som innmelding. Betales enkelt med Vipps ved oppmøte/innmelding.`;
 
+let lastAiHealth: { ok: boolean; checkedAt: number } | null = null;
+const AI_HEALTH_TTL_OK_MS = 5 * 60 * 1000; // 5 minutter ved grønn status
+const AI_HEALTH_TTL_FAIL_MS = 60 * 1000; // 1 minutt ved feil, så den raskt merker når feilen er rettet
+
 export const chatWithClubBot = onRequest(
   {
     secrets: [geminiApiKey],
@@ -824,8 +828,72 @@ export const chatWithClubBot = onRequest(
       return;
     }
 
+    // 1b. Lettvekts helsesjekk (GET /api/chat) for sanntids statusindikator i UI
+    if (req.method === "GET") {
+      res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+      const apiKey = (geminiApiKey.value() || process.env.GEMINI_API_KEY || "").trim();
+      if (!apiKey) {
+        lastAiHealth = { ok: false, checkedAt: Date.now() };
+        res.status(503).json({ ok: false, status: "degraded" });
+        return;
+      }
+
+      const now = Date.now();
+      if (lastAiHealth) {
+        const ttl = lastAiHealth.ok ? AI_HEALTH_TTL_OK_MS : AI_HEALTH_TTL_FAIL_MS;
+        if (now - lastAiHealth.checkedAt < ttl) {
+          res.status(lastAiHealth.ok ? 200 : 503).json({
+            ok: lastAiHealth.ok,
+            status: lastAiHealth.ok ? "online" : "degraded",
+            cached: true,
+          });
+          return;
+        }
+      }
+
+      const probeModels = ["gemini-4-hydrogen", "gemini-3.5-flash-lite"];
+      let healthy = false;
+
+      for (const model of probeModels) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 4000);
+        try {
+          const probeRes = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              signal: controller.signal,
+              body: JSON.stringify({
+                contents: [{ role: "user", parts: [{ text: "ok" }] }],
+                generationConfig: {
+                  maxOutputTokens: 4,
+                  thinkingConfig: { thinkingLevel: "LOW" },
+                },
+              }),
+            }
+          );
+          clearTimeout(timeout);
+          if (probeRes.ok) {
+            healthy = true;
+            break;
+          }
+        } catch {
+          clearTimeout(timeout);
+        }
+      }
+
+      lastAiHealth = { ok: healthy, checkedAt: Date.now() };
+      res.status(healthy ? 200 : 503).json({
+        ok: healthy,
+        status: healthy ? "online" : "degraded",
+        cached: false,
+      });
+      return;
+    }
+
     if (req.method !== "POST") {
-      res.status(405).json({ error: "Kun POST-forespørsler støttes." });
+      res.status(405).json({ error: "Kun GET og POST-forespørsler støttes." });
       return;
     }
 
@@ -1077,11 +1145,14 @@ export const chatWithClubBot = onRequest(
         reply = "Beklager, jeg kunne ikke generere et svar akkurat nå.";
       }
 
+      lastAiHealth = { ok: true, checkedAt: Date.now() };
+
       res.status(200).json({
         reply,
         remainingRequests: rateCheck.remaining,
       });
     } catch (err: any) {
+      lastAiHealth = { ok: false, checkedAt: Date.now() };
       const diag = String(err?.message || err || "")
         .replace(/AIza[0-9A-Za-z\-_]+/g, "[REDACTED_KEY]")
         .slice(0, 500);
