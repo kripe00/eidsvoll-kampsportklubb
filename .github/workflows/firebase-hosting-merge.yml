@@ -53,5 +53,15 @@ jobs:
           npm --prefix functions ci && npm --prefix functions run build
 
       - name: Deploy to Firebase
-        run: npx firebase-tools deploy --only hosting,functions --project eidsvoll-kampsportklubb --token "${{ secrets.FIREBASE_TOKEN }}"
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+          TYPESAFE_BASE_URL: ${{ secrets.TYPESAFE_BASE_URL }}
+        run: |
+          if [ -n "$TYPESAFE_API_KEY" ]; then
+            printf 'TYPESAFE_API_KEY=%s\n' "$TYPESAFE_API_KEY" >> functions/.env
+          fi
+          if [ -n "$TYPESAFE_BASE_URL" ]; then
+            printf 'TYPESAFE_BASE_URL=%s\n' "$TYPESAFE_BASE_URL" >> functions/.env
+          fi
+          npx firebase-tools deploy --only hosting,functions --project eidsvoll-kampsportklubb --token "${{ secrets.FIREBASE_TOKEN }}"
 

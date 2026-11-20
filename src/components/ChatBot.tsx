@@ -59,11 +59,21 @@ async function logChatQuestion({
   }
 }
 
+interface ChatActionFlags {
+  showTrial?: boolean;
+  showBoost?: boolean;
+  showSchedule?: boolean;
+  showFirstTraining?: boolean;
+  showCompetition?: boolean;
+  showContact?: boolean;
+}
+
 interface ChatMessage {
   id: string;
   role: "user" | "assistant";
   content: string;
   followUps?: string[];
+  actions?: ChatActionFlags;
 }
 
 interface StaticFaqItem {
@@ -346,15 +356,18 @@ function pickContextualFollowUps(
 }
 
 /**
- * Reusable action cards rendered dynamically based on response keywords.
+ * Reusable action cards rendered from Jev typed decisions when available,
+ * with automatic keyword fallback for local static FAQ responses.
  */
 function MessageActionCards({
   content,
+  actions,
   t,
   onCtaClick,
   onInternalNavigate,
 }: {
   content: string;
+  actions?: ChatActionFlags;
   t: {
     actionTrial: string;
     actionBoost: string;
@@ -366,12 +379,26 @@ function MessageActionCards({
   onCtaClick?: (target: string) => void;
   onInternalNavigate?: () => void;
 }) {
-  const isTrial = /prøveuke|prøveperiode|prøvetrening|prøv gratis|gratis prøve|trial|free trial|okres próbny|darmowy|пробн|безкоштовн|peisestue|peisestua|lounge|kaffe|komink|камін/i.test(content);
-  const isBoost = /boost|innmelding|bli medlem|treningsavgift|kr \d+|membership|join|członkostw|karnet|абонемент|вступ/i.test(content);
-  const isSchedule = /timeplan|treningstider|mandag|tirsdag|onsdag|torsdag|fredag|sal 1|sal 2|schedule|timetable|grafik|rozpisk|розклад|графік/i.test(content);
-  const isFirstTraining = /forste-trening|første trening|låneutstyr|boksehansker|rashguard|barbent|barefoot|loaner gear|pierwszy trening|перш(е|ого) тренуванн/i.test(content);
-  const isCompetition = /konkurranse|smoothcomp|ibjjf|stevne|tournament|competition|zawod|змаган/i.test(content);
-  const isContact = /kontakt@|kontakt oss|contact|kontakt|контакт/i.test(content);
+  const hasTypedActions = Boolean(actions && typeof actions === "object");
+
+  const isTrial = hasTypedActions
+    ? Boolean(actions?.showTrial)
+    : /prøveuke|prøveperiode|prøvetrening|prøv gratis|gratis prøve|trial|free trial|okres próbny|darmowy|пробн|безкоштовн|peisestue|peisestua|lounge|kaffe|komink|камін/i.test(content);
+  const isBoost = hasTypedActions
+    ? Boolean(actions?.showBoost)
+    : /boost|innmelding|bli medlem|treningsavgift|kr \d+|membership|join|członkostw|karnet|абонемент|вступ/i.test(content);
+  const isSchedule = hasTypedActions
+    ? Boolean(actions?.showSchedule)
+    : /timeplan|treningstider|mandag|tirsdag|onsdag|torsdag|fredag|sal 1|sal 2|schedule|timetable|grafik|rozpisk|розклад|графік/i.test(content);
+  const isFirstTraining = hasTypedActions
+    ? Boolean(actions?.showFirstTraining)
+    : /forste-trening|første trening|låneutstyr|boksehansker|rashguard|barbent|barefoot|loaner gear|pierwszy trening|перш(е|ого) тренуванн/i.test(content);
+  const isCompetition = hasTypedActions
+    ? Boolean(actions?.showCompetition)
+    : /konkurranse|smoothcomp|ibjjf|stevne|tournament|competition|zawod|змаган/i.test(content);
+  const isContact = hasTypedActions
+    ? Boolean(actions?.showContact)
+    : /kontakt@|kontakt oss|contact|kontakt|контакт/i.test(content);
 
   if (!isTrial && !isBoost && !isSchedule && !isFirstTraining && !isCompetition && !isContact) {
     return null;
@@ -806,7 +833,7 @@ export function ChatBot() {
         question: text,
         answer: replyContent,
         type: "ai",
-        faqId: null,
+        faqId: data.gatedByJev ? "jev_offtopic" : null,
         locale: locale || "no",
         sessionId,
       });
@@ -815,6 +842,7 @@ export function ChatBot() {
         id: `assistant-${Date.now()}`,
         role: "assistant",
         content: replyContent,
+        actions: data.actions && typeof data.actions === "object" ? data.actions : undefined,
         followUps: pickContextualFollowUps(text, replyContent, newMessages, chatT),
       };
 
@@ -1107,6 +1135,7 @@ export function ChatBot() {
                     {!isUser && (
                       <MessageActionCards
                         content={msg.content}
+                        actions={msg.actions}
                         t={chatT}
                         onCtaClick={handleCtaClick}
                         onInternalNavigate={handleInternalNavigate}

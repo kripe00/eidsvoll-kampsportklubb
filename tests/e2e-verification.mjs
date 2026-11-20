@@ -42,6 +42,11 @@ const TEST_FILES = [
     file: "tests/codebase-contracts.test.mjs",
     category: "Audit",
   },
+  {
+    name: "TypeSafe Jev System One Decisions",
+    file: "tests/jev-integration.test.mjs",
+    category: "AI",
+  },
 ];
 
 console.log("\n===============================================================================");

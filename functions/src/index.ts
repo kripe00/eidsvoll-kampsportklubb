@@ -4,6 +4,16 @@ import { onRequest } from "firebase-functions/v2/https";
 import { defineSecret } from "firebase-functions/params";
 import * as admin from "firebase-admin";
 import * as nodemailer from "nodemailer";
+import {
+  checkJevHealth,
+  getLocalizedOffTopicReply,
+  summarizeWeeklyChatsWithJev,
+  triageChatMessageWithJev,
+  triageContactSubmissionWithJev,
+  WEEKLY_TOPIC_LABELS_NO,
+  type ContactTriageDecision,
+  type WeeklyTopicKey,
+} from "./jev";
 
 admin.initializeApp();
 
@@ -195,23 +205,78 @@ export const sendContactEmail = onDocumentCreated(
 
     console.log(`Mottok ny henvendelse (${event.params.messageId}) fra ${email}. Sender e-post...`);
 
+    // 2b. Jev System 1 beslutningstriage for ordinære kontaktskjema-henvendelser
+    let contactTriage: ContactTriageDecision | null = null;
+    if (!isTrialWeek) {
+      contactTriage = await triageContactSubmissionWithJev({
+        name: String(name || ""),
+        email: String(email || ""),
+        subject: String(subject || ""),
+        message: String(message || ""),
+      });
+
+      if (contactTriage?.spamAction === "block") {
+        console.warn(
+          `[Jev] Blokkerte høy-konfidens spam (${Math.round(contactTriage.spamProb * 100)}%) i melding ${event.params.messageId} fra ${email}.`
+        );
+        try {
+          await snapshot.ref.update({
+            spamBlockedByJev: true,
+            jevTriage: {
+              model: contactTriage.model,
+              spamProb: contactTriage.spamProb,
+              spamAction: contactTriage.spamAction,
+              category: contactTriage.category,
+            },
+            emailProcessedAt: admin.firestore.FieldValue.serverTimestamp(),
+          });
+        } catch (spamUpdateErr) {
+          console.warn("Kunne ikke oppdatere spam-status på melding:", spamUpdateErr);
+        }
+        return;
+      }
+    }
+
     const transporter = createSmtpTransporter("E-post");
     if (!transporter) return;
 
     const formattedStartDate = formatNorwegianDate(startDate);
     const formattedEndDate = formatNorwegianDate(endDate);
 
+    const isSpamSuspect = contactTriage?.spamAction === "suspect";
+    const triageCategoryPrefix = contactTriage
+      ? isSpamSuspect
+        ? `[MULIG SPAM] `
+        : `[${contactTriage.categoryLabelNo}] `
+      : "[Kontaktskjema] ";
+
+    const urgencyLabel =
+      contactTriage && contactTriage.urgencyScore >= 1.35
+        ? "Høy (bør prioriteres)"
+        : contactTriage && contactTriage.urgencyScore >= 0.65
+        ? "Normal (1–2 dager)"
+        : "Lav / Rutine";
+
+    const adminRecipients =
+      contactTriage?.routeToBoardChair && emailTo !== "leder@kampsporteidsvoll.no"
+        ? `${emailTo}, leder@kampsporteidsvoll.no`
+        : emailTo;
+
     // 1. E-post til klubben (Administrasjonen)
     const mailOptionsAdmin = {
       from: `"${headerName} via Nettsiden" <${senderEmail}>`,
-      to: emailTo,
+      to: adminRecipients,
       replyTo: sanitizeHeader(email),
       subject: isTrialWeek
         ? `[GRATIS PRØVEPERIODE 14 DAGER] ${headerName} (${headerCategory})`
-        : `[Kontaktskjema] ${headerSubject}`,
+        : `${triageCategoryPrefix}${headerSubject}`,
       text: isTrialWeek
         ? `Ny påmelding til gratis prøveperiode (14 dager / 2 uker)!\n\nNavn: ${name}\nE-post: ${email}\nTelefon: ${phone || "Ikke oppgitt"}\nKategori: ${category || "Ikke oppgitt"}\nStartdato: ${formattedStartDate}\nSluttdato prøveperiode: ${formattedEndDate}\n\nMelding:\n${message}`
-        : `Du har mottatt en ny melding fra kontaktskjemaet på nettsiden.\n\nNavn: ${name}\nE-post: ${email}\nEmne: ${subject}\n\nMelding:\n${message}`,
+        : `Du har mottatt en ny melding fra kontaktskjemaet på nettsiden.\n\nNavn: ${name}\nE-post: ${email}\nEmne: ${subject}${
+            contactTriage
+              ? `\nJev-kategori: ${contactTriage.categoryLabelNo}\nPrioritet: ${urgencyLabel}`
+              : ""
+          }\n\nMelding:\n${message}`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; color: #1e293b; background-color: #ffffff;">
           <div style="text-align: center; padding-bottom: 20px; border-bottom: 2px solid #f1f5f9;">
@@ -256,7 +321,18 @@ export const sendContactEmail = onDocumentCreated(
               <tr>
                 <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Emne:</td>
                 <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${safeSubject}</td>
-              </tr>`}
+              </tr>
+              ${contactTriage ? `
+              <tr>
+                <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Jev-kategori:</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; font-weight: 700; color: ${isSpamSuspect ? "#dc2626" : "#2563eb"};">
+                  ${escapeHtml(contactTriage.categoryLabelNo)}${isSpamSuspect ? ` · Mulig spam (${Math.round(contactTriage.spamProb * 100)}%)` : ""}
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 10px 0; font-weight: bold; border-bottom: 1px solid #f1f5f9; color: #475569;">Prioritet:</td>
+                <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${escapeHtml(urgencyLabel)}</td>
+              </tr>` : ""}`}
             </table>
 
             <div style="background-color: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid #2563eb; margin-bottom: 20px;">
@@ -272,6 +348,8 @@ export const sendContactEmail = onDocumentCreated(
       `,
     };
 
+    const includeBonusTrialTip = !isTrialWeek && contactTriage?.wantsTrialInfo === true;
+
     // 2. Automatisk bekreftelses-epost til avsenderen (Kunden)
     const mailOptionsUser = {
       from: `"Eidsvoll Kampsportklubb" <${senderEmail}>`,
@@ -282,7 +360,11 @@ export const sendContactEmail = onDocumentCreated(
         : `Takk for din henvendelse – Eidsvoll Kampsportklubb`,
       text: isTrialWeek
         ? `Hei ${name}!\n\nTakk for din påmelding til gratis prøveperiode (2 uker / 14 dager) hos Eidsvoll Kampsportklubb.\n\nDin prøveperiode starter ${formattedStartDate} og varer til og med ${formattedEndDate} (14 dager).\n\nDu har fri tilgang til å prøve alle våre sporter (BJJ, Muay Thai, Crosstrening og Yoga) i prøveperioden.\n\nVIKTIG – BLI MED I SPOND:\nVi bruker appen Spond for å informere om økter, samt kommunisere med og mellom medlemmer. Vi ønsker at du blir med der og melder deg på øktene du ønsker å prøve. Legg samtidig inn en kommentar «på prøveuke» så instruktør kan se at de har med nye og ta godt imot deg.\n\nÅpne lenken for å melde deg inn: https://spond.com/invite/WJACA\n\nAdresse: Trondheimsvegen 71B, 2072 Dal (Inngang og gratis parkering på baksiden av bygget)\nTimeplan: https://kampsporteidsvoll.no/timeplan\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`
-        : `Hei ${name}!\n\nTakk for at du tok kontakt med oss i Eidsvoll Kampsportklubb.\n\nVi har mottatt meldingen din og vil svare deg så fort som mulig.\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`,
+        : `Hei ${name}!\n\nTakk for at du tok kontakt med oss i Eidsvoll Kampsportklubb.\n\nVi har mottatt meldingen din og vil svare deg så fort som mulig.${
+            includeBonusTrialTip
+              ? `\n\nTIPS – 14 DAGERS GRATIS PRØVEPERIODE:\nAlle nye får 2 uker helt gratis og uforpliktende prøveperiode hos oss! Du kan melde deg på direkte på kampsporteidsvoll.no eller bli med i Spond (https://spond.com/invite/WJACA) og skrive «på prøveuke» på økten du vil teste.`
+              : ""
+          }\n\nMed vennlig hilsen,\nEidsvoll Kampsportklubb`,
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #e2e8f0; border-radius: 16px; color: #0f172a; background-color: #ffffff;">
           
@@ -364,6 +446,15 @@ export const sendContactEmail = onDocumentCreated(
                 "${safeMessage}"
               </p>
             </div>
+            ${includeBonusTrialTip ? `
+            <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 18px 20px; margin-bottom: 24px; border-left: 4px solid #16a34a;">
+              <p style="margin: 0 0 8px 0; font-size: 13px; font-weight: 800; color: #166534;">
+                🥋 Lyst til å prøve gratis i 14 dager?
+              </p>
+              <p style="margin: 0; font-size: 13px; color: #14532d; line-height: 1.55;">
+                Alle nye får 2 hele uker gratis og uforpliktende prøveperiode på tvers av våre partier! Alt utstyr lånes gratis i klubben. Du kan registrere prøveuke direkte på <a href="https://kampsporteidsvoll.no" style="color: #15803d; font-weight: 700;">kampsporteidsvoll.no</a> eller bli med i <a href="https://spond.com/invite/WJACA" style="color: #15803d; font-weight: 700;">Spond her</a>.
+              </p>
+            </div>` : ""}
             `}
 
             <p style="font-size: 14px; color: #64748b;">
@@ -404,7 +495,10 @@ export const sendContactEmail = onDocumentCreated(
     const latestSnap = await snapshot.ref.get();
     const latestData = latestSnap.data() || data;
 
-    let userEmailSent = latestData.userEmailSent === true;
+    // Ikke send auto-svar tilbake til mistenkt spam-adresse (beskytter avsender-rykte hos Resend)
+    const skipUserAutoReply = isSpamSuspect;
+
+    let userEmailSent = latestData.userEmailSent === true || skipUserAutoReply;
     let adminEmailSent = latestData.adminEmailSent === true;
     let sendError: unknown = null;
 
@@ -430,15 +524,30 @@ export const sendContactEmail = onDocumentCreated(
         await sendMailWithRetry(transporter, mailOptionsAdmin, `Admin-varsel for ${email}`);
         adminEmailSent = true;
       } catch (error) {
-        console.error(`Feil ved sending av varslings-epost til admin (${emailTo}):`, error);
+        console.error(`Feil ved sending av varslings-epost til admin (${adminRecipients}):`, error);
         sendError = sendError || error;
       }
     }
 
     try {
       await snapshot.ref.update({
-        userEmailSent,
+        userEmailSent: skipUserAutoReply ? false : userEmailSent,
+        userAutoReplySkipped: skipUserAutoReply,
         adminEmailSent,
+        ...(contactTriage
+          ? {
+              jevTriage: {
+                model: contactTriage.model,
+                spamProb: contactTriage.spamProb,
+                spamAction: contactTriage.spamAction,
+                category: contactTriage.category,
+                categoryLabelNo: contactTriage.categoryLabelNo,
+                categoryConfidence: contactTriage.categoryConfidence,
+                urgencyScore: contactTriage.urgencyScore,
+                routeToBoardChair: contactTriage.routeToBoardChair,
+              },
+            }
+          : {}),
         emailProcessedAt: admin.firestore.FieldValue.serverTimestamp(),
       });
     } catch (updateErr) {
@@ -446,7 +555,7 @@ export const sendContactEmail = onDocumentCreated(
     }
 
     if (userEmailSent && adminEmailSent) {
-      console.log(`Begge e-poster (varsling + bekreftelse til ${email}) sendt suksessfullt.`);
+      console.log(`E-postflyt for ${email} fullført suksessfullt.`);
     } else if (sendError) {
       throw sendError;
     }
@@ -831,10 +940,12 @@ export const chatWithClubBot = onRequest(
     // 1b. Lettvekts helsesjekk (GET /api/chat) for sanntids statusindikator i UI
     if (req.method === "GET") {
       res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+      const jevHealthPromise = checkJevHealth();
       const apiKey = (geminiApiKey.value() || process.env.GEMINI_API_KEY || "").trim();
       if (!apiKey) {
+        const jev = await jevHealthPromise;
         lastAiHealth = { ok: false, checkedAt: Date.now() };
-        res.status(503).json({ ok: false, status: "degraded" });
+        res.status(503).json({ ok: false, status: "degraded", jev });
         return;
       }
 
@@ -842,10 +953,12 @@ export const chatWithClubBot = onRequest(
       if (lastAiHealth) {
         const ttl = lastAiHealth.ok ? AI_HEALTH_TTL_OK_MS : AI_HEALTH_TTL_FAIL_MS;
         if (now - lastAiHealth.checkedAt < ttl) {
+          const jev = await jevHealthPromise;
           res.status(lastAiHealth.ok ? 200 : 503).json({
             ok: lastAiHealth.ok,
             status: lastAiHealth.ok ? "online" : "degraded",
             cached: true,
+            jev,
           });
           return;
         }
@@ -883,11 +996,13 @@ export const chatWithClubBot = onRequest(
         }
       }
 
+      const jev = await jevHealthPromise;
       lastAiHealth = { ok: healthy, checkedAt: Date.now() };
       res.status(healthy ? 200 : 503).json({
         ok: healthy,
         status: healthy ? "online" : "degraded",
         cached: false,
+        jev,
       });
       return;
     }
@@ -972,6 +1087,34 @@ export const chatWithClubBot = onRequest(
       sanitizedHistory[sanitizedHistory.length - 1].content === trimmedMessage
     ) {
       sanitizedHistory.pop();
+    }
+
+    // 3b. Jev System 1 pre-triage (off-topic-vern + typede CTA-beslutninger på ~100–200ms)
+    const jevTriage = await triageChatMessageWithJev({
+      message: trimmedMessage,
+      locale: typeof locale === "string" ? locale : "no",
+      recentHistory: sanitizedHistory,
+    });
+
+    if (jevTriage?.isOffTopic) {
+      console.log(
+        `[Jev:ChatBot] Avviste off-topic/injeksjon uten Gemini-kall (clubRelevant=${jevTriage.clubRelevantProb.toFixed(3)}, model=${jevTriage.model}).`
+      );
+      res.status(200).json({
+        reply: getLocalizedOffTopicReply(typeof locale === "string" ? locale : "no"),
+        remainingRequests: rateCheck.remaining,
+        actions: {
+          showTrial: false,
+          showBoost: false,
+          showSchedule: false,
+          showFirstTraining: false,
+          showCompetition: false,
+          showContact: false,
+        },
+        decisionModel: jevTriage.model,
+        gatedByJev: true,
+      });
+      return;
     }
 
     // 4. Hent API-nøkkel
@@ -1147,9 +1290,20 @@ export const chatWithClubBot = onRequest(
 
       lastAiHealth = { ok: true, checkedAt: Date.now() };
 
+      const resolvedActions = jevTriage
+        ? {
+            ...jevTriage.actions,
+            // Sikre at e-postknappen alltid vises dersom Gemini eksplisitt henviser til kontakt@kampsporteidsvoll.no
+            showContact:
+              jevTriage.actions.showContact || /kontakt@kampsporteidsvoll\.no/i.test(reply),
+          }
+        : undefined;
+
       res.status(200).json({
         reply,
         remainingRequests: rateCheck.remaining,
+        ...(resolvedActions ? { actions: resolvedActions } : {}),
+        ...(jevTriage ? { decisionModel: jevTriage.model } : {}),
       });
     } catch (err: any) {
       lastAiHealth = { ok: false, checkedAt: Date.now() };
@@ -1246,9 +1400,56 @@ export const sendWeeklyClubSummary = onSchedule(
         }
       }
 
-      const aiChatsCount = recentChats.filter((c) => c.type === "ai").length;
+      const aiChats = recentChats.filter((c) => c.type === "ai");
+      const aiChatsCount = aiChats.length;
       const faqChatsCount = recentChats.filter((c) => c.type === "static_faq").length;
       const convertedChatsCount = recentChats.filter((c) => c.convertedToTrial === true).length;
+
+      const jevWeeklyInsights = await summarizeWeeklyChatsWithJev(
+        aiChats.map((c) => ({
+          id: String(c.id || ""),
+          question: String(c.question || ""),
+          answer: String(c.answer || ""),
+        }))
+      );
+
+      const jevInsightsHtml = jevWeeklyInsights
+        ? (() => {
+            const topicRows = (Object.keys(WEEKLY_TOPIC_LABELS_NO) as WeeklyTopicKey[])
+              .filter((k) => jevWeeklyInsights.topicCounts[k] > 0)
+              .sort((a, b) => jevWeeklyInsights.topicCounts[b] - jevWeeklyInsights.topicCounts[a])
+              .map(
+                (k) =>
+                  `<span style="display: inline-block; background-color: #ffffff; border: 1px solid #dbeafe; border-radius: 9999px; padding: 4px 10px; margin: 0 6px 6px 0; font-size: 12px; color: #1e3a8a;"><strong>${escapeHtml(
+                    WEEKLY_TOPIC_LABELS_NO[k]
+                  )}:</strong> ${jevWeeklyInsights.topicCounts[k]}</span>`
+              )
+              .join("");
+
+            const flaggedHtml =
+              jevWeeklyInsights.flaggedForFollowup.length > 0
+                ? `<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #dbeafe;">
+                    <p style="margin: 0 0 6px 0; font-size: 12px; font-weight: 800; color: #b45309;">
+                      ⚠️ Spørsmål der chatbotten henviste videre / manglet fasitsvar (${jevWeeklyInsights.flaggedForFollowup.length}):
+                    </p>
+                    <ul style="margin: 0; padding-left: 18px; font-size: 12px; color: #334155;">
+                      ${jevWeeklyInsights.flaggedForFollowup
+                        .map((f) => `<li style="margin-bottom: 4px;">«${escapeHtml(f.question)}»</li>`)
+                        .join("")}
+                    </ul>
+                  </div>`
+                : `<p style="margin: 8px 0 0 0; font-size: 12px; color: #059669; font-weight: 600;">✓ Alle analyserte AI-spørsmål ble besvart direkte uten behov for manuell oppfølging.</p>`;
+
+            return `
+            <div style="margin: 20px 0; background-color: #eff6ff; border: 1px solid #dbeafe; border-radius: 12px; padding: 16px 18px;">
+              <p style="margin: 0 0 8px 0; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #1e40af;">
+                ⚡ Jev Tema-analyse (${jevWeeklyInsights.analyzedCount} AI-spørsmål · ${escapeHtml(jevWeeklyInsights.model)})
+              </p>
+              <div>${topicRows || `<span style="font-size: 12px; color: #64748b;">Ingen kategoriserte spørsmål.</span>`}</div>
+              ${flaggedHtml}
+            </div>`;
+          })()
+        : "";
 
       const newTrialsHtml =
         newTrials.length === 0
@@ -1419,6 +1620,7 @@ export const sendWeeklyClubSummary = onSchedule(
               <h2 style="font-size: 16px; font-weight: 800; text-transform: uppercase; color: #0f172a; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
                 💬 Spørsmål stilt til chatbotten siste 7 dager (${recentChats.length})
               </h2>
+              ${jevInsightsHtml}
               ${chatLogsHtml}
             </div>
 
